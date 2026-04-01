@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expat Protect — International Health &amp; Life Insurance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:         #17141A;
+      --dark-2:       #201C26;
+      --dark-3:       #2C2735;
+      --gold:         #C8923C;
+      --gold-lt:      #E8B86A;
+      --gold-pale:    #F8EDD8;
+      --amber:        #A8670A;
+      --cream:        #FBF8F4;
+      --cream-2:      #F4EFE8;
+      --cream-3:      #EDE5D8;
+      --sage:         #4A7A5B;
+      --sage-lt:      #6B9E7A;
+      --warm-gray:    #6B6460;
+      --warm-gray-lt: #9E9490;
+      --border:       #E4DAD0;
+      --border-dark:  #302A38;
+      --white:        #FFFFFF;
+      --radius:       16px;
+      --font-serif:   'Playfair Display', Georgia, serif;
+      --font:         'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: #2A2420;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ───────────────────────────────────── */
+    nav {
+      background: var(--dark);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-dark);
+      box-shadow: 0 4px 32px rgba(0,0,0,.5);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 14px rgba(200,146,60,.4);
+    }
+
+    .logo-text {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -.2px;
+    }
+
+    .logo-text span { color: var(--gold-lt); }
+
+    .nav-badge {
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--dark);
+      font-size: .72rem;
+      font-weight: 800;
+      padding: .32rem .95rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    /* ── HERO ──────────────────────────────────── */
+    .hero {
+      background: linear-gradient(158deg, var(--dark) 0%, #1E1628 45%, #1A1C30 100%);
+      color: var(--white);
+      padding: 7.5rem 2rem 6.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* warm gold dot grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(200,146,60,.09) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    /* radial glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 950px;
+      height: 750px;
+      background: radial-gradient(ellipse, rgba(200,146,60,.14) 0%, rgba(80,50,140,.08) 50%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(200,146,60,.1);
+      border: 1px solid rgba(200,146,60,.28);
+      color: var(--gold-lt);
+      font-size: .78rem;
+      font-weight: 700;
+      padding: .45rem 1.25rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      margin-bottom: 2.25rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 5.5vw, 4.1rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -.3px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,.62);
+      max-width: 580px;
+      margin: 0 auto 3rem;
+      line-height: 1.78;
+    }
+
+    /* ── TRUST BADGES ──────────────────────────── */
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .6rem;
+      margin-bottom: 3.25rem;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      padding: .45rem 1.05rem;
+      border-radius: 30px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+      backdrop-filter: blur(8px);
+      transition: background .2s;
+    }
+
+    .badge:hover { background: rgba(255,255,255,.1); }
+
+    .badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #6BCB8B;
+      flex-shrink: 0;
+      box-shadow: 0 0 6px rgba(107,203,139,.75);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--dark);
+      font-weight: 800;
+      padding: 1.05rem 2.85rem;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-family: var(--font);
+      box-shadow: 0 4px 28px rgba(200,146,60,.42);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(200,146,60,.58);
+    }
+
+    /* ── STATS ─────────────────────────────────── */
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 2.25rem 2.5rem;
+      border-right: 1px solid var(--border);
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1;
+      letter-spacing: -.4px;
+    }
+
+    .stat-label {
+      font-size: .72rem;
+      color: var(--warm-gray);
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-top: .5rem;
+      font-weight: 600;
+    }
+
+    /* ── MAIN LAYOUT ───────────────────────────── */
+    .main {
+      max-width: 1120px;
+      margin: 5rem auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 430px;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* ── EYEBROW ───────────────────────────────── */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      color: var(--gold);
+      margin-bottom: .75rem;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 18px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ── BENEFITS ──────────────────────────────── */
+    .benefits h2 {
+      font-family: var(--font-serif);
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .6rem;
+      letter-spacing: -.3px;
+      line-height: 1.18;
+    }
+
+    .benefits .sub {
+      color: var(--warm-gray);
+      font-size: .93rem;
+      margin-bottom: 2.25rem;
+      line-height: 1.68;
+    }
+
+    .benefit-card {
+      display: flex;
+      gap: 1.25rem;
+      padding: 1.5rem 1.65rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: .9rem;
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 20%;
+      bottom: 20%;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background: var(--border);
+      transition: background .25s;
+    }
+
+    .benefit-card:hover {
+      box-shadow: 0 10px 38px rgba(30,20,10,.08);
+      transform: translateY(-2px);
+      border-color: var(--cream-3);
+    }
+
+    .benefit-card:hover::before { background: var(--gold); }
+
+    .benefit-icon {
+      width: 50px; height: 50px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .benefit-icon.green  { background: #F0FAF3; }
+    .benefit-icon.blue   { background: #EEF3FB; }
+    .benefit-icon.purple { background: #F5F2FB; }
+    .benefit-icon.orange { background: #FEF7ED; }
+
+    .benefit-card h3 {
+      font-size: .97rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .3rem;
+    }
+
+    .benefit-card p { font-size: .87rem; color: var(--warm-gray); line-height: 1.64; }
+
+    /* ── PLAN TIERS ────────────────────────────── */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .9rem;
+      margin-top: .5rem;
+    }
+
+    .plan-tile {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.45rem 1.35rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .plan-tile:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(200,146,60,.1);
+    }
+
+    .plan-tile.featured {
+      border-color: var(--gold);
+      background: linear-gradient(140deg, #FBF5EC, #FDF9F5);
+    }
+
+    .plan-tier-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      font-size: .69rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      padding: .22rem .65rem;
+      border-radius: 20px;
+      margin-bottom: .8rem;
+    }
+
+    .plan-tier-badge.t1 { background: #F1EDE8; color: #5A4E46; }
+    .plan-tier-badge.t2 { background: #EDF5F0; color: #2A6B42; }
+    .plan-tier-badge.t3 { background: #EEF2FB; color: #2A4A8A; }
+    .plan-tier-badge.t4 { background: var(--gold-pale); color: var(--amber); }
+
+    .plan-tile h4 { font-size: .96rem; font-weight: 700; color: var(--dark); margin-bottom: .3rem; }
+    .plan-tile p  { font-size: .83rem; color: var(--warm-gray); line-height: 1.56; }
+
+    /* ── COVERAGE TYPES ────────────────────────── */
+    .coverage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .85rem;
+      margin-top: .5rem;
+    }
+
+    .coverage-tile {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.3rem 1rem;
+      text-align: center;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .coverage-tile:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 18px rgba(200,146,60,.1);
+    }
+
+    .coverage-tile .ct-icon { font-size: 1.75rem; margin-bottom: .55rem; display: block; }
+    .coverage-tile h4 { font-size: .89rem; font-weight: 700; color: var(--dark); }
+    .coverage-tile p  { font-size: .77rem; color: var(--warm-gray); margin-top: .3rem; line-height: 1.5; }
+
+    /* ── FORM CARD ─────────────────────────────── */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 2.5rem 2.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.03), 0 20px 60px rgba(30,15,5,.1);
+      position: sticky;
+      top: 86px;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 1.85rem;
+    }
+
+    .form-free-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      background: var(--gold-pale);
+      color: var(--amber);
+      border: 1px solid rgba(200,146,60,.28);
+      font-size: .72rem;
+      font-weight: 800;
+      padding: .3rem .95rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      margin-bottom: 1rem;
+    }
+
+    .form-header h2 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .4rem;
+      letter-spacing: -.2px;
+    }
+
+    .form-header p { font-size: .84rem; color: var(--warm-gray); line-height: 1.58; }
+
+    .form-group { margin-bottom: 1rem; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .9rem;
+    }
+
+    label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 700;
+      color: #3D3530;
+      margin-bottom: .32rem;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: .76rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: .92rem;
+      font-family: var(--font);
+      color: #2A2420;
+      background: var(--cream);
+      transition: border-color .18s, box-shadow .18s;
+      outline: none;
+      appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239E9490' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .95rem center;
+      background-color: var(--cream);
+      padding-right: 2.25rem;
+      cursor: pointer;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3.5px rgba(200,146,60,.13);
+      background: var(--white);
+    }
+
+    input::placeholder { color: #C4BAB3; }
+
+    .coverage-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .5rem;
+    }
+
+    .coverage-opt { position: relative; }
+
+    .coverage-opt input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .coverage-opt label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .2rem;
+      padding: .7rem .4rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: .74rem;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 600;
+      color: var(--warm-gray);
+      transition: all .18s;
+      background: var(--cream);
+    }
+
+    .coverage-opt label .opt-icon { font-size: 1.3rem; }
+
+    .coverage-opt input[type="checkbox"]:checked + label {
+      border-color: var(--gold);
+      background: var(--gold-pale);
+      color: var(--amber);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1.05rem;
+      background: linear-gradient(135deg, var(--dark), var(--dark-2));
+      color: var(--gold-lt);
+      border: none;
+      border-radius: 12px;
+      font-size: .98rem;
+      font-weight: 800;
+      font-family: var(--font);
+      cursor: pointer;
+      letter-spacing: -.1px;
+      margin-top: .5rem;
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(20,15,10,.28);
+    }
+
+    .btn-submit:hover {
+      opacity: .9;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 30px rgba(20,15,10,.4);
+    }
+
+    .btn-submit:active { transform: translateY(0); }
+
+    .form-footnote {
+      text-align: center;
+      font-size: .74rem;
+      color: var(--warm-gray-lt);
+      margin-top: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .35rem;
+    }
+
+    /* ── THANK YOU STATE ───────────────────────── */
+    .thank-you {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+
+    .ty-check {
+      width: 78px; height: 78px;
+      background: linear-gradient(135deg, var(--sage), var(--sage-lt));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 1.4rem;
+      box-shadow: 0 0 0 14px #EBF5EE;
+    }
+
+    .thank-you h2 {
+      font-family: var(--font-serif);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: .5rem;
+    }
+
+    .thank-you p { font-size: .93rem; color: var(--warm-gray); margin-bottom: 1.3rem; line-height: 1.68; }
+
+    .ty-steps {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.5rem;
+      text-align: left;
+    }
+
+    .ty-steps h4 {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--dark);
+      margin-bottom: .9rem;
+    }
+
+    .ty-step {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      font-size: .88rem;
+      color: #3A3028;
+      margin-bottom: .65rem;
+    }
+
+    .ty-step-num {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--dark);
+      border-radius: 50%;
+      font-size: .7rem;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    /* ── COMPARISON TABLE ──────────────────────── */
+    .comparison {
+      background: var(--cream-2);
+      border-top: 1px solid var(--border);
+      padding: 6.5rem 2rem;
+    }
+
+    .comparison-inner {
+      max-width: 940px;
+      margin: 0 auto;
+    }
+
+    .comparison-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .comparison-header .eyebrow { justify-content: center; }
+    .comparison-header .eyebrow::before { display: none; }
+
+    .comparison-header h2 {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -.35px;
+      margin-bottom: .5rem;
+    }
+
+    .comparison-header p { font-size: .91rem; color: var(--warm-gray); }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(30,15,5,.05), 0 14px 44px rgba(30,15,5,.07);
+    }
+
+    .comp-table thead th {
+      padding: 1.05rem 1.3rem;
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--warm-gray);
+      border-bottom: 2px solid var(--border);
+      background: var(--cream);
+    }
+
+    .comp-table thead th:first-child {
+      text-align: left;
+      color: var(--dark);
+    }
+
+    .comp-table thead th.col-featured {
+      color: var(--amber);
+      background: var(--gold-pale);
+    }
+
+    .comp-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+
+    .comp-table tbody tr:last-child { border-bottom: none; }
+    .comp-table tbody tr:hover { background: var(--cream); }
+
+    .comp-table tbody td {
+      padding: .92rem 1.3rem;
+      text-align: center;
+      color: var(--warm-gray);
+      vertical-align: middle;
+    }
+
+    .comp-table tbody td:first-child {
+      text-align: left;
+      color: #3A3028;
+      font-weight: 600;
+      font-size: .87rem;
+    }
+
+    .comp-table tbody td.col-featured { background: #FEF9F2; }
+    .comp-table tbody tr:hover td.col-featured { background: #FDF3E3; }
+
+    .comp-check { color: var(--sage); font-size: 1.1rem; line-height: 1; }
+    .comp-cross  { color: #D4C9C0; font-size: 1.1rem; line-height: 1; }
+    .comp-val   { font-weight: 700; color: var(--dark); font-size: .87rem; }
+
+    .comp-cta-row td { padding-top: 1.5rem; border-top: 2px solid var(--border); }
+
+    .comp-cta {
+      display: inline-block;
+      padding: .52rem 1.3rem;
+      border-radius: 9px;
+      font-size: .8rem;
+      font-weight: 700;
+      text-decoration: none;
+      font-family: var(--font);
+      transition: opacity .2s, transform .15s;
+    }
+
+    .comp-cta.outline {
+      border: 1.5px solid var(--border);
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    .comp-cta.outline:hover { border-color: var(--gold); color: var(--amber); }
+
+    .comp-cta.primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      color: var(--dark);
+      border: none;
+      box-shadow: 0 3px 14px rgba(200,146,60,.32);
+    }
+
+    .comp-cta.primary:hover { opacity: .9; transform: translateY(-1px); }
+
+    @media (max-width: 680px) {
+      .comp-table { font-size: .8rem; }
+      .comp-table thead th, .comp-table tbody td { padding: .7rem .6rem; }
+    }
+
+    /* ── SOCIAL PROOF ──────────────────────────── */
+    .social-proof {
+      background: var(--dark);
+      border-top: 1px solid var(--border-dark);
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .sp-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      color: var(--gold-lt);
+      margin-bottom: .8rem;
+    }
+
+    .sp-eyebrow::before, .sp-eyebrow::after {
+      content: '';
+      width: 28px;
+      height: 1.5px;
+      background: var(--gold);
+      opacity: .5;
+      border-radius: 2px;
+    }
+
+    .sp-title {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: .5rem;
+      letter-spacing: -.35px;
+    }
+
+    .sp-sub { color: rgba(255,255,255,.42); font-size: .88rem; margin-bottom: 3.75rem; }
+
+    .reviews {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.4rem;
+      max-width: 1010px;
+      margin: 0 auto;
+    }
+
+    .review-card {
+      background: var(--dark-2);
+      border: 1px solid var(--border-dark);
+      border-radius: var(--radius);
+      padding: 1.8rem 1.65rem;
+      max-width: 300px;
+      text-align: left;
+      transition: box-shadow .25s, transform .25s, border-color .25s;
+    }
+
+    .review-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,.32);
+      transform: translateY(-3px);
+      border-color: rgba(200,146,60,.28);
+    }
+
+    .stars { color: var(--gold); font-size: .95rem; margin-bottom: .8rem; letter-spacing: .5px; }
+
+    .review-card p {
+      font-size: .875rem;
+      color: rgba(255,255,255,.62);
+      font-style: italic;
+      margin-bottom: 1.15rem;
+      line-height: 1.7;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding-top: .85rem;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .reviewer-avatar {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      display: grid;
+      place-items: center;
+      color: var(--dark);
+      font-weight: 800;
+      font-size: .8rem;
+      flex-shrink: 0;
+    }
+
+    .reviewer-name { font-size: .83rem; font-weight: 700; color: rgba(255,255,255,.85); }
+    .reviewer-meta { font-size: .73rem; color: rgba(255,255,255,.32); margin-top: .1rem; }
+
+    /* ── FOOTER ────────────────────────────────── */
+    footer {
+      background: #110F0C;
+      color: rgba(255,255,255,.32);
+      text-align: center;
+      padding: 2.75rem 2rem;
+      font-size: .78rem;
+      border-top: 1px solid rgba(255,255,255,.05);
+    }
+
+    footer strong { color: rgba(255,255,255,.72); }
+    footer a { color: rgba(255,255,255,.28); text-decoration: none; transition: color .2s; }
+    footer a:hover { color: var(--gold-lt); }
+
+    /* ── BLOG SECTION ──────────────────────────── */
+    .blog-section {
+      background: var(--cream);
+      padding: 6rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .blog-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .blog-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .blog-header .eyebrow { justify-content: center; }
+    .blog-header .eyebrow::before { display: none; }
+
+    .blog-header h2 {
+      font-family: var(--font-serif);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: -.35px;
+      margin-bottom: .5rem;
+    }
+
+    .blog-header p { font-size: .91rem; color: var(--warm-gray); }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .blog-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow .25s, transform .25s;
+    }
+
+    .blog-card:hover {
+      box-shadow: 0 12px 40px rgba(30,20,10,.09);
+      transform: translateY(-3px);
+    }
+
+    .blog-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .blog-thumb.t1 { background: linear-gradient(135deg, #1B2838, #2A3F5C); }
+    .blog-thumb.t2 { background: linear-gradient(135deg, #1E3A2F, #2D5A48); }
+    .blog-thumb.t3 { background: linear-gradient(135deg, #3A2318, #5C3D2A); }
+    .blog-thumb.t4 { background: linear-gradient(135deg, #2A1838, #4A2D68); }
+    .blog-thumb.t5 { background: linear-gradient(135deg, #183038, #2A4F5C); }
+    .blog-thumb.t6 { background: linear-gradient(135deg, #38301A, #5C4F2A); }
+
+    .blog-body {
+      padding: 1.4rem 1.5rem 1.6rem;
+    }
+
+    .blog-tag {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      color: var(--gold);
+      background: var(--gold-pale);
+      padding: .2rem .6rem;
+      border-radius: 6px;
+      margin-bottom: .7rem;
+    }
+
+    .blog-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.3;
+      margin-bottom: .5rem;
+      letter-spacing: -.2px;
+    }
+
+    .blog-card p {
+      font-size: .84rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .blog-read-more {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      transition: color .2s, gap .2s;
+    }
+
+    .blog-read-more:hover { color: var(--amber); gap: .5rem; }
+
+    .blog-meta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .72rem;
+      color: var(--warm-gray-lt);
+      margin-bottom: .65rem;
+      font-weight: 500;
+    }
+
+    .blog-meta span { display: flex; align-items: center; gap: .2rem; }
+
+    /* ── RESPONSIVE ────────────────────────────── */
+    @media (max-width: 820px) {
+      .main { grid-template-columns: 1fr; }
+      .form-card { position: static; }
+      .coverage-grid { grid-template-columns: 1fr 1fr; }
+      .stat { padding: 1.65rem 1.25rem; }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 520px) {
+      .form-row { grid-template-columns: 1fr; }
+      .hero { padding: 5rem 1.25rem 4.5rem; }
+      .plan-grid { grid-template-columns: 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── CHATBOT WIDGET ────────────────────────── */
+    .chat-widget {
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1rem;
+    }
+
+    /* Toggle button */
+    .chat-toggle {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 28px rgba(200,146,60,.48);
+      transition: transform .25s, box-shadow .25s;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .chat-toggle:hover {
+      transform: scale(1.07);
+      box-shadow: 0 10px 36px rgba(200,146,60,.6);
+    }
+
+    .chat-toggle svg {
+      width: 26px; height: 26px;
+      fill: var(--dark);
+      transition: opacity .2s, transform .2s;
+      position: absolute;
+    }
+
+    .chat-toggle .icon-chat  { opacity: 1;  transform: scale(1) rotate(0deg); }
+    .chat-toggle .icon-close { opacity: 0;  transform: scale(.6) rotate(-30deg); }
+
+    .chat-widget.open .chat-toggle .icon-chat  { opacity: 0;  transform: scale(.6) rotate(30deg); }
+    .chat-widget.open .chat-toggle .icon-close { opacity: 1;  transform: scale(1) rotate(0deg); }
+
+    /* Notification dot */
+    .chat-notif {
+      position: absolute;
+      top: 2px; right: 2px;
+      width: 14px; height: 14px;
+      background: #E8453C;
+      border-radius: 50%;
+      border: 2px solid var(--cream);
+      animation: pulse-notif 2s infinite;
+    }
+
+    @keyframes pulse-notif {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.18); }
+    }
+
+    /* Chat panel */
+    .chat-panel {
+      width: 370px;
+      max-height: 560px;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(20,15,5,.18), 0 2px 8px rgba(0,0,0,.06);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      /* Collapsed state */
+      opacity: 0;
+      transform: translateY(18px) scale(.96);
+      pointer-events: none;
+      transition: opacity .28s ease, transform .28s ease;
+    }
+
+    .chat-widget.open .chat-panel {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    /* Panel header */
+    .chat-head {
+      background: var(--dark);
+      padding: 1.1rem 1.35rem;
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      flex-shrink: 0;
+    }
+
+    .chat-head-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(200,146,60,.35);
+    }
+
+    .chat-head-info { flex: 1; }
+
+    .chat-head-name {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    .chat-head-status {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .72rem;
+      color: rgba(255,255,255,.5);
+      margin-top: .15rem;
+    }
+
+    .chat-head-status .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #6BCB8B;
+      box-shadow: 0 0 5px rgba(107,203,139,.7);
+      flex-shrink: 0;
+    }
+
+    /* Messages area */
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      scroll-behavior: smooth;
+    }
+
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--cream-3); border-radius: 4px; }
+
+    /* Individual message */
+    .msg {
+      display: flex;
+      align-items: flex-end;
+      gap: .5rem;
+      max-width: 88%;
+      animation: msg-in .22s ease;
+    }
+
+    @keyframes msg-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.bot  { align-self: flex-start; }
+    .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+    .msg-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      display: grid;
+      place-items: center;
+      font-size: .72rem;
+      color: var(--dark);
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-bottom: 2px;
+    }
+
+    .msg-bubble {
+      padding: .65rem .9rem;
+      border-radius: 16px;
+      font-size: .855rem;
+      line-height: 1.58;
+    }
+
+    .msg.bot .msg-bubble {
+      background: var(--cream);
+      color: #2A2420;
+      border-bottom-left-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .msg.user .msg-bubble {
+      background: linear-gradient(135deg, var(--dark), var(--dark-2));
+      color: var(--gold-lt);
+      border-bottom-right-radius: 4px;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      align-self: flex-start;
+      animation: msg-in .22s ease;
+    }
+
+    .typing-dots {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      padding: .65rem .9rem;
+      display: flex;
+      gap: .3rem;
+      align-items: center;
+    }
+
+    .typing-dots span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--warm-gray-lt);
+      animation: typing-bounce .9s infinite;
+    }
+
+    .typing-dots span:nth-child(2) { animation-delay: .15s; }
+    .typing-dots span:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes typing-bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30%            { transform: translateY(-6px); }
+    }
+
+    /* Quick reply chips */
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      padding: 0 1.1rem .75rem;
+    }
+
+    .qr-chip {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      color: var(--warm-gray);
+      font-size: .76rem;
+      font-weight: 600;
+      padding: .38rem .8rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: border-color .18s, color .18s, background .18s;
+      white-space: nowrap;
+    }
+
+    .qr-chip:hover {
+      border-color: var(--gold);
+      color: var(--amber);
+      background: var(--gold-pale);
+    }
+
+    /* Input row */
+    .chat-input-row {
+      padding: .85rem 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: .6rem;
+      align-items: center;
+      background: var(--white);
+      flex-shrink: 0;
+    }
+
+    .chat-input {
+      flex: 1;
+      border: 1.5px solid var(--border);
+      border-radius: 22px;
+      padding: .58rem 1rem;
+      font-size: .875rem;
+      font-family: var(--font);
+      color: #2A2420;
+      background: var(--cream);
+      outline: none;
+      transition: border-color .18s;
+      resize: none;
+    }
+
+    .chat-input:focus { border-color: var(--gold); background: var(--white); }
+    .chat-input::placeholder { color: #C4BAB3; }
+
+    .chat-send {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
+      border: none;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 10px rgba(200,146,60,.32);
+      transition: transform .18s, box-shadow .18s;
+    }
+
+    .chat-send:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(200,146,60,.45); }
+
+    .chat-send svg { width: 16px; height: 16px; fill: var(--dark); }
+
+    /* Mobile adjustments */
+    @media (max-width: 420px) {
+      .chat-widget { bottom: 1.1rem; right: 1.1rem; }
+      .chat-panel  { width: calc(100vw - 2.2rem); max-height: 500px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">🌍</div>
+    <span class="logo-text">Expat<span> Protect</span></span>
+  </a>
+  <span class="nav-badge">Free Quotes</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span>✦</span> Fully Regulated &amp; Internationally Trusted
+    </div>
+    <h1>International Health Insurance<br><em>Designed for Global Citizens</em></h1>
+    <p>
+      Expat Protect provides comprehensive, fully regulated international health and life
+      insurance plans for globally mobile individuals and families in over 120 countries.
+      Get your personalised, no-obligation quote — completely free.
+    </p>
+    <div class="trust-row">
+      <div class="badge"><span class="dot"></span> Free Quote</div>
+      <div class="badge"><span class="dot"></span> No Obligation</div>
+      <div class="badge"><span class="dot"></span> 120+ Countries Covered</div>
+      <div class="badge"><span class="dot"></span> 98% Satisfaction</div>
+      <div class="badge"><span class="dot"></span> Fully Regulated</div>
+    </div>
+    <a href="#get-quote" class="hero-cta">Get My Free Quote ↓</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">US$2M</div>
+    <div class="stat-label">Max Annual Cover</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">120+</div>
+    <div class="stat-label">Countries Covered</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">98%</div>
+    <div class="stat-label">Customer Satisfaction</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">10,000+</div>
+    <div class="stat-label">Global Agents</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">4</div>
+    <div class="stat-label">Plan Tiers</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<section class="main" id="get-quote">
+
+  <!-- BENEFITS COLUMN -->
+  <div class="benefits">
+
+    <div class="eyebrow">Why Expat Protect</div>
+    <h2>Coverage You Can Trust,<br>Wherever You Are</h2>
+    <p class="sub">Fully regulated and globally trusted — protection built around the way you live.</p>
+
+    <div class="benefit-card">
+      <div class="benefit-icon green">🏥</div>
+      <div>
+        <h3>Comprehensive Inpatient Cover</h3>
+        <p>All plans include full inpatient hospital cover — room &amp; board, surgery, intensive care, oncology, kidney dialysis, emergency room treatment and local ambulance. Up to US$2,000,000 annual cover on our top tier.</p>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-icon blue">🌍</div>
+      <div>
+        <h3>Outpatient, Dental &amp; Wellbeing</h3>
+        <p>Higher-tier plans include GP &amp; specialist consultations, prescribed medication, physiotherapy, dental treatment, annual check-ups, vaccinations and even alternative therapies — keeping you healthy wherever you are.</p>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-icon purple">🚁</div>
+      <div>
+        <h3>Optional Evacuation &amp; Repatriation</h3>
+        <p>Add evacuation and repatriation cover up to US$100,000 to any plan. If local care is insufficient, we arrange transport to the nearest adequate medical facility or back to your home country.</p>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-icon orange">📞</div>
+      <div>
+        <h3>24-Hour Global Assistance &amp; Security</h3>
+        <p>Round-the-clock emergency assistance, psychology counselling, personal coaching, and unique global security benefits covering terrorism, hostage negotiation and hijacking — included on every plan.</p>
+      </div>
+    </div>
+
+    <!-- Plan Tiers -->
+    <div class="eyebrow" style="margin-top:3.25rem;">Plan Tiers</div>
+    <h2>Four Tiers — Choose Your Level</h2>
+    <p class="sub">From essential cover to fully comprehensive protection for you and your family.</p>
+
+    <div class="plan-grid">
+      <div class="plan-tile">
+        <span class="plan-tier-badge t1">Major Medical</span>
+        <h4>Major Medical — US$1M</h4>
+        <p>Our most affordable entry-level plan. Full inpatient hospital cover, emergency room treatment, 24/7 assistance and global security benefits.</p>
+      </div>
+      <div class="plan-tile">
+        <span class="plan-tier-badge t2">Standard</span>
+        <h4>Standard — US$1M</h4>
+        <p>Adds outpatient cover including GP &amp; specialist consultations (US$750), prescribed medication, imaging, and pre/post-hospitalisation benefits.</p>
+      </div>
+      <div class="plan-tile">
+        <span class="plan-tier-badge t3">Comprehensive</span>
+        <h4>Comprehensive — US$1M</h4>
+        <p>Adds dental, wellbeing benefits, physiotherapy, alternative therapies, organ transplant cover and US$1,000 chronic condition benefit.</p>
+      </div>
+      <div class="plan-tile featured">
+        <span class="plan-tier-badge t4">✦ Fully Comprehensive</span>
+        <h4>Fully Comprehensive — US$2M</h4>
+        <p>Maximum protection — full cover across all benefits, US$10,000 chronic benefit, routine dental, and full cover surgeon &amp; specialist fees.</p>
+      </div>
+    </div>
+
+    <!-- Coverage Types -->
+    <div class="eyebrow" style="margin-top:3.25rem;">Coverage Types</div>
+    <h2>Health, Life &amp; Travel</h2>
+    <p class="sub">Tailored insurance for expats living and working across the globe.</p>
+
+    <div class="coverage-grid">
+      <div class="coverage-tile">
+        <span class="ct-icon">🏥</span>
+        <h4>Health</h4>
+        <p>Inpatient, outpatient, dental &amp; chronic conditions</p>
+      </div>
+      <div class="coverage-tile">
+        <span class="ct-icon">🧠</span>
+        <h4>Wellbeing</h4>
+        <p>Check-ups, vaccinations, psychology &amp; coaching</p>
+      </div>
+      <div class="coverage-tile">
+        <span class="ct-icon">🛡️</span>
+        <h4>Security</h4>
+        <p>Terrorism, hostage, hijacking &amp; evacuation cover</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM COLUMN -->
+  <div class="form-card" id="quote-form-wrapper">
+
+    <!-- FORM STATE -->
+    <div id="form-state">
+      <div class="form-header">
+        <div class="form-free-badge">✦ Free Quote — No Obligation</div>
+        <h2>Get Your Personalised Quote</h2>
+        <p>Fill in your details and a specialist will contact you within 24 hours.</p>
+      </div>
+
+      <form id="lead-form" novalidate>
+
+        <div class="form-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full_name" placeholder="Jane Smith" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="current-country">Current Country</label>
+            <select id="current-country" name="current_country" required>
+              <option value="" disabled selected>Select country…</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="destination-country">Destination Country</label>
+            <select id="destination-country" name="destination_country" required>
+              <option value="" disabled selected>Select country…</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="age">Your Age</label>
+          <input type="number" id="age" name="age" placeholder="e.g. 34" min="18" max="99" required />
+        </div>
+
+        <div class="form-group">
+          <label>Coverage Type <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--warm-gray-lt)">(select all that apply)</span></label>
+          <div class="coverage-options">
+            <div class="coverage-opt">
+              <input type="checkbox" id="cov-health" name="coverage" value="health" />
+              <label for="cov-health"><span class="opt-icon">🏥</span>Health</label>
+            </div>
+            <div class="coverage-opt">
+              <input type="checkbox" id="cov-dental" name="coverage" value="dental" />
+              <label for="cov-dental"><span class="opt-icon">🦷</span>Dental</label>
+            </div>
+            <div class="coverage-opt">
+              <input type="checkbox" id="cov-evac" name="coverage" value="evacuation" />
+              <label for="cov-evac"><span class="opt-icon">🚁</span>Evacuation</label>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Get My Free Quote →</button>
+      </form>
+
+      <p class="form-footnote">🔒 Your data is secure. We never share or sell your information.</p>
+    </div>
+
+    <!-- THANK YOU STATE -->
+    <div class="thank-you" id="thank-you-state">
+      <div class="ty-check">✓</div>
+      <h2>You're All Set!</h2>
+      <p>Thank you! A licensed expat insurance specialist will review your details and reach out within <strong>24 hours</strong> with your personalised, no-obligation quote.</p>
+      <div class="ty-steps">
+        <h4>What happens next</h4>
+        <div class="ty-step">
+          <div class="ty-step-num">1</div>
+          <span>Our specialist reviews your coverage needs</span>
+        </div>
+        <div class="ty-step">
+          <div class="ty-step-num">2</div>
+          <span>You receive a tailored quote via email</span>
+        </div>
+        <div class="ty-step">
+          <div class="ty-step-num">3</div>
+          <span>Choose your plan — no pressure, no obligation</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="comparison">
+  <div class="comparison-inner">
+    <div class="comparison-header">
+      <div class="eyebrow">Plan Comparison</div>
+      <h2>What's Included in Each Plan</h2>
+      <p>Compare coverage across all four tiers at a glance.</p>
+    </div>
+
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Major Medical</th>
+          <th>Standard</th>
+          <th>Comprehensive</th>
+          <th class="col-featured">✦ Fully Comp.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Overall Annual Limit</td>
+          <td><span class="comp-val">US$1M</span></td>
+          <td><span class="comp-val">US$1M</span></td>
+          <td><span class="comp-val">US$1M</span></td>
+          <td class="col-featured"><span class="comp-val">US$2M</span></td>
+        </tr>
+        <tr>
+          <td>Inpatient Hospital Cover</td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td class="col-featured"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Surgeon's Fees</td>
+          <td><span class="comp-val">US$25,000</span></td>
+          <td><span class="comp-val">US$25,000</span></td>
+          <td><span class="comp-val">US$25,000</span></td>
+          <td class="col-featured"><span class="comp-val">Full Cover</span></td>
+        </tr>
+        <tr>
+          <td>Outpatient Treatment</td>
+          <td><span class="comp-cross">—</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td class="col-featured"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Dental Cover</td>
+          <td><span class="comp-cross">—</span></td>
+          <td><span class="comp-cross">—</span></td>
+          <td><span class="comp-val">Major Dental</span></td>
+          <td class="col-featured"><span class="comp-val">Full Dental</span></td>
+        </tr>
+        <tr>
+          <td>Wellbeing Benefits</td>
+          <td><span class="comp-cross">—</span></td>
+          <td><span class="comp-cross">—</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td class="col-featured"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Chronic Condition Benefit</td>
+          <td><span class="comp-cross">—</span></td>
+          <td><span class="comp-cross">—</span></td>
+          <td><span class="comp-val">US$1,000</span></td>
+          <td class="col-featured"><span class="comp-val">US$10,000</span></td>
+        </tr>
+        <tr>
+          <td>Oncology Cover</td>
+          <td><span class="comp-val">US$20,000</span></td>
+          <td><span class="comp-val">US$20,000</span></td>
+          <td><span class="comp-val">US$20,000</span></td>
+          <td class="col-featured"><span class="comp-val">Full Cover</span></td>
+        </tr>
+        <tr>
+          <td>Terrorism Cover</td>
+          <td><span class="comp-val">US$50,000</span></td>
+          <td><span class="comp-val">US$100,000</span></td>
+          <td><span class="comp-val">US$150,000</span></td>
+          <td class="col-featured"><span class="comp-val">Full Cover</span></td>
+        </tr>
+        <tr>
+          <td>Psychology &amp; Coaching</td>
+          <td><span class="comp-val">5+5</span></td>
+          <td><span class="comp-val">5+5</span></td>
+          <td><span class="comp-val">8+8</span></td>
+          <td class="col-featured"><span class="comp-val">10+10</span></td>
+        </tr>
+        <tr>
+          <td>Evacuation &amp; Repatriation</td>
+          <td>Optional</td>
+          <td>Optional</td>
+          <td>Optional</td>
+          <td class="col-featured">Optional</td>
+        </tr>
+        <tr>
+          <td>Death Benefit</td>
+          <td><span class="comp-val">US$10,000</span></td>
+          <td><span class="comp-val">US$10,000</span></td>
+          <td><span class="comp-val">US$10,000</span></td>
+          <td class="col-featured"><span class="comp-val">US$10,000</span></td>
+        </tr>
+        <tr>
+          <td>24/7 Emergency Assistance</td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td><span class="comp-check">✓</span></td>
+          <td class="col-featured"><span class="comp-check">✓</span></td>
+        </tr>
+        <tr class="comp-cta-row">
+          <td></td>
+          <td><a href="#get-quote" class="comp-cta outline">Get Quote</a></td>
+          <td><a href="#get-quote" class="comp-cta outline">Get Quote</a></td>
+          <td><a href="#get-quote" class="comp-cta outline">Get Quote</a></td>
+          <td class="col-featured"><a href="#get-quote" class="comp-cta primary">Get Quote</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-section">
+  <div class="blog-inner">
+    <div class="blog-header">
+      <div class="eyebrow">Expat Insights</div>
+      <h2>Expert Guides for Life Abroad</h2>
+      <p>Practical advice on health, insurance and wellbeing for globally mobile individuals.</p>
+    </div>
+
+    <div class="blog-grid">
+
+      <article class="blog-card">
+        <div class="blog-thumb t1">🌍</div>
+        <div class="blog-body">
+          <span class="blog-tag">Health Cover</span>
+          <div class="blog-meta">
+            <span>8 min read</span>
+            <span>·</span>
+            <span>June 2025</span>
+          </div>
+          <h3>International Health Insurance: What Every Expat Needs to Know Before Moving Abroad</h3>
+          <p>From understanding plan tiers to knowing what's covered in 120+ countries — a complete primer for first-time expats navigating global health insurance.</p>
+          <a href="#" class="blog-read-more">Read more →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-thumb t2">🏥</div>
+        <div class="blog-body">
+          <span class="blog-tag">Inpatient</span>
+          <div class="blog-meta">
+            <span>6 min read</span>
+            <span>·</span>
+            <span>May 2025</span>
+          </div>
+          <h3>Hospital Admissions Overseas: How Direct Billing &amp; Guarantee of Payment Works</h3>
+          <p>Being admitted to a hospital in a foreign country can be daunting. Learn how Expat Protect's 24-hour assistance team pre-authorises and settles bills directly.</p>
+          <a href="#" class="blog-read-more">Read more →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-thumb t3">🦷</div>
+        <div class="blog-body">
+          <span class="blog-tag">Dental</span>
+          <div class="blog-meta">
+            <span>5 min read</span>
+            <span>·</span>
+            <span>April 2025</span>
+          </div>
+          <h3>Dental Cover for Expats: Emergency, Major &amp; Routine — What's Actually Included?</h3>
+          <p>Many expat plans skip dental entirely. We break down what our Comprehensive and Fully Comprehensive plans cover — from emergency relief to routine check-ups.</p>
+          <a href="#" class="blog-read-more">Read more →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-thumb t4">🧠</div>
+        <div class="blog-body">
+          <span class="blog-tag">Wellbeing</span>
+          <div class="blog-meta">
+            <span>7 min read</span>
+            <span>·</span>
+            <span>March 2025</span>
+          </div>
+          <h3>Mental Health Support Abroad: Why Psychology &amp; Coaching Benefits Matter for Expats</h3>
+          <p>Living overseas brings exciting experiences — and added stress. Explore how our psychology counselling and personal coaching sessions support your wellbeing overseas.</p>
+          <a href="#" class="blog-read-more">Read more →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-thumb t5">🚁</div>
+        <div class="blog-body">
+          <span class="blog-tag">Evacuation</span>
+          <div class="blog-meta">
+            <span>6 min read</span>
+            <span>·</span>
+            <span>February 2025</span>
+          </div>
+          <h3>Emergency Evacuation &amp; Repatriation: When Local Healthcare Isn't Enough</h3>
+          <p>Not all medical facilities meet the highest standards. Learn how the optional US$100,000 evacuation benefit can transport you to adequate care — or back home.</p>
+          <a href="#" class="blog-read-more">Read more →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-thumb t6">🛡️</div>
+        <div class="blog-body">
+          <span class="blog-tag">Security</span>
+          <div class="blog-meta">
+            <span>5 min read</span>
+            <span>·</span>
+            <span>January 2025</span>
+          </div>
+          <h3>Global Security Benefits: How Expat Protect Covers Terrorism, Hostage &amp; Hijacking</h3>
+          <p>Most insurers exclude security-related events entirely. Discover the unique global security benefits included on every Expat Protect plan — from US$50K to full cover.</p>
+          <a href="#" class="blog-read-more">Read more →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="sp-eyebrow">Client Reviews</div>
+  <div class="sp-title">What Our Clients Say</div>
+  <div class="sp-sub">98% customer satisfaction · 120+ countries · 10,000+ global agents</div>
+  <div class="reviews">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Great service. Fast, efficient and friendly. I can't fault their customer service and claims team."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">JH</div>
+        <div>
+          <div class="reviewer-name">Verified Policyholder</div>
+          <div class="reviewer-meta">via Reviews.io</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"All my worries were put to bed when I made my first claims and they were paid straight away. Genuinely refreshing to deal with."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">MT</div>
+        <div>
+          <div class="reviewer-name">Verified Policyholder</div>
+          <div class="reviewer-meta">via Reviews.io</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p>"Excellent health cover and service. Best experience I've ever had with an insurance company. Support came back the same afternoon."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">SR</div>
+        <div>
+          <div class="reviewer-name">Verified Policyholder</div>
+          <div class="reviewer-meta">via Reviews.io</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHATBOT WIDGET -->
+<div class="chat-widget" id="chatWidget">
+
+  <!-- Panel -->
+  <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Expat Protect chat assistant">
+
+    <!-- Header -->
+    <div class="chat-head">
+      <div class="chat-head-avatar">🌍</div>
+      <div class="chat-head-info">
+        <div class="chat-head-name">Expat Protect Assistant</div>
+        <div class="chat-head-status"><span class="dot"></span> Online now</div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <!-- Quick replies -->
+    <div class="quick-replies" id="quickReplies"></div>
+
+    <!-- Input -->
+    <div class="chat-input-row">
+      <input
+        class="chat-input"
+        id="chatInput"
+        type="text"
+        placeholder="Ask me anything…"
+        autocomplete="off"
+        maxlength="300"
+      />
+      <button class="chat-send" id="chatSend" aria-label="Send message">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Toggle button -->
+  <button class="chat-toggle" id="chatToggle" aria-label="Open chat">
+    <span class="chat-notif" id="chatNotif"></span>
+    <!-- Chat icon -->
+    <svg class="icon-chat" viewBox="0 0 24 24">
+      <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+    </svg>
+    <!-- Close icon -->
+    <svg class="icon-close" viewBox="0 0 24 24">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </svg>
+  </button>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Expat Protect</strong> — International Health &amp; Life Insurance</p>
+  <p style="margin-top:.4rem;">Comprehensive cover for globally mobile individuals in 120+ countries.</p>
+  <p style="margin-top:.4rem;">© 2026 Expat Protect. All rights reserved. &nbsp;|&nbsp; <a href="#">expatprotect.com</a></p>
+</footer>
+
+<script>
+  // ── Country list ──────────────────────────────────────────────────────────
+  const countries = [
+    "Afghanistan","Albania","Algeria","Andorra","Angola","Argentina","Armenia","Australia",
+    "Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Belarus","Belgium","Belize",
+    "Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei",
+    "Bulgaria","Burkina Faso","Cambodia","Cameroon","Canada","Chile","China","Colombia",
+    "Congo","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Ecuador",
+    "Egypt","El Salvador","Estonia","Ethiopia","Finland","France","Georgia","Germany",
+    "Ghana","Greece","Guatemala","Haiti","Honduras","Hungary","Iceland","India","Indonesia",
+    "Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya",
+    "Kuwait","Kyrgyzstan","Latvia","Lebanon","Libya","Lithuania","Luxembourg","Malaysia",
+    "Maldives","Malta","Mexico","Moldova","Monaco","Mongolia","Montenegro","Morocco",
+    "Mozambique","Myanmar","Nepal","Netherlands","New Zealand","Nicaragua","Nigeria",
+    "North Korea","Norway","Oman","Pakistan","Panama","Paraguay","Peru","Philippines",
+    "Poland","Portugal","Qatar","Romania","Russia","Saudi Arabia","Senegal","Serbia",
+    "Singapore","Slovakia","Slovenia","Somalia","South Africa","South Korea","Spain",
+    "Sri Lanka","Sudan","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania",
+    "Thailand","Tunisia","Turkey","Turkmenistan","Uganda","Ukraine","United Arab Emirates",
+    "United Kingdom","United States","Uruguay","Uzbekistan","Venezuela","Vietnam",
+    "Yemen","Zambia","Zimbabwe"
+  ];
+
+  function populateSelect(id) {
+    const sel = document.getElementById(id);
+    countries.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      sel.appendChild(opt);
+    });
+  }
+
+  populateSelect('current-country');
+  populateSelect('destination-country');
+
+  // ── Form submission ───────────────────────────────────────────────────────
+  const form      = document.getElementById('lead-form');
+  const formState = document.getElementById('form-state');
+  const tyState   = document.getElementById('thank-you-state');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name  = document.getElementById('full-name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const curr  = document.getElementById('current-country').value;
+    const dest  = document.getElementById('destination-country').value;
+    const age   = document.getElementById('age').value;
+    const covs  = [...document.querySelectorAll('input[name="coverage"]:checked')].map(i => i.value);
+
+    if (!name || !email || !phone || !curr || !dest || !age) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    if (covs.length === 0) {
+      alert('Please select at least one coverage type.');
+      return;
+    }
+
+    console.log('Lead captured:', { name, email, phone, curr, dest, age, covs });
+
+    formState.style.display = 'none';
+    tyState.style.display   = 'block';
+
+    document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>
+
+<!-- ── CHATBOT ENGINE ──────────────────────────────────────────── -->
+<script>
+(function () {
+
+  /* ── Knowledge base ─────────────────────────────────────────── */
+  const KB = [
+    {
+      patterns: [/hello|hi\b|hey|good (morning|afternoon|evening)|howdy/i],
+      replies: [
+        "Hello! 👋 Welcome to Expat Protect. I'm here to help you find the right international insurance plan. What can I help you with today?",
+        "Hi there! 😊 Great to have you here. I can answer questions about our health, life, and travel plans. What would you like to know?"
+      ],
+      chips: ["What plans do you offer?", "How do I get a quote?", "Which countries are covered?"]
+    },
+    {
+      patterns: [/plan|tier|option|type of (cover|insurance|plan)/i],
+      replies: [
+        "We offer **four plan tiers** to suit every budget:\n\n• **Major Medical** (US$1M) — Entry-level inpatient hospital cover\n• **Standard** (US$1M) — Adds outpatient consultations & medication\n• **Comprehensive** (US$1M) — Adds dental, wellbeing & US$1,000 chronic benefit\n• **Fully Comprehensive** (US$2M) — Maximum protection with full cover across all benefits\n\nAll plans include 24/7 emergency assistance, global security benefits and a US$10,000 death benefit. Which tier would you like to know more about?"
+      ],
+      chips: ["Tell me about Major Medical", "What's included in Comprehensive?", "What's the best plan?"]
+    },
+    {
+      patterns: [/major medical|budget plan|most affordable|entry.level|cheapest/i],
+      replies: [
+        "The **Major Medical plan** (US$1,000,000 annual limit) is our most affordable entry-level tier — perfect for healthy individuals who want core hospital protection.\n\n✓ Full inpatient hospital cover (semi-private room)\n✓ Surgeon's fees up to US$25,000\n✓ Emergency room treatment\n✓ Oncology cover up to US$20,000\n✓ US$50,000 terrorism cover\n✓ 5 psychology & 5 coaching sessions\n✓ 24/7 emergency assistance\n✓ US$10,000 death benefit\n✓ Optional evacuation & repatriation\n\nIt does not include outpatient, dental or wellbeing benefits — those are available on our Standard plan and above."
+      ],
+      chips: ["How do I get a quote?", "Tell me about Standard", "What's the best plan?"]
+    },
+    {
+      patterns: [/standard plan|standard tier|standard cover/i],
+      replies: [
+        "The **Standard plan** (US$1,000,000 annual limit) adds outpatient cover to everything in Major Medical:\n\n✓ Everything in Major Medical, plus:\n✓ GP consultation fees — US$750\n✓ Specialist consultation fees — US$750\n✓ Prescribed medication — US$750\n✓ Imaging & lab tests — US$750\n✓ Pre & post-hospitalisation — US$2,000\n✓ Outpatient surgical — US$25,000\n✓ US$100,000 terrorism cover\n\nA solid mid-range option if you want outpatient cover without the cost of a full comprehensive plan."
+      ],
+      chips: ["Get a free quote", "Tell me about Comprehensive", "What's the best plan?"]
+    },
+    {
+      patterns: [/comprehensive plan|comprehensive cover|mid.range/i],
+      replies: [
+        "The **Comprehensive plan** (US$1,000,000 annual limit) is our most popular mid-range option — well-rounded with dental and wellbeing:\n\n✓ Everything in Standard, plus:\n✓ Major dental — US$750 (25% co-insurance, 6-month wait)\n✓ Emergency dental — full cover\n✓ Annual check-ups — US$250 (25% co-insurance)\n✓ Vaccinations — US$250 (25% co-insurance)\n✓ Eye test — US$250 per year\n✓ Physiotherapy — US$750 (5 visits)\n✓ Alternative therapies — US$250 (5 visits)\n✓ Chronic condition benefit — US$1,000\n✓ Organ transplant — US$100,000\n✓ Rehabilitation — 30 days\n✓ US$150,000 terrorism cover\n✓ 8 psychology & 8 coaching sessions\n\nA great all-round choice for expats and families."
+      ],
+      chips: ["Get a free quote", "Tell me about Fully Comprehensive", "What does dental cover include?"]
+    },
+    {
+      patterns: [/fully comp|fully comprehensive|maximum|best plan|top (tier|plan|cover)/i],
+      replies: [
+        "The **Fully Comprehensive plan** (US$2,000,000 annual limit) is our flagship — the complete package for total peace of mind:\n\n✓ **Full cover** across all inpatient benefits (private room)\n✓ **Full cover** outpatient — GP, specialist, medication, imaging\n✓ **Full dental** including routine dental (US$750)\n✓ Wellbeing — US$500 check-ups, US$500 vaccinations\n✓ **US$10,000** chronic condition benefit\n✓ **Full cover** oncology & organ transplant\n✓ **Full cover** surgeon's & specialist fees\n✓ Rehabilitation — 45 days\n✓ Physiotherapy — 10 visits, full cover\n✓ Alternative therapies — 10 visits, full cover\n✓ **Full cover** terrorism\n✓ 10 psychology & 10 coaching sessions\n✓ US$200/day hospital cash benefit\n✓ US$10,000 death benefit\n\nEvacuation & repatriation (US$100,000) is available as an optional add-on. 🌟"
+      ],
+      chips: ["Get a free quote", "What's the evacuation cover?", "Does it cover my family?"]
+    },
+    {
+      patterns: [/evacu|repatriat|emergency transport|air ambulance/i],
+      replies: [
+        "**Emergency Evacuation & Repatriation** is available as an **optional add-on** to all four plans for an additional premium, providing up to **US$100,000** of cover.\n\nThis covers:\n🚁 Transport to the nearest country with an appropriate medical facility\n✈️ Repatriation back to your home country if required\n🏥 Transfer when local care is insufficient or unavailable\n\nThis benefit is subject to the Evacuation and Repatriation Endorsement. Our 24/7 medical team coordinates everything for you."
+      ],
+      chips: ["Get a free quote", "What plans are available?", "What's the Fully Comprehensive plan?"]
+    },
+    {
+      patterns: [/dental|teeth|dentist/i],
+      replies: [
+        "**Dental cover** is included in our Comprehensive and Fully Comprehensive plans. It covers routine check-ups, fillings, and dental treatments abroad.\n\nOur Standard and Major Medical plans focus on hospital and medical cover, but dental can be discussed as a potential add-on — just ask when you request your quote. 😊"
+      ],
+      chips: ["Get a free quote", "Tell me about Comprehensive", "What's covered under outpatient?"]
+    },
+    {
+      patterns: [/outpatient|gp|doctor visit|consultation|no pre.auth|pre.authoris/i],
+      replies: [
+        "Our **Comprehensive** and **Fully Comprehensive** plans include outpatient treatment with **no pre-authorisation required** outside the USA.\n\nThis means:\n✓ You can visit any doctor or specialist you choose\n✓ No need to call us before your appointment\n✓ Covers consultations, diagnostics, and outpatient procedures\n\nThe freedom to seek care on your terms — wherever you are in the world."
+      ],
+      chips: ["Get a free quote", "Does it cover USA visits?", "What's the Comprehensive plan?"]
+    },
+    {
+      patterns: [/chronic|long.term|ongoing condition|pre.existing/i],
+      replies: [
+        "**Chronic condition benefits** are available on our two higher-tier plans:\n\n• **Comprehensive** — up to US$1,000 per year\n• **Fully Comprehensive** — up to US$10,000 per year\n\nFor pre-existing conditions, coverage terms depend on your medical history and will be assessed at the time of your quote. Our specialists will walk you through exactly what's covered when you request your personalised quote."
+      ],
+      chips: ["Get a free quote", "How does the quote process work?", "What plans cover chronic conditions?"]
+    },
+    {
+      patterns: [/countr|where.*covered|cover.*world|global|international|120/i],
+      replies: [
+        "**Expat Protect covers 120+ countries** worldwide — including Europe, Asia, the Middle East, Africa, Latin America, and more.\n\n🌍 Our global network gives you access to quality medical care wherever you're living or travelling. USA cover is available as a rider on most plans (note: outpatient pre-authorisation applies for US treatment).\n\nTell me your destination and I can give you more specific info!"
+      ],
+      chips: ["Does it cover the USA?", "Get a free quote", "What plans are available?"]
+    },
+    {
+      patterns: [/usa|united states|america|us cover/i],
+      replies: [
+        "**USA coverage** is available as an optional add-on on our plans. It's worth noting:\n\n• Outpatient treatment in the USA requires **pre-authorisation** (unlike other countries on Comprehensive and above)\n• US healthcare costs are among the highest in the world, so this rider does affect pricing\n\nIf you're planning to live or travel in the USA, our specialists will include this in your personalised quote. Would you like to get a quote now?"
+      ],
+      chips: ["Get a free quote", "Which countries are covered?", "What's pre-authorisation?"]
+    },
+    {
+      patterns: [/claim|pay out|payout|settle|reimburse/i],
+      replies: [
+        "Our claims process has been streamlined for the expat lifestyle:\n\n1. Submit your claim by scanning and emailing your documents — **no original forms or receipts needed**\n2. Our fast-track claims team adjudicates promptly and fairly\n3. For inpatient admissions, we can pre-authorise and pay hospital bills directly via **Guarantee of Payment**\n\nRegency's claims reimbursement is designed to be speedy and hassle-free — customer service is at the forefront. 🤝"
+      ],
+      chips: ["Get a free quote", "What's the 24/7 assistance?", "Which plan has the best cover?"]
+    },
+    {
+      patterns: [/24.hour|24\/7|help.?line|assistance|support|emergency contact/i],
+      replies: [
+        "**24/7 International Medical Assistance** is included on all Expat Protect plans.\n\nOur team can help with:\n📞 Medical emergency guidance\n🏥 Hospital pre-authorisation (where required)\n🚁 Emergency evacuation coordination\n💊 Finding local doctors and specialists\n📋 Claims support and paperwork\n\nYou're never alone — wherever in the world you are, we're a call away."
+      ],
+      chips: ["Get a free quote", "What's emergency evacuation?", "How do I make a claim?"]
+    },
+    {
+      patterns: [/family|children|kids|spouse|partner|dependant/i],
+      replies: [
+        "**Family cover** is absolutely available! Our plans can cover:\n\n👨‍👩‍👧 Full family policies (adults + children)\n👫 Couple plans\n👶 Individual plans for children/dependants\n\nFamily premiums are calculated based on the ages and health of all covered members. The more complete plans like Comprehensive and Fully Comprehensive are especially popular with families for the added dental and outpatient cover.\n\nFill in your details in our free quote form and we'll tailor a family plan for you!"
+      ],
+      chips: ["Get a free quote", "What's included in Comprehensive?", "What's covered for children?"]
+    },
+    {
+      patterns: [/price|cost|how much|premium|afford|cheap|expensive|pricing/i],
+      replies: [
+        "Premiums are **personalised** based on:\n\n• Your age\n• Your destination country(ies)\n• The plan tier you choose\n• Any add-ons (e.g. evacuation, USA cover)\n• Number of family members\n\nBecause every expat's situation is unique, we don't publish a one-size-fits-all price list. The fastest way to get your number is to fill in our free quote form — it takes 2 minutes and there's **zero obligation**. 👇"
+      ],
+      chips: ["Get a free quote", "What plans are available?", "What affects my premium?"]
+    },
+    {
+      patterns: [/quote|get started|sign up|apply|how do i start|free quote/i],
+      replies: [
+        "Getting your free quote is simple and takes just 2 minutes! 📋\n\nHere's what you'll need:\n1. Your **name, email & phone**\n2. Your **current country** and **destination**\n3. Your **age**\n4. The **coverage type** you're interested in (Health / Life / Travel)\n\nScroll up and fill in the form on this page — a licensed specialist will review your details and send you a personalised, no-obligation quote within **24 hours**. 🚀"
+      ],
+      chips: ["What plans do you offer?", "How much does it cost?", "What happens after I submit?"]
+    },
+    {
+      patterns: [/after.*submit|what happens|next steps|24 hour|how long/i],
+      replies: [
+        "After you submit your quote request, here's what happens:\n\n**Step 1** — Our licensed specialist reviews your coverage needs and destination\n**Step 2** — You receive a tailored, personalised quote by email\n**Step 3** — You choose your plan at your own pace — no pressure, no obligation\n\nWe typically respond within **24 hours**, often much sooner. 🕐"
+      ],
+      chips: ["Get a free quote", "What plans do you offer?", "Is my data secure?"]
+    },
+    {
+      patterns: [/data|privacy|secure|gdpr|information|share.*data|sell.*data/i],
+      replies: [
+        "Your privacy is extremely important to us. 🔒\n\n• We **never sell or share** your personal data with third parties\n• Your information is used solely to provide your personalised quote and manage your policy\n• We comply with applicable data protection regulations\n\nYou're in safe hands."
+      ],
+      chips: ["Get a free quote", "How does the quote process work?", "What plans do you offer?"]
+    },
+    {
+      patterns: [/life insurance|life cover|death benefit|term life/i],
+      replies: [
+        "All Expat Protect health insurance plans include a built-in **US$10,000 Death Benefit** (Life Cover), paid to the next of kin or estate following the death of the insured person.\n\nThis is included at no extra cost on every plan tier — Major Medical, Standard, Comprehensive and Fully Comprehensive.\n\nFor any additional life cover needs, speak with one of our specialists when you request your free quote."
+      ],
+      chips: ["Get a free quote", "What plans are available?", "What other benefits are included?"]
+    },
+    {
+      patterns: [/security|terrorism|hostage|hijack|mug/i],
+      replies: [
+        "**Global Security Benefits** are a unique feature included on all Expat Protect plans:\n\n🛡️ **Terrorism cover** — US$50K (Major Medical) up to Full Cover (Fully Comp)\n🤝 **Hostage negotiation** — Full Cover on all plans\n✈️ **Hijacking** — US$100–$500 per day (up to 10 days)\n💪 **Mugging** — US$100 per day (up to 5 days)\n\nWhilst many insurers specifically exclude terrorism and security events, Expat Protect has developed generous benefits so you can live, work and travel globally with peace of mind."
+      ],
+      chips: ["Get a free quote", "What plans are available?", "Tell me about evacuation"]
+    },
+    {
+      patterns: [/thank|thanks|cheers|appreciate|helpful/i],
+      replies: [
+        "You're very welcome! 😊 If you have any more questions, I'm here. Whenever you're ready, feel free to fill in the free quote form on this page — it only takes 2 minutes!",
+        "Happy to help! Don't hesitate to ask if anything else comes up. We're here to make international insurance as straightforward as possible. 🌍"
+      ],
+      chips: ["Get a free quote", "What plans do you offer?", "Talk to a specialist"]
+    },
+    {
+      patterns: [/talk.*human|speak.*person|speak.*agent|real person|specialist|advisor/i],
+      replies: [
+        "Absolutely! The best way to speak with a licensed specialist is to fill in our **free quote form** — just scroll up on this page.\n\nOnce submitted, a real expat insurance specialist will personally review your needs and contact you within **24 hours**. No bots, no call centres — just expert, personalised advice. 🤝"
+      ],
+      chips: ["Get a free quote", "How does the quote process work?", "What plans do you offer?"]
+    },
+    {
+      patterns: [/bye|goodbye|see you|ciao|take care/i],
+      replies: [
+        "Goodbye! 👋 Don't hesitate to come back if you have questions. We hope to welcome you as an Expat Protect member soon!",
+        "Take care! 🌍 Your free quote is just a click away whenever you're ready."
+      ],
+      chips: []
+    }
+  ];
+
+  /* Fallback responses */
+  const FALLBACKS = [
+    "That's a great question! For detailed information on that, I'd recommend filling in our free quote form — a specialist can give you a personalised answer within 24 hours. Is there anything else I can help with?",
+    "I'm not sure I have the exact answer to that, but one of our licensed specialists definitely will! Request your free quote above and they'll be in touch within 24 hours. 😊",
+    "Good question! The specifics depend on your personal situation. Our specialists are best placed to answer — grab a free quote and they'll walk you through everything with no obligation."
+  ];
+
+  /* Opening chips */
+  const OPENING_CHIPS = [
+    "What plans do you offer?",
+    "How do I get a quote?",
+    "Which countries are covered?",
+    "How much does it cost?"
+  ];
+
+  /* ── DOM refs ──────────────────────────────────────────────── */
+  const widget   = document.getElementById('chatWidget');
+  const toggle   = document.getElementById('chatToggle');
+  const panel    = document.getElementById('chatPanel');
+  const msgs     = document.getElementById('chatMessages');
+  const input    = document.getElementById('chatInput');
+  const sendBtn  = document.getElementById('chatSend');
+  const qrEl     = document.getElementById('quickReplies');
+  const notif    = document.getElementById('chatNotif');
+
+  let isOpen     = false;
+  let hasOpened  = false;
+  let fallbackIdx = 0;
+
+  /* ── Toggle open / close ───────────────────────────────────── */
+  toggle.addEventListener('click', () => {
+    isOpen = !isOpen;
+    widget.classList.toggle('open', isOpen);
+    toggle.setAttribute('aria-label', isOpen ? 'Close chat' : 'Open chat');
+
+    if (isOpen) {
+      notif.style.display = 'none';
+      if (!hasOpened) {
+        hasOpened = true;
+        setTimeout(() => {
+          addBotMsg("Hi! 👋 I'm the Expat Protect assistant. I can answer your questions about our international health, life, and travel insurance plans. What would you like to know?");
+          setChips(OPENING_CHIPS);
+        }, 350);
+      }
+      setTimeout(() => input.focus(), 400);
+    }
+  });
+
+  /* ── Add a bot message (with typing delay) ─────────────────── */
+  function addBotMsg(text, delay = 850) {
+    clearChips();
+    const indicator = addTyping();
+    setTimeout(() => {
+      indicator.remove();
+      const el = createMsg('bot', text);
+      msgs.appendChild(el);
+      scrollBottom();
+    }, delay);
+  }
+
+  function addTyping() {
+    const el = document.createElement('div');
+    el.className = 'typing-indicator';
+    el.innerHTML = `
+      <div class="msg-avatar">EP</div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>`;
+    msgs.appendChild(el);
+    scrollBottom();
+    return el;
+  }
+
+  /* ── Add user message ──────────────────────────────────────── */
+  function addUserMsg(text) {
+    clearChips();
+    const el = createMsg('user', text);
+    msgs.appendChild(el);
+    scrollBottom();
+  }
+
+  /* ── Create message element ────────────────────────────────── */
+  function createMsg(role, text) {
+    const wrap = document.createElement('div');
+    wrap.className = `msg ${role}`;
+
+    const avatar = document.createElement('div');
+    avatar.className = 'msg-avatar';
+    avatar.textContent = role === 'bot' ? 'EP' : 'You';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    // Simple markdown: **bold** and \n newlines
+    bubble.innerHTML = text
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+
+    if (role === 'bot') {
+      wrap.appendChild(avatar);
+      wrap.appendChild(bubble);
+    } else {
+      wrap.appendChild(bubble);
+      wrap.appendChild(avatar);
+    }
+    return wrap;
+  }
+
+  /* ── Set quick reply chips ─────────────────────────────────── */
+  function setChips(chips) {
+    qrEl.innerHTML = '';
+    chips.forEach(label => {
+      const btn = document.createElement('button');
+      btn.className = 'qr-chip';
+      btn.textContent = label;
+      btn.addEventListener('click', () => handleSend(label));
+      qrEl.appendChild(btn);
+    });
+  }
+
+  function clearChips() { qrEl.innerHTML = ''; }
+
+  /* ── Scroll to bottom ──────────────────────────────────────── */
+  function scrollBottom() {
+    setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 30);
+  }
+
+  /* ── Process a user message ────────────────────────────────── */
+  function handleSend(text) {
+    text = text.trim();
+    if (!text) return;
+
+    addUserMsg(text);
+    input.value = '';
+
+    // If user mentions quote, scroll to form
+    if (/get.*quote|free quote|quote form|fill.*form/i.test(text)) {
+      setTimeout(() => {
+        document.getElementById('get-quote')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 600);
+    }
+
+    // Match knowledge base
+    const match = KB.find(item => item.patterns.some(p => p.test(text)));
+
+    if (match) {
+      const reply = match.replies[Math.floor(Math.random() * match.replies.length)];
+      addBotMsg(reply, 900 + Math.random() * 300);
+      if (match.chips?.length) {
+        setTimeout(() => setChips(match.chips), 900 + 350);
+      }
+    } else {
+      const fb = FALLBACKS[fallbackIdx % FALLBACKS.length];
+      fallbackIdx++;
+      addBotMsg(fb, 900);
+      setTimeout(() => setChips(["What plans do you offer?", "Get a free quote", "How much does it cost?"]), 1300);
+    }
+  }
+
+  /* ── Input events ──────────────────────────────────────────── */
+  sendBtn.addEventListener('click', () => handleSend(input.value));
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend(input.value);
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
