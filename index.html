@@ -1677,7 +1677,9 @@
         <p>Fill in your details and a specialist will contact you within 24 hours.</p>
       </div>
 
-      <form id="lead-form" novalidate>
+      <form id="lead-form" name="expat-quote" netlify netlify-honeypot="bot-field" novalidate>
+        <input type="hidden" name="form-name" value="expat-quote" />
+        <p style="display:none"><input name="bot-field" /></p>
 
         <div class="form-group">
           <label for="full-name">Full Name</label>
@@ -2173,12 +2175,30 @@
       return;
     }
 
-    console.log('Lead captured:', { name, email, phone, curr, dest, age, covs });
+    const body = new URLSearchParams({
+      'form-name':        'expat-quote',
+      'full_name':        name,
+      'email':            email,
+      'phone':            phone,
+      'current_country':  curr,
+      'destination_country': dest,
+      'age':              age,
+      'coverage':         covs.join(', ')
+    });
 
-    formState.style.display = 'none';
-    tyState.style.display   = 'block';
-
-    document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    fetch('/', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body:    body.toString()
+    })
+    .then(() => {
+      formState.style.display = 'none';
+      tyState.style.display   = 'block';
+      document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    })
+    .catch(() => {
+      alert('Something went wrong. Please try again or contact us directly.');
+    });
   });
 </script>
 
