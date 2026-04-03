@@ -971,21 +971,20 @@
     }
 
     .blog-thumb {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
+      height: 200px;
       position: relative;
       overflow: hidden;
     }
 
-    .blog-thumb.t1 { background: linear-gradient(135deg, #1B2838, #2A3F5C); }
-    .blog-thumb.t2 { background: linear-gradient(135deg, #1E3A2F, #2D5A48); }
-    .blog-thumb.t3 { background: linear-gradient(135deg, #3A2318, #5C3D2A); }
-    .blog-thumb.t4 { background: linear-gradient(135deg, #2A1838, #4A2D68); }
-    .blog-thumb.t5 { background: linear-gradient(135deg, #183038, #2A4F5C); }
-    .blog-thumb.t6 { background: linear-gradient(135deg, #38301A, #5C4F2A); }
+    .blog-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+      display: block;
+    }
+
+    .blog-card:hover .blog-thumb img { transform: scale(1.06); }
 
     .blog-body {
       padding: 1.4rem 1.5rem 1.6rem;
@@ -1406,6 +1405,87 @@
       .chat-widget { bottom: 1.1rem; right: 1.1rem; }
       .chat-panel  { width: calc(100vw - 2.2rem); max-height: 500px; }
     }
+
+    /* ── HERO PHOTOS ───────────────────────────── */
+    .hero-photos {
+      display: flex;
+      gap: .875rem;
+      justify-content: center;
+      margin-top: 3.25rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-photo {
+      width: 155px;
+      height: 108px;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 28px rgba(0,0,0,.5);
+      border: 1.5px solid rgba(255,255,255,.12);
+      flex-shrink: 0;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+
+    .hero-photo:hover img { transform: scale(1.08); }
+
+    .hero-photo-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.72));
+      color: #fff;
+      font-size: .6rem;
+      font-weight: 700;
+      padding: .6rem .65rem .38rem;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      .hero-photo { width: 130px; height: 90px; }
+    }
+
+    @media (max-width: 420px) {
+      .hero-photos { display: none; }
+    }
+
+    /* ── BENEFITS LIFESTYLE IMAGE ──────────────── */
+    .benefits-photo {
+      width: 100%;
+      height: 200px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin: 1.75rem 0 2.25rem;
+      position: relative;
+    }
+
+    .benefits-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .benefits-photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(23,20,26,.55) 0%, transparent 60%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1.1rem 1.4rem;
+    }
+
+    .benefits-photo-caption {
+      color: rgba(255,255,255,.88);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .3px;
+    }
   </style>
 </head>
 <body>
@@ -1439,6 +1519,25 @@
       <div class="badge"><span class="dot"></span> Fully Regulated</div>
     </div>
     <a href="#get-quote" class="hero-cta">Get My Free Quote ↓</a>
+
+    <div class="hero-photos">
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=320&h=220&fit=crop&auto=format&q=80" alt="Singapore">
+        <div class="hero-photo-label">📍 Singapore</div>
+      </div>
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=320&h=220&fit=crop&auto=format&q=80" alt="Dubai">
+        <div class="hero-photo-label">📍 Dubai</div>
+      </div>
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=320&h=220&fit=crop&auto=format&q=80" alt="Bangkok">
+        <div class="hero-photo-label">📍 Bangkok</div>
+      </div>
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=320&h=220&fit=crop&auto=format&q=80" alt="London">
+        <div class="hero-photo-label">📍 London</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1475,6 +1574,13 @@
     <div class="eyebrow">Why Expat Protect</div>
     <h2>Coverage You Can Trust,<br>Wherever You Are</h2>
     <p class="sub">Fully regulated and globally trusted — protection built around the way you live.</p>
+
+    <div class="benefits-photo">
+      <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=900&h=400&fit=crop&auto=format&q=80" alt="Expat living abroad with peace of mind">
+      <div class="benefits-photo-overlay">
+        <span class="benefits-photo-caption">Covered in 120+ countries — wherever life takes you</span>
+      </div>
+    </div>
 
     <div class="benefit-card">
       <div class="benefit-icon green">🏥</div>
@@ -1793,7 +1899,9 @@
     <div class="blog-grid">
 
       <article class="blog-card">
-        <div class="blog-thumb t1">🌍</div>
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=380&fit=crop&auto=format&q=80" alt="International health insurance consultation">
+        </div>
         <div class="blog-body">
           <span class="blog-tag">Health Cover</span>
           <div class="blog-meta">
@@ -1808,7 +1916,9 @@
       </article>
 
       <article class="blog-card">
-        <div class="blog-thumb t2">🏥</div>
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=380&fit=crop&auto=format&q=80" alt="Hospital care abroad">
+        </div>
         <div class="blog-body">
           <span class="blog-tag">Inpatient</span>
           <div class="blog-meta">
@@ -1823,7 +1933,9 @@
       </article>
 
       <article class="blog-card">
-        <div class="blog-thumb t3">🦷</div>
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=600&h=380&fit=crop&auto=format&q=80" alt="Dental care for expats">
+        </div>
         <div class="blog-body">
           <span class="blog-tag">Dental</span>
           <div class="blog-meta">
@@ -1838,7 +1950,9 @@
       </article>
 
       <article class="blog-card">
-        <div class="blog-thumb t4">🧠</div>
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&h=380&fit=crop&auto=format&q=80" alt="Mental wellbeing abroad">
+        </div>
         <div class="blog-body">
           <span class="blog-tag">Wellbeing</span>
           <div class="blog-meta">
@@ -1853,7 +1967,9 @@
       </article>
 
       <article class="blog-card">
-        <div class="blog-thumb t5">🚁</div>
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=600&h=380&fit=crop&auto=format&q=80" alt="Emergency evacuation services">
+        </div>
         <div class="blog-body">
           <span class="blog-tag">Evacuation</span>
           <div class="blog-meta">
@@ -1868,7 +1984,9 @@
       </article>
 
       <article class="blog-card">
-        <div class="blog-thumb t6">🛡️</div>
+        <div class="blog-thumb">
+          <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=380&fit=crop&auto=format&q=80" alt="Global security coverage">
+        </div>
         <div class="blog-body">
           <span class="blog-tag">Security</span>
           <div class="blog-meta">
