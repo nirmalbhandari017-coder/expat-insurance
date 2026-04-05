@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init('CzcVvCe6LcpkDv9Ri');</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -2631,7 +2633,34 @@
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body:    body.toString()
     })
-    .then(() => { showQuoteResults(age, dest, plan); })
+    .then(() => {
+      showQuoteResults(age, dest, plan);
+
+      const area    = getArea(dest);
+      const ageIdx  = Math.min(Math.max(parseInt(age), 0), 70);
+      const rates   = PREMIUMS[area][ageIdx];
+      const fmt     = v => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      const planNames = {
+        'major-medical':       'Major Medical',
+        'standard':            'Standard',
+        'comprehensive':       'Comprehensive',
+        'fully-comprehensive': 'Fully Comprehensive'
+      };
+
+      emailjs.send('service_4ogp62g', 'template_1jlezu6', {
+        to_name:        name,
+        to_email:       email,
+        destination:    dest,
+        age:            age,
+        area:           AREA_LABELS[area],
+        preferred_plan: planNames[plan] || 'Not specified',
+        price_mm:       fmt(rates[0]),
+        price_std:      fmt(rates[1]),
+        price_comp:     fmt(rates[2]),
+        price_full:     fmt(rates[3])
+      });
+    })
     .catch(() => {
       alert('Something went wrong. Please try again or contact us directly.');
     });
