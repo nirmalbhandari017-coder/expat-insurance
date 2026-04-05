@@ -1411,6 +1411,116 @@
       .chat-panel  { width: calc(100vw - 2.2rem); max-height: 500px; }
     }
 
+    /* ── QUOTE RESULTS ─────────────────────────── */
+    .quote-results { display: none; }
+
+    .qr-area-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--gold-pale);
+      color: var(--gold);
+      border: 1px solid rgba(37,99,235,.2);
+      font-size: .68rem;
+      font-weight: 700;
+      padding: .25rem .85rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      margin-bottom: .8rem;
+    }
+
+    .qr-header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .qr-header h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: .25rem;
+      letter-spacing: -.2px;
+    }
+
+    .qr-header p { font-size: .8rem; color: var(--warm-gray); }
+
+    .qr-plans {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .6rem;
+      margin-bottom: 1rem;
+    }
+
+    .qr-plan {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: .9rem .75rem;
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .qr-plan.best {
+      border-color: var(--gold);
+      background: var(--gold-pale);
+    }
+
+    .qr-plan-name {
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .55px;
+      color: var(--warm-gray);
+      margin-bottom: .4rem;
+    }
+
+    .qr-plan.best .qr-plan-name { color: var(--gold); }
+
+    .qr-plan-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -.5px;
+      line-height: 1;
+    }
+
+    .qr-plan.best .qr-plan-price { color: var(--gold); }
+
+    .qr-plan-period {
+      font-size: .65rem;
+      color: var(--warm-gray-lt);
+      margin-top: .2rem;
+    }
+
+    .qr-disclaimer {
+      font-size: .7rem;
+      color: var(--warm-gray-lt);
+      text-align: center;
+      line-height: 1.55;
+      padding: .65rem .9rem;
+      background: var(--cream-2);
+      border-radius: 8px;
+      margin-bottom: 1.1rem;
+    }
+
+    .qr-followup {
+      text-align: center;
+      padding-top: .9rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .qr-followup .ty-check {
+      width: 52px; height: 52px;
+      font-size: 1.3rem;
+      margin-bottom: .6rem;
+    }
+
+    .qr-followup p {
+      font-size: .83rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+    }
+
     /* ── HERO PHOTOS ───────────────────────────── */
     .hero-photos {
       display: flex;
@@ -1744,6 +1854,45 @@
       </form>
 
       <p class="form-footnote">🔒 Your data is secure. We never share or sell your information.</p>
+    </div>
+
+    <!-- QUOTE RESULTS STATE -->
+    <div class="quote-results" id="quote-results-state">
+      <div class="qr-header">
+        <div class="qr-area-badge" id="qr-area-badge">📍 Area 1 — Europe</div>
+        <h2>Your Estimated Annual Premium</h2>
+        <p>All prices in USD · Cover is Worldwide excl. USA</p>
+      </div>
+      <div class="qr-plans">
+        <div class="qr-plan">
+          <div class="qr-plan-name">Major Medical</div>
+          <div class="qr-plan-price" id="qr-mm">—</div>
+          <div class="qr-plan-period">per year</div>
+        </div>
+        <div class="qr-plan">
+          <div class="qr-plan-name">Standard</div>
+          <div class="qr-plan-price" id="qr-std">—</div>
+          <div class="qr-plan-period">per year</div>
+        </div>
+        <div class="qr-plan">
+          <div class="qr-plan-name">Comprehensive</div>
+          <div class="qr-plan-price" id="qr-comp">—</div>
+          <div class="qr-plan-period">per year</div>
+        </div>
+        <div class="qr-plan best">
+          <div class="qr-plan-name">✦ Fully Comprehensive</div>
+          <div class="qr-plan-price" id="qr-full">—</div>
+          <div class="qr-plan-period">per year</div>
+        </div>
+      </div>
+      <div class="qr-disclaimer">
+        Includes 40% low claims discount. Final premium confirmed in your personalised quote.<br>
+        Premiums are annual. Monthly payment options available.
+      </div>
+      <div class="qr-followup">
+        <div class="ty-check">✓</div>
+        <p><strong>Request received!</strong> A licensed specialist will contact you within <strong>24 hours</strong> with your full personalised quote.</p>
+      </div>
     </div>
 
     <!-- THANK YOU STATE -->
@@ -2150,6 +2299,127 @@
   populateSelect('destination-country');
 
   // ── Form submission ───────────────────────────────────────────────────────
+  /* ── Premium tables (annual USD, incl. 40% low claims discount) ── */
+  const PREMIUMS = {
+    1: [
+      [549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],
+      [549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],
+      [549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],
+      [549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],
+      [549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],
+      [549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],[549.89,827.76,1117.30,1396.61],
+      [700.13,1099.79,1480.48,1850.24],[718.37,1150.11,1551.23,1938.48],[744.62,1199.71,1661.35,2075.60],
+      [748.99,1209.91,1681.05,2101.85],[754.10,1220.13,1701.47,2127.37],[758.48,1230.33,1721.16,2152.17],
+      [764.31,1239.82,1741.58,2176.97],[768.69,1250.03,1761.27,2201.76],[773.79,1260.23,1781.68,2227.29],
+      [778.89,1270.44,1801.37,2252.09],[784.00,1279.93,1821.79,2276.88],[789.10,1290.13,1877.23,2346.16],
+      [798.58,1300.34,1952.34,2440.25],[870.79,1440.37,2055.90,2570.07],[899.23,1460.79,2077.78,2597.05],
+      [924.75,1480.48,2097.47,2621.84],[949.55,1500.90,2112.79,2640.81],[969.24,1530.80,2121.54,2651.74],
+      [979.45,1551.23,2132.49,2665.60],[989.66,1570.92,2152.91,2691.13],[999.14,1591.34,2202.50,2753.85],
+      [1009.36,1621.24,2303.13,2878.56],[1049.46,1751.78,2403.05,3003.99],[1143.55,1961.82,2664.15,3330.00],
+      [1155.22,1982.24,2704.26,3380.32],[1169.81,2001.94,2744.37,3430.65],[1195.32,2027.46,2784.47,3480.24],
+      [1215.75,2052.26,2808.54,3510.14],[1230.33,2077.78,2829.70,3536.39],[1245.65,2102.58,2854.49,3567.76],
+      [1260.23,2137.58,2904.81,3631.19],[1300.34,2172.59,3055.05,3819.36],[1325.87,2353.46,3105.37,3881.35],
+      [1545.39,2603.61,3434.29,4293.41],[1560.71,2653.93,3606.41,4508.55],[1576.02,2704.26,3806.97,4759.44],
+      [1600.82,2904.81,4007.52,5009.58],[1651.15,3105.37,4208.08,5260.47],[2152.91,3556.81,4601.17,5752.02],
+      [2177.70,3606.41,4709.84,5886.94],[2202.50,3656.73,4809.76,6012.38],[2252.82,3707.05,4990.62,6238.46],
+      [2322.84,3757.38,5116.79,6395.99],[2762.60,4313.10,5708.26,7135.51],[2804.18,4509.28,5812.55,7266.05],
+      [2854.49,4709.84,6113.75,7642.36],[2904.81,4970.20,6314.30,7892.52],[3087.14,5210.88,6715.43,8394.28],
+      [3405.84,5691.49,7452.75,9316.13],[3506.49,5712.64,7617.58,9522.51],[3606.41,5862.86,7818.14,9773.40],
+      [3707.05,5988.31,8018.69,10023.56],[3907.60,6143.66,8153.62,10192.02]
+    ],
+    2: [
+      [732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],
+      [732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],
+      [732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],
+      [732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],
+      [732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],
+      [732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],[732.95,1103.44,1489.96,1862.64],
+      [933.51,1465.90,1974.22,2467.23],[958.30,1533.72,2067.57,2585.38],[992.58,1600.09,2214.89,2768.43],
+      [998.41,1613.95,2241.88,2802.71],[1004.97,1626.34,2268.13,2835.53],[1012.27,1640.20,2295.85,2869.08],
+      [1018.83,1654.06,2322.11,2902.63],[1024.67,1666.46,2348.36,2936.18],[1031.96,1680.32,2376.06,2969.73],
+      [1038.53,1694.17,2402.33,3003.27],[1045.09,1706.57,2428.58,3036.09],[1052.38,1720.42,2502.97,3128.71],
+      [1064.78,1734.28,2602.88,3253.42],[1161.05,1920.98,2741.44,3426.99],[1198.98,1947.24,2769.89,3462.73],
+      [1232.52,1974.95,2796.88,3495.55],[1265.34,2001.21,2817.30,3521.80],[1293.06,2041.31,2828.96,3535.66],
+      [1305.45,2067.57,2843.55,3554.63],[1319.31,2095.29,2869.81,3588.17],[1333.17,2121.54,2937.63,3671.31],
+      [1345.57,2161.66,3070.36,3838.32],[1399.52,2335.95,3204.56,4006.07],[1525.71,2616.74,3551.70,4439.27],
+      [1540.29,2643.00,3605.68,4507.10],[1559.97,2669.25,3659.64,4574.20],[1593.53,2703.53,3712.15,4640.55],
+      [1621.24,2737.08,3744.24,4679.94],[1640.20,2769.89,3772.69,4715.68],[1660.62,2803.45,3806.23,4757.98],
+      [1680.32,2850.12,3872.60,4841.11],[1734.28,2897.52,4073.16,5092.00],[1767.10,3138.19,4140.98,5175.86],
+      [2060.29,3471.49,4578.56,5723.57],[2081.43,3539.31,4809.03,6011.65],[2101.85,3605.68,5075.95,6345.67],
+      [2135.40,3872.60,5344.34,6679.68],[2201.76,4140.98,5611.26,7014.44],[2869.81,4742.66,6134.91,7669.35],
+      [2904.08,4809.03,6279.30,7849.49],[2937.63,4875.40,6413.50,8017.24],[3003.99,4943.21,6654.17,8317.71],
+      [3098.08,5009.58,6822.63,8528.48],[3684.44,5750.56,7611.01,9513.04],[3739.87,6012.38,7751.04,9688.08],
+      [3806.23,6279.30,8152.15,10189.83],[3872.60,6627.91,8419.09,10523.85],[4117.65,6948.80,8954.38,11192.62],
+      [4542.10,7589.14,9936.77,12420.77],[4674.83,7616.85,10157.74,12696.45],[4809.03,7817.40,10424.67,13031.20],
+      [4943.21,7984.42,10691.59,13365.22],[5210.15,8192.27,10871.73,13589.84]
+    ],
+    3: [
+      [1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],
+      [1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],
+      [1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],
+      [1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],
+      [1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],
+      [1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],[1348.48,1600.09,1954.53,2443.89],
+      [1359.43,1666.46,2145.61,2683.10],[1373.27,1734.28,2465.77,3083.49],[1385.68,1808.67,2516.09,3146.94],
+      [1433.08,1867.02,2592.67,3241.76],[1465.90,1934.84,2664.87,3331.46],[1500.17,2034.75,2747.29,3435.74],
+      [1533.72,2135.40,2824.59,3532.01],[1566.54,2171.13,2878.56,3599.11],[1600.09,2235.32,2936.91,3671.31],
+      [1666.46,2302.41,2990.15,3739.14],[1734.28,2376.06,3054.32,3819.36],[1774.40,2402.33,3113.39,3893.02],
+      [1795.54,2466.50,3174.66,3968.87],[1800.65,2496.40,3235.91,4046.18],[1840.77,2536.51,3305.21,4132.24],
+      [1867.02,2602.88,3370.11,4213.18],[1894.72,2669.25,3437.94,4298.52],[1920.98,2737.08,3494.83,4369.25],
+      [1947.24,2803.45,3546.60,4434.17],[1974.95,2937.63,3632.66,4542.83],[2001.21,3070.36,3719.45,4650.76],
+      [2034.75,3204.56,3853.65,4817.78],[2185.72,3273.11,3979.80,4976.03],[2228.02,3338.74,4104.52,5132.10],
+      [2268.13,3471.49,4238.72,5299.12],[2335.95,3605.68,4405.72,5507.70],[2402.33,3672.04,4585.86,5733.78],
+      [2536.51,3839.79,4792.25,5990.50],[2602.88,4073.16,4992.81,6242.10],[2669.25,4273.72,5242.96,6554.98],
+      [2737.08,4407.92,5506.97,6884.63],[2803.45,4542.10,5805.99,7258.76],[3009.11,4674.83,6140.74,7677.38],
+      [3070.36,4929.35,6482.05,8103.29],[3204.56,5075.95,6840.87,8552.54],[3230.81,5310.79,7206.25,9009.09],
+      [3324.89,5544.89,7615.39,9519.60],[3605.68,5611.26,7972.01,9966.67],[3672.04,5878.19,8354.17,10442.89],
+      [3806.23,6146.57,8732.68,10916.94],[3872.60,6347.13,9122.86,11404.12],[4005.34,6507.57,9505.02,11883.27],
+      [4674.83,6680.42,9967.39,12460.88],[4943.21,8017.96,10491.76,13116.53],[5075.95,9355.51,11102.92,13879.37],
+      [5210.15,10023.56,11708.97,14637.12],[5344.34,10691.59,12314.30,15393.41],[6012.38,11355.25,12996.92,16246.69],
+      [6243.57,11991.21,13834.89,17294.71],[6413.50,12552.78,14751.63,18441.18],[6547.68,12969.94,15733.27,19667.13],
+      [6680.42,13355.01,16722.20,20903.30],[8857.40,16943.91,17651.33,22065.08]
+    ]
+  };
+
+  const AREA1 = new Set(['Albania','Andorra','Austria','Belarus','Belgium','Bosnia and Herzegovina',
+    'Bulgaria','Croatia','Cyprus','Czech Republic','Denmark','Estonia','Faroe Islands','Finland',
+    'France','Germany','Gibraltar','Greece','Greenland','Guernsey','Holy See','Hungary','Iceland',
+    'Ireland','Isle of Man','Italy','Jersey','Kosovo','Latvia','Liechtenstein','Lithuania',
+    'Luxembourg','Macedonia','Malta','Moldova','Monaco','Montenegro','Netherlands','Norway',
+    'Poland','Portugal','Romania','San Marino','Serbia','Slovakia','Slovenia','Spain','Sweden',
+    'Switzerland','Turkey','Ukraine','United Kingdom']);
+
+  const AREA3 = new Set(['China','Hong Kong','Japan','Singapore']);
+
+  function getArea(country) {
+    if (AREA3.has(country)) return 3;
+    if (AREA1.has(country)) return 1;
+    return 2;
+  }
+
+  const AREA_LABELS = {
+    1: '🇪🇺 Area 1 — Europe',
+    2: '🌍 Area 2 — Rest of World',
+    3: '🌏 Area 3 — SG / HK / CN / JP'
+  };
+
+  function showQuoteResults(age, country) {
+    const area    = getArea(country);
+    const ageIdx  = Math.min(Math.max(parseInt(age), 0), 70);
+    const rates   = PREMIUMS[area][ageIdx];
+    const fmt     = v => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    document.getElementById('qr-area-badge').textContent = AREA_LABELS[area];
+    document.getElementById('qr-mm').textContent   = fmt(rates[0]);
+    document.getElementById('qr-std').textContent  = fmt(rates[1]);
+    document.getElementById('qr-comp').textContent = fmt(rates[2]);
+    document.getElementById('qr-full').textContent = fmt(rates[3]);
+
+    document.getElementById('form-state').style.display         = 'none';
+    document.getElementById('quote-results-state').style.display = 'block';
+    document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   const form      = document.getElementById('lead-form');
   const formState = document.getElementById('form-state');
   const tyState   = document.getElementById('thank-you-state');
@@ -2196,11 +2466,7 @@
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body:    body.toString()
     })
-    .then(() => {
-      formState.style.display = 'none';
-      tyState.style.display   = 'block';
-      document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    })
+    .then(() => { showQuoteResults(age, dest); })
     .catch(() => {
       alert('Something went wrong. Please try again or contact us directly.');
     });
