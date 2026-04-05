@@ -1,1 +1,1 @@
-# Expat Protect — International Health Insurance
+# Expat Covered — International Health Insurance
