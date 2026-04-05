@@ -1553,6 +1553,75 @@
       box-shadow: 0 1px 4px rgba(0,0,0,.1);
     }
 
+    /* ── PLAN SELECTOR (form) ──────────────────── */
+    .plan-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .5rem;
+    }
+
+    .plan-opt { position: relative; }
+
+    .plan-opt input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+
+    .plan-opt label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .3rem;
+      padding: .65rem .5rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: .76rem;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 600;
+      color: var(--warm-gray);
+      transition: all .18s;
+      background: var(--cream);
+      text-align: center;
+    }
+
+    .plan-opt input[type="radio"]:checked + label {
+      border-color: var(--gold);
+      background: var(--gold-pale);
+      color: var(--gold);
+    }
+
+    /* ── PLAN CARD SELECTED STATE ──────────────── */
+    .qr-plan.selected {
+      border-color: var(--gold);
+      background: var(--gold-pale);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(37,99,235,.15);
+      position: relative;
+    }
+
+    .qr-plan.selected::after {
+      content: '✓ Your Choice';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: var(--white);
+      font-size: .58rem;
+      font-weight: 800;
+      padding: .15rem .55rem;
+      border-radius: 20px;
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .qr-plan.selected .qr-plan-name { color: var(--gold); }
+    .qr-plan.selected .qr-plan-price { color: var(--gold); }
+
     /* ── HERO PHOTOS ───────────────────────────── */
     .hero-photos {
       display: flex;
@@ -1882,6 +1951,28 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label>Preferred Plan <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--warm-gray-lt)">(optional)</span></label>
+          <div class="plan-options">
+            <div class="plan-opt">
+              <input type="radio" id="plan-mm" name="preferred_plan" value="major-medical" />
+              <label for="plan-mm">Major Medical</label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="plan-std" name="preferred_plan" value="standard" />
+              <label for="plan-std">Standard</label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="plan-comp" name="preferred_plan" value="comprehensive" />
+              <label for="plan-comp">Comprehensive</label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="plan-full" name="preferred_plan" value="fully-comprehensive" />
+              <label for="plan-full">✦ Fully Comprehensive</label>
+            </div>
+          </div>
+        </div>
+
         <button type="submit" class="btn-submit">Get My Free Quote →</button>
       </form>
 
@@ -1904,22 +1995,22 @@
       </div>
 
       <div class="qr-plans">
-        <div class="qr-plan">
+        <div class="qr-plan" id="qr-card-major-medical">
           <div class="qr-plan-name">Major Medical</div>
           <div class="qr-plan-price" id="qr-mm">—</div>
           <div class="qr-plan-period qr-period">per year</div>
         </div>
-        <div class="qr-plan">
+        <div class="qr-plan" id="qr-card-standard">
           <div class="qr-plan-name">Standard</div>
           <div class="qr-plan-price" id="qr-std">—</div>
           <div class="qr-plan-period qr-period">per year</div>
         </div>
-        <div class="qr-plan">
+        <div class="qr-plan" id="qr-card-comprehensive">
           <div class="qr-plan-name">Comprehensive</div>
           <div class="qr-plan-price" id="qr-comp">—</div>
           <div class="qr-plan-period qr-period">per year</div>
         </div>
-        <div class="qr-plan best">
+        <div class="qr-plan" id="qr-card-fully-comprehensive">
           <div class="qr-plan-name">✦ Fully Comprehensive</div>
           <div class="qr-plan-price" id="qr-full">—</div>
           <div class="qr-plan-period qr-period">per year</div>
@@ -2472,13 +2563,20 @@
     btn.addEventListener('click', () => renderPrices(btn.dataset.freq));
   });
 
-  function showQuoteResults(age, country) {
+  function showQuoteResults(age, country, selectedPlan) {
     const area   = getArea(country);
     const ageIdx = Math.min(Math.max(parseInt(age), 0), 70);
     currentRates = PREMIUMS[area][ageIdx];
 
     document.getElementById('qr-area-badge').textContent = AREA_LABELS[area];
     renderPrices('annual');
+
+    // Highlight selected plan card
+    document.querySelectorAll('.qr-plan').forEach(el => el.classList.remove('selected'));
+    if (selectedPlan) {
+      const card = document.getElementById('qr-card-' + selectedPlan);
+      if (card) card.classList.add('selected');
+    }
 
     document.getElementById('form-state').style.display          = 'none';
     document.getElementById('quote-results-state').style.display = 'block';
@@ -2499,6 +2597,7 @@
     const dest  = document.getElementById('destination-country').value;
     const age   = document.getElementById('age').value;
     const covs  = [...document.querySelectorAll('input[name="coverage"]:checked')].map(i => i.value);
+    const plan  = document.querySelector('input[name="preferred_plan"]:checked')?.value || '';
 
     if (!name || !email || !phone || !curr || !dest || !age) {
       alert('Please fill in all required fields.');
@@ -2523,7 +2622,8 @@
       'current_country':  curr,
       'destination_country': dest,
       'age':              age,
-      'coverage':         covs.join(', ')
+      'coverage':         covs.join(', '),
+      'preferred_plan':   plan
     });
 
     fetch('/', {
@@ -2531,7 +2631,7 @@
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body:    body.toString()
     })
-    .then(() => { showQuoteResults(age, dest); })
+    .then(() => { showQuoteResults(age, dest, plan); })
     .catch(() => {
       alert('Something went wrong. Please try again or contact us directly.');
     });
