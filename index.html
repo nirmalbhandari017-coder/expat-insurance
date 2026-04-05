@@ -1521,6 +1521,38 @@
       line-height: 1.6;
     }
 
+    .qr-freq {
+      display: flex;
+      background: var(--cream-2);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 2px;
+      margin-bottom: 1.1rem;
+    }
+
+    .qr-freq-btn {
+      flex: 1;
+      padding: .42rem .2rem;
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      border: none;
+      background: transparent;
+      border-radius: 7px;
+      cursor: pointer;
+      color: var(--warm-gray);
+      transition: background .18s, color .18s, box-shadow .18s;
+      font-family: var(--font);
+      white-space: nowrap;
+    }
+
+    .qr-freq-btn.active {
+      background: var(--white);
+      color: var(--gold);
+      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+    }
+
     /* ── HERO PHOTOS ───────────────────────────── */
     .hero-photos {
       display: flex;
@@ -1860,34 +1892,42 @@
     <div class="quote-results" id="quote-results-state">
       <div class="qr-header">
         <div class="qr-area-badge" id="qr-area-badge">📍 Area 1 — Europe</div>
-        <h2>Your Estimated Annual Premium</h2>
+        <h2>Your <span id="qr-freq-label">Annual</span> Premium</h2>
         <p>All prices in USD · Cover is Worldwide excl. USA</p>
       </div>
+
+      <div class="qr-freq">
+        <button class="qr-freq-btn active" data-freq="annual">Annual</button>
+        <button class="qr-freq-btn" data-freq="semiannual">Semi-Annual</button>
+        <button class="qr-freq-btn" data-freq="quarterly">Quarterly</button>
+        <button class="qr-freq-btn" data-freq="monthly">Monthly</button>
+      </div>
+
       <div class="qr-plans">
         <div class="qr-plan">
           <div class="qr-plan-name">Major Medical</div>
           <div class="qr-plan-price" id="qr-mm">—</div>
-          <div class="qr-plan-period">per year</div>
+          <div class="qr-plan-period qr-period">per year</div>
         </div>
         <div class="qr-plan">
           <div class="qr-plan-name">Standard</div>
           <div class="qr-plan-price" id="qr-std">—</div>
-          <div class="qr-plan-period">per year</div>
+          <div class="qr-plan-period qr-period">per year</div>
         </div>
         <div class="qr-plan">
           <div class="qr-plan-name">Comprehensive</div>
           <div class="qr-plan-price" id="qr-comp">—</div>
-          <div class="qr-plan-period">per year</div>
+          <div class="qr-plan-period qr-period">per year</div>
         </div>
         <div class="qr-plan best">
           <div class="qr-plan-name">✦ Fully Comprehensive</div>
           <div class="qr-plan-price" id="qr-full">—</div>
-          <div class="qr-plan-period">per year</div>
+          <div class="qr-plan-period qr-period">per year</div>
         </div>
       </div>
       <div class="qr-disclaimer">
-        Includes 40% low claims discount. Final premium confirmed in your personalised quote.<br>
-        Premiums are annual. Monthly payment options available.
+        Includes 40% low claims discount. Surcharges: semi-annual +8%, quarterly +12%, monthly +16%.<br>
+        Final premium confirmed in your personalised quote.
       </div>
       <div class="qr-followup">
         <div class="ty-check">✓</div>
@@ -2403,19 +2443,44 @@
     3: '🌏 Area 3 — SG / HK / CN / JP'
   };
 
+  const FREQ = {
+    annual:     { label: 'Annual',      period: 'per year',        divisor: 1,  multiplier: 1.00 },
+    semiannual: { label: 'Semi-Annual', period: 'per 6 months',    divisor: 2,  multiplier: 1.08 },
+    quarterly:  { label: 'Quarterly',   period: 'per quarter',     divisor: 4,  multiplier: 1.12 },
+    monthly:    { label: 'Monthly',     period: 'per month',       divisor: 12, multiplier: 1.16 }
+  };
+
+  let currentRates = null;
+
+  function renderPrices(freq) {
+    if (!currentRates) return;
+    const { divisor, multiplier, label, period } = FREQ[freq];
+    const fmt = v => '$' + (v * multiplier / divisor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    document.getElementById('qr-mm').textContent   = fmt(currentRates[0]);
+    document.getElementById('qr-std').textContent  = fmt(currentRates[1]);
+    document.getElementById('qr-comp').textContent = fmt(currentRates[2]);
+    document.getElementById('qr-full').textContent = fmt(currentRates[3]);
+    document.getElementById('qr-freq-label').textContent = label;
+    document.querySelectorAll('.qr-period').forEach(el => el.textContent = period);
+    document.querySelectorAll('.qr-freq-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.freq === freq);
+    });
+  }
+
+  document.querySelectorAll('.qr-freq-btn').forEach(btn => {
+    btn.addEventListener('click', () => renderPrices(btn.dataset.freq));
+  });
+
   function showQuoteResults(age, country) {
-    const area    = getArea(country);
-    const ageIdx  = Math.min(Math.max(parseInt(age), 0), 70);
-    const rates   = PREMIUMS[area][ageIdx];
-    const fmt     = v => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const area   = getArea(country);
+    const ageIdx = Math.min(Math.max(parseInt(age), 0), 70);
+    currentRates = PREMIUMS[area][ageIdx];
 
     document.getElementById('qr-area-badge').textContent = AREA_LABELS[area];
-    document.getElementById('qr-mm').textContent   = fmt(rates[0]);
-    document.getElementById('qr-std').textContent  = fmt(rates[1]);
-    document.getElementById('qr-comp').textContent = fmt(rates[2]);
-    document.getElementById('qr-full').textContent = fmt(rates[3]);
+    renderPrices('annual');
 
-    document.getElementById('form-state').style.display         = 'none';
+    document.getElementById('form-state').style.display          = 'none';
     document.getElementById('quote-results-state').style.display = 'block';
     document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
