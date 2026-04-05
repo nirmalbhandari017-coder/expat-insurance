@@ -1975,6 +1975,28 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label>Payment Frequency</label>
+          <div class="plan-options">
+            <div class="plan-opt">
+              <input type="radio" id="freq-annual" name="payment_frequency" value="annual" checked />
+              <label for="freq-annual">Annual<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">Best value</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="freq-semi" name="payment_frequency" value="semiannual" />
+              <label for="freq-semi">Semi-Annual<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">+8% surcharge</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="freq-quarterly" name="payment_frequency" value="quarterly" />
+              <label for="freq-quarterly">Quarterly<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">+12% surcharge</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="freq-monthly" name="payment_frequency" value="monthly" />
+              <label for="freq-monthly">Monthly<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">+16% surcharge</span></label>
+            </div>
+          </div>
+        </div>
+
         <button type="submit" class="btn-submit">Get My Free Quote →</button>
       </form>
 
@@ -2565,13 +2587,13 @@
     btn.addEventListener('click', () => renderPrices(btn.dataset.freq));
   });
 
-  function showQuoteResults(age, country, selectedPlan) {
+  function showQuoteResults(age, country, selectedPlan, freq) {
     const area   = getArea(country);
     const ageIdx = Math.min(Math.max(parseInt(age), 0), 70);
     currentRates = PREMIUMS[area][ageIdx];
 
     document.getElementById('qr-area-badge').textContent = AREA_LABELS[area];
-    renderPrices('annual');
+    renderPrices(freq || 'annual');
 
     // Highlight selected plan card
     document.querySelectorAll('.qr-plan').forEach(el => el.classList.remove('selected'));
@@ -2600,6 +2622,7 @@
     const age   = document.getElementById('age').value;
     const covs  = [...document.querySelectorAll('input[name="coverage"]:checked')].map(i => i.value);
     const plan  = document.querySelector('input[name="preferred_plan"]:checked')?.value || '';
+    const freq  = document.querySelector('input[name="payment_frequency"]:checked')?.value || 'annual';
 
     if (!name || !email || !phone || !curr || !dest || !age) {
       alert('Please fill in all required fields.');
@@ -2625,7 +2648,8 @@
       'destination_country': dest,
       'age':              age,
       'coverage':         covs.join(', '),
-      'preferred_plan':   plan
+      'preferred_plan':   plan,
+      'payment_frequency': freq
     });
 
     fetch('/', {
@@ -2634,12 +2658,13 @@
       body:    body.toString()
     })
     .then(() => {
-      showQuoteResults(age, dest, plan);
+      showQuoteResults(age, dest, plan, freq);
 
       const area    = getArea(dest);
       const ageIdx  = Math.min(Math.max(parseInt(age), 0), 70);
       const rates   = PREMIUMS[area][ageIdx];
-      const fmt     = v => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const { multiplier, divisor, label: freqLabel, period } = FREQ[freq];
+      const fmt     = v => '$' + (v * multiplier / divisor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       const planNames = {
         'major-medical':       'Major Medical',
@@ -2648,6 +2673,11 @@
         'fully-comprehensive': 'Fully Comprehensive'
       };
 
+      const HL  = 'background:#EFF6FF;border:2px solid #2563EB;';
+      const NM  = 'background:#F5F8FC;border:1.5px solid #CBD5E1;';
+      const HLC = '#2563EB';
+      const NMC = '#0B1A33';
+
       emailjs.send('service_4ogp62g', 'template_1jlezu6', {
         to_name:        name,
         to_email:       email,
@@ -2655,10 +2685,20 @@
         age:            age,
         area:           AREA_LABELS[area],
         preferred_plan: planNames[plan] || 'Not specified',
+        frequency:      freqLabel,
+        period:         period,
         price_mm:       fmt(rates[0]),
         price_std:      fmt(rates[1]),
         price_comp:     fmt(rates[2]),
-        price_full:     fmt(rates[3])
+        price_full:     fmt(rates[3]),
+        style_mm:       plan === 'major-medical'       ? HL : NM,
+        style_std:      plan === 'standard'            ? HL : NM,
+        style_comp:     plan === 'comprehensive'       ? HL : NM,
+        style_full:     plan === 'fully-comprehensive' ? HL : NM,
+        color_mm:       plan === 'major-medical'       ? HLC : NMC,
+        color_std:      plan === 'standard'            ? HLC : NMC,
+        color_comp:     plan === 'comprehensive'       ? HLC : NMC,
+        color_full:     plan === 'fully-comprehensive' ? HLC : NMC,
       });
     })
     .catch(() => {
