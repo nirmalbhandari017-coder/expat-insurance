@@ -741,6 +741,30 @@
       gap: .35rem;
     }
 
+    .ages-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: .6rem;
+    }
+
+    .ages-container .age-field {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+
+    .ages-container .age-field .age-sublabel {
+      font-size: .7rem;
+      font-weight: 600;
+      color: var(--warm-gray);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    @media (max-width: 520px) {
+      .ages-container { grid-template-columns: 1fr; }
+    }
+
     /* ── THANK YOU STATE ───────────────────────── */
     .thank-you {
       display: none;
@@ -2211,6 +2235,13 @@
         <input type="hidden" name="form-name" value="expat-quote" />
         <input type="hidden" id="hidden-num-people" name="num_people" />
         <input type="hidden" id="hidden-destination" name="destination_country" />
+        <input type="hidden" name="ages" />
+        <input type="hidden" name="age" />
+        <input type="hidden" name="age_1" />
+        <input type="hidden" name="age_2" />
+        <input type="hidden" name="age_3" />
+        <input type="hidden" name="age_4" />
+        <input type="hidden" name="age_5" />
         <p style="display:none"><input name="bot-field" /></p>
 
         <div class="form-group">
@@ -2236,9 +2267,9 @@
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="age">Your Age</label>
-          <input type="number" id="age" name="age" placeholder="e.g. 34" min="18" max="99" required />
+        <div class="form-group" id="ages-group">
+          <label id="ages-label">Your Age</label>
+          <div id="ages-container" class="ages-container"></div>
         </div>
 
         <div class="form-group">
@@ -2970,6 +3001,45 @@
   populateSelect('destination-country');
 
   // ── Step navigation ─────────────────────────────────────────────────────
+  function renderAgeInputs(numPeople) {
+    const container = document.getElementById('ages-container');
+    const label     = document.getElementById('ages-label');
+    container.innerHTML = '';
+
+    // Parse count: "5+" becomes 5
+    const count = numPeople === '5+' ? 5 : parseInt(numPeople, 10) || 1;
+
+    // Labels for each person
+    const personLabels = count === 1
+      ? ['Your Age']
+      : count === 2
+        ? ['Person 1', 'Person 2']
+        : Array.from({ length: count }, (_, i) => 'Person ' + (i + 1));
+
+    label.textContent = count === 1
+      ? 'Your Age'
+      : 'Ages of All ' + count + ' People';
+
+    personLabels.forEach((l, i) => {
+      const field = document.createElement('div');
+      field.className = 'age-field';
+      const sub = document.createElement('span');
+      sub.className = 'age-sublabel';
+      sub.textContent = l;
+      const input = document.createElement('input');
+      input.type = 'number';
+      input.name = 'age_' + (i + 1);
+      input.id = 'age-' + (i + 1);
+      input.placeholder = 'e.g. 34';
+      input.min = '0';
+      input.max = '99';
+      input.required = true;
+      field.appendChild(sub);
+      field.appendChild(input);
+      container.appendChild(field);
+    });
+  }
+
   document.getElementById('btn-next-step').addEventListener('click', function() {
     const numPeople = document.getElementById('num-people').value;
     const dest = document.getElementById('destination-country').value;
@@ -2982,6 +3052,9 @@
     // Pass values to step 2 hidden fields
     document.getElementById('hidden-num-people').value = numPeople;
     document.getElementById('hidden-destination').value = dest;
+
+    // Build dynamic age inputs based on people count
+    renderAgeInputs(numPeople);
 
     document.getElementById('form-step1').style.display = 'none';
     document.getElementById('form-step2').style.display = 'block';
@@ -3162,13 +3235,15 @@
     const curr  = document.getElementById('current-country').value;
     const dest  = document.getElementById('hidden-destination').value;
     const numPeople = document.getElementById('hidden-num-people').value;
-    const age   = document.getElementById('age').value;
+    const ageInputs = [...document.querySelectorAll('#ages-container input[type="number"]')];
+    const ages  = ageInputs.map(i => i.value.trim()).filter(v => v !== '');
+    const age   = ages.length ? Math.max(...ages.map(v => parseInt(v, 10) || 0)).toString() : '';
     const covs  = [...document.querySelectorAll('input[name="coverage"]:checked')].map(i => i.value);
     const plan  = document.querySelector('input[name="preferred_plan"]:checked')?.value || '';
     const freq  = document.querySelector('input[name="payment_frequency"]:checked')?.value || 'annual';
 
-    if (!name || !email || !phone || !curr || !age) {
-      alert('Please fill in all required fields.');
+    if (!name || !email || !phone || !curr || ages.length !== ageInputs.length) {
+      alert('Please fill in all required fields, including the age for each person.');
       return;
     }
 
@@ -3191,10 +3266,12 @@
       'destination_country': dest,
       'num_people':       numPeople,
       'age':              age,
+      'ages':             ages.join(', '),
       'coverage':         covs.join(', '),
       'preferred_plan':   plan,
       'payment_frequency': freq
     });
+    ages.forEach((a, i) => body.append('age_' + (i + 1), a));
 
     fetch('/', {
       method:  'POST',
@@ -3231,6 +3308,8 @@
         to_email:       email,
         destination:    dest,
         age:            age,
+        ages:           ages.join(', '),
+        num_people:     numPeople,
         area:           AREA_LABELS[area],
         preferred_plan: planNames[plan] || 'Not specified',
         frequency:      freqLabel,
