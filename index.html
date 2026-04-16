@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Expat Protect Hub — International Health &amp; Life Insurance</title>
+  <title>Expat Protect Hub — Teal Edition &amp; Life Insurance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,22 +13,22 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green:        #1A3C34;
-      --green-dark:   #0F2418;
-      --green-mid:    #2D6A4F;
-      --coral:        #E07A5F;
-      --coral-dark:   #C4613E;
-      --coral-pale:   #FDF0EC;
-      --cream:        #FDF8F4;
-      --cream-2:      #F7F0E8;
-      --cream-3:      #EDE4D8;
-      --peach:        #FEF3E2;
-      --sage:         #6BCB8B;
-      --sage-dark:    #3DA463;
+      --green:        #1B263B;
+      --green-dark:   #0F1620;
+      --green-mid:    #2A3F5F;
+      --coral:        #0FB9B1;
+      --coral-dark:   #0B6E6B;
+      --coral-pale:   #E6F7F6;
+      --cream:        #F8F9FA;
+      --cream-2:      #F0F2F4;
+      --cream-3:      #E4E7EB;
+      --peach:        #E6F7F6;
+      --sage:         #3DD6CE;
+      --sage-dark:    #0FB9B1;
       --yellow:       #E9B949;
-      --warm-gray:    #7A7068;
-      --warm-gray-lt: #A89F96;
-      --border:       #E5DDD3;
+      --warm-gray:    #6B7280;
+      --warm-gray-lt: #9CA3AF;
+      --border:       #DDE1E6;
       --white:        #FFFFFF;
       --radius:       14px;
       --font-serif:   'DM Serif Display', Georgia, serif;
@@ -40,7 +40,7 @@
     body {
       font-family: var(--font);
       background: var(--cream);
-      color: #3D3530;
+      color: #2D3748;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -58,7 +58,7 @@
       z-index: 100;
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(12px);
-      background: rgba(253,248,244,.92);
+      background: rgba(248,249,250,.92);
     }
 
     .logo {
@@ -203,7 +203,7 @@
 
     .hero-badge .dot.green { background: var(--sage); box-shadow: 0 0 6px rgba(107,203,139,.6); }
     .hero-badge .dot.yellow { background: var(--yellow); box-shadow: 0 0 6px rgba(233,185,73,.6); }
-    .hero-badge .dot.coral { background: var(--coral); box-shadow: 0 0 6px rgba(224,122,95,.6); }
+    .hero-badge .dot.coral { background: var(--coral); box-shadow: 0 0 6px rgba(15,185,177,.6); }
 
     .hero-cta {
       display: inline-flex;
@@ -217,13 +217,13 @@
       text-decoration: none;
       font-size: .95rem;
       font-family: var(--font);
-      box-shadow: 0 4px 20px rgba(224,122,95,.35);
+      box-shadow: 0 4px 20px rgba(15,185,177,.35);
       transition: transform .2s, box-shadow .2s, background .2s;
     }
 
     .hero-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(224,122,95,.45);
+      box-shadow: 0 8px 30px rgba(15,185,177,.45);
       background: var(--coral-dark);
     }
 
@@ -259,7 +259,7 @@
       height: 460px;
       border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 20px 60px rgba(26,60,52,.12);
+      box-shadow: 0 20px 60px rgba(27,38,59,.12);
     }
 
     .hero-img img {
@@ -299,7 +299,7 @@
       flex-shrink: 0;
     }
 
-    .hfb-icon.green { background: #E8F5EC; color: var(--sage-dark); }
+    .hfb-icon.green { background: #E6F7F6; color: var(--sage-dark); }
     .hfb-icon.coral { background: var(--coral-pale); color: var(--coral); }
 
     .hfb-text { font-size: .8rem; font-weight: 700; color: var(--green); line-height: 1.2; }
@@ -414,8 +414,9 @@
 
     .cat-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.75rem;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 1rem;
       margin-top: 3rem;
     }
 
@@ -427,8 +428,26 @@
     }
 
     .cat-card:hover {
-      box-shadow: 0 12px 40px rgba(26,60,52,.08);
+      box-shadow: 0 12px 40px rgba(27,38,59,.08);
       transform: translateY(-4px);
+    }
+
+    .step-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coral);
+      font-size: 1.8rem;
+      font-weight: 300;
+      line-height: 1;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .step-arrow svg {
+      width: 32px;
+      height: 32px;
+      stroke: var(--coral);
     }
 
     .cat-icon {
@@ -440,10 +459,10 @@
       margin: 0 auto .95rem;
     }
 
-    .cat-icon.green  { background: #E8F5EC; }
+    .cat-icon.green  { background: #E6F7F6; }
     .cat-icon.peach  { background: var(--coral-pale); }
     .cat-icon.cream  { background: var(--peach); }
-    .cat-icon.blue   { background: #EBF0F7; }
+    .cat-icon.blue   { background: #E6F7F6; }
 
     .step-num {
       font-family: var(--font-serif);
@@ -501,7 +520,7 @@
       border: 1px solid var(--border);
       border-radius: 22px;
       padding: 2.5rem 2.25rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,.03), 0 20px 60px rgba(26,60,52,.08);
+      box-shadow: 0 2px 8px rgba(0,0,0,.03), 0 20px 60px rgba(27,38,59,.08);
     }
 
     /* Step indicator */
@@ -578,7 +597,7 @@
       gap: .35rem;
       background: var(--coral-pale);
       color: var(--coral);
-      border: 1px solid rgba(224,122,95,.25);
+      border: 1px solid rgba(15,185,177,.25);
       font-size: .72rem;
       font-weight: 800;
       padding: .3rem .95rem;
@@ -622,7 +641,7 @@
       border-radius: 10px;
       font-size: .92rem;
       font-family: var(--font);
-      color: #3D3530;
+      color: #2D3748;
       background: var(--cream);
       transition: border-color .18s, box-shadow .18s;
       outline: none;
@@ -640,7 +659,7 @@
 
     input:focus, select:focus {
       border-color: var(--coral);
-      box-shadow: 0 0 0 3.5px rgba(224,122,95,.12);
+      box-shadow: 0 0 0 3.5px rgba(15,185,177,.12);
       background: var(--white);
     }
 
@@ -700,13 +719,13 @@
       letter-spacing: -.1px;
       margin-top: .5rem;
       transition: opacity .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(224,122,95,.3);
+      box-shadow: 0 4px 20px rgba(15,185,177,.3);
     }
 
     .btn-submit:hover {
       opacity: .9;
       transform: translateY(-1px);
-      box-shadow: 0 8px 30px rgba(224,122,95,.45);
+      box-shadow: 0 8px 30px rgba(15,185,177,.45);
     }
 
     .btn-submit:active { transform: translateY(0); }
@@ -738,7 +757,7 @@
       justify-content: center;
       font-size: 2rem;
       margin: 0 auto 1.4rem;
-      box-shadow: 0 0 0 14px #E8F5EC;
+      box-shadow: 0 0 0 14px #E6F7F6;
       color: var(--white);
     }
 
@@ -809,7 +828,7 @@
       border-radius: 20px;
       overflow: hidden;
       height: 420px;
-      box-shadow: 0 16px 50px rgba(26,60,52,.1);
+      box-shadow: 0 16px 50px rgba(27,38,59,.1);
     }
 
     .features-img img {
@@ -888,7 +907,7 @@
       background: var(--white);
       border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(26,60,52,.04), 0 14px 44px rgba(26,60,52,.06);
+      box-shadow: 0 2px 8px rgba(27,38,59,.04), 0 14px 44px rgba(27,38,59,.06);
     }
 
     .comp-table thead th {
@@ -967,7 +986,7 @@
       background: var(--coral);
       color: var(--white);
       border: none;
-      box-shadow: 0 3px 14px rgba(224,122,95,.3);
+      box-shadow: 0 3px 14px rgba(15,185,177,.3);
     }
 
     .comp-cta.primary:hover { opacity: .9; transform: translateY(-1px); }
@@ -1018,7 +1037,7 @@
     }
 
     .review-card:hover {
-      box-shadow: 0 12px 40px rgba(26,60,52,.07);
+      box-shadow: 0 12px 40px rgba(27,38,59,.07);
       transform: translateY(-3px);
     }
 
@@ -1096,7 +1115,7 @@
     }
 
     .blog-card:hover {
-      box-shadow: 0 12px 40px rgba(26,60,52,.08);
+      box-shadow: 0 12px 40px rgba(27,38,59,.08);
       transform: translateY(-3px);
     }
 
@@ -1337,7 +1356,8 @@
       .coverage-grid { grid-template-columns: 1fr 1fr; }
       .blog-grid { grid-template-columns: repeat(2, 1fr); }
       .reviews-grid { grid-template-columns: repeat(2, 1fr); }
-      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+      .cat-grid .step-arrow { display: none; }
       .comparison-inner {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -1379,6 +1399,7 @@
       .testimonials-header h2 { font-size: 1.45rem; }
       .categories { padding: 4rem 1.25rem; }
       .cat-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .cat-grid .step-arrow { display: none; }
       .cat-icon { width: 56px; height: 56px; font-size: 1.35rem; }
       .features-section { padding: 4rem 1.25rem; }
       .features-inner { gap: 2rem; }
@@ -1410,7 +1431,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 28px rgba(224,122,95,.45);
+      box-shadow: 0 6px 28px rgba(15,185,177,.45);
       transition: transform .25s, box-shadow .25s;
       flex-shrink: 0;
       position: relative;
@@ -1418,7 +1439,7 @@
 
     .chat-toggle:hover {
       transform: scale(1.07);
-      box-shadow: 0 10px 36px rgba(224,122,95,.6);
+      box-shadow: 0 10px 36px rgba(15,185,177,.6);
     }
 
     .chat-toggle svg {
@@ -1455,7 +1476,7 @@
       background: var(--white);
       border-radius: 20px;
       border: 1px solid var(--border);
-      box-shadow: 0 8px 40px rgba(26,60,52,.15), 0 2px 8px rgba(0,0,0,.05);
+      box-shadow: 0 8px 40px rgba(27,38,59,.15), 0 2px 8px rgba(0,0,0,.05);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -1569,7 +1590,7 @@
 
     .msg.bot .msg-bubble {
       background: var(--cream);
-      color: #3D3530;
+      color: #2D3748;
       border-bottom-left-radius: 4px;
       border: 1px solid var(--border);
     }
@@ -1658,7 +1679,7 @@
       padding: .58rem 1rem;
       font-size: .875rem;
       font-family: var(--font);
-      color: #3D3530;
+      color: #2D3748;
       background: var(--cream);
       outline: none;
       transition: border-color .18s;
@@ -1677,11 +1698,11 @@
       display: grid;
       place-items: center;
       flex-shrink: 0;
-      box-shadow: 0 2px 10px rgba(224,122,95,.3);
+      box-shadow: 0 2px 10px rgba(15,185,177,.3);
       transition: transform .18s, box-shadow .18s;
     }
 
-    .chat-send:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(224,122,95,.45); }
+    .chat-send:hover { transform: scale(1.08); box-shadow: 0 4px 16px rgba(15,185,177,.45); }
     .chat-send svg { width: 16px; height: 16px; fill: var(--white); }
 
     @media (max-width: 420px) {
@@ -1698,7 +1719,7 @@
       gap: .4rem;
       background: var(--coral-pale);
       color: var(--coral);
-      border: 1px solid rgba(224,122,95,.2);
+      border: 1px solid rgba(15,185,177,.2);
       font-size: .68rem;
       font-weight: 700;
       padding: .25rem .85rem;
@@ -1951,7 +1972,7 @@
       border-color: var(--coral);
       background: var(--coral-pale);
       transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(224,122,95,.15);
+      box-shadow: 0 4px 16px rgba(15,185,177,.15);
       position: relative;
     }
 
@@ -2033,7 +2054,7 @@
 
     <div class="hero-visual">
       <div class="hero-img">
-        <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=800&h=600&fit=crop&auto=format&q=80" alt="Happy family with international insurance coverage">
+        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&h=600&fit=crop&auto=format&q=80" alt="Happy family with international insurance coverage">
       </div>
       <div class="hero-float-badge top-right">
         <div class="hfb-icon green">✓</div>
@@ -2102,15 +2123,24 @@
         <h3>Create a Quote</h3>
         <p>Tell us who needs to be covered and where you're moving to.</p>
       </div>
+      <div class="step-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </div>
       <div class="cat-card">
         <div class="cat-icon peach"><span class="step-num">2</span></div>
         <h3>Compare Plans</h3>
         <p>Compare our plans and select the coverage that suits you best.</p>
       </div>
+      <div class="step-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </div>
       <div class="cat-card">
         <div class="cat-icon cream"><span class="step-num">3</span></div>
         <h3>Apply Online</h3>
         <p>Apply for your coverage online — quick, easy and paperless.</p>
+      </div>
+      <div class="step-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
       </div>
       <div class="cat-card">
         <div class="cat-icon blue"><span class="step-num">4</span></div>
@@ -2161,7 +2191,6 @@
       </div>
 
       <button type="button" class="btn-submit" id="btn-next-step">Next Step →</button>
-      <p class="form-footnote">🔒 Your data is secure. We never share or sell your information.</p>
     </div>
 
     <!-- STEP 2: Full Details -->
@@ -2279,8 +2308,6 @@
           <button type="submit" class="btn-submit" style="flex:1;">Get My Free Quote →</button>
         </div>
       </form>
-
-      <p class="form-footnote">🔒 Your data is secure. We never share or sell your information.</p>
     </div>
 
     <!-- QUOTE RESULTS STATE -->
@@ -3190,14 +3217,14 @@
         'fully-comprehensive': 'Fully Comprehensive'
       };
 
-      const HL    = 'background:#FDF0EC;border:2px solid #E07A5F;';
+      const HL    = 'background:#E6F7F6;border:2px solid #0FB9B1;';
       const NM    = 'background:#FDF8F4;border:1.5px solid #E5DDD3;';
-      const HLC   = '#E07A5F';
-      const NMC   = '#1A3C34';
-      const HLBG  = '#FDF0EC';
+      const HLC   = '#0FB9B1';
+      const NMC   = '#1B263B';
+      const HLBG  = '#E6F7F6';
       const NMBG  = '#FFFFFF';
-      const HLHDR = 'background:#E07A5F;color:#ffffff;font-weight:700;padding:10px 8px;text-align:center;font-size:12px;border-radius:6px 6px 0 0;';
-      const NMHDR = 'background:#1A3C34;color:#ffffff;font-weight:700;padding:10px 8px;text-align:center;font-size:12px;border-radius:6px 6px 0 0;';
+      const HLHDR = 'background:#0FB9B1;color:#ffffff;font-weight:700;padding:10px 8px;text-align:center;font-size:12px;border-radius:6px 6px 0 0;';
+      const NMHDR = 'background:#1B263B;color:#ffffff;font-weight:700;padding:10px 8px;text-align:center;font-size:12px;border-radius:6px 6px 0 0;';
 
       emailjs.send('service_4ogp62g', 'template_1jlezu6', {
         to_name:        name,
