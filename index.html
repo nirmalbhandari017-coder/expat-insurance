@@ -1982,6 +1982,44 @@
     .cmp-fc .cmp-yes { color: var(--coral); }
     .cmp-fc .cmp-val { color: var(--coral); }
 
+    /* Dynamic column highlight — overrides default Fully-Comp highlight when
+       another plan is selected, then paints the selected column coral. */
+    .qr-compare[data-hl]:not([data-hl="fully-comprehensive"]) thead th.cmp-fc {
+      background: var(--green);
+    }
+    .qr-compare[data-hl]:not([data-hl="fully-comprehensive"]) tbody td.cmp-fc {
+      background: transparent;
+      color: var(--green);
+      font-weight: 400;
+    }
+    .qr-compare[data-hl]:not([data-hl="fully-comprehensive"]) tbody td.cmp-fc .cmp-yes { color: var(--sage-dark); }
+    .qr-compare[data-hl]:not([data-hl="fully-comprehensive"]) tbody td.cmp-fc .cmp-val { color: var(--green); }
+
+    .qr-compare[data-hl="major-medical"]       thead th:nth-child(2),
+    .qr-compare[data-hl="standard"]            thead th:nth-child(3),
+    .qr-compare[data-hl="comprehensive"]       thead th:nth-child(4),
+    .qr-compare[data-hl="fully-comprehensive"] thead th:nth-child(5) {
+      background: var(--coral);
+    }
+    .qr-compare[data-hl="major-medical"]       tbody tr:not(.cmp-section) td:nth-child(2),
+    .qr-compare[data-hl="standard"]            tbody tr:not(.cmp-section) td:nth-child(3),
+    .qr-compare[data-hl="comprehensive"]       tbody tr:not(.cmp-section) td:nth-child(4),
+    .qr-compare[data-hl="fully-comprehensive"] tbody tr:not(.cmp-section) td:nth-child(5) {
+      background: var(--coral-pale);
+      color: var(--coral);
+      font-weight: 600;
+    }
+    .qr-compare[data-hl="major-medical"]       tbody tr:not(.cmp-section) td:nth-child(2) .cmp-yes,
+    .qr-compare[data-hl="standard"]            tbody tr:not(.cmp-section) td:nth-child(3) .cmp-yes,
+    .qr-compare[data-hl="comprehensive"]       tbody tr:not(.cmp-section) td:nth-child(4) .cmp-yes,
+    .qr-compare[data-hl="fully-comprehensive"] tbody tr:not(.cmp-section) td:nth-child(5) .cmp-yes,
+    .qr-compare[data-hl="major-medical"]       tbody tr:not(.cmp-section) td:nth-child(2) .cmp-val,
+    .qr-compare[data-hl="standard"]            tbody tr:not(.cmp-section) td:nth-child(3) .cmp-val,
+    .qr-compare[data-hl="comprehensive"]       tbody tr:not(.cmp-section) td:nth-child(4) .cmp-val,
+    .qr-compare[data-hl="fully-comprehensive"] tbody tr:not(.cmp-section) td:nth-child(5) .cmp-val {
+      color: var(--coral);
+    }
+
     .qr-freq {
       display: flex;
       background: var(--cream-2);
@@ -2413,7 +2451,7 @@
           <div class="qr-plan-period qr-period">per year</div>
         </div>
       </div>
-      <div class="qr-compare">
+      <div class="qr-compare" id="qr-compare">
         <table>
           <thead>
             <tr>
@@ -3171,6 +3209,10 @@
     document.querySelectorAll('.qr-plan').forEach(el => el.classList.remove('selected'));
     const card = document.getElementById('qr-card-' + planToHighlight);
     if (card) card.classList.add('selected');
+
+    // Mirror the selected plan onto the comparison table column
+    const cmp = document.getElementById('qr-compare');
+    if (cmp) cmp.setAttribute('data-hl', planToHighlight);
 
     document.getElementById('form-step1').style.display           = 'none';
     document.getElementById('form-step2').style.display           = 'none';
