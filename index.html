@@ -2385,6 +2385,28 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <label>Payment Frequency</label>
+          <div class="plan-options">
+            <div class="plan-opt">
+              <input type="radio" id="freq-annual" name="payment_frequency" value="annual" checked />
+              <label for="freq-annual">Annual<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">Best value</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="freq-semi" name="payment_frequency" value="semiannual" />
+              <label for="freq-semi">Semi-Annual<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">+8% surcharge</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="freq-quarterly" name="payment_frequency" value="quarterly" />
+              <label for="freq-quarterly">Quarterly<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">+12% surcharge</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="freq-monthly" name="payment_frequency" value="monthly" />
+              <label for="freq-monthly">Monthly<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">+16% surcharge</span></label>
+            </div>
+          </div>
+        </div>
+
         <div style="display:flex;gap:.75rem;">
           <button type="button" class="btn-back" id="btn-back-step">← Back</button>
           <button type="submit" class="btn-submit" style="flex:1;">Get My Free Quote →</button>
@@ -2429,6 +2451,138 @@
           <div class="qr-plan-period qr-period">per year</div>
         </div>
       </div>
+      <div class="qr-compare" id="qr-compare">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Major Medical</th>
+              <th>Standard</th>
+              <th>Comprehensive</th>
+              <th class="cmp-fc">✦ Fully Comp.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cmp-section"><td colspan="5">Inpatient Cover</td></tr>
+            <tr>
+              <td>Annual Plan Limit</td>
+              <td><span class="cmp-val">US$1,000,000</span></td>
+              <td><span class="cmp-val">US$1,000,000</span></td>
+              <td><span class="cmp-val">US$1,000,000</span></td>
+              <td class="cmp-fc"><span class="cmp-val">US$2,000,000</span></td>
+            </tr>
+            <tr>
+              <td>Room &amp; Board</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Intensive Care (ICU)</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Theatre / X-rays / Lab Tests</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Oncology Cover</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Surgeon's Fees</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Local Ambulance</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr class="cmp-section"><td colspan="5">Outpatient Cover</td></tr>
+            <tr>
+              <td>Outpatient Treatment</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Parental Accommodation</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr class="cmp-section"><td colspan="5">Dental &amp; Wellbeing</td></tr>
+            <tr>
+              <td>Dental Cover</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Fitness &amp; Nutrition</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Chronic Condition Benefit</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Psychology &amp; Coaching</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr class="cmp-section"><td colspan="5">Additional Benefits</td></tr>
+            <tr>
+              <td>Terrorism Cover</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>24/7 Emergency Assistance</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Death Benefit</td>
+              <td><span class="cmp-val">US$10,000</span></td>
+              <td><span class="cmp-val">US$10,000</span></td>
+              <td><span class="cmp-val">US$10,000</span></td>
+              <td class="cmp-fc"><span class="cmp-val">US$10,000</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="qr-disclaimer">
         Indicative premium for <span id="qr-num-people">1</span> person(s) · Includes 40% low claims discount.<br>
         Final premium confirmed in your personalised quote.
