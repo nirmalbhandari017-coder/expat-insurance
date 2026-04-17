@@ -3166,8 +3166,8 @@
     document.getElementById('qr-num-people').textContent = count;
     renderPrices(freq || 'annual');
 
-    // Highlight the client's selected plan (fallback to comprehensive)
-    const planToHighlight = selectedPlan || 'comprehensive';
+    // Highlight the client's selected plan (fallback to major-medical)
+    const planToHighlight = selectedPlan || 'major-medical';
     document.querySelectorAll('.qr-plan').forEach(el => el.classList.remove('selected'));
     const card = document.getElementById('qr-card-' + planToHighlight);
     if (card) card.classList.add('selected');
@@ -3177,6 +3177,15 @@
     document.getElementById('quote-results-state').style.display  = 'block';
     document.querySelector('.main').classList.add('results-wide');
     document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function planFromCoverage(covs) {
+    const hasIn  = covs.includes('inpatient');
+    const hasOut = covs.includes('outpatient');
+    const hasDen = covs.includes('dental');
+    if (hasIn && hasOut && hasDen) return 'fully-comprehensive';
+    if (hasIn && hasOut)           return 'standard';
+    return 'major-medical';
   }
 
   const form      = document.getElementById('lead-form');
@@ -3236,7 +3245,8 @@
       body:    body.toString()
     })
     .then(() => {
-      showQuoteResults(age, dest, plan, freq, numPeople);
+      const highlightPlan = planFromCoverage(covs);
+      showQuoteResults(age, dest, highlightPlan, freq, numPeople);
 
       const area    = getArea(dest);
       const ageIdx  = Math.min(Math.max(parseInt(age), 0), 70);
@@ -3265,33 +3275,33 @@
         to_name:        name,
         to_email:       email,
         destination:    dest,
-        age:            age,
+        age:            ages.join(', '),
         ages:           ages.join(', '),
         num_people:     numPeople,
         area:           AREA_LABELS[area],
-        preferred_plan: planNames[plan] || 'Not specified',
+        preferred_plan: planNames[highlightPlan] || 'Not specified',
         frequency:      freqLabel,
         period:         period,
         price_mm:       fmt(rates[0]),
         price_std:      fmt(rates[1]),
         price_comp:     fmt(rates[2]),
         price_full:     fmt(rates[3]),
-        style_mm:       plan === 'major-medical'       ? HL : NM,
-        style_std:      plan === 'standard'            ? HL : NM,
-        style_comp:     plan === 'comprehensive'       ? HL : NM,
-        style_full:     plan === 'fully-comprehensive' ? HL : NM,
-        color_mm:       plan === 'major-medical'       ? HLC : NMC,
-        color_std:      plan === 'standard'            ? HLC : NMC,
-        color_comp:     plan === 'comprehensive'       ? HLC : NMC,
-        color_full:     plan === 'fully-comprehensive' ? HLC : NMC,
-        bg_mm:          plan === 'major-medical'       ? HLBG : NMBG,
-        bg_std:         plan === 'standard'            ? HLBG : NMBG,
-        bg_comp:        plan === 'comprehensive'       ? HLBG : NMBG,
-        bg_full:        plan === 'fully-comprehensive' ? HLBG : NMBG,
-        hdr_mm:         plan === 'major-medical'       ? HLHDR : NMHDR,
-        hdr_std:        plan === 'standard'            ? HLHDR : NMHDR,
-        hdr_comp:       plan === 'comprehensive'       ? HLHDR : NMHDR,
-        hdr_full:       plan === 'fully-comprehensive' ? HLHDR : NMHDR,
+        style_mm:       highlightPlan === 'major-medical'       ? HL : NM,
+        style_std:      highlightPlan === 'standard'            ? HL : NM,
+        style_comp:     highlightPlan === 'comprehensive'       ? HL : NM,
+        style_full:     highlightPlan === 'fully-comprehensive' ? HL : NM,
+        color_mm:       highlightPlan === 'major-medical'       ? HLC : NMC,
+        color_std:      highlightPlan === 'standard'            ? HLC : NMC,
+        color_comp:     highlightPlan === 'comprehensive'       ? HLC : NMC,
+        color_full:     highlightPlan === 'fully-comprehensive' ? HLC : NMC,
+        bg_mm:          highlightPlan === 'major-medical'       ? HLBG : NMBG,
+        bg_std:         highlightPlan === 'standard'            ? HLBG : NMBG,
+        bg_comp:        highlightPlan === 'comprehensive'       ? HLBG : NMBG,
+        bg_full:        highlightPlan === 'fully-comprehensive' ? HLBG : NMBG,
+        hdr_mm:         highlightPlan === 'major-medical'       ? HLHDR : NMHDR,
+        hdr_std:        highlightPlan === 'standard'            ? HLHDR : NMHDR,
+        hdr_comp:       highlightPlan === 'comprehensive'       ? HLHDR : NMHDR,
+        hdr_full:       highlightPlan === 'fully-comprehensive' ? HLHDR : NMHDR,
       });
     })
     .catch(() => {
