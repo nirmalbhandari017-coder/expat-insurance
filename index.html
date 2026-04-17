@@ -3240,7 +3240,8 @@
 
       const area    = getArea(dest);
       const ageIdx  = Math.min(Math.max(parseInt(age), 0), 70);
-      const rates   = PREMIUMS[area][ageIdx];
+      const pCount  = numPeople === '5+' ? 5 : (parseInt(numPeople, 10) || 1);
+      const rates   = PREMIUMS[area][ageIdx].map(r => r * pCount);
       const { multiplier, divisor, label: freqLabel, period } = FREQ[freq];
       const fmt     = v => '$' + (v * multiplier / divisor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
