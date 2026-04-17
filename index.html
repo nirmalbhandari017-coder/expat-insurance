@@ -1739,6 +1739,63 @@
     /* ── QUOTE RESULTS ─────────────────────────── */
     .quote-results { display: none; }
 
+    /* Expand container when quote results are visible */
+    .main.results-wide {
+      max-width: 940px;
+    }
+
+    .qr-compare {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+    }
+
+    .qr-compare table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+    }
+
+    .qr-compare th {
+      background: var(--green);
+      color: #fff;
+      padding: .6rem .75rem;
+      text-align: center;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+
+    .qr-compare th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+    .qr-compare th:last-child  { border-radius: 0 8px 0 0; background: var(--coral); }
+
+    .qr-compare td {
+      padding: .55rem .75rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+      color: var(--green);
+    }
+
+    .qr-compare td:first-child { text-align: left; color: var(--warm-gray); font-size: .8rem; }
+    .qr-compare td:last-child  { background: var(--coral-pale); }
+
+    .qr-compare tr:hover td   { background: var(--cream-2); }
+    .qr-compare tr:hover td:last-child { background: #D4F0EE; }
+
+    .cmp-section td {
+      background: var(--cream-2) !important;
+      font-weight: 700;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--warm-gray) !important;
+      padding: .4rem .75rem;
+    }
+
+    .cmp-fc   { background: var(--coral-pale); }
+    .cmp-yes  { color: var(--coral-dark); font-weight: 700; }
+    .cmp-no   { color: var(--warm-gray-lt); }
+    .cmp-val  { font-weight: 700; color: var(--green); }
+
     .qr-area-badge {
       display: inline-flex;
       align-items: center;
@@ -2127,12 +2184,6 @@
     </div>
     <div class="stat-circle">
       <div class="stat-circle-ring">
-        <div class="stat-circle-num">10K+</div>
-      </div>
-      <div class="stat-circle-label">Agents</div>
-    </div>
-    <div class="stat-circle">
-      <div class="stat-circle-ring">
         <div class="stat-circle-num">4</div>
       </div>
       <div class="stat-circle-label">Plan Tiers</div>
@@ -2297,28 +2348,6 @@
         </div>
 
         <div class="form-group">
-          <label>Preferred Plan <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--warm-gray-lt)">(optional)</span></label>
-          <div class="plan-options">
-            <div class="plan-opt">
-              <input type="radio" id="plan-mm" name="preferred_plan" value="major-medical" />
-              <label for="plan-mm">Major Medical</label>
-            </div>
-            <div class="plan-opt">
-              <input type="radio" id="plan-std" name="preferred_plan" value="standard" />
-              <label for="plan-std">Standard</label>
-            </div>
-            <div class="plan-opt">
-              <input type="radio" id="plan-comp" name="preferred_plan" value="comprehensive" />
-              <label for="plan-comp">Comprehensive</label>
-            </div>
-            <div class="plan-opt">
-              <input type="radio" id="plan-full" name="preferred_plan" value="fully-comprehensive" />
-              <label for="plan-full">✦ Fully Comprehensive</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
           <label>Payment Frequency</label>
           <div class="plan-options">
             <div class="plan-opt">
@@ -2384,6 +2413,138 @@
           <div class="qr-plan-period qr-period">per year</div>
         </div>
       </div>
+      <div class="qr-compare">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Major Medical</th>
+              <th>Standard</th>
+              <th>Comprehensive</th>
+              <th class="cmp-fc">✦ Fully Comp.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cmp-section"><td colspan="5">Inpatient Cover</td></tr>
+            <tr>
+              <td>Annual Plan Limit</td>
+              <td><span class="cmp-val">US$1,000,000</span></td>
+              <td><span class="cmp-val">US$1,000,000</span></td>
+              <td><span class="cmp-val">US$1,000,000</span></td>
+              <td class="cmp-fc"><span class="cmp-val">US$2,000,000</span></td>
+            </tr>
+            <tr>
+              <td>Room &amp; Board</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Intensive Care (ICU)</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Theatre / X-rays / Lab Tests</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Oncology Cover</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Surgeon's Fees</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Local Ambulance</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr class="cmp-section"><td colspan="5">Outpatient Cover</td></tr>
+            <tr>
+              <td>Outpatient Treatment</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Parental Accommodation</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr class="cmp-section"><td colspan="5">Dental &amp; Wellbeing</td></tr>
+            <tr>
+              <td>Dental Cover</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Fitness &amp; Nutrition</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Chronic Condition Benefit</td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-no">—</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Psychology &amp; Coaching</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr class="cmp-section"><td colspan="5">Additional Benefits</td></tr>
+            <tr>
+              <td>Terrorism Cover</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>24/7 Emergency Assistance</td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td class="cmp-fc"><span class="cmp-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Death Benefit</td>
+              <td><span class="cmp-val">US$10,000</span></td>
+              <td><span class="cmp-val">US$10,000</span></td>
+              <td><span class="cmp-val">US$10,000</span></td>
+              <td class="cmp-fc"><span class="cmp-val">US$10,000</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="qr-disclaimer">
         Indicative premium for <span id="qr-num-people">1</span> person(s) · Includes 40% low claims discount.<br>
         Final premium confirmed in your personalised quote.
@@ -2856,6 +3017,7 @@
   document.getElementById('btn-back-step').addEventListener('click', function() {
     document.getElementById('form-step2').style.display = 'none';
     document.getElementById('form-step1').style.display = 'block';
+    document.querySelector('.main').classList.remove('results-wide');
     document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
@@ -3013,6 +3175,7 @@
     document.getElementById('form-step1').style.display           = 'none';
     document.getElementById('form-step2').style.display           = 'none';
     document.getElementById('quote-results-state').style.display  = 'block';
+    document.querySelector('.main').classList.add('results-wide');
     document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
