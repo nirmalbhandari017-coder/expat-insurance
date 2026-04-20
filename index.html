@@ -1446,7 +1446,12 @@
       flex-direction: column;
       align-items: flex-end;
       gap: 1rem;
+      /* Container must not swallow clicks in its empty panel-area.
+         Children that should receive clicks re-enable pointer-events. */
+      pointer-events: none;
     }
+
+    .chat-widget .chat-toggle { pointer-events: auto; }
 
     .chat-toggle {
       width: 60px; height: 60px;
