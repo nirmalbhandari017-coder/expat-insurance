@@ -3075,12 +3075,23 @@
     btn.addEventListener('click', () => renderPrices(btn.dataset.freq));
   });
 
-  function showQuoteResults(age, country, selectedPlan, freq, numPeople) {
-    const area      = getArea(country);
-    const ageIdx    = Math.min(Math.max(parseInt(age), 0), 70);
-    const baseRates = PREMIUMS[area][ageIdx];
-    const count     = numPeople === '5+' ? 5 : (parseInt(numPeople, 10) || 1);
-    currentRates    = baseRates.map(r => r * count);
+  // Sum per-age annual rates across all people in the group.
+  // agesArr: array of numeric age strings, area: 1|2|3
+  // Returns [mm, std, comp, full] annual totals.
+  function sumRatesForAges(agesArr, area) {
+    const totals = [0, 0, 0, 0];
+    agesArr.forEach(a => {
+      const idx = Math.min(Math.max(parseInt(a, 10) || 0, 0), 70);
+      const row = PREMIUMS[area][idx];
+      for (let i = 0; i < 4; i++) totals[i] += row[i];
+    });
+    return totals;
+  }
+
+  function showQuoteResults(agesArr, country, selectedPlan, freq, numPeople) {
+    const area   = getArea(country);
+    const count  = agesArr.length;
+    currentRates = sumRatesForAges(agesArr, area);
 
     document.getElementById('qr-area-badge').textContent = AREA_LABELS[area];
     document.getElementById('qr-num-people').textContent = count;
@@ -3170,12 +3181,10 @@
     })
     .then(() => {
       const highlightPlan = planFromCoverage(covs);
-      showQuoteResults(age, dest, highlightPlan, freq, numPeople);
+      showQuoteResults(ages, dest, highlightPlan, freq, numPeople);
 
       const area    = getArea(dest);
-      const ageIdx  = Math.min(Math.max(parseInt(age), 0), 70);
-      const pCount  = numPeople === '5+' ? 5 : (parseInt(numPeople, 10) || 1);
-      const rates   = PREMIUMS[area][ageIdx].map(r => r * pCount);
+      const rates   = sumRatesForAges(ages, area);
       const { multiplier, divisor, label: freqLabel, period } = FREQ[freq];
       const fmt     = v => '$' + (v * multiplier / divisor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
