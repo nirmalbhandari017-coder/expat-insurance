@@ -2913,6 +2913,23 @@
     });
   }
 
+  // ── Step transitions (also wired to browser Back/Forward via history API) ─
+  function showStep1() {
+    document.getElementById('form-step1').style.display           = 'block';
+    document.getElementById('form-step2').style.display           = 'none';
+    document.getElementById('quote-results-state').style.display  = 'none';
+    document.querySelector('.main').classList.remove('results-wide');
+    document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showStep2() {
+    document.getElementById('form-step1').style.display           = 'none';
+    document.getElementById('form-step2').style.display           = 'block';
+    document.getElementById('quote-results-state').style.display  = 'none';
+    document.querySelector('.main').classList.remove('results-wide');
+    document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   document.getElementById('btn-next-step').addEventListener('click', function() {
     const numPeople = document.getElementById('num-people').value;
     const dest = document.getElementById('destination-country').value;
@@ -2929,16 +2946,31 @@
     // Build dynamic age inputs based on people count
     renderAgeInputs(numPeople);
 
-    document.getElementById('form-step1').style.display = 'none';
-    document.getElementById('form-step2').style.display = 'block';
-    document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Push a history entry so browser Back returns to step 1 instead of leaving the site
+    history.pushState({ expatStep: 2 }, '', location.href);
+    showStep2();
   });
 
+  // In-form Back button: delegate to the browser's back navigation so history
+  // stays in sync (popstate handler will switch the DOM back to step 1).
   document.getElementById('btn-back-step').addEventListener('click', function() {
-    document.getElementById('form-step2').style.display = 'none';
-    document.getElementById('form-step1').style.display = 'block';
-    document.querySelector('.main').classList.remove('results-wide');
+    history.back();
+  });
+
+  function showResultsAgain() {
+    document.getElementById('form-step1').style.display           = 'none';
+    document.getElementById('form-step2').style.display           = 'none';
+    document.getElementById('quote-results-state').style.display  = 'block';
+    document.querySelector('.main').classList.add('results-wide');
     document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Browser Back/Forward → restore the matching step
+  window.addEventListener('popstate', function(e) {
+    const step = e.state && e.state.expatStep;
+    if (step === 'results') { showResultsAgain(); return; }
+    if (step === 2)         { showStep2();        return; }
+    showStep1();
   });
 
   // ── Form submission ───────────────────────────────────────────────────────
@@ -3181,6 +3213,8 @@
     })
     .then(() => {
       const highlightPlan = planFromCoverage(covs);
+      // Push a history entry so browser Back from the results page returns to step 2
+      history.pushState({ expatStep: 'results' }, '', location.href);
       showQuoteResults(ages, dest, highlightPlan, freq, numPeople);
 
       const area    = getArea(dest);
