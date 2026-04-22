@@ -1943,73 +1943,41 @@
       margin-bottom: 1.1rem;
     }
 
-    .qr-buy-wrap {
-      margin: 0 0 1rem;
-    }
-    .qr-buy-box {
-      display: flex;
-      align-items: center;
-      gap: .7rem;
-      padding: .85rem 1rem;
-      border: 1.5px solid var(--coral);
-      border-radius: var(--radius);
-      background: var(--coral-pale);
-      cursor: pointer;
-      transition: all .18s;
-    }
-    .qr-buy-box:hover {
-      background: #FFE8E0;
-    }
-    .qr-buy-box input[type="checkbox"] {
-      position: absolute;
-      opacity: 0;
-      width: 0; height: 0;
-    }
-    .qr-buy-check {
-      width: 22px; height: 22px;
-      border: 2px solid var(--coral);
-      border-radius: 5px;
-      background: var(--white);
-      flex-shrink: 0;
-      position: relative;
-      transition: all .18s;
-    }
-    .qr-buy-box input[type="checkbox"]:checked + .qr-buy-check {
-      background: var(--coral);
-    }
-    .qr-buy-box input[type="checkbox"]:checked + .qr-buy-check::after {
-      content: "✓";
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: var(--white);
-      font-size: .85rem;
-      font-weight: 900;
-    }
-    .qr-buy-text {
-      font-size: .9rem;
+    .qr-freq-hint {
+      text-align: center;
+      font-size: .82rem;
       font-weight: 700;
       color: var(--coral);
+      margin-bottom: .6rem;
     }
-    .qr-buy-confirmed {
-      text-align: center;
-      padding: 1.1rem 1rem;
-      margin-bottom: 1rem;
-      background: var(--sage);
-      border: 1.5px solid var(--sage-dark);
+
+    .qr-buy-btn {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--white);
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: .95rem;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      border: none;
       border-radius: var(--radius);
+      padding: .75rem 2.25rem;
+      margin: .5rem 0 .9rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(15,185,177,.25);
+      transition: transform .15s, box-shadow .15s, background .15s;
     }
-    .qr-buy-confirmed .ty-check {
-      width: 52px; height: 52px;
-      font-size: 1.3rem;
-      margin: 0 auto .55rem;
+    .qr-buy-btn:hover {
+      background: var(--green);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(15,185,177,.35);
     }
-    .qr-buy-msg {
-      font-size: 1rem;
-      color: var(--green);
-      line-height: 1.5;
+    .qr-buy-btn.is-sent {
+      background: var(--sage-dark);
+      cursor: default;
+      pointer-events: none;
     }
-    .qr-buy-msg strong { font-weight: 800; }
 
     .qr-followup {
       text-align: center;
@@ -2599,6 +2567,7 @@
         <p>All prices in USD · Cover is Worldwide excl. USA</p>
       </div>
 
+      <p class="qr-freq-hint">Click on your preferred payment option</p>
       <div class="qr-freq">
         <button class="qr-freq-btn active" data-freq="annual">Annual</button>
         <button class="qr-freq-btn" data-freq="semiannual">Semi-Annual</button>
@@ -2765,22 +2734,10 @@
         Final premium confirmed in your personalised quote.
       </div>
 
-      <div class="qr-buy-wrap" id="qr-buy-wrap">
-        <label class="qr-buy-box">
-          <input type="checkbox" id="qr-buy-now" />
-          <span class="qr-buy-check"></span>
-          <span class="qr-buy-text">Buy now and be contacted by a Regency member</span>
-        </label>
-      </div>
-
-      <div class="qr-buy-confirmed" id="qr-buy-confirmed" style="display:none;">
-        <div class="ty-check">✓</div>
-        <p class="qr-buy-msg"><strong>Regency specialist will be in touch within 24 hours.</strong></p>
-      </div>
-
       <div class="qr-followup">
         <div class="ty-check">✓</div>
-        <p><strong>Request received!</strong> A licensed specialist will contact you within <strong>24 hours</strong> with your full personalised quote.</p>
+        <button type="button" class="qr-buy-btn" id="qr-buy-now-btn">Buy Now</button>
+        <p><strong>Regency specialist will be in touch within 24 hours.</strong></p>
       </div>
     </div>
 
@@ -3154,9 +3111,8 @@
   // Browser Back/Forward → restore the matching step
   window.addEventListener('popstate', function(e) {
     const step = e.state && e.state.expatStep;
-    if (step === 'buy-confirmed') { showResultsAgain(); return; }
-    if (step === 'results')       { showResultsAgain(); return; }
-    if (step === 2)               { showStep2();        return; }
+    if (step === 'results') { showResultsAgain(); return; }
+    if (step === 2)         { showStep2();        return; }
     showStep1();
   });
 
@@ -3294,43 +3250,26 @@
     btn.addEventListener('click', () => renderPrices(btn.dataset.freq));
   });
 
-  // "Buy now and be contacted by a Regency member" checkbox
+  // "Buy Now" button under the confirmation tick
   (function () {
-    const cb       = document.getElementById('qr-buy-now');
-    const wrap     = document.getElementById('qr-buy-wrap');
-    const confirm  = document.getElementById('qr-buy-confirmed');
-    if (!cb || !wrap || !confirm) return;
+    const btn = document.getElementById('qr-buy-now-btn');
+    if (!btn) return;
 
-    function showConfirmed() {
-      wrap.style.display    = 'none';
-      confirm.style.display = 'block';
-      confirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    const originalText = btn.textContent;
+
     function resetBuy() {
-      cb.checked            = false;
-      wrap.style.display    = '';
-      confirm.style.display = 'none';
+      btn.textContent = originalText;
+      btn.classList.remove('is-sent');
     }
 
-    cb.addEventListener('change', function () {
-      if (!cb.checked) return;
-      history.pushState({ expatStep: 'buy-confirmed' }, '', location.href);
-      showConfirmed();
+    btn.addEventListener('click', function () {
+      if (btn.classList.contains('is-sent')) return;
+      btn.textContent = '✓ Request Sent';
+      btn.classList.add('is-sent');
     });
 
-    // Reset checkbox state whenever the quote results are re-shown fresh.
+    // Reset when the quote results are re-shown fresh
     window.__resetBuyNow = resetBuy;
-
-    // Extend popstate to handle buy-confirmed state.
-    const prevPop = window.onpopstate;
-    window.addEventListener('popstate', function (e) {
-      const step = e.state && e.state.expatStep;
-      if (step === 'buy-confirmed') {
-        showConfirmed();
-      } else {
-        resetBuy();
-      }
-    });
   })();
 
   // Sum per-age annual rates across all people in the group.
