@@ -323,11 +323,11 @@
     /* ── STATS BAR ─────────────────────────────── */
     .stats-bar {
       background: var(--green);
-      padding: 2.25rem 1.5rem;
+      padding: 3.25rem 2rem;
     }
 
     .stats-inner {
-      max-width: 1200px;
+      max-width: 1280px;
       margin: 0 auto;
     }
 
@@ -335,31 +335,59 @@
       text-align: center;
       color: var(--white);
       font-family: var(--font-serif);
-      font-size: 1.55rem;
+      font-size: 2rem;
       font-weight: 700;
       letter-spacing: -.2px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stats-subhead {
+      text-align: center;
+      color: var(--coral);
+      font-family: var(--font);
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 1.5rem 0 1.75rem;
+      position: relative;
+    }
+    .stats-subhead::before,
+    .stats-subhead::after {
+      content: '';
+      display: inline-block;
+      width: 44px;
+      height: 2px;
+      background: var(--coral);
+      vertical-align: middle;
+      margin: 0 .9rem;
+      border-radius: 2px;
     }
 
     .stats-row {
       display: grid;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
     }
 
     .stats-row:last-child { margin-bottom: 0; }
 
     .stats-row.row-5 { grid-template-columns: repeat(5, 1fr); }
-    .stats-row.row-4 { grid-template-columns: repeat(4, 1fr); max-width: 880px; margin-left: auto; margin-right: auto; margin-bottom: 0; }
+    .stats-row.row-4 { grid-template-columns: repeat(4, 1fr); max-width: 960px; margin-left: auto; margin-right: auto; margin-bottom: 0; }
 
     @media (max-width: 900px) {
       .stats-row.row-5,
-      .stats-row.row-4 { grid-template-columns: repeat(3, 1fr); gap: 1.25rem 1rem; max-width: none; }
+      .stats-row.row-4 { grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1rem; max-width: none; }
+      .stats-heading { font-size: 1.65rem; }
+      .stats-subhead { font-size: 1rem; letter-spacing: 1.5px; }
     }
     @media (max-width: 520px) {
       .stats-row.row-5,
       .stats-row.row-4 { grid-template-columns: repeat(2, 1fr); }
-      .stats-heading { font-size: 1.25rem; }
+      .stats-heading { font-size: 1.35rem; }
+      .stats-subhead { font-size: .9rem; }
+      .stats-subhead::before,
+      .stats-subhead::after { width: 24px; margin: 0 .5rem; }
     }
 
     .stat-circle {
@@ -371,29 +399,29 @@
     }
 
     .stat-circle-ring {
-      width: 72px; height: 72px;
+      width: 92px; height: 92px;
       border-radius: 50%;
       background: rgba(255,255,255,.08);
       border: 2px solid rgba(255,255,255,.15);
       display: grid;
       place-items: center;
-      margin-bottom: .55rem;
+      margin-bottom: .7rem;
     }
 
     .stat-circle-num {
       font-family: var(--font-serif);
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       color: var(--white);
       line-height: 1;
     }
 
     .stat-circle-label {
-      font-size: .66rem;
-      color: rgba(255,255,255,.78);
+      font-size: .78rem;
+      color: rgba(255,255,255,.82);
       text-transform: uppercase;
-      letter-spacing: .5px;
+      letter-spacing: .6px;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.3;
     }
 
     .stat-circle.is-free .stat-circle-ring {
@@ -404,11 +432,11 @@
 
     .stat-circle .free-tag {
       display: inline-block;
-      margin-top: .3rem;
-      padding: .1rem .5rem;
-      font-size: .55rem;
+      margin-top: .45rem;
+      padding: .18rem .7rem;
+      font-size: .65rem;
       font-weight: 800;
-      letter-spacing: .8px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--green);
       background: var(--white);
@@ -2335,6 +2363,8 @@
         <div class="stat-circle-label">Dental Care</div>
       </div>
     </div>
+
+    <h3 class="stats-subhead">Free Benefits</h3>
 
     <!-- Row 2: free wellness benefits -->
     <div class="stats-row row-4">
