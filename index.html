@@ -1992,9 +1992,23 @@
     }
 
     .qr-followup p {
-      font-size: .83rem;
+      font-size: 1rem;
       color: var(--warm-gray);
       line-height: 1.6;
+    }
+
+    .qr-followup .qr-buy-msg {
+      margin-top: .75rem;
+      font-size: 1rem;
+      color: var(--green);
+      animation: qrBuyPop .35s ease-out both;
+    }
+    .qr-followup .qr-buy-msg strong { font-weight: 800; }
+
+    @keyframes qrBuyPop {
+      0%   { opacity: 0; transform: translateY(-6px) scale(.96); }
+      60%  { opacity: 1; transform: translateY(0) scale(1.03); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     /* ── INLINE PLAN COMPARISON TABLE ─────────── */
@@ -2737,7 +2751,7 @@
       <div class="qr-followup">
         <div class="ty-check">✓</div>
         <button type="button" class="qr-buy-btn" id="qr-buy-now-btn">Buy Now</button>
-        <p><strong>Regency specialist will be in touch within 24 hours.</strong></p>
+        <p class="qr-buy-msg" id="qr-buy-msg" hidden><strong>Regency's specialist will be in touch within 24 hours.</strong></p>
       </div>
     </div>
 
@@ -3253,6 +3267,7 @@
   // "Buy Now" button under the confirmation tick
   (function () {
     const btn = document.getElementById('qr-buy-now-btn');
+    const msg = document.getElementById('qr-buy-msg');
     if (!btn) return;
 
     const originalText = btn.textContent;
@@ -3260,12 +3275,20 @@
     function resetBuy() {
       btn.textContent = originalText;
       btn.classList.remove('is-sent');
+      if (msg) {
+        msg.hidden = true;
+        // Restart the pop animation next time by forcing reflow
+        msg.style.animation = 'none';
+        void msg.offsetWidth;
+        msg.style.animation = '';
+      }
     }
 
     btn.addEventListener('click', function () {
       if (btn.classList.contains('is-sent')) return;
       btn.textContent = '✓ Request Sent';
       btn.classList.add('is-sent');
+      if (msg) msg.hidden = false;
     });
 
     // Reset when the quote results are re-shown fresh
