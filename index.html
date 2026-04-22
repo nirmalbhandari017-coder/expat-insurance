@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Expat Protect Hub — Teal Edition &amp; Life Insurance</title>
+  <title>Expat Health Insurance — Teal Edition &amp; Life Insurance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -322,16 +322,22 @@
     /* ── STATS BAR ─────────────────────────────── */
     .stats-bar {
       background: var(--green);
-      padding: 2.5rem 2rem;
+      padding: 2.25rem 1.5rem;
     }
 
     .stats-inner {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .stats-inner { grid-template-columns: repeat(3, 1fr); gap: 1.25rem 1rem; }
+    }
+    @media (max-width: 520px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
     }
 
     .stat-circle {
@@ -339,31 +345,52 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
 
     .stat-circle-ring {
-      width: 80px; height: 80px;
+      width: 72px; height: 72px;
       border-radius: 50%;
       background: rgba(255,255,255,.08);
       border: 2px solid rgba(255,255,255,.15);
       display: grid;
       place-items: center;
-      margin-bottom: .6rem;
+      margin-bottom: .55rem;
     }
 
     .stat-circle-num {
       font-family: var(--font-serif);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       color: var(--white);
       line-height: 1;
     }
 
     .stat-circle-label {
-      font-size: .68rem;
-      color: rgba(255,255,255,.55);
+      font-size: .66rem;
+      color: rgba(255,255,255,.78);
       text-transform: uppercase;
-      letter-spacing: .6px;
-      font-weight: 600;
+      letter-spacing: .5px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .stat-circle.is-free .stat-circle-ring {
+      border-color: var(--coral);
+      background: rgba(15,185,177,.2);
+    }
+    .stat-circle.is-free .stat-circle-label { color: var(--white); }
+
+    .stat-circle .free-tag {
+      display: inline-block;
+      margin-top: .3rem;
+      padding: .1rem .5rem;
+      font-size: .55rem;
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--white);
+      border-radius: 20px;
     }
 
     /* ── SECTION LABEL ─────────────────────────── */
@@ -1894,6 +1921,74 @@
       margin-bottom: 1.1rem;
     }
 
+    .qr-buy-wrap {
+      margin: 0 0 1rem;
+    }
+    .qr-buy-box {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      padding: .85rem 1rem;
+      border: 1.5px solid var(--coral);
+      border-radius: var(--radius);
+      background: var(--coral-pale);
+      cursor: pointer;
+      transition: all .18s;
+    }
+    .qr-buy-box:hover {
+      background: #FFE8E0;
+    }
+    .qr-buy-box input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .qr-buy-check {
+      width: 22px; height: 22px;
+      border: 2px solid var(--coral);
+      border-radius: 5px;
+      background: var(--white);
+      flex-shrink: 0;
+      position: relative;
+      transition: all .18s;
+    }
+    .qr-buy-box input[type="checkbox"]:checked + .qr-buy-check {
+      background: var(--coral);
+    }
+    .qr-buy-box input[type="checkbox"]:checked + .qr-buy-check::after {
+      content: "✓";
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--white);
+      font-size: .85rem;
+      font-weight: 900;
+    }
+    .qr-buy-text {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--coral);
+    }
+    .qr-buy-confirmed {
+      text-align: center;
+      padding: 1.1rem 1rem;
+      margin-bottom: 1rem;
+      background: var(--sage);
+      border: 1.5px solid var(--sage-dark);
+      border-radius: var(--radius);
+    }
+    .qr-buy-confirmed .ty-check {
+      width: 52px; height: 52px;
+      font-size: 1.3rem;
+      margin: 0 auto .55rem;
+    }
+    .qr-buy-msg {
+      font-size: 1rem;
+      color: var(--green);
+      line-height: 1.5;
+    }
+    .qr-buy-msg strong { font-weight: 800; }
+
     .qr-followup {
       text-align: center;
       padding-top: .9rem;
@@ -2038,7 +2133,7 @@
       flex: 1;
       padding: .42rem .2rem;
       font-size: .62rem;
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: .4px;
       border: none;
@@ -2054,6 +2149,7 @@
     .qr-freq-btn.active {
       background: var(--white);
       color: var(--coral);
+      font-weight: 900;
       box-shadow: 0 1px 4px rgba(0,0,0,.1);
     }
 
@@ -2155,14 +2251,7 @@
     <div class="hero-content">
       <div class="hero-label">International Insurance</div>
       <h1>We Make Your Insurance <em>EASY</em></h1>
-      <p>Expat Protect partners with fully regulated international health and life insurance plans designed for globally mobile individuals and families around the world.</p>
-
-      <div class="hero-badges">
-        <div class="hero-badge"><span class="dot green"></span> Same Day Activation</div>
-        <div class="hero-badge"><span class="dot yellow"></span> Worldwide Excluding USA</div>
-        <div class="hero-badge"><span class="dot blue"></span> Open Choice of Hospital</div>
-        <div class="hero-badge"><span class="dot orange"></span> 24/7 Assistance</div>
-      </div>
+      <p>Expat Health Insurance partners with fully regulated international health and life insurance plans designed for globally mobile individuals and families around the world.</p>
 
       <a href="#get-quote" class="hero-cta">Get My Free Quote →</a>
 
@@ -2209,27 +2298,61 @@
   <div class="stats-inner">
     <div class="stat-circle">
       <div class="stat-circle-ring">
+        <div class="stat-circle-num">⚡</div>
+      </div>
+      <div class="stat-circle-label">Same Day<br>Activation</div>
+    </div>
+    <div class="stat-circle">
+      <div class="stat-circle-ring">
+        <div class="stat-circle-num">🌍</div>
+      </div>
+      <div class="stat-circle-label">Worldwide<br>Excl. USA</div>
+    </div>
+    <div class="stat-circle">
+      <div class="stat-circle-ring">
+        <div class="stat-circle-num">🏥</div>
+      </div>
+      <div class="stat-circle-label">Open Choice<br>of Hospital</div>
+    </div>
+    <div class="stat-circle">
+      <div class="stat-circle-ring">
+        <div class="stat-circle-num">📞</div>
+      </div>
+      <div class="stat-circle-label">24/7<br>Assistance</div>
+    </div>
+    <div class="stat-circle is-free">
+      <div class="stat-circle-ring">
         <div class="stat-circle-num">🛡️</div>
       </div>
       <div class="stat-circle-label">Global Security</div>
+      <span class="free-tag">Free</span>
     </div>
-    <div class="stat-circle">
+    <div class="stat-circle is-free">
       <div class="stat-circle-ring">
         <div class="stat-circle-num">💪</div>
       </div>
       <div class="stat-circle-label">Fitness Benefits</div>
+      <span class="free-tag">Free</span>
     </div>
-    <div class="stat-circle">
+    <div class="stat-circle is-free">
       <div class="stat-circle-ring">
         <div class="stat-circle-num">🧠</div>
       </div>
-      <div class="stat-circle-label">Psychological Benefits</div>
+      <div class="stat-circle-label">Psychological<br>Benefits</div>
+      <span class="free-tag">Free</span>
     </div>
-    <div class="stat-circle">
+    <div class="stat-circle is-free">
       <div class="stat-circle-ring">
         <div class="stat-circle-num">🥗</div>
       </div>
       <div class="stat-circle-label">Nutrition Benefits</div>
+      <span class="free-tag">Free</span>
+    </div>
+    <div class="stat-circle">
+      <div class="stat-circle-ring">
+        <div class="stat-circle-num">🦷</div>
+      </div>
+      <div class="stat-circle-label">Dental Care</div>
     </div>
   </div>
 </div>
@@ -2386,6 +2509,24 @@
             <div class="coverage-opt">
               <input type="checkbox" id="cov-dental" name="coverage" value="dental" />
               <label for="cov-dental"><span class="opt-icon">🦷</span>Dental</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Expected Start Date</label>
+          <div class="plan-options">
+            <div class="plan-opt">
+              <input type="radio" id="start-asap" name="start_date" value="asap" />
+              <label for="start-asap">ASAP<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">As soon as possible</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="start-1-3m" name="start_date" value="1-3-months" />
+              <label for="start-1-3m">1–3 Months<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">Short-term</span></label>
+            </div>
+            <div class="plan-opt">
+              <input type="radio" id="start-4m-1y" name="start_date" value="4-months-to-a-year" />
+              <label for="start-4m-1y">4 Months – A Year<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">Planning ahead</span></label>
             </div>
           </div>
         </div>
@@ -2592,6 +2733,20 @@
         Indicative premium for <span id="qr-num-people">1</span> person(s) · Includes 40% low claims discount.<br>
         Final premium confirmed in your personalised quote.
       </div>
+
+      <div class="qr-buy-wrap" id="qr-buy-wrap">
+        <label class="qr-buy-box">
+          <input type="checkbox" id="qr-buy-now" />
+          <span class="qr-buy-check"></span>
+          <span class="qr-buy-text">Buy now and be contacted by a Regency member</span>
+        </label>
+      </div>
+
+      <div class="qr-buy-confirmed" id="qr-buy-confirmed" style="display:none;">
+        <div class="ty-check">✓</div>
+        <p class="qr-buy-msg"><strong>Regency specialist will be in touch within 24 hours.</strong></p>
+      </div>
+
       <div class="qr-followup">
         <div class="ty-check">✓</div>
         <p><strong>Request received!</strong> A licensed specialist will contact you within <strong>24 hours</strong> with your full personalised quote.</p>
@@ -2730,8 +2885,8 @@
             <span>·</span>
             <span>January 2025</span>
           </div>
-          <h3>Global Security Benefits: How Expat Protect Hub Covers Terrorism, Hostage &amp; Hijacking</h3>
-          <p>Discover the unique global security benefits included on every Expat Protect Hub plan.</p>
+          <h3>Global Security Benefits: How Expat Health Insurance Covers Terrorism, Hostage &amp; Hijacking</h3>
+          <p>Discover the unique global security benefits included on every Expat Health Insurance plan.</p>
           <a href="#" class="blog-read-more">Read more →</a>
         </div>
       </article>
@@ -2744,13 +2899,13 @@
 <div class="chat-widget" id="chatWidget">
 
   <!-- Panel -->
-  <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Expat Protect Hub chat assistant">
+  <div class="chat-panel" id="chatPanel" role="dialog" aria-label="Expat Health Insurance chat assistant">
 
     <!-- Header -->
     <div class="chat-head">
       <div class="chat-head-avatar">🌍</div>
       <div class="chat-head-info">
-        <div class="chat-head-name">Expat Protect Hub Assistant</div>
+        <div class="chat-head-name">Expat Health Insurance Assistant</div>
         <div class="chat-head-status"><span class="dot"></span> Online now</div>
       </div>
     </div>
@@ -2827,7 +2982,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 Expat Protect Hub. All rights reserved.</span>
+    <span>© 2026 Expat Health Insurance. All rights reserved.</span>
     <div class="footer-socials">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms Of Service</a>
@@ -2968,8 +3123,9 @@
   // Browser Back/Forward → restore the matching step
   window.addEventListener('popstate', function(e) {
     const step = e.state && e.state.expatStep;
-    if (step === 'results') { showResultsAgain(); return; }
-    if (step === 2)         { showStep2();        return; }
+    if (step === 'buy-confirmed') { showResultsAgain(); return; }
+    if (step === 'results')       { showResultsAgain(); return; }
+    if (step === 2)               { showStep2();        return; }
     showStep1();
   });
 
@@ -3107,6 +3263,45 @@
     btn.addEventListener('click', () => renderPrices(btn.dataset.freq));
   });
 
+  // "Buy now and be contacted by a Regency member" checkbox
+  (function () {
+    const cb       = document.getElementById('qr-buy-now');
+    const wrap     = document.getElementById('qr-buy-wrap');
+    const confirm  = document.getElementById('qr-buy-confirmed');
+    if (!cb || !wrap || !confirm) return;
+
+    function showConfirmed() {
+      wrap.style.display    = 'none';
+      confirm.style.display = 'block';
+      confirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    function resetBuy() {
+      cb.checked            = false;
+      wrap.style.display    = '';
+      confirm.style.display = 'none';
+    }
+
+    cb.addEventListener('change', function () {
+      if (!cb.checked) return;
+      history.pushState({ expatStep: 'buy-confirmed' }, '', location.href);
+      showConfirmed();
+    });
+
+    // Reset checkbox state whenever the quote results are re-shown fresh.
+    window.__resetBuyNow = resetBuy;
+
+    // Extend popstate to handle buy-confirmed state.
+    const prevPop = window.onpopstate;
+    window.addEventListener('popstate', function (e) {
+      const step = e.state && e.state.expatStep;
+      if (step === 'buy-confirmed') {
+        showConfirmed();
+      } else {
+        resetBuy();
+      }
+    });
+  })();
+
   // Sum per-age annual rates across all people in the group.
   // agesArr: array of numeric age strings, area: 1|2|3
   // Returns [mm, std, comp, full] annual totals.
@@ -3143,6 +3338,7 @@
     document.getElementById('form-step2').style.display           = 'none';
     document.getElementById('quote-results-state').style.display  = 'block';
     document.querySelector('.main').classList.add('results-wide');
+    if (typeof window.__resetBuyNow === 'function') window.__resetBuyNow();
     document.getElementById('quote-form-wrapper').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
@@ -3238,6 +3434,11 @@
       const HLHDR = 'background:#0FB9B1;color:#ffffff;font-weight:700;padding:10px 8px;text-align:center;font-size:12px;border-radius:6px 6px 0 0;';
       const NMHDR = 'background:#1B263B;color:#ffffff;font-weight:700;padding:10px 8px;text-align:center;font-size:12px;border-radius:6px 6px 0 0;';
 
+      // NOTE: The actual email table HTML (tick icons + row text) lives in the EmailJS
+      // template (template_1jlezu6). To update the template to: (a) use green ticks,
+      // (b) remove numeric values in favour of checkmarks, (c) replace "Oncology 20,000"
+      // with "Oncology Covered" — edit the template in the EmailJS dashboard and have
+      // it reference the variables below (tick_color, tick_icon, covered_text, oncology_text).
       emailjs.send('service_4ogp62g', 'template_1jlezu6', {
         to_name:        name,
         to_email:       email,
@@ -3269,6 +3470,11 @@
         hdr_std:        highlightPlan === 'standard'            ? HLHDR : NMHDR,
         hdr_comp:       highlightPlan === 'comprehensive'       ? HLHDR : NMHDR,
         hdr_full:       highlightPlan === 'fully-comprehensive' ? HLHDR : NMHDR,
+        // Variables for the updated email template (green ticks, no numbers, "Oncology Covered")
+        tick_color:     '#0FB9B1',
+        tick_icon:      '<span style="color:#0FB9B1;font-weight:900;font-size:16px;">&#10003;</span>',
+        covered_text:   'Covered',
+        oncology_text:  'Oncology Covered',
       });
     })
     .catch(() => {
@@ -3286,7 +3492,7 @@
     {
       patterns: [/hello|hi\b|hey|good (morning|afternoon|evening)|howdy/i],
       replies: [
-        "Hello! 👋 Welcome to Expat Protect Hub. I'm here to help you find the right international insurance plan. What can I help you with today?",
+        "Hello! 👋 Welcome to Expat Health Insurance. I'm here to help you find the right international insurance plan. What can I help you with today?",
         "Hi there! 😊 Great to have you here. I can answer questions about our health, life, and travel plans. What would you like to know?"
       ],
       chips: ["What plans do you offer?", "How do I get a quote?", "Which countries are covered?"]
@@ -3357,7 +3563,7 @@
     {
       patterns: [/countr|where.*covered|cover.*world|global|international|120/i],
       replies: [
-        "**Expat Protect Hub covers 120+ countries** worldwide — including Europe, Asia, the Middle East, Africa, Latin America, and more.\n\n🌍 Our global network gives you access to quality medical care wherever you're living or travelling. USA cover is available as a rider on most plans (note: outpatient pre-authorisation applies for US treatment).\n\nTell me your destination and I can give you more specific info!"
+        "**Expat Health Insurance covers 120+ countries** worldwide — including Europe, Asia, the Middle East, Africa, Latin America, and more.\n\n🌍 Our global network gives you access to quality medical care wherever you're living or travelling. USA cover is available as a rider on most plans (note: outpatient pre-authorisation applies for US treatment).\n\nTell me your destination and I can give you more specific info!"
       ],
       chips: ["Does it cover the USA?", "Get a free quote", "What plans are available?"]
     },
@@ -3378,7 +3584,7 @@
     {
       patterns: [/24.hour|24\/7|help.?line|assistance|support|emergency contact/i],
       replies: [
-        "**24/7 International Medical Assistance** is included on all Expat Protect Hub plans.\n\nOur team can help with:\n📞 Medical emergency guidance\n🏥 Hospital pre-authorisation (where required)\n🚁 Emergency evacuation coordination\n💊 Finding local doctors and specialists\n📋 Claims support and paperwork\n\nYou're never alone — wherever in the world you are, we're a call away."
+        "**24/7 International Medical Assistance** is included on all Expat Health Insurance plans.\n\nOur team can help with:\n📞 Medical emergency guidance\n🏥 Hospital pre-authorisation (where required)\n🚁 Emergency evacuation coordination\n💊 Finding local doctors and specialists\n📋 Claims support and paperwork\n\nYou're never alone — wherever in the world you are, we're a call away."
       ],
       chips: ["Get a free quote", "What's emergency evacuation?", "How do I make a claim?"]
     },
@@ -3420,14 +3626,14 @@
     {
       patterns: [/life insurance|life cover|death benefit|term life/i],
       replies: [
-        "All Expat Protect Hub health insurance plans include a built-in **US$10,000 Death Benefit** (Life Cover), paid to the next of kin or estate following the death of the insured person.\n\nThis is included at no extra cost on every plan tier — Major Medical, Standard, Comprehensive and Fully Comprehensive.\n\nFor any additional life cover needs, speak with one of our specialists when you request your free quote."
+        "All Expat Health Insurance health insurance plans include a built-in **US$10,000 Death Benefit** (Life Cover), paid to the next of kin or estate following the death of the insured person.\n\nThis is included at no extra cost on every plan tier — Major Medical, Standard, Comprehensive and Fully Comprehensive.\n\nFor any additional life cover needs, speak with one of our specialists when you request your free quote."
       ],
       chips: ["Get a free quote", "What plans are available?", "What other benefits are included?"]
     },
     {
       patterns: [/security|terrorism|hostage|hijack|mug/i],
       replies: [
-        "**Global Security Benefits** are a unique feature included on all Expat Protect Hub plans:\n\n🛡️ **Terrorism cover** — US$50K (Major Medical) up to Full Cover (Fully Comp)\n🤝 **Hostage negotiation** — Full Cover on all plans\n✈️ **Hijacking** — US$100–$500 per day (up to 10 days)\n💪 **Mugging** — US$100 per day (up to 5 days)\n\nWhilst many insurers specifically exclude terrorism and security events, Expat Protect Hub has developed generous benefits so you can live, work and travel globally with peace of mind."
+        "**Global Security Benefits** are a unique feature included on all Expat Health Insurance plans:\n\n🛡️ **Terrorism cover** — US$50K (Major Medical) up to Full Cover (Fully Comp)\n🤝 **Hostage negotiation** — Full Cover on all plans\n✈️ **Hijacking** — US$100–$500 per day (up to 10 days)\n💪 **Mugging** — US$100 per day (up to 5 days)\n\nWhilst many insurers specifically exclude terrorism and security events, Expat Health Insurance has developed generous benefits so you can live, work and travel globally with peace of mind."
       ],
       chips: ["Get a free quote", "What plans are available?", "Tell me about evacuation"]
     },
@@ -3449,7 +3655,7 @@
     {
       patterns: [/bye|goodbye|see you|ciao|take care/i],
       replies: [
-        "Goodbye! 👋 Don't hesitate to come back if you have questions. We hope to welcome you as an Expat Protect Hub member soon!",
+        "Goodbye! 👋 Don't hesitate to come back if you have questions. We hope to welcome you as an Expat Health Insurance member soon!",
         "Take care! 🌍 Your free quote is just a click away whenever you're ready."
       ],
       chips: []
@@ -3496,7 +3702,7 @@
       if (!hasOpened) {
         hasOpened = true;
         setTimeout(() => {
-          addBotMsg("Hi! 👋 I'm the Expat Protect Hub assistant. I can answer your questions about our international health, life, and travel insurance plans. What would you like to know?");
+          addBotMsg("Hi! 👋 I'm the Expat Health Insurance assistant. I can answer your questions about our international health, life, and travel insurance plans. What would you like to know?");
           setChips(OPENING_CHIPS);
         }, 350);
       }
