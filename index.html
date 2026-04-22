@@ -329,16 +329,37 @@
     .stats-inner {
       max-width: 1200px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(9, 1fr);
-      gap: 1rem;
     }
 
+    .stats-heading {
+      text-align: center;
+      color: var(--white);
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -.2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-row {
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stats-row:last-child { margin-bottom: 0; }
+
+    .stats-row.row-5 { grid-template-columns: repeat(5, 1fr); }
+    .stats-row.row-4 { grid-template-columns: repeat(4, 1fr); max-width: 880px; margin-left: auto; margin-right: auto; margin-bottom: 0; }
+
     @media (max-width: 900px) {
-      .stats-inner { grid-template-columns: repeat(3, 1fr); gap: 1.25rem 1rem; }
+      .stats-row.row-5,
+      .stats-row.row-4 { grid-template-columns: repeat(3, 1fr); gap: 1.25rem 1rem; max-width: none; }
     }
     @media (max-width: 520px) {
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stats-row.row-5,
+      .stats-row.row-4 { grid-template-columns: repeat(2, 1fr); }
+      .stats-heading { font-size: 1.25rem; }
     }
 
     .stat-circle {
@@ -2297,63 +2318,72 @@
 <!-- STATS BAR -->
 <div class="stats-bar">
   <div class="stats-inner">
-    <div class="stat-circle">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">⚡</div>
+    <h2 class="stats-heading">Why choose Regency for Health Insurance?</h2>
+
+    <!-- Row 1: core coverage features -->
+    <div class="stats-row row-5">
+      <div class="stat-circle">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">⚡</div>
+        </div>
+        <div class="stat-circle-label">Same Day<br>Activation</div>
       </div>
-      <div class="stat-circle-label">Same Day<br>Activation</div>
+      <div class="stat-circle">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">🌍</div>
+        </div>
+        <div class="stat-circle-label">Worldwide<br>Excl. USA</div>
+      </div>
+      <div class="stat-circle">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">🏥</div>
+        </div>
+        <div class="stat-circle-label">Open Choice<br>of Hospital</div>
+      </div>
+      <div class="stat-circle">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">📞</div>
+        </div>
+        <div class="stat-circle-label">24/7<br>Assistance</div>
+      </div>
+      <div class="stat-circle">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">🦷</div>
+        </div>
+        <div class="stat-circle-label">Dental Care</div>
+      </div>
     </div>
-    <div class="stat-circle">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">🌍</div>
+
+    <!-- Row 2: free wellness benefits -->
+    <div class="stats-row row-4">
+      <div class="stat-circle is-free">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">🛡️</div>
+        </div>
+        <div class="stat-circle-label">Global Security</div>
+        <span class="free-tag">Free</span>
       </div>
-      <div class="stat-circle-label">Worldwide<br>Excl. USA</div>
-    </div>
-    <div class="stat-circle">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">🏥</div>
+      <div class="stat-circle is-free">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">💪</div>
+        </div>
+        <div class="stat-circle-label">Fitness Benefits</div>
+        <span class="free-tag">Free</span>
       </div>
-      <div class="stat-circle-label">Open Choice<br>of Hospital</div>
-    </div>
-    <div class="stat-circle">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">📞</div>
+      <div class="stat-circle is-free">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">🧠</div>
+        </div>
+        <div class="stat-circle-label">Psychological<br>Benefits</div>
+        <span class="free-tag">Free</span>
       </div>
-      <div class="stat-circle-label">24/7<br>Assistance</div>
-    </div>
-    <div class="stat-circle is-free">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">🛡️</div>
+      <div class="stat-circle is-free">
+        <div class="stat-circle-ring">
+          <div class="stat-circle-num">🥗</div>
+        </div>
+        <div class="stat-circle-label">Nutrition Benefits</div>
+        <span class="free-tag">Free</span>
       </div>
-      <div class="stat-circle-label">Global Security</div>
-      <span class="free-tag">Free</span>
-    </div>
-    <div class="stat-circle is-free">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">💪</div>
-      </div>
-      <div class="stat-circle-label">Fitness Benefits</div>
-      <span class="free-tag">Free</span>
-    </div>
-    <div class="stat-circle is-free">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">🧠</div>
-      </div>
-      <div class="stat-circle-label">Psychological<br>Benefits</div>
-      <span class="free-tag">Free</span>
-    </div>
-    <div class="stat-circle is-free">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">🥗</div>
-      </div>
-      <div class="stat-circle-label">Nutrition Benefits</div>
-      <span class="free-tag">Free</span>
-    </div>
-    <div class="stat-circle">
-      <div class="stat-circle-ring">
-        <div class="stat-circle-num">🦷</div>
-      </div>
-      <div class="stat-circle-label">Dental Care</div>
     </div>
   </div>
 </div>
