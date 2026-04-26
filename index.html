@@ -709,6 +709,13 @@
       gap: .9rem;
     }
 
+    .phone-row {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: .5rem;
+    }
+    .phone-row select.phone-cc { min-width: 0; }
+
     label {
       display: block;
       font-size: .72rem;
@@ -2467,11 +2474,11 @@
         <label for="num-people">Number of People</label>
         <select id="num-people" name="num_people">
           <option value="" disabled selected>Select…</option>
-          <option value="1">1 — Just me</option>
-          <option value="2">2 — Me + dependent</option>
-          <option value="3">3 — Family of 3</option>
-          <option value="4">4 — Family of 4</option>
-          <option value="5+">5+ — Larger family / group</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5+">5+</option>
         </select>
       </div>
 
@@ -2524,7 +2531,12 @@
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" required inputmode="numeric" />
+            <div class="phone-row">
+              <select id="phone-cc" name="phone_country_code" class="phone-cc" required>
+                <option value="" disabled selected>Code</option>
+              </select>
+              <input type="tel" id="phone" name="phone" placeholder="555 000 0000" required inputmode="numeric" pattern="[0-9 ]+" />
+            </div>
           </div>
         </div>
 
@@ -2608,9 +2620,9 @@
     <!-- QUOTE RESULTS STATE -->
     <div class="quote-results" id="quote-results-state">
       <div class="qr-header">
-        <div class="qr-area-badge" id="qr-area-badge">📍 Area 1 — Europe</div>
+        <div class="qr-area-badge" id="qr-area-badge">📍 Pricing Area 1 — Europe</div>
         <h2>Your <span id="qr-freq-label">Annual</span> Premium</h2>
-        <p>All prices in USD · Cover is Worldwide excl. USA</p>
+        <p><strong>Coverage area:</strong> Worldwide excluding the USA · All prices in USD</p>
       </div>
 
       <p class="qr-freq-hint">Click on your preferred payment option</p>
@@ -3057,8 +3069,127 @@
     });
   }
 
-  populateSelect('current-country');
+  // Nationality dropdown: pin the most common nationalities at the top
+  function populateNationality(id) {
+    const sel = document.getElementById(id);
+    const priority = [
+      ['United States',  'American'],
+      ['Australia',      'Australian'],
+      ['United Kingdom', 'British'],
+      ['Canada',         'Canadian'],
+      ['France',         'French']
+    ];
+    priority.forEach(([value, label]) => {
+      const opt = document.createElement('option');
+      opt.value = value;
+      opt.textContent = label;
+      sel.appendChild(opt);
+    });
+    // Visual divider
+    const divider = document.createElement('option');
+    divider.disabled = true;
+    divider.textContent = '──────────';
+    sel.appendChild(divider);
+    // The rest, alphabetically (already alphabetical in `countries`)
+    const priorityValues = new Set(priority.map(p => p[0]));
+    countries.forEach(c => {
+      if (priorityValues.has(c)) return;
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      sel.appendChild(opt);
+    });
+  }
+
+  populateNationality('current-country');
   populateSelect('destination-country');
+
+  // ── Phone country codes ─────────────────────────────────────────────────
+  const phoneCodes = [
+    ["+1",   "United States / Canada"],
+    ["+44",  "United Kingdom"],
+    ["+61",  "Australia"],
+    ["+33",  "France"],
+    ["+49",  "Germany"],
+    ["+34",  "Spain"],
+    ["+39",  "Italy"],
+    ["+31",  "Netherlands"],
+    ["+41",  "Switzerland"],
+    ["+32",  "Belgium"],
+    ["+43",  "Austria"],
+    ["+45",  "Denmark"],
+    ["+46",  "Sweden"],
+    ["+47",  "Norway"],
+    ["+48",  "Poland"],
+    ["+351", "Portugal"],
+    ["+353", "Ireland"],
+    ["+358", "Finland"],
+    ["+30",  "Greece"],
+    ["+420", "Czech Republic"],
+    ["+36",  "Hungary"],
+    ["+40",  "Romania"],
+    ["+7",   "Russia / Kazakhstan"],
+    ["+380", "Ukraine"],
+    ["+90",  "Turkey"],
+    ["+972", "Israel"],
+    ["+971", "United Arab Emirates"],
+    ["+966", "Saudi Arabia"],
+    ["+974", "Qatar"],
+    ["+973", "Bahrain"],
+    ["+965", "Kuwait"],
+    ["+968", "Oman"],
+    ["+962", "Jordan"],
+    ["+961", "Lebanon"],
+    ["+20",  "Egypt"],
+    ["+27",  "South Africa"],
+    ["+234", "Nigeria"],
+    ["+254", "Kenya"],
+    ["+255", "Tanzania"],
+    ["+256", "Uganda"],
+    ["+212", "Morocco"],
+    ["+216", "Tunisia"],
+    ["+213", "Algeria"],
+    ["+91",  "India"],
+    ["+92",  "Pakistan"],
+    ["+880", "Bangladesh"],
+    ["+94",  "Sri Lanka"],
+    ["+977", "Nepal"],
+    ["+86",  "China"],
+    ["+852", "Hong Kong"],
+    ["+853", "Macau"],
+    ["+886", "Taiwan"],
+    ["+81",  "Japan"],
+    ["+82",  "South Korea"],
+    ["+65",  "Singapore"],
+    ["+60",  "Malaysia"],
+    ["+62",  "Indonesia"],
+    ["+63",  "Philippines"],
+    ["+66",  "Thailand"],
+    ["+84",  "Vietnam"],
+    ["+855", "Cambodia"],
+    ["+856", "Laos"],
+    ["+95",  "Myanmar"],
+    ["+64",  "New Zealand"],
+    ["+55",  "Brazil"],
+    ["+52",  "Mexico"],
+    ["+54",  "Argentina"],
+    ["+56",  "Chile"],
+    ["+57",  "Colombia"],
+    ["+58",  "Venezuela"],
+    ["+51",  "Peru"],
+    ["+593", "Ecuador"],
+    ["+598", "Uruguay"]
+  ];
+  (function () {
+    const sel = document.getElementById('phone-cc');
+    if (!sel) return;
+    phoneCodes.forEach(([code, country]) => {
+      const opt = document.createElement('option');
+      opt.value = code;
+      opt.textContent = code + '  ' + country;
+      sel.appendChild(opt);
+    });
+  })();
 
   // ── Step navigation ─────────────────────────────────────────────────────
   function renderAgeInputs(numPeople) {
@@ -3262,9 +3393,9 @@
   }
 
   const AREA_LABELS = {
-    1: '🇪🇺 Area 1 — Europe',
-    2: '🌍 Area 2 — Rest of World',
-    3: '🌏 Area 3 — SG / HK / CN / JP'
+    1: '🇪🇺 Pricing Area 1 — Europe',
+    2: '🌍 Pricing Area 2 — Rest of World',
+    3: '🌏 Pricing Area 3 — SG / HK / CN / JP'
   };
 
   const FREQ = {
@@ -3385,7 +3516,9 @@
 
     const name  = document.getElementById('full-name').value.trim();
     const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
+    const phoneCC   = document.getElementById('phone-cc').value;
+    const phoneRaw  = document.getElementById('phone').value.trim();
+    const phone     = phoneCC ? (phoneCC + ' ' + phoneRaw).trim() : phoneRaw;
     const curr  = document.getElementById('current-country').value;
     const dest  = document.getElementById('hidden-destination').value;
     const numPeople = document.getElementById('hidden-num-people').value;
@@ -3396,7 +3529,7 @@
     const plan  = document.querySelector('input[name="preferred_plan"]:checked')?.value || '';
     const freq  = document.querySelector('input[name="payment_frequency"]:checked')?.value || 'annual';
 
-    if (!name || !email || !phone || !curr || ages.length !== ageInputs.length) {
+    if (!name || !email || !phoneCC || !phoneRaw || !curr || ages.length !== ageInputs.length) {
       alert('Please fill in all required fields, including the age for each person.');
       return;
     }
