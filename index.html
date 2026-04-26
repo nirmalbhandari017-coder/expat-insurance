@@ -3633,10 +3633,23 @@
         tick_icon:      '<span style="color:#0FB9B1;font-weight:900;font-size:16px;">&#10003;</span>',
         covered_text:   'Covered',
         oncology_text:  'Oncology Covered',
+      })
+      .then(function (resp) {
+        console.log('[EmailJS] sent OK', resp.status, resp.text);
+      })
+      .catch(function (err) {
+        console.error('[EmailJS] FAILED', err && (err.status || err.text) ? err : JSON.stringify(err));
+        // Surface the failure visibly while we are debugging deliverability
+        alert(
+          'Email send failed: ' +
+          ((err && (err.text || err.status)) ? (err.status + ' ' + err.text) : 'unknown error') +
+          '\n\nThe quote is saved on Netlify, but the auto-email did not go out. Check the EmailJS dashboard.'
+        );
       });
     })
-    .catch(() => {
-      alert('Something went wrong. Please try again or contact us directly.');
+    .catch(function (err) {
+      console.error('[Netlify form] FAILED', err);
+      alert('Something went wrong submitting the form. Please try again or contact us directly.');
     });
   });
 </script>
