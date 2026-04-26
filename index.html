@@ -703,6 +703,18 @@
 
     .form-group { margin-bottom: 1rem; }
 
+    .form-hint {
+      margin: .35rem 0 0;
+      font-size: .72rem;
+      color: var(--warm-gray-lt);
+      letter-spacing: .3px;
+    }
+
+    input[type="date"] {
+      cursor: pointer;
+      font-variant-numeric: tabular-nums;
+    }
+
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2571,21 +2583,9 @@
         </div>
 
         <div class="form-group">
-          <label>Expected Start Date</label>
-          <div class="plan-options">
-            <div class="plan-opt">
-              <input type="radio" id="start-asap" name="start_date" value="asap" />
-              <label for="start-asap">ASAP<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">As soon as possible</span></label>
-            </div>
-            <div class="plan-opt">
-              <input type="radio" id="start-1-3m" name="start_date" value="1-3-months" />
-              <label for="start-1-3m">1–3 Months<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">Short-term</span></label>
-            </div>
-            <div class="plan-opt">
-              <input type="radio" id="start-4m-1y" name="start_date" value="4-months-to-a-year" />
-              <label for="start-4m-1y">4 Months – A Year<br><span style="font-size:.65rem;font-weight:500;color:var(--warm-gray-lt);">Planning ahead</span></label>
-            </div>
-          </div>
+          <label for="start-date">Expected Start Date</label>
+          <input type="date" id="start-date" name="start_date" required />
+          <p class="form-hint">Format: dd/mm/yyyy</p>
         </div>
 
         <div class="form-group">
@@ -3104,6 +3104,15 @@
   populateNationality('current-country');
   populateSelect('destination-country');
 
+  // Constrain start-date to today or later
+  (function () {
+    const dt = document.getElementById('start-date');
+    if (!dt) return;
+    const today = new Date();
+    const iso = today.toISOString().slice(0, 10);
+    dt.setAttribute('min', iso);
+  })();
+
   // ── Phone country codes ─────────────────────────────────────────────────
   const phoneCodes = [
     ["+1",   "United States / Canada"],
@@ -3528,9 +3537,14 @@
     const covs  = [...document.querySelectorAll('input[name="coverage"]:checked')].map(i => i.value);
     const plan  = document.querySelector('input[name="preferred_plan"]:checked')?.value || '';
     const freq  = document.querySelector('input[name="payment_frequency"]:checked')?.value || 'annual';
+    // Start date — input gives ISO (YYYY-MM-DD); convert to DD/MM/YYYY for display
+    const startDateRaw = document.getElementById('start-date').value;
+    const startDate    = startDateRaw
+      ? startDateRaw.split('-').reverse().join('/')   // 2026-04-26 → 26/04/2026
+      : '';
 
-    if (!name || !email || !phoneCC || !phoneRaw || !curr || ages.length !== ageInputs.length) {
-      alert('Please fill in all required fields, including the age for each person.');
+    if (!name || !email || !phoneCC || !phoneRaw || !curr || !startDateRaw || ages.length !== ageInputs.length) {
+      alert('Please fill in all required fields, including the age for each person and the expected start date.');
       return;
     }
 
@@ -3556,7 +3570,8 @@
       'ages':             ages.join(', '),
       'coverage':         covs.join(', '),
       'preferred_plan':   plan,
-      'payment_frequency': freq
+      'payment_frequency': freq,
+      'start_date':       startDate
     });
     ages.forEach((a, i) => body.append('age_' + (i + 1), a));
 
@@ -3608,6 +3623,7 @@
         preferred_plan: planNames[highlightPlan] || 'Not specified',
         frequency:      freqLabel,
         period:         period,
+        start_date:     startDate,
         price_mm:       fmt(rates[0]),
         price_std:      fmt(rates[1]),
         price_comp:     fmt(rates[2]),
