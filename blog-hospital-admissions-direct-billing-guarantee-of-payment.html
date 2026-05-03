@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Admissions Overseas: How Direct Billing &amp; Guarantee of Payment Works — Expat Protect Hub</title>
+  <meta name="description" content="A practical guide to direct billing and Guarantee of Payment for expats. How hospital admissions abroad work, what's covered, and what to check in your plan." />
+  <meta name="keywords" content="direct billing expat insurance, guarantee of payment, hospital admission overseas, expat health insurance, GOP insurance, inpatient cover" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #1B263B;
+      --green-dark:   #0F1620;
+      --green-mid:    #2A3F5F;
+      --coral:        #0FB9B1;
+      --coral-dark:   #0B6E6B;
+      --coral-pale:   #E6F7F6;
+      --cream:        #F8F9FA;
+      --cream-2:      #F0F2F4;
+      --cream-3:      #E4E7EB;
+      --warm-gray:    #6B7280;
+      --warm-gray-lt: #9CA3AF;
+      --border:       #DDE1E6;
+      --white:        #FFFFFF;
+      --font-serif:   'DM Serif Display', Georgia, serif;
+      --font:         'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: #2D3748;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ───────────────────────────────────── */
+    nav {
+      background: rgba(248,249,250,.92);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 96px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; }
+    .logo-img { height: 82px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: .55rem 1.35rem;
+      border-radius: 28px;
+      font-weight: 600 !important;
+      font-size: .85rem !important;
+      transition: background .2s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--coral-dark); transform: translateY(-1px); }
+
+    /* ── HERO ──────────────────────────────────── */
+    .article-hero {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      padding: 5rem 1.5rem 6rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 30%, rgba(15,185,177,.18), transparent 55%);
+      pointer-events: none;
+    }
+    .article-hero-inner { max-width: 880px; margin: 0 auto; position: relative; }
+    .article-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(15,185,177,.15);
+      color: var(--coral);
+      border: 1px solid rgba(15,185,177,.35);
+      padding: .35rem .85rem;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .article-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+      letter-spacing: -.5px;
+    }
+    .article-hero p {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.78);
+      max-width: 720px;
+      margin-bottom: 2rem;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+    }
+    .article-meta strong { color: var(--white); font-weight: 700; }
+    .article-meta-divider { width: 4px; height: 4px; background: rgba(255,255,255,.3); border-radius: 50%; }
+
+    /* ── ARTICLE BODY ──────────────────────────── */
+    .article-body {
+      max-width: 760px;
+      margin: -3rem auto 0;
+      padding: 3rem 2rem 5rem;
+      background: var(--white);
+      border-radius: 18px 18px 0 0;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 -10px 40px rgba(15,185,177,.08);
+    }
+    .article-body h2 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      color: var(--green);
+      margin: 2.6rem 0 1rem;
+      line-height: 1.3;
+      letter-spacing: -.3px;
+    }
+    .article-body h2:first-child { margin-top: 0; }
+    .article-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--green);
+      margin: 2rem 0 .7rem;
+      line-height: 1.35;
+    }
+    .article-body p {
+      font-size: 1.02rem;
+      color: #2D3748;
+      margin-bottom: 1.1rem;
+      line-height: 1.75;
+    }
+    .article-body strong { color: var(--green); font-weight: 700; }
+    .article-body ul {
+      margin: 1rem 0 1.4rem 1.2rem;
+      padding-left: 0;
+    }
+    .article-body ul li {
+      list-style: none;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: .5rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .article-body ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-weight: 900;
+    }
+    .article-body a:not(.cta-btn) {
+      color: var(--coral-dark);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 600;
+    }
+    .article-body a:not(.cta-btn):hover { color: var(--coral); }
+
+    /* Numbered process steps */
+    .process-list {
+      counter-reset: process;
+      list-style: none;
+      margin: 1.4rem 0 1.5rem 0 !important;
+      padding: 0 !important;
+    }
+    .process-list li {
+      counter-increment: process;
+      position: relative;
+      padding: 1rem 1.2rem 1rem 3.5rem;
+      background: var(--cream);
+      border-radius: 10px;
+      margin-bottom: .55rem;
+      font-size: 1rem;
+      line-height: 1.55;
+      list-style: none !important;
+    }
+    .process-list li::before {
+      content: counter(process);
+      position: absolute !important;
+      left: 1rem !important;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px; height: 30px;
+      background: var(--coral);
+      color: var(--white);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--font);
+      font-size: .85rem;
+      font-weight: 800;
+    }
+
+    /* Concept block (Direct billing / GOP) */
+    .concept-block {
+      background: var(--cream);
+      border-left: 4px solid var(--coral);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      margin: 1.4rem 0;
+    }
+    .concept-block h3 {
+      margin-top: 0 !important;
+      color: var(--coral-dark);
+      font-size: 1.2rem;
+    }
+    .concept-block p:last-child { margin-bottom: 0; }
+
+    .article-callout {
+      background: var(--coral-pale);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      margin: 1.8rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--green);
+      border-left: 4px solid var(--coral);
+    }
+    .article-callout strong { color: var(--coral-dark); }
+
+    /* CTA */
+    .article-cta {
+      background: linear-gradient(135deg, var(--green) 0%, var(--coral-dark) 100%);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      margin: 3rem 0 1rem;
+      text-align: center;
+    }
+    .article-cta h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .article-cta p { color: rgba(255,255,255,.78); font-size: 1rem; margin-bottom: 1.4rem; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: 1rem 2.2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 6px 20px rgba(15,185,177,.45);
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(15,185,177,.6); }
+    .cta-fineprint { margin-top: 1rem; font-size: .78rem; color: rgba(255,255,255,.55); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      color: var(--warm-gray);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--coral); }
+
+    /* ── FOOTER ────────────────────────────────── */
+    footer {
+      background: var(--green);
+      color: rgba(255,255,255,.5);
+      padding: 4rem 2rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .footer-brand .logo-text {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: .6rem;
+    }
+    .footer-brand .logo-text span { color: var(--coral); }
+    .footer-brand p { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.65; margin-bottom: 1.25rem; }
+    .footer-newsletter { display: flex; gap: .4rem; }
+    .footer-newsletter input {
+      flex: 1;
+      padding: .6rem .9rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      font-size: .82rem;
+      font-family: var(--font);
+      outline: none;
+    }
+    .footer-newsletter input::placeholder { color: rgba(255,255,255,.3); }
+    .footer-newsletter button {
+      background: var(--coral);
+      color: var(--white);
+      border: none;
+      padding: .6rem 1.1rem;
+      border-radius: 24px;
+      font-size: .76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .footer-newsletter button:hover { background: var(--coral-dark); }
+    .footer-col h4 {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: .82rem;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      margin-bottom: .55rem;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--coral); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .75rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.35); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--coral); }
+    .footer-socials { display: flex; gap: .8rem; }
+
+    @media (max-width: 760px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .article-hero { padding: 3.5rem 1.15rem 4.5rem; }
+      .article-body { padding: 2rem 1.25rem 3.5rem; margin-top: -2rem; }
+      .article-body h2 { font-size: 1.45rem; }
+      .article-body h3 { font-size: 1.15rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+    @media (max-width: 520px) {
+      nav { padding: 0 1.15rem; height: 76px; }
+      .logo-img { height: 60px; }
+      .article-hero h1 { font-size: 1.85rem; }
+      .process-list li { padding: .9rem 1rem .9rem 3.2rem; font-size: .95rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo" aria-label="Expat Protect — International Insurance Brokerage">
+    <img src="assets/logo.png" alt="Expat Protect — International Insurance Brokerage" class="logo-img" />
+  </a>
+  <div class="nav-links">
+    <a href="/about.html">About</a>
+    <a href="/claim.html">How to Claim</a>
+    <a href="/#plan-comparison">Plans</a>
+    <a href="/#blog">Blog</a>
+    <a href="/#get-quote" class="nav-cta">Get Quote →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-tag">Inpatient</div>
+    <h1>Hospital Admissions Overseas: How Direct Billing &amp; Guarantee of Payment Works</h1>
+    <p>How direct billing and Guarantee of Payment make hospital admissions abroad easier for expats — what they cover, how the process flows, and what to check in your plan.</p>
+    <div class="article-meta">
+      <span><strong>7 min</strong> read</span>
+      <span class="article-meta-divider"></span>
+      <span>April 2026</span>
+      <span class="article-meta-divider"></span>
+      <span>Inpatient · Claims</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<article class="article-body">
+
+  <a href="/#blog" class="back-link">← Back to all guides</a>
+
+  <h2>Introduction</h2>
+  <p>Getting admitted to a hospital abroad can feel stressful, especially if you are unsure how payment will be handled. For expats, <strong>direct billing</strong> and <strong>Guarantee of Payment</strong> can make the process much easier.</p>
+  <p>These services help confirm your insurance cover with the hospital and may reduce the need to pay large medical bills upfront.</p>
+
+  <div class="concept-block">
+    <h3>What Is Direct Billing?</h3>
+    <p>Direct billing means your health insurance provider pays the hospital directly for eligible treatment.</p>
+    <p>Instead of paying the full hospital bill yourself and claiming it back later, the insurer settles the approved costs with the hospital. This is especially useful for inpatient treatment, surgery, emergency care, and expensive medical procedures.</p>
+  </div>
+
+  <div class="concept-block">
+    <h3>What Is a Guarantee of Payment?</h3>
+    <p>A <strong>Guarantee of Payment</strong>, also known as <strong>GOP</strong>, is a confirmation sent by the insurer to the hospital. It tells the hospital that your treatment is approved under your policy, subject to your plan benefits and limits.</p>
+    <p>Hospitals often request this before planned admissions, surgery, or major treatment.</p>
+  </div>
+
+  <h2>Why Is This Important for Expats?</h2>
+  <p>Private hospitals overseas may ask for payment before treatment begins. If the bill is high, this can create pressure during an already stressful situation.</p>
+  <p>Direct billing and GOP support can help expats by:</p>
+  <ul>
+    <li>Reducing upfront payment pressure</li>
+    <li>Speeding up hospital admission</li>
+    <li>Confirming cover with the hospital</li>
+    <li>Making treatment easier to arrange</li>
+    <li>Supporting emergency and planned care</li>
+    <li>Giving peace of mind abroad</li>
+  </ul>
+
+  <h2>How Does the Process Work?</h2>
+  <p>For planned treatment, the process usually works like this:</p>
+  <ol class="process-list">
+    <li>You visit the hospital or doctor</li>
+    <li>The hospital recommends treatment</li>
+    <li>The hospital contacts your insurer</li>
+    <li>Your insurer reviews the medical report</li>
+    <li>A Guarantee of Payment is issued if approved</li>
+    <li>The hospital provides treatment</li>
+    <li>The insurer pays the approved bill directly</li>
+  </ol>
+  <p>For emergencies, the process may move faster, especially if your insurer offers <strong>24-hour medical assistance</strong>.</p>
+
+  <h2>Does Direct Billing Cover Everything?</h2>
+  <p>Not always. Direct billing only applies to treatment covered by your policy.</p>
+  <p>You may still need to pay for:</p>
+  <ul>
+    <li>Deductibles or excess</li>
+    <li>Co-payments</li>
+    <li>Excluded treatment</li>
+    <li>Personal expenses</li>
+    <li>Treatment above your policy limit</li>
+    <li>Pre-existing conditions not covered</li>
+  </ul>
+  <div class="article-callout">
+    <strong>Tip:</strong> This is why it is important to understand your policy before treatment begins — read the benefits table, exclusions and any deductibles in advance.
+  </div>
+
+  <h2>What If the Hospital Is Not in the Network?</h2>
+  <p>If the hospital is not in your insurer's direct billing network, you may need to pay first and submit a claim later.</p>
+  <p>In some cases, the insurer may still arrange a one-time Guarantee of Payment, depending on the hospital, the treatment, and your policy terms.</p>
+
+  <h2>What Should Expats Check Before Buying a Plan?</h2>
+  <p>Before choosing international health insurance, check whether the plan includes:</p>
+  <ul>
+    <li>Direct billing support</li>
+    <li>Hospital network access</li>
+    <li>24-hour assistance</li>
+    <li>Emergency admission support</li>
+    <li>Pre-authorisation process</li>
+    <li>Inpatient cover</li>
+    <li>Claims support</li>
+    <li>Area of cover</li>
+  </ul>
+  <p>A good expat health insurance plan should not only provide medical benefits — it should also support you when you need to use them.</p>
+
+  <h2>Conclusion</h2>
+  <p>Direct billing and Guarantee of Payment can make hospital admissions overseas much easier for expats. They help reduce upfront costs, confirm your cover, and make treatment smoother during planned or emergency care.</p>
+  <p>Before choosing a policy, always check the hospital network, direct billing options, and emergency support services.</p>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Get Quote Now</h3>
+    <p>Need expat health insurance with hospital admission support? Compare plans that may include direct billing, inpatient care, emergency assistance, and international medical protection.</p>
+    <a href="/#get-quote" class="cta-btn">Get Quote Now →</a>
+    <div class="cta-fineprint">No obligation. Tailored to your destination.</div>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Expat<span> Protect Hub</span></div>
+      <p>Comprehensive international health &amp; life insurance for globally mobile individuals in 120+ countries.</p>
+      <div class="footer-newsletter">
+        <input type="email" placeholder="Enter your email…" />
+        <button>Send</button>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about.html">About Us</a>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/#blog">Blog</a>
+      <a href="/#plan-comparison">Plans</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/">FAQ's</a>
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms of Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Insurance</h4>
+      <a href="/#plan-comparison">Health Insurance</a>
+      <a href="/#plan-comparison">Dental Cover</a>
+      <a href="/#plan-comparison">Wellbeing</a>
+      <a href="/#plan-comparison">Evacuation</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Expat Protect Hub. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms Of Service</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
