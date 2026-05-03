@@ -1440,6 +1440,55 @@
       gap: 1.5rem;
     }
 
+    /* Hide articles beyond the 6th by default — revealed by JS */
+    .blog-grid:not(.is-revealed) > .blog-card:nth-child(n+7) { display: none; }
+
+    .blog-grid > .blog-card:nth-child(n+7) {
+      animation: blogCardIn .35s ease-out both;
+    }
+    @keyframes blogCardIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .blog-view-more-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .blog-view-more-btn {
+      background: var(--coral);
+      color: var(--white);
+      border: none;
+      padding: .85rem 2rem;
+      border-radius: 30px;
+      font-family: var(--font);
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: .2px;
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(15,185,177,.3);
+    }
+    .blog-view-more-btn:hover {
+      background: var(--coral-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15,185,177,.45);
+    }
+    .blog-view-more-btn:active { transform: translateY(0); }
+    .blog-view-more-btn .vm-arrow {
+      display: inline-block;
+      transition: transform .25s;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .blog-view-more-btn[aria-expanded="true"] .vm-arrow { transform: rotate(180deg); }
+
+    .blog-view-more-wrap.is-hidden { display: none; }
+
     .blog-card {
       background: var(--cream);
       border: 1px solid var(--border);
@@ -3345,7 +3394,7 @@
       <p>Practical advice on health, insurance and wellbeing for globally mobile individuals.</p>
     </div>
 
-    <div class="blog-grid">
+    <div class="blog-grid" id="blog-grid">
 
       <article class="blog-card">
         <div class="blog-thumb">
@@ -3377,7 +3426,7 @@
           </div>
           <h3>International Health Insurance: What Every Expat Needs to Know Before Moving Abroad</h3>
           <p>From understanding plan tiers to knowing what's covered — a complete primer for first-time expats.</p>
-          <a href="blog-international-health-insurance-guide-2026.html" class="blog-read-more">Read more →</a>
+          <a href="blog-international-health-insurance-expats-guide.html" class="blog-read-more">Read more →</a>
         </div>
       </article>
 
@@ -3467,6 +3516,13 @@
       </article>
 
     </div>
+
+    <div class="blog-view-more-wrap" id="blog-view-more-wrap">
+      <button type="button" class="blog-view-more-btn" id="blog-view-more-btn" aria-expanded="false" aria-controls="blog-grid">
+        View More Articles <span class="vm-arrow">↓</span>
+      </button>
+    </div>
+
   </div>
 </section>
 
@@ -3566,6 +3622,27 @@
 </footer>
 
 <script>
+  // ── Blog "View More" toggle ───────────────────────────────────────────────
+  (function () {
+    const grid = document.getElementById('blog-grid');
+    const btn  = document.getElementById('blog-view-more-btn');
+    const wrap = document.getElementById('blog-view-more-wrap');
+    if (!grid || !btn || !wrap) return;
+
+    const totalCards = grid.querySelectorAll('.blog-card').length;
+    // If 6 or fewer, hide the button entirely
+    if (totalCards <= 6) {
+      wrap.classList.add('is-hidden');
+      return;
+    }
+
+    btn.addEventListener('click', function () {
+      const expanded = grid.classList.toggle('is-revealed');
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      btn.firstChild.textContent = expanded ? 'Show Less ' : 'View More Articles ';
+    });
+  })();
+
   // ── Country list ──────────────────────────────────────────────────────────
   const countries = [
     "Afghanistan","Albania","Algeria","Andorra","Angola","Argentina","Armenia","Australia",

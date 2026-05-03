@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>International Health Insurance: What Every Expat Needs to Know Before Moving Abroad — Expat Protect Hub</title>
+  <meta name="description" content="A complete guide to international health insurance for expats — what it covers, what to check, and why it matters before you move abroad." />
+  <meta name="keywords" content="international health insurance, expat health insurance, health insurance for expats, moving abroad insurance, expat medical cover" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #1B263B;
+      --green-dark:   #0F1620;
+      --green-mid:    #2A3F5F;
+      --coral:        #0FB9B1;
+      --coral-dark:   #0B6E6B;
+      --coral-pale:   #E6F7F6;
+      --cream:        #F8F9FA;
+      --cream-2:      #F0F2F4;
+      --cream-3:      #E4E7EB;
+      --warm-gray:    #6B7280;
+      --warm-gray-lt: #9CA3AF;
+      --border:       #DDE1E6;
+      --white:        #FFFFFF;
+      --font-serif:   'DM Serif Display', Georgia, serif;
+      --font:         'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: #2D3748;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ───────────────────────────────────── */
+    nav {
+      background: rgba(248,249,250,.92);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 96px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; }
+    .logo-img { height: 82px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: .55rem 1.35rem;
+      border-radius: 28px;
+      font-weight: 600 !important;
+      font-size: .85rem !important;
+      transition: background .2s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--coral-dark); transform: translateY(-1px); }
+
+    /* ── HERO ──────────────────────────────────── */
+    .article-hero {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      padding: 5rem 1.5rem 6rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 30%, rgba(15,185,177,.18), transparent 55%);
+      pointer-events: none;
+    }
+    .article-hero-inner { max-width: 880px; margin: 0 auto; position: relative; }
+    .article-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(15,185,177,.15);
+      color: var(--coral);
+      border: 1px solid rgba(15,185,177,.35);
+      padding: .35rem .85rem;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .article-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+      letter-spacing: -.5px;
+    }
+    .article-hero p {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.78);
+      max-width: 720px;
+      margin-bottom: 2rem;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+    }
+    .article-meta strong { color: var(--white); font-weight: 700; }
+    .article-meta-divider { width: 4px; height: 4px; background: rgba(255,255,255,.3); border-radius: 50%; }
+
+    /* ── ARTICLE BODY ──────────────────────────── */
+    .article-body {
+      max-width: 760px;
+      margin: -3rem auto 0;
+      padding: 3rem 2rem 5rem;
+      background: var(--white);
+      border-radius: 18px 18px 0 0;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 -10px 40px rgba(15,185,177,.08);
+    }
+    .article-body h2 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      color: var(--green);
+      margin: 2.6rem 0 1rem;
+      line-height: 1.3;
+      letter-spacing: -.3px;
+    }
+    .article-body h2:first-child { margin-top: 0; }
+    .article-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--green);
+      margin: 2rem 0 .7rem;
+      line-height: 1.35;
+    }
+    .article-body p {
+      font-size: 1.02rem;
+      color: #2D3748;
+      margin-bottom: 1.1rem;
+      line-height: 1.75;
+    }
+    .article-body strong { color: var(--green); font-weight: 700; }
+    .article-body ul {
+      margin: 1rem 0 1.4rem 1.2rem;
+      padding-left: 0;
+    }
+    .article-body ul li {
+      list-style: none;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: .5rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .article-body ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-weight: 900;
+    }
+    .article-body a:not(.cta-btn) {
+      color: var(--coral-dark);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 600;
+    }
+    .article-body a:not(.cta-btn):hover { color: var(--coral); }
+
+    /* Coverage rows */
+    .cover-block {
+      background: var(--cream);
+      border-left: 4px solid var(--coral);
+      border-radius: 10px;
+      padding: 1.1rem 1.4rem;
+      margin: .9rem 0;
+    }
+    .cover-block strong:first-child {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 1.08rem;
+      color: var(--coral-dark);
+      margin-bottom: .3rem;
+    }
+    .cover-block p { margin-bottom: 0; font-size: .98rem; line-height: 1.65; }
+
+    .article-callout {
+      background: var(--coral-pale);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      margin: 1.8rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--green);
+      border-left: 4px solid var(--coral);
+    }
+    .article-callout strong { color: var(--coral-dark); }
+
+    /* CTA */
+    .article-cta {
+      background: linear-gradient(135deg, var(--green) 0%, var(--coral-dark) 100%);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      margin: 3rem 0 1rem;
+      text-align: center;
+    }
+    .article-cta h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .article-cta p { color: rgba(255,255,255,.78); font-size: 1rem; margin-bottom: 1.4rem; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: 1rem 2.2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 6px 20px rgba(15,185,177,.45);
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(15,185,177,.6); }
+    .cta-fineprint { margin-top: 1rem; font-size: .78rem; color: rgba(255,255,255,.55); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      color: var(--warm-gray);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--coral); }
+
+    /* ── FOOTER ────────────────────────────────── */
+    footer {
+      background: var(--green);
+      color: rgba(255,255,255,.5);
+      padding: 4rem 2rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .footer-brand .logo-text {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: .6rem;
+    }
+    .footer-brand .logo-text span { color: var(--coral); }
+    .footer-brand p { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.65; margin-bottom: 1.25rem; }
+    .footer-newsletter { display: flex; gap: .4rem; }
+    .footer-newsletter input {
+      flex: 1;
+      padding: .6rem .9rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      font-size: .82rem;
+      font-family: var(--font);
+      outline: none;
+    }
+    .footer-newsletter input::placeholder { color: rgba(255,255,255,.3); }
+    .footer-newsletter button {
+      background: var(--coral);
+      color: var(--white);
+      border: none;
+      padding: .6rem 1.1rem;
+      border-radius: 24px;
+      font-size: .76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .footer-newsletter button:hover { background: var(--coral-dark); }
+    .footer-col h4 {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: .82rem;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      margin-bottom: .55rem;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--coral); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .75rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.35); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--coral); }
+    .footer-socials { display: flex; gap: .8rem; }
+
+    @media (max-width: 760px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .article-hero { padding: 3.5rem 1.15rem 4.5rem; }
+      .article-body { padding: 2rem 1.25rem 3.5rem; margin-top: -2rem; }
+      .article-body h2 { font-size: 1.45rem; }
+      .article-body h3 { font-size: 1.15rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+    @media (max-width: 520px) {
+      nav { padding: 0 1.15rem; height: 76px; }
+      .logo-img { height: 60px; }
+      .article-hero h1 { font-size: 1.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo" aria-label="Expat Protect — International Insurance Brokerage">
+    <img src="assets/logo.png" alt="Expat Protect — International Insurance Brokerage" class="logo-img" />
+  </a>
+  <div class="nav-links">
+    <a href="/about.html">About</a>
+    <a href="/claim.html">How to Claim</a>
+    <a href="/#plan-comparison">Plans</a>
+    <a href="/#blog">Blog</a>
+    <a href="/#get-quote" class="nav-cta">Get Quote →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-tag">Health Cover</div>
+    <h1>International Health Insurance: What Every Expat Needs to Know Before Moving Abroad</h1>
+    <p>A complete primer to expat health insurance — what it is, why you need it, what it covers, and what to check before you sign.</p>
+    <div class="article-meta">
+      <span><strong>8 min</strong> read</span>
+      <span class="article-meta-divider"></span>
+      <span>April 2026</span>
+      <span class="article-meta-divider"></span>
+      <span>Health Cover · Expats</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<article class="article-body">
+
+  <a href="/#blog" class="back-link">← Back to all guides</a>
+
+  <h2>Introduction</h2>
+  <p>Moving abroad is exciting, but healthcare should be arranged before you relocate. <strong>International health insurance for expats</strong> helps protect you from unexpected medical costs, private hospital bills, emergency treatment, and specialist care while living overseas.</p>
+  <p>Unlike travel insurance, expat health insurance is designed for people living abroad long-term. It gives you medical protection in your country of residence and, depending on the plan, across multiple countries.</p>
+
+  <h2>What Is International Health Insurance?</h2>
+  <p>International health insurance is medical cover for people living outside their home country. It can help pay for hospital treatment, doctor visits, surgery, emergency care, and sometimes dental, maternity, mental health, or evacuation benefits.</p>
+  <p>It is especially useful for expats, retirees, remote workers, international families, and business owners living overseas.</p>
+
+  <h2>Why Do Expats Need It?</h2>
+  <p>Medical costs abroad can be unpredictable. Even in countries where basic healthcare is affordable, private hospital treatment can become expensive quickly.</p>
+  <p>A good expat health insurance plan can help with:</p>
+  <ul>
+    <li>Private hospital access</li>
+    <li>Inpatient treatment</li>
+    <li>Emergency care</li>
+    <li>Specialist consultations</li>
+    <li>Direct billing where available</li>
+    <li>Cancer treatment support</li>
+    <li>Medical evacuation</li>
+    <li>Financial protection from large bills</li>
+  </ul>
+
+  <div class="article-callout">
+    <strong>Bottom line:</strong> For many expats, health insurance is not only about healthcare — it is also about protecting your savings.
+  </div>
+
+  <h2>What Does Expat Health Insurance Usually Cover?</h2>
+  <p>Coverage depends on the plan, but many international health insurance policies may include:</p>
+
+  <div class="cover-block">
+    <strong>Inpatient care</strong>
+    <p>Hospital stays, surgery, intensive care, nursing, and hospital medication.</p>
+  </div>
+
+  <div class="cover-block">
+    <strong>Outpatient care</strong>
+    <p>Doctor visits, specialist appointments, scans, blood tests, and prescriptions.</p>
+  </div>
+
+  <div class="cover-block">
+    <strong>Emergency treatment</strong>
+    <p>Urgent care for sudden illness, accidents, or serious medical situations.</p>
+  </div>
+
+  <div class="cover-block">
+    <strong>Cancer treatment</strong>
+    <p>Oncology care such as chemotherapy, radiotherapy, surgery, and specialist treatment.</p>
+  </div>
+
+  <div class="cover-block">
+    <strong>Dental and wellness benefits</strong>
+    <p>Some plans include dental, mental health, health checks, or wellness support.</p>
+  </div>
+
+  <div class="cover-block">
+    <strong>Evacuation and repatriation</strong>
+    <p>If local treatment is not suitable, the insurer may help move you to another hospital or country.</p>
+  </div>
+
+  <h2>What Should You Check Before Buying?</h2>
+  <p>Before choosing a plan, always review the benefit table and exclusions. Important things to check include:</p>
+  <ul>
+    <li>Annual coverage limit</li>
+    <li>Hospital network</li>
+    <li>Direct billing options</li>
+    <li>Inpatient and outpatient cover</li>
+    <li>Pre-existing condition rules</li>
+    <li>Deductibles or co-payments</li>
+    <li>Emergency evacuation cover</li>
+    <li>Area of cover</li>
+    <li>Renewal terms</li>
+  </ul>
+  <p>The cheapest plan is not always the best. A lower-cost policy may have lower limits, more exclusions, or less support when you need treatment.</p>
+
+  <h2>Local Health Insurance vs International Health Insurance</h2>
+  <p>Local insurance may be suitable if you only live in one country and need basic cover. However, international health insurance is usually better for expats who travel often, want private hospital access, or need wider medical protection.</p>
+  <p>International plans often provide more flexibility and stronger support for serious medical situations abroad.</p>
+
+  <h2>Conclusion</h2>
+  <p>International health insurance is one of the most important things to arrange before moving abroad. It helps protect your health, your family, and your finances while living overseas.</p>
+  <p>Before choosing a plan, compare more than just the price. Look at the benefits, hospital access, exclusions, direct billing, and emergency support.</p>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Get Quote Now</h3>
+    <p>Moving abroad or already living overseas? Compare expat health insurance plans based on your age, destination, budget, and coverage needs.</p>
+    <a href="/#get-quote" class="cta-btn">Get Quote Now →</a>
+    <div class="cta-fineprint">No obligation. Tailored to your destination.</div>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Expat<span> Protect Hub</span></div>
+      <p>Comprehensive international health &amp; life insurance for globally mobile individuals in 120+ countries.</p>
+      <div class="footer-newsletter">
+        <input type="email" placeholder="Enter your email…" />
+        <button>Send</button>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about.html">About Us</a>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/#blog">Blog</a>
+      <a href="/#plan-comparison">Plans</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/">FAQ's</a>
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms of Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Insurance</h4>
+      <a href="/#plan-comparison">Health Insurance</a>
+      <a href="/#plan-comparison">Dental Cover</a>
+      <a href="/#plan-comparison">Wellbeing</a>
+      <a href="/#plan-comparison">Evacuation</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Expat Protect Hub. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms Of Service</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
