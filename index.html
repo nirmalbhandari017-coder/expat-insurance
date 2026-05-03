@@ -1497,6 +1497,9 @@
       transition: box-shadow .25s, transform .25s;
     }
 
+    /* Make the whole card clickable (only when its Read More link points to a real URL) */
+    .blog-card.is-clickable { cursor: pointer; }
+
     .blog-card:hover {
       box-shadow: 0 12px 40px rgba(27,38,59,.08);
       transform: translateY(-3px);
@@ -3622,6 +3625,44 @@
 </footer>
 
 <script>
+  // ── Blog cards: full-card click → article ─────────────────────────────────
+  // Keeps the inner "Read more" <a> as the canonical link (no nested anchors,
+  // accessible to keyboards and screen readers); the rest of the card just
+  // delegates clicks to that link's href.
+  (function () {
+    document.querySelectorAll('.blog-card').forEach(function (card) {
+      const link = card.querySelector('.blog-read-more');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      // Skip placeholder/empty links so dead cards don't appear interactive
+      if (!href || href === '#' || href.trim() === '') return;
+
+      card.classList.add('is-clickable');
+
+      card.addEventListener('click', function (e) {
+        // Defer to any actual link/button the user clicked
+        if (e.target.closest('a, button')) return;
+        // Don't navigate if the user is selecting text
+        const sel = window.getSelection && window.getSelection();
+        if (sel && sel.toString().length > 0) return;
+        // Open in new tab if user holds modifier (cmd/ctrl/middle-click already handled by browser on <a>)
+        if (e.metaKey || e.ctrlKey) {
+          window.open(link.href, '_blank', 'noopener');
+        } else {
+          window.location.href = link.href;
+        }
+      });
+
+      // Middle-click → open in new tab (mirrors native <a> behaviour)
+      card.addEventListener('auxclick', function (e) {
+        if (e.button !== 1) return;                      // middle button only
+        if (e.target.closest('a, button')) return;
+        e.preventDefault();
+        window.open(link.href, '_blank', 'noopener');
+      });
+    });
+  })();
+
   // ── Blog "View More" toggle ───────────────────────────────────────────────
   (function () {
     const grid = document.getElementById('blog-grid');
