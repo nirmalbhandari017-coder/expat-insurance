@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions — Expat Protect Hub</title>
+  <meta name="description" content="Answers to the most common questions about expat health insurance — coverage, claims, billing, exclusions, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #1B263B;
+      --green-dark:   #0F1620;
+      --green-mid:    #2A3F5F;
+      --coral:        #0FB9B1;
+      --coral-dark:   #0B6E6B;
+      --coral-pale:   #E6F7F6;
+      --cream:        #F8F9FA;
+      --cream-2:      #F0F2F4;
+      --cream-3:      #E4E7EB;
+      --warm-gray:    #6B7280;
+      --warm-gray-lt: #9CA3AF;
+      --border:       #DDE1E6;
+      --white:        #FFFFFF;
+      --font-serif:   'DM Serif Display', Georgia, serif;
+      --font:         'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: #2D3748;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ───────────────────────────────────── */
+    nav {
+      background: rgba(248,249,250,.92);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 96px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; }
+    .logo-img { height: 82px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: .55rem 1.35rem;
+      border-radius: 28px;
+      font-weight: 600 !important;
+      font-size: .85rem !important;
+      transition: background .2s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--coral-dark); transform: translateY(-1px); }
+
+    /* ── HERO ──────────────────────────────────── */
+    .faq-hero {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      padding: 5rem 1.5rem 6rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .faq-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 75% 30%, rgba(15,185,177,.2), transparent 55%),
+                  radial-gradient(circle at 20% 70%, rgba(15,185,177,.12), transparent 50%);
+      pointer-events: none;
+    }
+    .faq-hero-inner { max-width: 820px; margin: 0 auto; position: relative; }
+    .faq-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(15,185,177,.15);
+      color: var(--coral);
+      border: 1px solid rgba(15,185,177,.35);
+      padding: .35rem .85rem;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .faq-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+      letter-spacing: -.5px;
+    }
+    .faq-hero p {
+      font-size: 1.1rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.78);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* ── BODY ──────────────────────────────────── */
+    .faq-body {
+      max-width: 920px;
+      margin: -3.5rem auto 0;
+      padding: 3rem 2rem 4.5rem;
+      background: var(--white);
+      border-radius: 18px 18px 0 0;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 -10px 40px rgba(15,185,177,.08);
+    }
+
+    /* Category tabs */
+    .faq-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-tab {
+      background: var(--cream);
+      color: var(--warm-gray);
+      border: 1.5px solid var(--border);
+      padding: .55rem 1.15rem;
+      border-radius: 24px;
+      font-size: .82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: .3px;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .faq-tab:hover {
+      color: var(--coral);
+      border-color: var(--coral);
+    }
+
+    /* Section heading */
+    .faq-section { margin-bottom: 2.6rem; scroll-margin-top: 110px; }
+    .faq-section:last-child { margin-bottom: 0; }
+    .faq-section-head {
+      display: flex;
+      align-items: center;
+      gap: .85rem;
+      margin-bottom: 1.1rem;
+    }
+    .faq-section-head .fs-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--coral-pale);
+      color: var(--coral);
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+    .faq-section-head h2 {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      color: var(--green);
+      letter-spacing: -.2px;
+    }
+
+    /* Accordion items (native <details>) */
+    .faq-item {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: .65rem;
+      overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .faq-item[open] {
+      border-color: var(--coral);
+      background: var(--white);
+      box-shadow: 0 6px 20px rgba(15,185,177,.08);
+    }
+    .faq-item summary {
+      padding: 1.1rem 1.4rem;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--font);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--green);
+      line-height: 1.45;
+      transition: color .15s;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--coral-pale);
+      color: var(--coral);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-left: auto;
+      transition: transform .2s, background .2s, color .2s;
+    }
+    .faq-item[open] summary::after {
+      content: '−';
+      background: var(--coral);
+      color: var(--white);
+    }
+    .faq-item summary:hover { color: var(--coral-dark); }
+    .faq-item .faq-answer {
+      padding: 0 1.4rem 1.3rem 1.4rem;
+      color: #2D3748;
+      font-size: .98rem;
+      line-height: 1.7;
+    }
+    .faq-item .faq-answer p {
+      margin-bottom: .7rem;
+    }
+    .faq-item .faq-answer p:last-child { margin-bottom: 0; }
+    .faq-item .faq-answer ul {
+      margin: .5rem 0 .8rem 1.2rem;
+      padding-left: 0;
+    }
+    .faq-item .faq-answer ul li {
+      list-style: none;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: .35rem;
+      line-height: 1.6;
+    }
+    .faq-item .faq-answer ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-weight: 900;
+    }
+    .faq-item .faq-answer a {
+      color: var(--coral-dark);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 600;
+    }
+    .faq-item .faq-answer a:hover { color: var(--coral); }
+    .faq-item .faq-answer strong { color: var(--green); font-weight: 700; }
+
+    /* CTA */
+    .faq-cta {
+      background: linear-gradient(135deg, var(--green) 0%, var(--coral-dark) 100%);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      margin-top: 3rem;
+      text-align: center;
+    }
+    .faq-cta h3 {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      color: var(--white);
+      margin-bottom: .55rem;
+    }
+    .faq-cta p { color: rgba(255,255,255,.78); font-size: 1rem; margin-bottom: 1.4rem; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: 1rem 2.2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 6px 20px rgba(15,185,177,.45);
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(15,185,177,.6); }
+    .cta-fineprint { margin-top: 1rem; font-size: .78rem; color: rgba(255,255,255,.55); }
+
+    /* ── FOOTER ────────────────────────────────── */
+    footer {
+      background: var(--green);
+      color: rgba(255,255,255,.5);
+      padding: 4rem 2rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .footer-brand .logo-text {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: .6rem;
+    }
+    .footer-brand .logo-text span { color: var(--coral); }
+    .footer-brand p { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.65; margin-bottom: 1.25rem; }
+    .footer-newsletter { display: flex; gap: .4rem; }
+    .footer-newsletter input {
+      flex: 1;
+      padding: .6rem .9rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      font-size: .82rem;
+      font-family: var(--font);
+      outline: none;
+    }
+    .footer-newsletter input::placeholder { color: rgba(255,255,255,.3); }
+    .footer-newsletter button {
+      background: var(--coral);
+      color: var(--white);
+      border: none;
+      padding: .6rem 1.1rem;
+      border-radius: 24px;
+      font-size: .76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .footer-newsletter button:hover { background: var(--coral-dark); }
+    .footer-col h4 {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: .82rem;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      margin-bottom: .55rem;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--coral); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .75rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.35); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--coral); }
+    .footer-socials { display: flex; gap: .8rem; }
+
+    @media (max-width: 760px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .faq-hero { padding: 3.5rem 1.15rem 4.5rem; }
+      .faq-body { padding: 2rem 1.25rem 3.5rem; margin-top: -2.5rem; }
+      .faq-section-head h2 { font-size: 1.3rem; }
+      .faq-item summary { font-size: .94rem; padding: 1rem 1.1rem; gap: .8rem; }
+      .faq-item summary::after { width: 24px; height: 24px; font-size: 1.15rem; }
+      .faq-item .faq-answer { padding: 0 1.1rem 1.1rem 1.1rem; font-size: .94rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+    @media (max-width: 520px) {
+      nav { padding: 0 1.15rem; height: 76px; }
+      .logo-img { height: 60px; }
+      .faq-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo" aria-label="Expat Protect — International Insurance Brokerage">
+    <img src="assets/logo.png" alt="Expat Protect — International Insurance Brokerage" class="logo-img" />
+  </a>
+  <div class="nav-links">
+    <a href="/about.html">About</a>
+    <a href="/claim.html">How to Claim</a>
+    <a href="/#plan-comparison">Plans</a>
+    <a href="/#blog">Blog</a>
+    <a href="/#get-quote" class="nav-cta">Get Quote →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="faq-hero">
+  <div class="faq-hero-inner">
+    <div class="faq-tag">Frequently Asked Questions</div>
+    <h1>Answers to your expat insurance questions</h1>
+    <p>Browse the most common questions about coverage, claims, billing, and exclusions. Can't find what you're looking for? Reach out and we'll help.</p>
+  </div>
+</section>
+
+<!-- BODY -->
+<section class="faq-body">
+
+  <!-- Category tabs -->
+  <div class="faq-tabs" role="navigation" aria-label="FAQ categories">
+    <a href="#general" class="faq-tab">General</a>
+    <a href="#coverage" class="faq-tab">Coverage</a>
+    <a href="#travel" class="faq-tab">Travel</a>
+    <a href="#billing" class="faq-tab">Billing</a>
+    <a href="#claims" class="faq-tab">Claims</a>
+  </div>
+
+  <!-- ── GENERAL ─────────────────────────── -->
+  <div class="faq-section" id="general">
+    <div class="faq-section-head">
+      <div class="fs-icon">🌍</div>
+      <h2>General</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>Where in the world am I covered under this insurance policy?</summary>
+      <div class="faq-answer">
+        <p>Coverage depends on the area you select when you take out your plan. The two most common options for expats are:</p>
+        <ul>
+          <li><strong>Worldwide Excluding USA</strong> — covers treatment across Asia, the Gulf, Europe, Africa, Latin America, Oceania, and your home country (if it's not the USA).</li>
+          <li><strong>Worldwide Including USA</strong> — adds the United States, where private medical costs are the highest in the world.</li>
+        </ul>
+        <p>Within your selected area you have <strong>open choice of hospital</strong>, meaning you're not tied to a restricted network.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I still apply if I don't have a fixed address?</summary>
+      <div class="faq-answer">
+        <p>Yes. Our plans are designed for globally mobile individuals — expats, retirees, remote workers, digital nomads, and international families. You don't need a permanent residential address.</p>
+        <p>At application we'll ask for a <strong>country of residence</strong> (where you currently spend most of your time) and a <strong>correspondence address</strong> for documents — this can be a postal address, a virtual mailbox, or a long-term accommodation address. If your situation is unusual, speak to a specialist before applying and we'll work it out.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ── COVERAGE ────────────────────────── -->
+  <div class="faq-section" id="coverage">
+    <div class="faq-section-head">
+      <div class="fs-icon">🛡️</div>
+      <h2>Coverage</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>In which countries can I receive treatment?</summary>
+      <div class="faq-answer">
+        <p>Anywhere within your selected area of cover. If you're on <strong>Worldwide Excluding USA</strong>, you can be treated in any country except the United States. If you choose <strong>Worldwide Including USA</strong>, you're covered globally.</p>
+        <p>Inside your area you have <strong>open choice of hospital</strong>, so you can pick the facility that suits you best — whether that's Bumrungrad in Bangkok, Mount Elizabeth in Singapore, Gleneagles in Penang, or Cleveland Clinic in Dubai.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Will this international medical insurance cover me in my home country?</summary>
+      <div class="faq-answer">
+        <p>Yes — provided your home country falls within your selected area of cover. Most expats opt for Worldwide Excluding USA, which covers all home-country trips except for those returning to the United States.</p>
+        <p>For trips home, treatment received during your stay is covered like any other treatment within your area. If you intend to return permanently, let us know — your policy may need to be adjusted.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Is cancer treatment covered?</summary>
+      <div class="faq-answer">
+        <p>Yes. Cancer treatment is covered on all plan tiers, but the limit varies:</p>
+        <ul>
+          <li><strong>Major Medical, Standard, Comprehensive</strong> — up to <strong>US$20,000</strong> oncology benefit</li>
+          <li><strong>Fully Comprehensive</strong> — <strong>full cover</strong> for chemotherapy, radiotherapy, surgery, and specialist treatment</li>
+        </ul>
+        <p>Cancer is one of the most expensive and most common reasons expats make large insurance claims. If cancer cover is a priority for you, a Fully Comprehensive plan offers the strongest protection. See the <a href="/#plan-comparison">plan comparison</a> for full details.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does the insurance cover dental treatment?</summary>
+      <div class="faq-answer">
+        <p>Dental cover is included on the higher plan tiers:</p>
+        <ul>
+          <li><strong>Comprehensive</strong> — Emergency &amp; Major Dental</li>
+          <li><strong>Fully Comprehensive</strong> — Emergency, Major <em>and</em> Routine Dental</li>
+        </ul>
+        <p>Major Medical and Standard plans don't include dental treatment. Check the <a href="/#plan-comparison">plan comparison</a> to see exactly what each tier includes.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can I claim for outpatient treatment?</summary>
+      <div class="faq-answer">
+        <p>Yes, depending on your plan:</p>
+        <ul>
+          <li><strong>Major Medical</strong> — inpatient only, no outpatient cover</li>
+          <li><strong>Standard</strong> — up to <strong>US$32,000</strong> outpatient</li>
+          <li><strong>Comprehensive</strong> — up to <strong>US$54,000</strong> outpatient</li>
+          <li><strong>Fully Comprehensive</strong> — <strong>full</strong> outpatient cover</li>
+        </ul>
+        <p>Outpatient cover includes GP visits, specialist consultations, diagnostics, scans, blood tests, and prescribed medication. If you visit doctors regularly, it's worth paying for.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Does this insurance cover pre-existing conditions?</summary>
+      <div class="faq-answer">
+        <p>Pre-existing conditions are usually <strong>excluded by default</strong>, but they may be considered during medical underwriting if you declare them at application. Some pre-existing conditions can be covered (sometimes at standard rates, sometimes at a loading), and others may be excluded entirely.</p>
+        <p><strong>Always disclose pre-existing conditions when applying.</strong> Failing to declare them can lead to denied claims later. If you're unsure whether a condition counts as pre-existing, speak with a specialist before you take out the policy.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ── TRAVEL ──────────────────────────── -->
+  <div class="faq-section" id="travel">
+    <div class="faq-section-head">
+      <div class="fs-icon">✈️</div>
+      <h2>Travel</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>What does your "Terrorism Cover" include?</summary>
+      <div class="faq-answer">
+        <p>Global Security Benefits are included <strong>free on every plan</strong> and provide support for situations that are typically excluded by standard health insurance, including:</p>
+        <ul>
+          <li>Acts of terrorism</li>
+          <li>Hijacking and hostage situations</li>
+          <li>Civil unrest and political violence</li>
+          <li>Crisis response and emergency evacuation in high-risk events</li>
+        </ul>
+        <p>This is a unique benefit for expats and globally mobile professionals operating in regions where these risks exist. Activation runs through the same 24-hour assistance helpline used for medical emergencies.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ── BILLING ─────────────────────────── -->
+  <div class="faq-section" id="billing">
+    <div class="faq-section-head">
+      <div class="fs-icon">💳</div>
+      <h2>Billing</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>If I need hospital treatment, will I need to pay the bill and reclaim from the insurance company?</summary>
+      <div class="faq-answer">
+        <p>It depends on the type of treatment:</p>
+        <ul>
+          <li><strong>Inpatient (hospital admissions, surgery, ICU):</strong> we use <strong>direct billing</strong> wherever possible. Once a Guarantee of Payment (GOP) is issued, the insurer settles the approved bill directly with the hospital — you don't need to find the funds upfront.</li>
+          <li><strong>Outpatient (GP visits, specialists, diagnostics):</strong> these are typically paid by you at the time of treatment, then claimed back via reimbursement. Keep all invoices and medical reports.</li>
+        </ul>
+        <p>For a step-by-step walkthrough of both processes, see <a href="/claim.html">How to Claim</a>.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ── CLAIMS ──────────────────────────── -->
+  <div class="faq-section" id="claims">
+    <div class="faq-section-head">
+      <div class="fs-icon">📝</div>
+      <h2>Claims</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>What should I do in case of an emergency?</summary>
+      <div class="faq-answer">
+        <p><strong>Get treatment first.</strong> Don't delay care to make insurance arrangements — go to the nearest appropriate hospital or call local emergency services.</p>
+        <p>As soon as you, a family member, or a friend can do so, contact the <strong>24/7 multilingual helpline</strong>. The assistance team will:</p>
+        <ul>
+          <li>Coordinate with the treating hospital</li>
+          <li>Issue a Guarantee of Payment where possible so direct billing kicks in</li>
+          <li>Arrange medical evacuation if local treatment isn't suitable</li>
+          <li>Keep you and your family informed throughout</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How do I make a claim?</summary>
+      <div class="faq-answer">
+        <p>The process follows four simple steps:</p>
+        <ul>
+          <li><strong>1. Get your treatment</strong> — inform Regency's team of your situation (or proceed straight to your medical facility for outpatient care).</li>
+          <li><strong>2. Gather your documents</strong> — medical reports, admission notes, receipts, and invoices.</li>
+          <li><strong>3. Complete the claims form</strong> — print, fill in, and have your doctor complete their section.</li>
+          <li><strong>4. Email Regency's team</strong> — send the form along with all supporting documents.</li>
+        </ul>
+        <p>Full step-by-step instructions and the official claims form are on the <a href="/claim.html">How to Claim</a> page.</p>
+      </div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Are any conditions or treatments excluded?</summary>
+      <div class="faq-answer">
+        <p>Yes — like all insurance policies, certain conditions and treatments are excluded. Common exclusions include:</p>
+        <ul>
+          <li>Pre-existing conditions not declared and accepted at underwriting</li>
+          <li>Cosmetic and aesthetic procedures</li>
+          <li>Self-inflicted injuries</li>
+          <li>Treatment arising from drug or alcohol misuse</li>
+          <li>Experimental or unproven treatments</li>
+          <li>Costs above your plan's annual limit or sub-limits</li>
+          <li>Deductibles and co-payments where applicable</li>
+        </ul>
+        <p>The full list of exclusions is in the <strong>policy wording</strong> sent with your quote. Always read it carefully before purchase, and ask a specialist if anything is unclear.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- CTA -->
+  <div class="faq-cta">
+    <h3>Still have questions?</h3>
+    <p>Get a free, no-obligation quote and our team will walk you through anything you need to know.</p>
+    <a href="/#get-quote" class="cta-btn">Get a Free Quote →</a>
+    <div class="cta-fineprint">No obligation. Tailored to your destination.</div>
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Expat<span> Protect Hub</span></div>
+      <p>Comprehensive international health &amp; life insurance for globally mobile individuals in 120+ countries.</p>
+      <div class="footer-newsletter">
+        <input type="email" placeholder="Enter your email…" />
+        <button>Send</button>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about.html">About Us</a>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/#blog">Blog</a>
+      <a href="/#plan-comparison">Plans</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="/faq.html">FAQs</a>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms of Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Insurance</h4>
+      <a href="/#plan-comparison">Health Insurance</a>
+      <a href="/#plan-comparison">Dental Cover</a>
+      <a href="/#plan-comparison">Wellbeing</a>
+      <a href="/#plan-comparison">Evacuation</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Expat Protect Hub. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms Of Service</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
