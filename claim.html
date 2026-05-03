@@ -160,13 +160,13 @@
     }
     .claim-cols-head-cell .cch-title {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.4rem;
       font-weight: 700;
       letter-spacing: .5px;
       text-transform: uppercase;
     }
     .claim-cols-head-cell .cch-sub {
-      font-size: .68rem;
+      font-size: .8rem;
       font-weight: 800;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -217,19 +217,19 @@
     }
     .claim-step-num .csn-text {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.4rem;
       font-weight: 700;
       line-height: 1.2;
     }
     .claim-step-num .csn-icon {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       align-self: flex-end;
       opacity: .85;
     }
 
     .claim-step-cell {
       padding: 1.5rem 1.4rem;
-      font-size: .88rem;
+      font-size: 1.13rem;
       line-height: 1.55;
       color: #2D3748;
     }
@@ -250,6 +250,71 @@
     .claim-note strong { color: var(--coral-dark); }
 
     .claim-cta { text-align: center; margin-top: 2.5rem; }
+
+    .claim-form-link {
+      color: var(--coral-dark);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 1.5px;
+    }
+    .claim-form-link:hover { color: var(--coral); }
+
+    .claim-download {
+      margin-top: 2.25rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+    }
+    .claim-download-icon {
+      flex: 0 0 auto;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--coral-pale);
+      color: var(--coral);
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+    }
+    .claim-download-text { flex: 1 1 220px; }
+    .claim-download-text h3 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: var(--green);
+      margin-bottom: .2rem;
+    }
+    .claim-download-text p {
+      font-size: .92rem;
+      color: var(--warm-gray);
+      line-height: 1.5;
+    }
+    .claim-download-btn {
+      flex: 0 0 auto;
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: .85rem 1.5rem;
+      border-radius: 28px;
+      font-weight: 700;
+      font-size: .92rem;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(15,185,177,.3);
+      white-space: nowrap;
+    }
+    .claim-download-btn:hover {
+      background: var(--coral-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(15,185,177,.45);
+    }
+    @media (max-width: 560px) {
+      .claim-download { flex-direction: column; align-items: flex-start; padding: 1.25rem; }
+      .claim-download-btn { align-self: stretch; text-align: center; }
+    }
 
     /* ── FOOTER ────────────────────────────────── */
     footer {
@@ -462,7 +527,7 @@
         Gather together all your medical reports, admission notes and any other information or documents that relate to your case.
       </div>
       <div class="claim-step-cell cell-out">
-        Gather any medical reports, admission notes, receipts, invoices and letters associated with your case. If those documents don't show the medical diagnosis, your doctor must also complete part 3 of the claims form.
+        Gather any medical reports, admission notes, receipts, invoices and letters associated with your case. If those documents don't show the medical diagnosis, your doctor must also complete part 3 of the <a class="claim-form-link" href="https://www.regencyassurance.com/application/files/3416/4679/6481/Regency_for_Expats_-_Health_Claims_Form.pdf" target="_blank" rel="noopener">claims form</a>.
       </div>
     </div>
 
@@ -471,15 +536,15 @@
       <div class="claim-step-num">
         <div class="csn-label">
           <div class="csn-digit">3</div>
-          <div class="csn-text">Complete<br>claims form</div>
+          <div class="csn-text">Complete<br><a class="claim-form-link" href="https://www.regencyassurance.com/application/files/3416/4679/6481/Regency_for_Expats_-_Health_Claims_Form.pdf" target="_blank" rel="noopener">claims form</a></div>
         </div>
         <div class="csn-icon">📝</div>
       </div>
       <div class="claim-step-cell cell-in">
-        Complete and sign the claims form, ensuring the attending doctor completes their section too.
+        Complete and sign the <a class="claim-form-link" href="https://www.regencyassurance.com/application/files/3416/4679/6481/Regency_for_Expats_-_Health_Claims_Form.pdf" target="_blank" rel="noopener">claims form</a>, ensuring the attending doctor completes their section too.
       </div>
       <div class="claim-step-cell cell-out">
-        Complete and sign the claims form. Giving us as much information as possible helps us to quickly understand the situation and assess your claim.
+        Complete and sign the <a class="claim-form-link" href="https://www.regencyassurance.com/application/files/3416/4679/6481/Regency_for_Expats_-_Health_Claims_Form.pdf" target="_blank" rel="noopener">claims form</a>. Giving us as much information as possible helps us to quickly understand the situation and assess your claim.
       </div>
     </div>
 
@@ -493,11 +558,27 @@
         <div class="csn-icon">✉️</div>
       </div>
       <div class="claim-step-cell cell-in">
-        Email your completed claims form along with any medical reports and relevant documents to our claims team. You can do this yourself or someone can email them on your behalf.
+        Email your completed <a class="claim-form-link" href="https://www.regencyassurance.com/application/files/3416/4679/6481/Regency_for_Expats_-_Health_Claims_Form.pdf" target="_blank" rel="noopener">claims form</a> along with any medical reports and relevant documents to our claims team. You can do this yourself or someone can email them on your behalf.
       </div>
       <div class="claim-step-cell cell-out">
-        Email your completed claims form along with any medical reports and relevant documents to our claims team.
+        Email your completed <a class="claim-form-link" href="https://www.regencyassurance.com/application/files/3416/4679/6481/Regency_for_Expats_-_Health_Claims_Form.pdf" target="_blank" rel="noopener">claims form</a> along with any medical reports and relevant documents to our claims team.
       </div>
+    </div>
+
+    <!-- Download claims form -->
+    <div class="claim-download">
+      <div class="claim-download-icon">📄</div>
+      <div class="claim-download-text">
+        <h3>Download the Claims Form</h3>
+        <p>Print, complete and sign the official Regency for Expats Health Claims Form, then email it to our claims team along with your supporting documents.</p>
+      </div>
+      <a href="https://www.regencyassurance.com/application/files/3416/4679/6481/Regency_for_Expats_-_Health_Claims_Form.pdf"
+         class="claim-download-btn"
+         target="_blank"
+         rel="noopener"
+         download>
+        Download PDF →
+      </a>
     </div>
 
     <!-- Important note -->
