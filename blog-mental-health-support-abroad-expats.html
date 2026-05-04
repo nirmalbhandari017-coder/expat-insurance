@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mental Health Support Abroad: Why Psychology &amp; Coaching Benefits Matter for Expats — Expat Protect Hub</title>
+  <meta name="description" content="Why mental health support matters for expats living abroad — psychology, counselling, and coaching benefits explained, plus what to check in your international health insurance plan." />
+  <meta name="keywords" content="mental health support expats, expat psychology benefits, expat coaching benefits, international health insurance mental health, expat wellbeing" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:        #1B263B;
+      --green-dark:   #0F1620;
+      --green-mid:    #2A3F5F;
+      --coral:        #0FB9B1;
+      --coral-dark:   #0B6E6B;
+      --coral-pale:   #E6F7F6;
+      --cream:        #F8F9FA;
+      --cream-2:      #F0F2F4;
+      --cream-3:      #E4E7EB;
+      --warm-gray:    #6B7280;
+      --warm-gray-lt: #9CA3AF;
+      --border:       #DDE1E6;
+      --white:        #FFFFFF;
+      --font-serif:   'DM Serif Display', Georgia, serif;
+      --font:         'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--cream);
+      color: #2D3748;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ───────────────────────────────────── */
+    nav {
+      background: rgba(248,249,250,.92);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 96px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+    .logo { display: flex; align-items: center; gap: .65rem; text-decoration: none; }
+    .logo-img { height: 82px; width: auto; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: .55rem 1.35rem;
+      border-radius: 28px;
+      font-weight: 600 !important;
+      font-size: .85rem !important;
+      transition: background .2s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--coral-dark); transform: translateY(-1px); }
+
+    /* ── HERO ──────────────────────────────────── */
+    .article-hero {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      padding: 5rem 1.5rem 6rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .article-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 30%, rgba(15,185,177,.18), transparent 55%);
+      pointer-events: none;
+    }
+    .article-hero-inner { max-width: 880px; margin: 0 auto; position: relative; }
+    .article-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(15,185,177,.15);
+      color: var(--coral);
+      border: 1px solid rgba(15,185,177,.35);
+      padding: .35rem .85rem;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .article-hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1.1rem;
+      letter-spacing: -.5px;
+    }
+    .article-hero p {
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,.78);
+      max-width: 720px;
+      margin-bottom: 2rem;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+    }
+    .article-meta strong { color: var(--white); font-weight: 700; }
+    .article-meta-divider { width: 4px; height: 4px; background: rgba(255,255,255,.3); border-radius: 50%; }
+
+    /* ── ARTICLE BODY ──────────────────────────── */
+    .article-body {
+      max-width: 760px;
+      margin: -3rem auto 0;
+      padding: 3rem 2rem 5rem;
+      background: var(--white);
+      border-radius: 18px 18px 0 0;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 -10px 40px rgba(15,185,177,.08);
+    }
+    .article-body h2 {
+      font-family: var(--font-serif);
+      font-size: 1.75rem;
+      color: var(--green);
+      margin: 2.6rem 0 1rem;
+      line-height: 1.3;
+      letter-spacing: -.3px;
+    }
+    .article-body h2:first-child { margin-top: 0; }
+    .article-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--green);
+      margin: 2rem 0 .7rem;
+      line-height: 1.35;
+    }
+    .article-body p {
+      font-size: 1.02rem;
+      color: #2D3748;
+      margin-bottom: 1.1rem;
+      line-height: 1.75;
+    }
+    .article-body strong { color: var(--green); font-weight: 700; }
+    .article-body ul {
+      margin: 1rem 0 1.4rem 1.2rem;
+      padding-left: 0;
+    }
+    .article-body ul li {
+      list-style: none;
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: .5rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    .article-body ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--coral);
+      font-weight: 900;
+    }
+    .article-body a:not(.cta-btn) {
+      color: var(--coral-dark);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 600;
+    }
+    .article-body a:not(.cta-btn):hover { color: var(--coral); }
+
+    /* Side-by-side comparison */
+    .compare-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.4rem 0;
+    }
+    .compare-2col .c2c-card {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-top: 4px solid var(--coral);
+      border-radius: 12px;
+      padding: 1.3rem 1.4rem;
+    }
+    .compare-2col .c2c-card h3 {
+      margin-top: 0 !important;
+      color: var(--coral-dark);
+      font-size: 1.15rem;
+      margin-bottom: .55rem;
+    }
+    .compare-2col .c2c-card p {
+      font-size: .96rem;
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+    @media (max-width: 600px) {
+      .compare-2col { grid-template-columns: 1fr; }
+    }
+
+    .article-callout {
+      background: var(--coral-pale);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      margin: 1.8rem 0;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--green);
+      border-left: 4px solid var(--coral);
+    }
+    .article-callout strong { color: var(--coral-dark); }
+
+    /* CTA */
+    .article-cta {
+      background: linear-gradient(135deg, var(--green) 0%, var(--coral-dark) 100%);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      margin: 3rem 0 1rem;
+      text-align: center;
+    }
+    .article-cta h3 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--white);
+      margin-bottom: .5rem;
+    }
+    .article-cta p { color: rgba(255,255,255,.78); font-size: 1rem; margin-bottom: 1.4rem; }
+    .cta-btn {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--white) !important;
+      padding: 1rem 2.2rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .2s;
+      box-shadow: 0 6px 20px rgba(15,185,177,.45);
+    }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(15,185,177,.6); }
+    .cta-fineprint { margin-top: 1rem; font-size: .78rem; color: rgba(255,255,255,.55); }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      color: var(--warm-gray);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--coral); }
+
+    /* ── FOOTER ────────────────────────────────── */
+    footer {
+      background: var(--green);
+      color: rgba(255,255,255,.5);
+      padding: 4rem 2rem 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .footer-brand .logo-text {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: .6rem;
+    }
+    .footer-brand .logo-text span { color: var(--coral); }
+    .footer-brand p { font-size: .82rem; color: rgba(255,255,255,.45); line-height: 1.65; margin-bottom: 1.25rem; }
+    .footer-newsletter { display: flex; gap: .4rem; }
+    .footer-newsletter input {
+      flex: 1;
+      padding: .6rem .9rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.08);
+      color: var(--white);
+      font-size: .82rem;
+      font-family: var(--font);
+      outline: none;
+    }
+    .footer-newsletter input::placeholder { color: rgba(255,255,255,.3); }
+    .footer-newsletter button {
+      background: var(--coral);
+      color: var(--white);
+      border: none;
+      padding: .6rem 1.1rem;
+      border-radius: 24px;
+      font-size: .76rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .footer-newsletter button:hover { background: var(--coral-dark); }
+    .footer-col h4 {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block;
+      font-size: .82rem;
+      color: rgba(255,255,255,.4);
+      text-decoration: none;
+      margin-bottom: .55rem;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--coral); }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .75rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,.35); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--coral); }
+    .footer-socials { display: flex; gap: .8rem; }
+
+    @media (max-width: 760px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .article-hero { padding: 3.5rem 1.15rem 4.5rem; }
+      .article-body { padding: 2rem 1.25rem 3.5rem; margin-top: -2rem; }
+      .article-body h2 { font-size: 1.45rem; }
+      .article-body h3 { font-size: 1.15rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: .75rem; text-align: center; }
+    }
+    @media (max-width: 520px) {
+      nav { padding: 0 1.15rem; height: 76px; }
+      .logo-img { height: 60px; }
+      .article-hero h1 { font-size: 1.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo" aria-label="Expat Protect — International Insurance Brokerage">
+    <img src="assets/logo.png" alt="Expat Protect — International Insurance Brokerage" class="logo-img" />
+  </a>
+  <div class="nav-links">
+    <a href="/about.html">About</a>
+    <a href="/claim.html">How to Claim</a>
+    <a href="/#plan-comparison">Plans</a>
+    <a href="/#blog">Blog</a>
+    <a href="/#get-quote" class="nav-cta">Get Quote →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="article-tag">Wellbeing</div>
+    <h1>Mental Health Support Abroad: Why Psychology &amp; Coaching Benefits Matter for Expats</h1>
+    <p>Why mental health cover matters for expats — psychology, counselling, and coaching benefits explained, plus what to check in your plan.</p>
+    <div class="article-meta">
+      <span><strong>7 min</strong> read</span>
+      <span class="article-meta-divider"></span>
+      <span>April 2026</span>
+      <span class="article-meta-divider"></span>
+      <span>Wellbeing · Psychology</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE -->
+<article class="article-body">
+
+  <a href="/#blog" class="back-link">← Back to all guides</a>
+
+  <h2>Introduction</h2>
+  <p>Living abroad can be exciting, but it can also be emotionally challenging. Many expats deal with stress, loneliness, culture shock, work pressure, family distance, or difficulty adjusting to a new lifestyle.</p>
+  <p>That is why <strong>mental health support for expats</strong> is becoming an important part of international health insurance. Psychology, counselling, and coaching benefits can help expats protect their wellbeing while living overseas.</p>
+
+  <h2>Why Mental Health Support Matters for Expats</h2>
+  <p>Moving to a new country can affect your emotional health, even when the move is positive. New surroundings, language barriers, visa concerns, financial pressure, and being away from family can all create stress.</p>
+  <p>Mental health support can help with:</p>
+  <ul>
+    <li>Stress and anxiety</li>
+    <li>Loneliness</li>
+    <li>Culture shock</li>
+    <li>Burnout</li>
+    <li>Relationship challenges</li>
+    <li>Work-life balance</li>
+    <li>Major life changes</li>
+    <li>Confidence and adjustment</li>
+  </ul>
+  <div class="article-callout">
+    <strong>Bottom line:</strong> For expats, mental wellbeing is just as important as physical health.
+  </div>
+
+  <h2>What Is Usually Included?</h2>
+  <p>Depending on the international health insurance plan, mental health benefits may include:</p>
+  <ul>
+    <li>Psychology sessions</li>
+    <li>Counselling</li>
+    <li>Personal coaching</li>
+    <li>Psychiatric consultations</li>
+    <li>Online therapy</li>
+    <li>Wellbeing support</li>
+    <li>Stress management programmes</li>
+  </ul>
+  <p>Some plans may offer a limited number of sessions, while others may provide a higher annual benefit.</p>
+
+  <h2>Psychology vs Coaching: What's the Difference?</h2>
+  <div class="compare-2col">
+    <div class="c2c-card">
+      <h3>Psychology &amp; Counselling</h3>
+      <p>Usually focuses on emotional health, mental health concerns, stress, anxiety, depression, trauma, or relationship difficulties.</p>
+    </div>
+    <div class="c2c-card">
+      <h3>Coaching</h3>
+      <p>Usually more focused on personal goals, lifestyle changes, confidence, motivation, career direction, and adapting to a new environment.</p>
+    </div>
+  </div>
+  <p>Both can be valuable for expats, depending on what support is needed.</p>
+
+  <h2>Why Coaching Benefits Can Help Expats</h2>
+  <p>Coaching can be especially useful when you are adjusting to a new country or lifestyle. It can help you build routines, manage change, improve confidence, and create healthier habits.</p>
+  <p>For remote workers, retirees, families, and professionals abroad, coaching can provide practical support during transition periods.</p>
+
+  <h2>What Should You Check Before Choosing a Plan?</h2>
+  <p>Before buying expat health insurance, review the mental health benefits carefully. Check:</p>
+  <ul>
+    <li>Number of sessions covered</li>
+    <li>Annual benefit limit</li>
+    <li>Whether online sessions are included</li>
+    <li>Psychology and counselling cover</li>
+    <li>Coaching benefits</li>
+    <li>Waiting periods</li>
+    <li>Referral requirements</li>
+    <li>Pre-existing condition rules</li>
+    <li>Exclusions</li>
+  </ul>
+  <p>Not every plan includes mental health support, and the level of cover can vary significantly.</p>
+
+  <h2>Why Expats Should Not Ignore Mental Health Cover</h2>
+  <p>Many expats focus only on hospital treatment, surgery, or emergency care when choosing insurance. While these are important, mental health support can also make a big difference to your quality of life abroad.</p>
+  <p>Having access to professional support can help you manage challenges earlier, before they become more serious.</p>
+
+  <h2>Conclusion</h2>
+  <p>Mental health support abroad can help expats manage stress, adjustment, loneliness, burnout, and emotional wellbeing while living overseas.</p>
+  <p>When comparing international health insurance, look for plans that include psychology, counselling, coaching, or wellbeing benefits. The right support can help you feel more settled, confident, and protected abroad.</p>
+
+  <!-- CTA -->
+  <div class="article-cta">
+    <h3>Get Quote Now</h3>
+    <p>Need expat health insurance with mental health and wellbeing benefits? Compare suitable plans based on your age, destination, lifestyle, and coverage needs.</p>
+    <a href="/#get-quote" class="cta-btn">Get Quote Now →</a>
+    <div class="cta-fineprint">No obligation. Tailored to your destination.</div>
+  </div>
+
+</article>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Expat<span> Protect Hub</span></div>
+      <p>Comprehensive international health &amp; life insurance for globally mobile individuals in 120+ countries.</p>
+      <div class="footer-newsletter">
+        <input type="email" placeholder="Enter your email…" />
+        <button>Send</button>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about.html">About Us</a>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/#blog">Blog</a>
+      <a href="/#plan-comparison">Plans</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="/faq.html">FAQs</a>
+      <a href="/claim.html">How to Claim</a>
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms of Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Insurance</h4>
+      <a href="/#plan-comparison">Health Insurance</a>
+      <a href="/#plan-comparison">Dental Cover</a>
+      <a href="/#plan-comparison">Wellbeing</a>
+      <a href="/#plan-comparison">Evacuation</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Expat Protect Hub. All rights reserved.</span>
+    <div class="footer-socials">
+      <a href="/">Privacy Policy</a>
+      <a href="/">Terms Of Service</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
