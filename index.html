@@ -1434,60 +1434,167 @@
 
     .blog-header p { font-size: .91rem; color: var(--warm-gray); }
 
-    .blog-grid {
+    /* ── How-to-Claim teaser (landing page) ── */
+    .claim-teaser {
+      background: var(--cream-2);
+      padding: 5rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .claim-teaser-inner { max-width: 1100px; margin: 0 auto; }
+    .claim-teaser-header { text-align: center; margin-bottom: 2.5rem; }
+    .claim-teaser-header h2 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: var(--green);
+      margin: .35rem 0 .5rem;
+      letter-spacing: -.3px;
+    }
+    .claim-teaser-header p {
+      font-size: .95rem;
+      color: var(--warm-gray);
+      max-width: 580px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .claim-teaser-steps {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.25rem;
     }
-
-    /* Hide articles beyond the 6th by default — revealed by JS */
-    .blog-grid:not(.is-revealed) > .blog-card:nth-child(n+7) { display: none; }
-
-    .blog-grid > .blog-card:nth-child(n+7) {
-      animation: blogCardIn .35s ease-out both;
+    .ct-step {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.25rem;
+      text-align: center;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
     }
-    @keyframes blogCardIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .ct-step:hover {
+      transform: translateY(-3px);
+      border-color: var(--coral);
+      box-shadow: 0 12px 28px rgba(15,185,177,.12);
     }
-
-    .blog-view-more-wrap {
-      display: flex;
-      justify-content: center;
-      margin-top: 2.5rem;
-    }
-    .blog-view-more-btn {
+    .ct-step-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
       background: var(--coral);
       color: var(--white);
-      border: none;
-      padding: .85rem 2rem;
-      border-radius: 30px;
-      font-family: var(--font);
-      font-size: .95rem;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: .2px;
-      display: inline-flex;
-      align-items: center;
-      gap: .55rem;
-      transition: background .2s, transform .15s, box-shadow .2s;
-      box-shadow: 0 4px 16px rgba(15,185,177,.3);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin: 0 auto .9rem;
+      box-shadow: 0 4px 14px rgba(15,185,177,.35);
     }
-    .blog-view-more-btn:hover {
+    .ct-step h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--green);
+      margin-bottom: .35rem;
+    }
+    .ct-step p {
+      font-size: .85rem;
+      color: var(--warm-gray);
+      line-height: 1.55;
+    }
+    .claim-teaser-cta {
+      text-align: center;
+    }
+    .claim-teaser-cta a {
+      display: inline-block;
+      background: var(--coral);
+      color: var(--white);
+      text-decoration: none;
+      padding: 1rem 2.2rem;
+      border-radius: 30px;
+      font-size: .98rem;
+      font-weight: 800;
+      letter-spacing: -.1px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(15,185,177,.3);
+    }
+    .claim-teaser-cta a:hover {
       background: var(--coral-dark);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(15,185,177,.45);
+      box-shadow: 0 8px 30px rgba(15,185,177,.45);
     }
-    .blog-view-more-btn:active { transform: translateY(0); }
-    .blog-view-more-btn .vm-arrow {
-      display: inline-block;
-      transition: transform .25s;
-      font-size: 1rem;
-      line-height: 1;
-    }
-    .blog-view-more-btn[aria-expanded="true"] .vm-arrow { transform: rotate(180deg); }
 
-    .blog-view-more-wrap.is-hidden { display: none; }
+    @media (max-width: 900px) {
+      .claim-teaser-steps { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .claim-teaser { padding: 3.5rem 1.15rem; }
+      .claim-teaser-header h2 { font-size: 1.55rem; }
+      .claim-teaser-steps { grid-template-columns: 1fr; }
+    }
+
+    /* ── Blog carousel (3 cards desktop, 2 tablet, 1 mobile) ── */
+    .blog-carousel {
+      position: relative;
+      padding: 0;
+    }
+    .blog-grid {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: .5rem .25rem 1rem;
+      margin: -.5rem -.25rem 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;        /* Firefox */
+    }
+    .blog-grid::-webkit-scrollbar { display: none; } /* Chrome / Safari */
+
+    .blog-grid > .blog-card {
+      flex: 0 0 calc((100% - 3rem) / 3); /* 3 cards visible (2 gaps × 1.5rem) */
+      scroll-snap-align: start;
+      min-width: 0;
+    }
+
+    /* Carousel arrows */
+    .blog-arrow {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      color: var(--green);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,.08);
+      transition: background .2s, color .2s, opacity .2s, transform .15s, box-shadow .2s;
+      z-index: 5;
+    }
+    .blog-arrow:hover {
+      background: var(--coral);
+      color: var(--white);
+      border-color: var(--coral);
+      box-shadow: 0 8px 22px rgba(15,185,177,.35);
+      transform: translateY(-50%) scale(1.05);
+    }
+    .blog-arrow:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .blog-arrow svg { width: 18px; height: 18px; fill: currentColor; }
+    .blog-arrow-prev { left: -18px; }
+    .blog-arrow-next { right: -18px; }
+
+    @media (max-width: 900px) {
+      .blog-grid > .blog-card { flex: 0 0 calc((100% - 1.5rem) / 2); } /* 2 cards */
+    }
+    @media (max-width: 640px) {
+      .blog-grid { gap: 1rem; }
+      .blog-grid > .blog-card { flex: 0 0 88%; }                       /* 1 card + peek */
+      .blog-arrow { display: none; }                                    /* swipe-only */
+    }
 
     .blog-card {
       background: var(--cream);
@@ -3419,7 +3526,11 @@
       <p>Practical advice on health, insurance and wellbeing for globally mobile individuals.</p>
     </div>
 
-    <div class="blog-grid" id="blog-grid">
+    <div class="blog-carousel">
+      <button type="button" class="blog-arrow blog-arrow-prev" id="blog-arrow-prev" aria-label="Previous articles">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <div class="blog-grid" id="blog-grid">
 
       <article class="blog-card">
         <div class="blog-thumb">
@@ -3540,14 +3651,52 @@
         </div>
       </article>
 
-    </div>
-
-    <div class="blog-view-more-wrap" id="blog-view-more-wrap">
-      <button type="button" class="blog-view-more-btn" id="blog-view-more-btn" aria-expanded="false" aria-controls="blog-grid">
-        View More Articles <span class="vm-arrow">↓</span>
+      </div>
+      <button type="button" class="blog-arrow blog-arrow-next" id="blog-arrow-next" aria-label="Next articles">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
       </button>
     </div>
 
+  </div>
+</section>
+
+<!-- ── HOW TO CLAIM TEASER ─────────────────────────────────────── -->
+<section class="claim-teaser" id="how-to-claim-teaser">
+  <div class="claim-teaser-inner">
+    <div class="claim-teaser-header">
+      <div class="section-label" style="justify-content:center;">
+        <span></span>How to Claim<span></span>
+      </div>
+      <h2>Need to file a claim? It's simple.</h2>
+      <p>Four straightforward steps and Regency's team handles the rest. Direct billing for inpatient care, reimbursement for outpatient.</p>
+    </div>
+
+    <div class="claim-teaser-steps">
+      <div class="ct-step">
+        <div class="ct-step-num">1</div>
+        <h3>Get treatment</h3>
+        <p>Visit your hospital or doctor — for inpatient, inform Regency's team first.</p>
+      </div>
+      <div class="ct-step">
+        <div class="ct-step-num">2</div>
+        <h3>Gather documents</h3>
+        <p>Medical reports, admission notes, receipts and any related letters.</p>
+      </div>
+      <div class="ct-step">
+        <div class="ct-step-num">3</div>
+        <h3>Complete the form</h3>
+        <p>Sign the claims form and have your doctor complete their section.</p>
+      </div>
+      <div class="ct-step">
+        <div class="ct-step-num">4</div>
+        <h3>Email Regency's team</h3>
+        <p>Send the form and supporting documents — that's it.</p>
+      </div>
+    </div>
+
+    <div class="claim-teaser-cta">
+      <a href="/claim.html">View the full guide →</a>
+    </div>
   </div>
 </section>
 
@@ -3692,25 +3841,38 @@
     });
   })();
 
-  // ── Blog "View More" toggle ───────────────────────────────────────────────
+  // ── Blog carousel: arrows + native scroll-snap ────────────────────────────
   (function () {
     const grid = document.getElementById('blog-grid');
-    const btn  = document.getElementById('blog-view-more-btn');
-    const wrap = document.getElementById('blog-view-more-wrap');
-    if (!grid || !btn || !wrap) return;
+    const prev = document.getElementById('blog-arrow-prev');
+    const next = document.getElementById('blog-arrow-next');
+    if (!grid || !prev || !next) return;
 
-    const totalCards = grid.querySelectorAll('.blog-card').length;
-    // If 6 or fewer, hide the button entirely
-    if (totalCards <= 6) {
-      wrap.classList.add('is-hidden');
-      return;
+    function cardStep() {
+      const card = grid.querySelector('.blog-card');
+      if (!card) return 0;
+      const styles = getComputedStyle(grid);
+      const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+      return card.offsetWidth + gap;
     }
 
-    btn.addEventListener('click', function () {
-      const expanded = grid.classList.toggle('is-revealed');
-      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-      btn.firstChild.textContent = expanded ? 'Show Less ' : 'View More Articles ';
-    });
+    function refresh() {
+      const max = grid.scrollWidth - grid.clientWidth - 1;
+      prev.disabled = grid.scrollLeft <= 0;
+      next.disabled = grid.scrollLeft >= max;
+      // Hide arrows entirely if everything fits without scrolling
+      const fits = grid.scrollWidth <= grid.clientWidth + 1;
+      prev.style.display = fits ? 'none' : '';
+      next.style.display = fits ? 'none' : '';
+    }
+
+    prev.addEventListener('click', () => grid.scrollBy({ left: -cardStep(), behavior: 'smooth' }));
+    next.addEventListener('click', () => grid.scrollBy({ left:  cardStep(), behavior: 'smooth' }));
+    grid.addEventListener('scroll', refresh, { passive: true });
+    window.addEventListener('resize', refresh);
+    // Wait for images to settle before measuring
+    if (document.readyState === 'complete') refresh();
+    else window.addEventListener('load', refresh);
   })();
 
   // ── Country list ──────────────────────────────────────────────────────────
