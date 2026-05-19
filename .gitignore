@@ -1,0 +1,4 @@
+.claude/
+*.pptx
+*.docx
+_*.py
