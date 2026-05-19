@@ -44,7 +44,30 @@
       "WebFetch(domain:expatleadgen.netlify.app)",
       "mcp__Claude_Preview__preview_start",
       "Bash(ls C:/Users/user/expat-insurance/*.html)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:unsplash.com)",
+      "WebSearch",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:www.google.com)",
+      "WebFetch(domain:pixabay.com)",
+      "WebFetch(domain:www.bing.com)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://images.unsplash.com/photo-1602407294553-6ac9170d3654?w=800&h=600&fit=crop&auto=format&q=80\")",
+      "Bash(awk '/const PREMIUMS =/,/^  \\\\};/' /c/Users/user/expat-insurance/index.html)",
+      "Bash(pandoc \"C:\\\\Users\\\\user\\\\Desktop\\\\2nd changes.docx\" -o - --to markdown)",
+      "Bash(pandoc \"C:/Users/user/Desktop/2nd changes.docx\" -t plain)",
+      "Bash(python scripts/office/unpack.py \"C:/Users/user/Desktop/2nd changes.docx\" /tmp/docx_changes/)",
+      "Bash(python -c ':*)",
+      "Bash(python scripts/office/unpack.py \"C:/Users/user/Desktop/3rd changes.docx\" /tmp/docx_3rd/)",
+      "Bash(python -c \"import openpyxl; print\\(openpyxl.__version__\\)\")",
+      "Bash(python)",
+      "Bash(pandoc --track-changes=all \"C:\\\\Users\\\\user\\\\Desktop\\\\2nd changes.docx\" -o \"C:\\\\Users\\\\user\\\\Desktop\\\\2nd-changes.md\")",
+      "Bash(where pandoc:*)",
+      "Bash(python -c \"from docx import Document; d=Document\\(r'C:\\\\Users\\\\user\\\\Desktop\\\\2nd changes.docx'\\); [print\\(p.text\\) for p in d.paragraphs]\")",
+      "Bash(python \"C:\\\\Users\\\\user\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\a5e797f2-e581-4df5-9ddf-9b757cee8f67\\\\cd16af20-4044-4b26-bdac-4b8a4f04695c\\\\skills\\\\docx\\\\scripts\\\\office\\\\unpack.py\" \"C:\\\\Users\\\\user\\\\Desktop\\\\2nd changes.docx\" \"C:\\\\Users\\\\user\\\\expat-insurance\\\\.claude\\\\worktrees\\\\2nd-changes-unpacked\")",
+      "Bash(python \"C:\\\\Users\\\\user\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\a5e797f2-e581-4df5-9ddf-9b757cee8f67\\\\cd16af20-4044-4b26-bdac-4b8a4f04695c\\\\skills\\\\docx\\\\scripts\\\\office\\\\unpack.py\" \"C:\\\\Users\\\\user\\\\Desktop\\\\4th Changes.docx\" \"C:\\\\Users\\\\user\\\\expat-insurance\\\\.claude\\\\worktrees\\\\4th-changes-unpacked\")",
+      "Bash(python -c ' *)",
+      "Bash(python \"C:\\\\Users\\\\user\\\\AppData\\\\Roaming\\\\Claude\\\\local-agent-mode-sessions\\\\skills-plugin\\\\a5e797f2-e581-4df5-9ddf-9b757cee8f67\\\\cd16af20-4044-4b26-bdac-4b8a4f04695c\\\\skills\\\\docx\\\\scripts\\\\office\\\\unpack.py\" \"C:\\\\Users\\\\user\\\\Desktop\\\\Change 5.docx\" \"C:\\\\Users\\\\user\\\\expat-insurance\\\\.claude\\\\worktrees\\\\change5-unpacked\")",
+      "Bash(python _fix_mojibake.py)"
     ]
   }
 }

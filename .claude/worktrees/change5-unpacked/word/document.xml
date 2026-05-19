@@ -1,0 +1,1664 @@
+<?xml version="1.0" encoding="UTF-8"?><w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex" xmlns:cx1="http://schemas.microsoft.com/office/drawing/2015/9/8/chartex" xmlns:cx2="http://schemas.microsoft.com/office/drawing/2015/10/21/chartex" xmlns:cx3="http://schemas.microsoft.com/office/drawing/2016/5/9/chartex" xmlns:cx4="http://schemas.microsoft.com/office/drawing/2016/5/10/chartex" xmlns:cx5="http://schemas.microsoft.com/office/drawing/2016/5/11/chartex" xmlns:cx6="http://schemas.microsoft.com/office/drawing/2016/5/12/chartex" xmlns:cx7="http://schemas.microsoft.com/office/drawing/2016/5/13/chartex" xmlns:cx8="http://schemas.microsoft.com/office/drawing/2016/5/14/chartex" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:aink="http://schemas.microsoft.com/office/drawing/2016/ink" xmlns:am3d="http://schemas.microsoft.com/office/drawing/2017/model3d" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:oel="http://schemas.microsoft.com/office/2019/extlst" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:w15="http://schemas.microsoft.com/office/word/2012/wordml" xmlns:w16cex="http://schemas.microsoft.com/office/word/2018/wordml/cex" xmlns:w16cid="http://schemas.microsoft.com/office/word/2016/wordml/cid" xmlns:w16="http://schemas.microsoft.com/office/word/2018/wordml" xmlns:w16du="http://schemas.microsoft.com/office/word/2023/wordml/word16du" xmlns:w16sdtdh="http://schemas.microsoft.com/office/word/2020/wordml/sdtdatahash" xmlns:w16sdtfl="http://schemas.microsoft.com/office/word/2024/wordml/sdtformatlock" xmlns:w16se="http://schemas.microsoft.com/office/word/2015/wordml/symex" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 w15 w16se w16cid w16 w16cex w16sdtdh w16sdtfl w16du wp14">
+  <w:body>
+    <w:p w14:paraId="534A652A" w14:textId="71C20A64" w:rsidR="00FA753E" w:rsidRDefault="00BA6820">
+      <w:r>
+        <w:drawing>
+          <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="3139789D" wp14:editId="44A4F622">
+            <wp:extent cx="5943600" cy="3141345"/>
+            <wp:effectExtent l="0" t="0" r="0" b="1905"/>
+            <wp:docPr id="1564569626" name="Picture 1"/>
+            <wp:cNvGraphicFramePr>
+              <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+            </wp:cNvGraphicFramePr>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="1564569626" name=""/>
+                    <pic:cNvPicPr/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId5"/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="5943600" cy="3141345"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      <w:t>Change this to just number- no need to add the words</w:t></w:r>
+      
+    </w:p>
+    <w:p w14:paraId="56C89F18" w14:textId="77777777" w:rsidR="00365A26" w:rsidRDefault="00365A26"/>
+    <w:p w14:paraId="46E632F8" w14:textId="77777777" w:rsidR="00365A26" w:rsidRDefault="00365A26"/>
+    <w:p w14:paraId="464B1BC0" w14:textId="77777777" w:rsidR="00365A26" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+      <w:r>
+        <w:t>coverage area is not the right wording, its coverage area worldwide excluding the USA.</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="4A746E97" w14:textId="77777777" w:rsidR="00365A26" w:rsidRDefault="00365A26" w:rsidP="00365A26"/>
+    <w:p w14:paraId="65BE87CC" w14:textId="77777777" w:rsidR="00365A26" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+      <w:r>
+        <w:t>should say &quot;pricing area&quot; and then underneath confirm coverage area is WW ex usa</w:t>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="351B6BE9" w14:textId="77777777" w:rsidR="00365A26" w:rsidRDefault="00365A26" w:rsidP="00365A26"/>
+    <w:p w14:paraId="087F92AB" w14:textId="2D1D5DA7" w:rsidR="00365A26" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+      <w:r>
+        <w:rPr>
+          <w:noProof/>
+        </w:rPr>
+        <w:drawing>
+          <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="5A9E92E1" wp14:editId="651D672A">
+            <wp:extent cx="5943600" cy="2802375"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="1905177927" name="Picture 2"/>
+            <wp:cNvGraphicFramePr>
+              <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+            </wp:cNvGraphicFramePr>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="Picture 2"/>
+                    <pic:cNvPicPr>
+                      <a:picLocks noChangeAspect="1" noChangeArrowheads="1"/>
+                    </pic:cNvPicPr>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId6">
+                      <a:extLst>
+                        <a:ext uri="{28A0092B-C50C-407E-A947-70E740481C1C}">
+                          <a14:useLocalDpi xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main" val="0"/>
+                        </a:ext>
+                      </a:extLst>
+                    </a:blip>
+                    <a:srcRect/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr bwMode="auto">
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="5943600" cy="2802375"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                    <a:noFill/>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="232507F4" w14:textId="7062FF8D" w:rsidR="00BA6820" w:rsidRDefault="00BA6820" w:rsidP="00365A26"/>
+    <w:p w14:paraId="6ED764F6" w14:textId="674457B6" w:rsidR="00365A26" w:rsidRDefault="001B538B" w:rsidP="00365A26">
+      <w:r>
+        <w:drawing>
+          <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="43E5D375" wp14:editId="307B6C61">
+            <wp:extent cx="5943600" cy="3649345"/>
+            <wp:effectExtent l="0" t="0" r="0" b="8255"/>
+            <wp:docPr id="476548804" name="Picture 1"/>
+            <wp:cNvGraphicFramePr>
+              <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+            </wp:cNvGraphicFramePr>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="476548804" name=""/>
+                    <pic:cNvPicPr/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId7"/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="5943600" cy="3649345"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      </w:r>
+    </w:p>
+    <w:p w14:paraId="0A0E0AA7" w14:textId="68EEAE64" w:rsidR="00365A26" w:rsidRDefault="001B538B" w:rsidP="00365A26">
+      <w:r>
+        <w:t>Change the above table with the following table in the email</w:t>
+      </w:r>
+    </w:p>
+    <w:tbl>
+      <w:tblPr>
+        <w:tblStyle w:val="TableGrid"/>
+        <w:tblW w:w="9982" w:type="dxa"/>
+        <w:tblLook w:val="04A0" w:firstRow="1" w:lastRow="0" w:firstColumn="1" w:lastColumn="0" w:noHBand="0" w:noVBand="1"/>
+      </w:tblPr>
+      <w:tblGrid>
+        <w:gridCol w:w="2495"/>
+        <w:gridCol w:w="2495"/>
+        <w:gridCol w:w="2496"/>
+        <w:gridCol w:w="2496"/>
+      </w:tblGrid>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="6C3C6726" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="620"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="28CD2A1A" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Major Medical</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="61D4F465" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Standard</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="41B0B570" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Comprehensive</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="332D4EFF" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Fully Comprehensive</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="1C591663" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="644E06D4" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Price</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="2068CDC2" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Price</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="6FAA3DAD" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Price</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="710D0A82" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>price</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="6D5421DF" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="20BCA2DE" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>1 million USD annual limit</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="7FC0DC63" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>1 million USD annual limit</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="24D3B595" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>1 million USD annual limit</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="68E9D318" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>2 million USD annual limit</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="6CD1F535" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="4FA46644" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Worldwide excluding the USA</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="70F41B16" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Worldwide excluding the USA</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="5FC019C5" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Worldwide excluding the USA</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="67A9814A" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Worldwide excluding the USA</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="0939512D" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="4DB8DFB9" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Open choice of hospital</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="486BA495" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Open choice of hospital</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="6495C2F1" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Open choice of hospital</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="60647715" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Open choice of hospital</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="54E066E6" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="76EBD814" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Inpatient benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="50CD61F6" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Inpatient benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="72340D61" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Inpatient benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="51F23B79" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Inpatient benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="6D6F0CBA" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="3FD86C82" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Psychology benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="6CC780BB" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>32,000 USD outpatient</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="3CA2670B" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>54,000 USD outpatient benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="3D57D40F" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Full Outpatient benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="7C0CF863" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="58482E22" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE fitness and nutrition benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="641EC436" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Psychology benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="0B5A411C" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Emergency and Major Dental</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="20807B75" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Emergency, Major and Routine Dental</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="4648EBD5" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="143"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="18A1F9B5" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Security benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="18F56574" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE fitness and nutrition benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="1941DEAC" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Annual checkups, vaccinations and eye tests</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="0F08238F" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>Annual checkups, vaccinations and eye tests</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="744AEEA0" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="143"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="768C1DC5" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:lastRenderedPageBreak/>
+              <w:t>FREE 10,000 USD of life insurance</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="785F1522" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Security benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="72BAC23E" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Psychology benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="01BABF56" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Psychology benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="14307E8A" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="79B16CA8" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="26A2559B" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE 10,000 USD of life insurance</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="3CBAD66D" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE fitness and nutrition benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="66C0F980" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE fitness and nutrition benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="78D2110C" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="23734236" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="17BFCF70" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="3485A98B" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Security benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="06C619A2" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE Security benefits</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+      <w:tr w:rsidR="00365A26" w:rsidRPr="00CD508B" w14:paraId="3EAA28D2" w14:textId="77777777" w:rsidTr="00EC5241">
+        <w:trPr>
+          <w:trHeight w:val="284"/>
+        </w:trPr>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="2DE4F837" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2495" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="44131D63" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00EC5241">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="2C5B3CC7" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE 10,000 USD of life insurance</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+        <w:tc>
+          <w:tcPr>
+            <w:tcW w:w="2496" w:type="dxa"/>
+            <w:vAlign w:val="center"/>
+          </w:tcPr>
+          <w:p w14:paraId="433761A7" w14:textId="77777777" w:rsidR="00365A26" w:rsidRPr="00CD508B" w:rsidRDefault="00365A26" w:rsidP="00365A26">
+            <w:pPr>
+              <w:pStyle w:val="ListParagraph"/>
+              <w:numPr>
+                <w:ilvl w:val="0"/>
+                <w:numId w:val="1"/>
+              </w:numPr>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+            </w:pPr>
+            <w:r>
+              <w:rPr>
+                <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+                <w:sz w:val="22"/>
+                <w:szCs w:val="22"/>
+              </w:rPr>
+              <w:t>FREE 10,000 USD of life insurance</w:t>
+            </w:r>
+          </w:p>
+        </w:tc>
+      </w:tr>
+    </w:tbl>
+    <w:p w14:paraId="2DB8A9F9" w14:textId="77777777" w:rsidR="00B14035" w:rsidRDefault="00B14035" w:rsidP="00365A26"/>
+    <w:p w14:paraId="3E07A289" w14:textId="77777777" w:rsidR="00B14035" w:rsidRDefault="00B14035" w:rsidP="00365A26"/>
+    <w:p w14:paraId="4AE75C4F" w14:textId="7F2A8F15" w:rsidR="00365A26" w:rsidRDefault="00B14035" w:rsidP="00365A26">
+      <w:r>
+        <w:t>Add the country code of all the country. Two boxes, one for country code and another for number</w:t>
+      <w:drawing>
+          <wp:inline distT="0" distB="0" distL="0" distR="0" wp14:anchorId="245330CF" wp14:editId="268446A6">
+            <wp:extent cx="2800741" cy="1000265"/>
+            <wp:effectExtent l="0" t="0" r="0" b="9525"/>
+            <wp:docPr id="673380863" name="Picture 1"/>
+            <wp:cNvGraphicFramePr>
+              <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+            </wp:cNvGraphicFramePr>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="673380863" name=""/>
+                    <pic:cNvPicPr/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="rId8"/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="2800741" cy="1000265"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing></w:r>
+      
+    </w:p>
+    <w:p w14:paraId="6D6A4237" w14:textId="19A2A0EC" w:rsidR="00AD63E4" w:rsidRDefault="00AD63E4" w:rsidP="00365A26">
+      <w:r>
+        <w:t>While selecting the nationality : Put American, Australian, British, Canadian French on top of the list</w:t>
+      </w:r>
+      
+    </w:p>
+    <w:sectPr w:rsidR="00AD63E4">
+      <w:pgSz w:w="12240" w:h="15840"/>
+      <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
+      <w:cols w:space="720"/>
+      <w:docGrid w:linePitch="360"/>
+    </w:sectPr>
+  </w:body>
+</w:document>
