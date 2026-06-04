@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Free expat health insurance guide. Avoid the 7 costly mistakes most expats make when buying international cover. Download the PDF instantly.">
+<meta name="robots" content="index,follow">
+<title>Free Expat Health Insurance Guide &mdash; 7 Costly Mistakes to Avoid</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('CzcVvCe6LcpkDv9Ri');</script>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#1B263B; --navy-dark:#0F1620; --teal:#0FB9B1; --teal-dark:#0B6E6B;
+    --gold:#E9B949; --cream:#F8F9FA; --grey:#6B7280; --light:#E4E7EB; --white:#fff;
+    --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);color:var(--navy);line-height:1.55;background:var(--white);-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:var(--teal);text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 1.25rem}
+
+  .topbar{background:var(--navy);color:#fff;padding:.65rem 1.25rem;text-align:center;font-size:.86rem;font-weight:500}
+  .topbar strong{color:var(--gold)}
+  .brandbar{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--light);background:#fff}
+  .brand{display:flex;align-items:center;gap:.65rem;font-weight:800;font-size:1.05rem;color:var(--navy)}
+  .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:grid;place-items:center;color:#fff;font-weight:800}
+  .brand small{display:block;font-size:.7rem;font-weight:500;color:var(--grey);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;padding:3rem 0 4rem;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-100px;left:-100px;width:500px;height:500px;border-radius:50%;background:rgba(233,185,73,.08);filter:blur(80px)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:3rem;align-items:center;position:relative;z-index:1}
+  .pill{display:inline-block;background:rgba(233,185,73,.15);color:var(--gold);font-size:.78rem;font-weight:700;letter-spacing:.12em;padding:.45rem .9rem;border-radius:999px;margin-bottom:1.2rem;text-transform:uppercase}
+  .hero h1{font-size:clamp(2rem,4.2vw,3rem);font-weight:800;line-height:1.15;margin-bottom:1.1rem;letter-spacing:-.02em}
+  .hero h1 .accent{color:var(--gold)}
+  .hero-sub{font-size:1.1rem;color:#cfd5e0;margin-bottom:1.6rem;max-width:540px}
+
+  /* Guide preview mockup */
+  .guide-mock{background:linear-gradient(135deg,#fff 0%,#f0f3f7 100%);border-radius:16px;padding:1.5rem;box-shadow:0 30px 70px -20px rgba(0,0,0,.5);transform:rotate(-2deg);position:relative}
+  .guide-mock::before{content:"FREE PDF";position:absolute;top:-15px;right:-15px;background:var(--gold);color:var(--navy);font-weight:800;font-size:.75rem;padding:.4rem .8rem;border-radius:999px;letter-spacing:.08em;transform:rotate(8deg);box-shadow:0 6px 18px -4px rgba(0,0,0,.25)}
+  .guide-mock .cover{background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;border-radius:10px;padding:2rem 1.5rem;text-align:center}
+  .guide-mock .cover .tag{font-size:.7rem;font-weight:700;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem}
+  .guide-mock .cover h3{font-size:1.5rem;font-weight:800;line-height:1.2;margin-bottom:.8rem}
+  .guide-mock .cover .meta{font-size:.78rem;color:#cfd5e0;border-top:1px solid rgba(255,255,255,.15);padding-top:.8rem;margin-top:1rem}
+
+  /* List in hero */
+  .you-learn{margin-top:1.4rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.12)}
+  .you-learn .h{font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem}
+  .you-learn ul{list-style:none}
+  .you-learn li{padding:.35rem 0;color:#e4e8ee;font-size:.95rem;display:flex;align-items:flex-start;gap:.55rem}
+  .you-learn li::before{content:"\2713";color:var(--teal);font-weight:800;flex-shrink:0;margin-top:1px}
+
+  /* FORM */
+  .form-card{background:#fff;border-radius:20px;padding:1.75rem;color:var(--navy);box-shadow:0 25px 60px -20px rgba(0,0,0,.4);border-top:5px solid var(--gold);margin-top:2rem}
+  .form-card h2{font-size:1.35rem;font-weight:800;margin-bottom:.35rem}
+  .form-card .lead{color:var(--grey);font-size:.93rem;margin-bottom:1.2rem}
+  .field{margin-bottom:.9rem}
+  .field label{display:block;font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em}
+  .field input,.field select{width:100%;padding:.85rem 1rem;border:1.5px solid var(--light);border-radius:10px;font-family:inherit;font-size:.95rem;background:#fafbfc;color:var(--navy)}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(233,185,73,.18)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+  .btn-submit{width:100%;background:linear-gradient(135deg,var(--gold),#C8993A);color:var(--navy);font-family:inherit;font-weight:800;font-size:1rem;padding:1rem;border:none;border-radius:12px;cursor:pointer;letter-spacing:.01em;box-shadow:0 10px 30px -8px rgba(233,185,73,.55)}
+  .privacy{font-size:.76rem;color:var(--grey);text-align:center;margin-top:.85rem;line-height:1.45}
+  .privacy a{color:var(--navy);text-decoration:underline}
+  .form-msg{margin-top:.8rem;padding:.8rem;border-radius:8px;font-size:.9rem;display:none}
+  .form-msg.err{background:#fde8e8;color:#b03030;display:block}
+
+  /* SECTIONS */
+  section{padding:4rem 0}
+  .sec-head{text-align:center;margin-bottom:2.5rem}
+  .eyebrow{color:var(--teal);font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem}
+  .sec-head h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.01em;margin-bottom:.6rem}
+  .sec-head p{color:var(--grey);max-width:640px;margin:0 auto;font-size:1.02rem}
+
+  /* MISTAKES */
+  .mistakes{background:var(--cream)}
+  .mistakes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem}
+  .mistake{background:#fff;padding:1.6rem;border-radius:14px;border:1px solid var(--light);border-left:4px solid var(--gold);display:flex;gap:1.1rem;align-items:flex-start}
+  .mistake .num{font-size:1.8rem;font-weight:800;color:var(--gold);min-width:46px;line-height:1}
+  .mistake h3{font-size:1.05rem;font-weight:700;margin-bottom:.4rem}
+  .mistake p{color:var(--grey);font-size:.92rem}
+
+  /* WHO WE ARE / TRUST */
+  .who{text-align:center}
+  .who-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2rem}
+  .who-item .n{font-size:2.4rem;font-weight:800;color:var(--teal);letter-spacing:-.02em}
+  .who-item .l{color:var(--grey);font-size:.92rem;font-weight:500;margin-top:.2rem}
+
+  /* HOW IT WORKS */
+  .how{background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+  .step{background:#fff;padding:1.8rem;border-radius:14px;border:1px solid var(--light);text-align:center}
+  .step .n{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;margin:0 auto .9rem}
+  .step h3{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
+  .step p{color:var(--grey);font-size:.93rem}
+
+  /* FAQ */
+  .faq-list{max-width:780px;margin:0 auto}
+  details{background:#fff;border:1px solid var(--light);border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:.7rem}
+  details[open]{box-shadow:0 8px 30px -10px rgba(0,0,0,.08)}
+  summary{font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;color:var(--navy);font-size:1.02rem}
+  summary::after{content:"+";color:var(--gold);font-size:1.5rem;font-weight:400;transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--grey);margin-top:.7rem;font-size:.95rem;line-height:1.6}
+
+  /* FINAL CTA */
+  .final{background:var(--navy);color:#fff;text-align:center;padding:4.5rem 1.25rem}
+  .final h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:.8rem;letter-spacing:-.01em}
+  .final p{color:#cfd5e0;max-width:560px;margin:0 auto 1.7rem;font-size:1.05rem}
+  .btn-cta{display:inline-block;background:linear-gradient(135deg,var(--gold),#C8993A);color:var(--navy);font-weight:800;padding:1.05rem 2.3rem;border-radius:999px;font-size:1.05rem;box-shadow:0 12px 30px -8px rgba(233,185,73,.55)}
+
+  footer{background:var(--navy-dark);color:#9ba3ad;padding:2rem 1.25rem;text-align:center;font-size:.85rem}
+  footer a{color:#cfd5e0;margin:0 .9rem}
+  footer .fb-brand{color:#fff;font-weight:700;margin-bottom:.6rem;display:block}
+
+  .sticky-cta{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--light);padding:.7rem 1rem;display:none;z-index:50;box-shadow:0 -8px 30px -10px rgba(0,0,0,.18)}
+  .sticky-cta a{display:block;background:linear-gradient(135deg,var(--gold),#C8993A);color:var(--navy);font-weight:800;padding:.85rem;border-radius:10px;text-align:center;font-size:.98rem}
+
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr;gap:1.8rem}
+    .mistakes-grid,.who-row,.steps{grid-template-columns:1fr 1fr}
+    section{padding:2.8rem 0}
+    .sticky-cta{display:block}
+    body{padding-bottom:80px}
+  }
+  @media (max-width:520px){
+    .mistakes-grid,.steps{grid-template-columns:1fr}
+    .who-row{grid-template-columns:1fr 1fr;gap:.6rem}
+    .row2{grid-template-columns:1fr}
+    .form-card{padding:1.3rem}
+    .guide-mock{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">&#128218; Free 15-page expat insurance guide &middot; <strong>Instant download</strong> &middot; Written by licensed advisors</div>
+
+<header class="brandbar">
+  <div class="brand">
+    <div class="brand-mark">EP</div>
+    <div>Expat Protect Hub<small>International Insurance Consultants</small></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="pill">&#127919; Free Download</div>
+      <h1>Avoid These <span class="accent">7 Costly Health Insurance Mistakes</span> Expats Make</h1>
+      <p class="hero-sub">A 15-minute read that could save you thousands. Written by licensed international insurance advisors who&rsquo;ve placed cover for 30,000+ expats across 120 countries.</p>
+
+      <div class="you-learn">
+        <div class="h">Inside the guide:</div>
+        <ul>
+          <li>The #1 mistake that voids 4 out of 10 expat claims</li>
+          <li>Why &ldquo;cheap&rdquo; local insurance often costs 5&times; more</li>
+          <li>The hospital network question 90% of expats forget to ask</li>
+          <li>How to compare US$1M vs $2M cover (and which you actually need)</li>
+          <li>Pre-existing conditions: what to disclose and what insurers really check</li>
+          <li>Direct billing, guarantee of payment &amp; medevac &mdash; explained simply</li>
+          <li>The 3-step checklist to get the right plan in under a week</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="guide-mock">
+        <div class="cover">
+          <div class="tag">Expat Protect Hub Guide</div>
+          <h3>7 Costly Health Insurance Mistakes Expats Make</h3>
+          <p style="color:#cfd5e0;font-size:.88rem;margin-bottom:.4rem">&hellip; and how to avoid every one of them.</p>
+          <div class="meta">2026 Edition &middot; 15 pages &middot; Free PDF</div>
+        </div>
+      </div>
+
+      <!-- LEAD FORM -->
+      <form class="form-card" id="lead-form">
+        <h2>Send Me The Free Guide</h2>
+        <p class="lead">Get instant access. No spam &mdash; just one quick email with your PDF download link.</p>
+
+        <div class="field">
+          <label for="f-name">Full Name</label>
+          <input id="f-name" name="full_name" type="text" required placeholder="John Smith">
+        </div>
+        <div class="field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" required placeholder="you@example.com">
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone / WhatsApp <span style="color:#9ca3af;font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <input id="f-phone" name="phone" type="tel" placeholder="+66 8X XXX XXXX">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="f-age">Age</label>
+            <input id="f-age" name="age" type="number" min="0" max="99" required placeholder="35">
+          </div>
+          <div class="field">
+            <label for="f-nat">Nationality</label>
+            <input id="f-nat" name="nationality" type="text" required placeholder="British">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-country">Country of Residence</label>
+          <select id="f-country" name="country" required>
+            <option value="" disabled selected>Select country&hellip;</option>
+            <option>Thailand</option><option>Vietnam</option><option>Indonesia</option>
+            <option>Malaysia</option><option>Philippines</option><option>Singapore</option>
+            <option>UAE</option><option>Hong Kong</option><option>Other</option>
+          </select>
+        </div>
+
+        <input type="hidden" name="lead_source" value="meta_guide_page">
+        <input type="hidden" name="utm_source" id="utm_source">
+        <input type="hidden" name="utm_medium" id="utm_medium">
+        <input type="hidden" name="utm_campaign" id="utm_campaign">
+        <input type="hidden" name="utm_content" id="utm_content">
+        <input type="hidden" name="utm_term" id="utm_term">
+        <input type="hidden" name="page_url" id="page_url">
+
+        <button class="btn-submit" type="submit" id="submit-btn">Send Me The Free Guide &rarr;</button>
+        <div class="form-msg" id="form-msg"></div>
+        <p class="privacy">&#128274; We respect your privacy. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- MISTAKES PREVIEW -->
+<section class="mistakes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">A Quick Preview</div>
+      <h2>The 7 mistakes &mdash; at a glance</h2>
+      <p>Each mistake is explained in detail with real examples and a clear fix in the free guide.</p>
+    </div>
+    <div class="mistakes-grid">
+      <div class="mistake"><div class="num">01</div><div><h3>Choosing local cover for a global life</h3><p>Country-specific policies leave gaps the moment you travel. A single hospital stay abroad can wipe out years of premiums.</p></div></div>
+      <div class="mistake"><div class="num">02</div><div><h3>Underinsuring the annual limit</h3><p>US$250K sounds like a lot &mdash; until you need 6 weeks in ICU. The right limit depends on where you live, not what you can afford this month.</p></div></div>
+      <div class="mistake"><div class="num">03</div><div><h3>Forgetting medevac &amp; repatriation</h3><p>An air ambulance from Bali to Singapore can cost US$50,000. Always check if evacuation is included &mdash; up to your full plan limit.</p></div></div>
+      <div class="mistake"><div class="num">04</div><div><h3>Hiding pre-existing conditions</h3><p>Honesty is cheaper than denied claims. Learn what insurers really check &mdash; and how good disclosure actually protects you.</p></div></div>
+      <div class="mistake"><div class="num">05</div><div><h3>Ignoring the hospital network</h3><p>If your insurer doesn&rsquo;t have direct billing at the hospitals you&rsquo;d use, you&rsquo;ll be paying upfront and chasing reimbursement for months.</p></div></div>
+      <div class="mistake"><div class="num">06</div><div><h3>Missing renewal guarantees</h3><p>The cheapest plan today can refuse to renew tomorrow if you fall sick. Always check &ldquo;continuation&rdquo; and &ldquo;guaranteed renewal&rdquo; clauses.</p></div></div>
+      <div class="mistake"><div class="num">07</div><div><h3>Buying from a non-licensed agent</h3><p>The wrong advice costs more than the wrong policy. Always verify your broker is licensed in international medical insurance.</p></div></div>
+      <div class="mistake" style="border-left-color:var(--teal);background:linear-gradient(135deg,#fff,#f0fdfa)"><div class="num" style="color:var(--teal)">&#10148;</div><div><h3>Get the full guide</h3><p>Each mistake comes with real-world examples and a clear fix &mdash; download instantly using the form above.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE ARE -->
+<section class="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Why Trust This Guide</div>
+      <h2>Written by people who&rsquo;ve been there</h2>
+      <p>Our advisors are licensed international medical insurance brokers who&rsquo;ve placed cover for 30,000+ expats across 120 countries.</p>
+    </div>
+    <div class="who-row">
+      <div class="who-item"><div class="n">30K+</div><div class="l">Expats Helped</div></div>
+      <div class="who-item"><div class="n">120+</div><div class="l">Countries</div></div>
+      <div class="who-item"><div class="n">20+</div><div class="l">Years Experience</div></div>
+      <div class="who-item"><div class="n">4.9&#9733;</div><div class="l">Average Rating</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">How It Works</div>
+      <h2>Get your guide in 3 steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Enter your details</h3><p>Just your name, email, and a couple of details so we can tailor follow-up advice if you want it.</p></div>
+      <div class="step"><div class="n">2</div><h3>Download instantly</h3><p>The PDF lands in your inbox within seconds. Read it at your own pace &mdash; no scheduled calls required.</p></div>
+      <div class="step"><div class="n">3</div><h3>Ask anything (optional)</h3><p>If you have questions after reading, reply to the email. A licensed advisor will get back to you &mdash; no pressure.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Questions</div>
+      <h2>Frequently asked</h2>
+    </div>
+    <div class="faq-list">
+      <details><summary>Is the guide really free? What&rsquo;s the catch?</summary><p>It&rsquo;s genuinely free. We give it away because well-informed clients are easier to advise. Many readers eventually come back to us when they&rsquo;re ready to buy &mdash; but there&rsquo;s zero obligation.</p></details>
+      <details><summary>Will I be added to a marketing list?</summary><p>You&rsquo;ll receive the guide and, occasionally, useful tips about expat health insurance. You can unsubscribe with one click anytime &mdash; and we never share your details with anyone.</p></details>
+      <details><summary>How long is the guide?</summary><p>15 pages, designed to be read in about 15 minutes. Each mistake includes a real-world example and a clear, actionable fix.</p></details>
+      <details><summary>Who is the guide for?</summary><p>Anyone planning to live, work, retire, or travel long-term outside their home country. Especially useful for expats in Southeast Asia, the Middle East, and Europe.</p></details>
+      <details><summary>Do you sell insurance directly?</summary><p>Yes. Expat Protect Hub partners with licensed brokers who place cover with A-rated international insurers. If you want a quote after reading, we&rsquo;re here to help &mdash; otherwise, enjoy the guide.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <div class="wrap">
+    <h2>Don&rsquo;t make these mistakes.</h2>
+    <p>Get the free 15-page guide. Sent straight to your inbox &mdash; no spam, no obligation, just clear advice.</p>
+    <a href="#lead-form" class="btn-cta">Send Me The Free Guide &rarr;</a>
+  </div>
+</section>
+
+<footer>
+  <span class="fb-brand">Expat Protect Hub &middot; International Insurance Consultants</span>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms</a>
+  <p style="margin-top:.8rem;font-size:.78rem;color:#6b7280">&copy; 2026 Expat Protect Hub. All rights reserved.</p>
+</footer>
+
+<div class="sticky-cta"><a href="#lead-form">Send Me The Free Guide &rarr;</a></div>
+
+<script>
+  (function(){
+    const p = new URLSearchParams(location.search);
+    ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k=>{
+      const el = document.getElementById(k); if(el) el.value = p.get(k) || '';
+    });
+    document.getElementById('page_url').value = location.href;
+  })();
+
+  const form = document.getElementById('lead-form');
+  const btn  = document.getElementById('submit-btn');
+  const msg  = document.getElementById('form-msg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    btn.disabled = true; btn.textContent = 'Sending...';
+    msg.className = 'form-msg';
+    const data = Object.fromEntries(new FormData(form).entries());
+    data.to_name = data.full_name; data.to_email = data.email;
+    emailjs.send('service_ngpk8vv','template_1jlezu6', data).then(function(){
+      window.location.href = '/thank-you.html?src=meta_guide_page&guide=1';
+    }).catch(function(err){
+      console.error(err);
+      msg.textContent = 'Sorry, something went wrong. Please try again or email info@expatprotecthub.com';
+      msg.className = 'form-msg err';
+      btn.disabled = false; btn.textContent = 'Send Me The Free Guide →';
+    });
+  });
+</script>
+
+</body>
+</html>

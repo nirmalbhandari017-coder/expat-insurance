@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Thank You &mdash; Expat Protect Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#1B263B; --navy-dark:#0F1620; --teal:#0FB9B1; --teal-dark:#0B6E6B;
+    --gold:#E9B949; --cream:#F8F9FA; --grey:#6B7280; --light:#E4E7EB;
+    --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  body{font-family:var(--font);color:var(--navy);line-height:1.55;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+  .wrap{flex:1;display:grid;place-items:center;padding:2rem 1.25rem}
+  .card{background:#fff;border-radius:20px;padding:3rem 2.4rem;max-width:560px;width:100%;text-align:center;box-shadow:0 40px 80px -20px rgba(0,0,0,.4);border-top:6px solid var(--teal)}
+  .check{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));margin:0 auto 1.4rem;display:grid;place-items:center;color:#fff;font-size:2.6rem;font-weight:800;box-shadow:0 15px 40px -10px rgba(15,185,177,.55)}
+  .card h1{font-size:1.85rem;font-weight:800;margin-bottom:.6rem;letter-spacing:-.01em}
+  .card p{color:var(--grey);font-size:1.02rem;margin-bottom:1.2rem}
+  .what-next{background:var(--cream);border-radius:12px;padding:1.3rem;text-align:left;margin-top:1.6rem}
+  .what-next h2{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.7rem;text-transform:uppercase;letter-spacing:.05em}
+  .what-next ol{padding-left:1.15rem;color:var(--navy);font-size:.94rem}
+  .what-next li{margin-bottom:.4rem}
+  .what-next li strong{color:var(--teal-dark)}
+  .footer{padding:1.5rem 1.25rem;text-align:center;font-size:.82rem;color:#9ba3ad}
+  .footer a{color:#cfd5e0;text-decoration:none;margin:0 .8rem}
+  .countdown{margin-top:1.6rem;font-size:.86rem;color:var(--grey)}
+  .countdown a{color:var(--teal);font-weight:600;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+    <div class="check">&#10003;</div>
+    <h1 id="title">You&rsquo;re all set!</h1>
+    <p id="message">Thanks for reaching out. A licensed specialist from Expat Protect Hub will be in touch within 24 hours with your personalised information.</p>
+
+    <div class="what-next">
+      <h2>What happens next</h2>
+      <ol>
+        <li><strong>Within 1 hour:</strong> You&rsquo;ll receive a confirmation email.</li>
+        <li><strong>Within 24 hours:</strong> A licensed advisor reviews your details and sends tailored options.</li>
+        <li><strong>When you&rsquo;re ready:</strong> Reply to the email or book a quick call. No pressure, no obligation.</li>
+      </ol>
+    </div>
+
+    <p class="countdown">Have an urgent question? Email <a href="mailto:info@expatprotecthub.com">info@expatprotecthub.com</a></p>
+  </div>
+</div>
+
+<div class="footer">
+  &copy; 2026 Expat Protect Hub &middot;
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms</a>
+</div>
+
+<script>
+  // Customise the message based on source
+  const p = new URLSearchParams(location.search);
+  const src = p.get('src');
+  const isGuide = p.get('guide') === '1';
+  const isQuiz  = p.get('quiz')  === '1';
+
+  if(isGuide){
+    document.getElementById('title').textContent = 'Your guide is on its way!';
+    document.getElementById('message').textContent = 'Check your inbox in the next few minutes for the free expat health insurance guide. (If you don’t see it, please check your spam folder.)';
+  } else if(isQuiz){
+    document.getElementById('title').textContent = 'Plan match incoming!';
+    document.getElementById('message').textContent = 'Thanks for taking the quiz. A licensed advisor will email you 2–3 tailored plan options within 24 hours.';
+  }
+</script>
+
+</body>
+</html>
