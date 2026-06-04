@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Find your ideal expat health insurance plan in 60 seconds. Take our free quiz and get a personalised plan recommendation tailored to your needs and budget.">
+<meta name="description" content="Find your ideal expat health insurance plan in 60 seconds. Tell us about your group and location, and a licensed advisor will match you with the right plan.">
 <meta name="robots" content="index,follow">
-<title>Find My Plan &mdash; Personalised Expat Health Insurance Quiz</title>
+<title>Find My Plan &mdash; Personalised Expat Health Insurance Match</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,50 +23,57 @@
   a{color:var(--teal);text-decoration:none}
   .wrap{max-width:1100px;margin:0 auto;padding:0 1.25rem}
 
-  .topbar{background:var(--navy);color:#fff;padding:.65rem 1.25rem;text-align:center;font-size:.86rem;font-weight:500}
-  .topbar strong{color:var(--teal)}
+  .topbar{background:var(--cream);color:var(--navy);padding:.65rem 1.25rem;text-align:center;font-size:.86rem;font-weight:500;border-bottom:1px solid var(--light)}
+  .topbar strong{color:var(--teal-dark)}
   .brandbar{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--light);background:#fff}
   .brand{display:flex;align-items:center;gap:.65rem;font-weight:800;font-size:1.05rem;color:var(--navy)}
   .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:grid;place-items:center;color:#fff;font-weight:800}
   .brand small{display:block;font-size:.7rem;font-weight:500;color:var(--grey);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
 
-  /* HERO */
-  .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);color:#fff;padding:3rem 0 2rem;position:relative;overflow:hidden;text-align:center}
-  .hero::before{content:"";position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:rgba(15,185,177,.1);filter:blur(80px)}
-  .hero h1{font-size:clamp(2rem,4.2vw,3rem);font-weight:800;line-height:1.15;margin-bottom:1rem;letter-spacing:-.02em;position:relative;z-index:1}
-  .hero h1 .accent{color:var(--teal)}
-  .hero-sub{font-size:1.1rem;color:#cfd5e0;margin:0 auto 1.4rem;max-width:600px;position:relative;z-index:1}
-  .hero-trust{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;font-size:.9rem;color:#e4e8ee;position:relative;z-index:1}
+  /* HERO (light) */
+  .hero{background:linear-gradient(135deg,#ffffff 0%,#f0fdfa 60%,#e6f7f6 100%);color:var(--navy);padding:3rem 0 1.5rem;position:relative;overflow:hidden;text-align:center}
+  .hero::before{content:"";position:absolute;top:-100px;right:-100px;width:500px;height:500px;border-radius:50%;background:rgba(15,185,177,.14);filter:blur(80px)}
+  .hero::after{content:"";position:absolute;bottom:-150px;left:-100px;width:400px;height:400px;border-radius:50%;background:rgba(27,38,59,.06);filter:blur(80px)}
+  .hero h1{font-size:clamp(2rem,4.2vw,3rem);font-weight:800;line-height:1.15;margin-bottom:1rem;letter-spacing:-.02em;position:relative;z-index:1;color:var(--navy)}
+  .hero h1 .accent{color:var(--teal-dark)}
+  .hero-sub{font-size:1.1rem;color:var(--grey);margin:0 auto 1.4rem;max-width:600px;position:relative;z-index:1}
+  .hero-trust{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;font-size:.9rem;color:var(--navy);font-weight:500;position:relative;z-index:1}
   .hero-trust span{display:inline-flex;align-items:center;gap:.4rem}
   .hero-trust span::before{content:"\2713";color:var(--teal);font-weight:800}
 
-  /* QUIZ */
-  .quiz-wrap{max-width:680px;margin:-3rem auto 0;padding:0 1.25rem;position:relative;z-index:2}
-  .quiz-card{background:#fff;border-radius:20px;padding:2rem;box-shadow:0 25px 70px -20px rgba(0,0,0,.25);border-top:5px solid var(--teal)}
+  /* FORM SECTION */
+  .form-section{background:linear-gradient(180deg,#e6f7f6 0%,#fff 100%);padding-bottom:3rem}
+  .form-wrap{max-width:680px;margin:0 auto;padding:0 1.25rem;position:relative;z-index:2}
+  .form-card{background:#fff;border-radius:20px;padding:2rem;box-shadow:0 25px 70px -20px rgba(27,38,59,.15);border-top:5px solid var(--teal)}
   .progress-bar{height:6px;background:var(--light);border-radius:99px;margin-bottom:1.4rem;overflow:hidden}
-  .progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-dark));transition:width .35s ease;width:0%;border-radius:99px}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--teal-dark));transition:width .35s ease;width:50%;border-radius:99px}
   .progress-label{font-size:.78rem;color:var(--grey);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.5rem;display:flex;justify-content:space-between}
   .step-pane{display:none}
   .step-pane.active{display:block;animation:fadeIn .3s ease}
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
   .step-pane h2{font-size:1.4rem;font-weight:800;margin-bottom:.45rem;line-height:1.3}
   .step-pane .desc{color:var(--grey);font-size:.95rem;margin-bottom:1.3rem}
-  .opt-grid{display:grid;gap:.7rem;margin-bottom:1.4rem}
-  .opt{display:block;padding:1rem 1.2rem;border:1.8px solid var(--light);border-radius:12px;cursor:pointer;font-weight:600;color:var(--navy);background:#fafbfc;transition:all .15s;text-align:left;width:100%;font-family:inherit;font-size:.98rem}
-  .opt:hover{border-color:var(--teal);background:#fff}
-  .opt.selected{border-color:var(--teal);background:rgba(15,185,177,.08);box-shadow:0 0 0 3px rgba(15,185,177,.1)}
-  .opt .opt-sub{display:block;font-weight:400;font-size:.85rem;color:var(--grey);margin-top:.15rem}
   .field{margin-bottom:.9rem}
   .field label{display:block;font-size:.82rem;font-weight:600;margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.04em}
   .field input,.field select{width:100%;padding:.85rem 1rem;border:1.5px solid var(--light);border-radius:10px;font-family:inherit;font-size:.95rem;background:#fafbfc;color:var(--navy)}
   .field input:focus,.field select:focus{outline:none;border-color:var(--teal);background:#fff;box-shadow:0 0 0 4px rgba(15,185,177,.12)}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
-  .nav-row{display:flex;gap:.7rem;margin-top:1rem}
+  .phone-row{display:grid;grid-template-columns:130px 1fr;gap:.5rem}
+  .ages-container{display:grid;gap:.6rem}
+  .age-row{display:grid;grid-template-columns:80px 1fr;gap:.6rem;align-items:center}
+  .age-row .lbl{font-size:.85rem;color:var(--grey);font-weight:600}
+  .coverage-options{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}
+  .coverage-opt{position:relative}
+  .coverage-opt input{position:absolute;opacity:0;pointer-events:none}
+  .coverage-opt label{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:.8rem .4rem;border:1.8px solid var(--light);border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:600;text-align:center;background:#fafbfc;text-transform:none;letter-spacing:0;color:var(--navy);transition:all .15s}
+  .coverage-opt label .ico{font-size:1.4rem}
+  .coverage-opt input:checked + label{border-color:var(--teal);background:rgba(15,185,177,.08);box-shadow:0 0 0 3px rgba(15,185,177,.1)}
+  .nav-row{display:flex;gap:.7rem;margin-top:1.2rem}
   .btn{flex:1;padding:1rem;border:none;border-radius:12px;font-family:inherit;font-weight:700;font-size:.98rem;cursor:pointer;transition:transform .15s}
   .btn-back{background:#f0f2f4;color:var(--navy);flex:0 0 auto;padding-left:1.4rem;padding-right:1.4rem}
   .btn-next{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;box-shadow:0 10px 30px -8px rgba(15,185,177,.55)}
   .btn-next:hover{transform:translateY(-1px)}
-  .btn-next:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .btn-next:disabled{opacity:.6;cursor:wait;transform:none}
   .privacy{font-size:.76rem;color:var(--grey);text-align:center;margin-top:.85rem;line-height:1.45}
   .privacy a{color:var(--navy);text-decoration:underline}
   .form-msg{margin-top:.8rem;padding:.8rem;border-radius:8px;font-size:.9rem;display:none}
@@ -106,31 +113,33 @@
   details[open] summary::after{transform:rotate(45deg)}
   details p{color:var(--grey);margin-top:.7rem;font-size:.95rem}
 
-  .final{background:var(--navy);color:#fff;text-align:center;padding:4.5rem 1.25rem}
-  .final h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:.8rem}
-  .final p{color:#cfd5e0;max-width:560px;margin:0 auto 1.7rem;font-size:1.05rem}
+  /* FINAL CTA (light) */
+  .final{background:linear-gradient(135deg,#f0fdfa 0%,#e6f7f6 100%);color:var(--navy);text-align:center;padding:4.5rem 1.25rem;border-top:1px solid var(--light)}
+  .final h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:.8rem;color:var(--navy)}
+  .final p{color:var(--grey);max-width:560px;margin:0 auto 1.7rem;font-size:1.05rem}
   .btn-cta{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-weight:700;padding:1.05rem 2.3rem;border-radius:999px;font-size:1.05rem;box-shadow:0 12px 30px -8px rgba(15,185,177,.55)}
 
-  footer{background:var(--navy-dark);color:#9ba3ad;padding:2rem 1.25rem;text-align:center;font-size:.85rem}
-  footer a{color:#cfd5e0;margin:0 .9rem}
-  footer .fb-brand{color:#fff;font-weight:700;margin-bottom:.6rem;display:block}
+  footer{background:#fff;color:var(--grey);padding:2rem 1.25rem;text-align:center;font-size:.85rem;border-top:1px solid var(--light)}
+  footer a{color:var(--navy);margin:0 .9rem;font-weight:500}
+  footer .fb-brand{color:var(--navy);font-weight:700;margin-bottom:.6rem;display:block}
 
   .sticky-cta{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--light);padding:.7rem 1rem;display:none;z-index:50;box-shadow:0 -8px 30px -10px rgba(0,0,0,.18)}
   .sticky-cta a{display:block;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-weight:700;padding:.85rem;border-radius:10px;text-align:center;font-size:.98rem}
 
   @media (max-width:880px){
-    .hero{padding:2.2rem 0 1.5rem}
+    .hero{padding:2.2rem 0 1rem}
     .benefit-grid,.steps,.trust-row{grid-template-columns:1fr 1fr}
     section{padding:2.8rem 0}
     .sticky-cta{display:block}
     body{padding-bottom:80px}
-    .quiz-wrap{margin-top:-2rem}
-    .quiz-card{padding:1.5rem}
+    .form-card{padding:1.5rem}
   }
   @media (max-width:520px){
     .benefit-grid,.steps{grid-template-columns:1fr}
     .trust-row{grid-template-columns:1fr 1fr;gap:.6rem}
     .row2{grid-template-columns:1fr}
+    .coverage-options{grid-template-columns:1fr 1fr}
+    .phone-row{grid-template-columns:110px 1fr}
   }
 </style>
 </head>
@@ -149,7 +158,7 @@
 <section class="hero">
   <div class="wrap">
     <h1>Find Your <span class="accent">Ideal Expat Health Insurance Plan</span></h1>
-    <p class="hero-sub">A 60-second quiz that matches you with the right plan, the right insurer, and the right premium &mdash; based on your age, location, and budget.</p>
+    <p class="hero-sub">Tell us who needs cover and where you live &mdash; a licensed advisor will match you with the right plan, the right insurer, and the right premium within 24 hours.</p>
     <div class="hero-trust">
       <span>Free &amp; instant</span>
       <span>No credit card</span>
@@ -158,131 +167,132 @@
   </div>
 </section>
 
-<!-- QUIZ -->
-<div class="quiz-wrap" id="quiz-anchor">
-  <div class="quiz-card">
-    <div class="progress-label"><span id="step-label">Step 1 of 5</span><span id="step-pct">20%</span></div>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+<!-- FORM -->
+<section class="form-section" id="form-anchor">
+  <div class="form-wrap">
+    <div class="form-card">
+      <div class="progress-label"><span id="step-label">Step 1 of 2</span><span id="step-pct">50%</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
 
-    <form id="quiz-form">
-    <!-- STEP 1: Age -->
-    <div class="step-pane active" data-step="1">
-      <h2>What&rsquo;s your age?</h2>
-      <p class="desc">Your age helps us match you with insurers offering the best rates for your profile.</p>
-      <div class="opt-grid" data-name="age_range">
-        <button type="button" class="opt" data-val="18-29">18&ndash;29</button>
-        <button type="button" class="opt" data-val="30-39">30&ndash;39</button>
-        <button type="button" class="opt" data-val="40-49">40&ndash;49</button>
-        <button type="button" class="opt" data-val="50-59">50&ndash;59</button>
-        <button type="button" class="opt" data-val="60-69">60&ndash;69</button>
-        <button type="button" class="opt" data-val="70+">70+</button>
-      </div>
-      <div class="nav-row">
-        <button type="button" class="btn btn-next" data-next>Continue &rarr;</button>
-      </div>
+      <form id="quote-form" novalidate>
+
+        <!-- STEP 1 -->
+        <div class="step-pane active" data-step="1">
+          <h2>Tell us about your group</h2>
+          <p class="desc">Who needs cover, and where are you based?</p>
+
+          <div class="field">
+            <label for="num-people">Number of People</label>
+            <select id="num-people" name="num_people" required>
+              <option value="" disabled selected>Select&hellip;</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5+">5+</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="destination-country">Location</label>
+            <select id="destination-country" name="destination_country" required>
+              <option value="" disabled selected>Select country&hellip;</option>
+            </select>
+          </div>
+
+          <div class="nav-row">
+            <button type="button" class="btn btn-next" id="btn-next">Next Step &rarr;</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-pane" data-step="2">
+          <h2>Almost there!</h2>
+          <p class="desc">Fill in your details so a specialist can match you with the right plan within 24 hours.</p>
+
+          <div class="field">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full_name" placeholder="Jane Smith" required>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number</label>
+              <div class="phone-row">
+                <select id="phone-cc" name="phone_country_code" required><option value="" disabled selected>Code</option></select>
+                <input type="tel" id="phone" name="phone" placeholder="555 000 0000" required inputmode="numeric" pattern="[0-9 ]+">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="current-country">Nationality</label>
+            <select id="current-country" name="nationality" required>
+              <option value="" disabled selected>Select country&hellip;</option>
+            </select>
+          </div>
+
+          <div class="field" id="ages-group">
+            <label id="ages-label">Your Age</label>
+            <div id="ages-container" class="ages-container"></div>
+          </div>
+
+          <div class="field">
+            <label>Coverage Type <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--grey)">(select all that apply)</span></label>
+            <div class="coverage-options">
+              <div class="coverage-opt">
+                <input type="checkbox" id="cov-inpatient" name="coverage" value="inpatient">
+                <label for="cov-inpatient"><span class="ico">&#127973;</span>Inpatient</label>
+              </div>
+              <div class="coverage-opt">
+                <input type="checkbox" id="cov-outpatient" name="coverage" value="outpatient">
+                <label for="cov-outpatient"><span class="ico">&#129658;</span>Outpatient</label>
+              </div>
+              <div class="coverage-opt">
+                <input type="checkbox" id="cov-dental" name="coverage" value="dental">
+                <label for="cov-dental"><span class="ico">&#129463;</span>Dental</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="start-date">Expected Start Date</label>
+            <input type="date" id="start-date" name="start_date" required>
+            <p style="font-size:.76rem;color:var(--grey);margin-top:.3rem">Format: dd/mm/yyyy</p>
+          </div>
+
+          <!-- Hidden tracking -->
+          <input type="hidden" name="lead_source" value="quiz_funnel_page">
+          <input type="hidden" name="utm_source" id="utm_source">
+          <input type="hidden" name="utm_medium" id="utm_medium">
+          <input type="hidden" name="utm_campaign" id="utm_campaign">
+          <input type="hidden" name="utm_content" id="utm_content">
+          <input type="hidden" name="utm_term" id="utm_term">
+          <input type="hidden" name="page_url" id="page_url">
+
+          <div class="nav-row">
+            <button type="button" class="btn btn-back" id="btn-back">&larr; Back</button>
+            <button type="submit" class="btn btn-next" id="submit-btn">Get My Plan Match &rarr;</button>
+          </div>
+          <div class="form-msg" id="form-msg"></div>
+          <p class="privacy">&#128274; Your details are encrypted and never shared. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
+        </div>
+
+      </form>
     </div>
-
-    <!-- STEP 2: Country -->
-    <div class="step-pane" data-step="2">
-      <h2>Where do you live?</h2>
-      <p class="desc">We&rsquo;ll factor in local hospital networks and regional pricing.</p>
-      <div class="field">
-        <label for="q-country">Country of Residence</label>
-        <select id="q-country" name="country">
-          <option value="" disabled selected>Select country&hellip;</option>
-          <option>Thailand</option><option>Vietnam</option><option>Indonesia</option>
-          <option>Malaysia</option><option>Philippines</option><option>Singapore</option>
-          <option>Cambodia</option><option>Hong Kong</option><option>UAE</option>
-          <option>Saudi Arabia</option><option>Portugal</option><option>Spain</option>
-          <option>Mexico</option><option>Other</option>
-        </select>
-      </div>
-      <div class="nav-row">
-        <button type="button" class="btn btn-back" data-back>Back</button>
-        <button type="button" class="btn btn-next" data-next>Continue &rarr;</button>
-      </div>
-    </div>
-
-    <!-- STEP 3: Coverage type -->
-    <div class="step-pane" data-step="3">
-      <h2>Where do you need cover?</h2>
-      <p class="desc">Choose the coverage area that fits your lifestyle.</p>
-      <div class="opt-grid" data-name="coverage_type">
-        <button type="button" class="opt" data-val="Thailand only">Thailand only<span class="opt-sub">Lowest premium &mdash; cover limited to Thailand</span></button>
-        <button type="button" class="opt" data-val="Worldwide excluding USA">Worldwide excluding USA<span class="opt-sub">Best value for most expats &mdash; cover anywhere except the US</span></button>
-        <button type="button" class="opt" data-val="Worldwide including USA">Worldwide including USA<span class="opt-sub">Premium option &mdash; full global cover including the US</span></button>
-      </div>
-      <div class="nav-row">
-        <button type="button" class="btn btn-back" data-back>Back</button>
-        <button type="button" class="btn btn-next" data-next>Continue &rarr;</button>
-      </div>
-    </div>
-
-    <!-- STEP 4: Budget -->
-    <div class="step-pane" data-step="4">
-      <h2>What&rsquo;s your monthly budget?</h2>
-      <p class="desc">We&rsquo;ll match you with plans in your range &mdash; or show you what&rsquo;s achievable for slightly more.</p>
-      <div class="opt-grid" data-name="budget">
-        <button type="button" class="opt" data-val="Under $100/month">Under $100/month<span class="opt-sub">Major medical plans &middot; essential cover</span></button>
-        <button type="button" class="opt" data-val="$100-300/month">$100&ndash;300/month<span class="opt-sub">Standard plans &middot; great everyday cover</span></button>
-        <button type="button" class="opt" data-val="$300-500/month">$300&ndash;500/month<span class="opt-sub">Comprehensive plans &middot; outpatient included</span></button>
-        <button type="button" class="opt" data-val="$500+/month">$500+/month<span class="opt-sub">Fully comprehensive &middot; premium hospitals worldwide</span></button>
-      </div>
-      <div class="nav-row">
-        <button type="button" class="btn btn-back" data-back>Back</button>
-        <button type="button" class="btn btn-next" data-next>Continue &rarr;</button>
-      </div>
-    </div>
-
-    <!-- STEP 5: Contact -->
-    <div class="step-pane" data-step="5">
-      <h2>Get your personalised plan match</h2>
-      <p class="desc">We&rsquo;ll email you 2&ndash;3 plan options matched to your answers &mdash; usually within 24 hours.</p>
-      <div class="field">
-        <label for="f-name">Full Name</label>
-        <input id="f-name" name="full_name" type="text" required placeholder="John Smith">
-      </div>
-      <div class="field">
-        <label for="f-email">Email</label>
-        <input id="f-email" name="email" type="email" required placeholder="you@example.com">
-      </div>
-      <div class="field">
-        <label for="f-phone">Phone / WhatsApp</label>
-        <input id="f-phone" name="phone" type="tel" required placeholder="+66 8X XXX XXXX">
-      </div>
-      <div class="field">
-        <label for="f-nat">Nationality</label>
-        <input id="f-nat" name="nationality" type="text" required placeholder="British">
-      </div>
-
-      <input type="hidden" name="age_range" id="h-age">
-      <input type="hidden" name="coverage_type" id="h-cov">
-      <input type="hidden" name="budget" id="h-budget">
-      <input type="hidden" name="lead_source" value="quiz_funnel_page">
-      <input type="hidden" name="utm_source" id="utm_source">
-      <input type="hidden" name="utm_medium" id="utm_medium">
-      <input type="hidden" name="utm_campaign" id="utm_campaign">
-      <input type="hidden" name="utm_content" id="utm_content">
-      <input type="hidden" name="utm_term" id="utm_term">
-      <input type="hidden" name="page_url" id="page_url">
-
-      <div class="nav-row">
-        <button type="button" class="btn btn-back" data-back>Back</button>
-        <button type="submit" class="btn btn-next" id="submit-btn">Get My Plan Match &rarr;</button>
-      </div>
-      <div class="form-msg" id="form-msg"></div>
-      <p class="privacy">&#128274; Your details are encrypted and never shared. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
-    </div>
-    </form>
   </div>
-</div>
+</section>
 
 <!-- BENEFITS -->
 <section class="benefits">
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">What You Get</div>
-      <h2>Why take the quiz?</h2>
+      <h2>Why use Expat Protect Hub?</h2>
       <p>It&rsquo;s faster than browsing dozens of plans &mdash; and the recommendations come from licensed advisors who&rsquo;ve placed cover for 30,000+ expats.</p>
     </div>
     <div class="benefit-grid">
@@ -314,10 +324,10 @@
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">How It Works</div>
-      <h2>From quiz to coverage in 24 hours</h2>
+      <h2>From form to coverage in 24 hours</h2>
     </div>
     <div class="steps">
-      <div class="step-card"><div class="n">1</div><h3>Take the quiz</h3><p>60 seconds, 5 simple questions. No personal medical info required up front.</p></div>
+      <div class="step-card"><div class="n">1</div><h3>Tell us about you</h3><p>Two quick steps: who needs cover, plus your contact and basic details. Under 60 seconds.</p></div>
       <div class="step-card"><div class="n">2</div><h3>Get matched</h3><p>Within 24 hours, you&rsquo;ll receive 2&ndash;3 plan recommendations tailored to your profile.</p></div>
       <div class="step-card"><div class="n">3</div><h3>Choose &amp; activate</h3><p>Pick the plan that fits, complete the application online, and you&rsquo;re covered &mdash; same day.</p></div>
     </div>
@@ -332,8 +342,8 @@
       <h2>Everything you need to know</h2>
     </div>
     <div class="faq-list">
-      <details><summary>Is this quiz really free?</summary><p>Yes. Completely free. We&rsquo;re paid by the insurer if you eventually buy a policy &mdash; you pay the same premium either way.</p></details>
-      <details><summary>What happens after I submit my answers?</summary><p>A licensed advisor reviews your profile and sends 2&ndash;3 plan options to your email within 24 hours. You can compare them on your own time &mdash; or reply with questions.</p></details>
+      <details><summary>Is this really free?</summary><p>Yes. Completely free. We&rsquo;re paid by the insurer if you eventually buy a policy &mdash; you pay the same premium either way.</p></details>
+      <details><summary>What happens after I submit my details?</summary><p>A licensed advisor reviews your profile and sends 2&ndash;3 plan options to your email within 24 hours. You can compare them on your own time &mdash; or reply with questions.</p></details>
       <details><summary>Will I be hassled with phone calls?</summary><p>No. We email first. If you want to chat, just reply or book a call at your convenience. No pressure, no cold calls.</p></details>
       <details><summary>What insurers do you compare?</summary><p>We work with all major international medical insurers &mdash; including Cigna, Allianz, AXA, IMG, Regency, and Bupa Global, among others.</p></details>
       <details><summary>How is my data used?</summary><p>Your answers are used to match you with the right plan &mdash; nothing more. We never sell or share your data. You can request deletion at any time.</p></details>
@@ -345,8 +355,8 @@
 <section class="final">
   <div class="wrap">
     <h2>Ready to find your plan?</h2>
-    <p>60 seconds. 5 questions. A tailored recommendation in your inbox tomorrow.</p>
-    <a href="#quiz-anchor" class="btn-cta">Start My Free Plan Check &rarr;</a>
+    <p>60 seconds. Two simple steps. A tailored recommendation in your inbox tomorrow.</p>
+    <a href="#form-anchor" class="btn-cta">Start My Free Plan Check &rarr;</a>
   </div>
 </section>
 
@@ -354,13 +364,73 @@
   <span class="fb-brand">Expat Protect Hub &middot; International Insurance Consultants</span>
   <a href="/privacy.html">Privacy Policy</a>
   <a href="/terms.html">Terms</a>
-  <p style="margin-top:.8rem;font-size:.78rem;color:#6b7280">&copy; 2026 Expat Protect Hub. All rights reserved.</p>
+  <p style="margin-top:.8rem;font-size:.78rem;color:var(--grey)">&copy; 2026 Expat Protect Hub. All rights reserved.</p>
 </footer>
 
-<div class="sticky-cta"><a href="#quiz-anchor">Start My Free Plan Check &rarr;</a></div>
+<div class="sticky-cta"><a href="#form-anchor">Start My Free Plan Check &rarr;</a></div>
 
 <script>
-  // UTM capture
+  /* ---------- Country / dialling-code lists (compact) ---------- */
+  const COUNTRIES = [
+    ['Thailand','+66'],['Vietnam','+84'],['Indonesia','+62'],['Malaysia','+60'],
+    ['Philippines','+63'],['Singapore','+65'],['Cambodia','+855'],['Hong Kong','+852'],
+    ['Japan','+81'],['South Korea','+82'],['China','+86'],['India','+91'],
+    ['UAE','+971'],['Saudi Arabia','+966'],['Qatar','+974'],['Bahrain','+973'],['Oman','+968'],['Kuwait','+965'],
+    ['United Kingdom','+44'],['Ireland','+353'],['France','+33'],['Germany','+49'],
+    ['Spain','+34'],['Portugal','+351'],['Italy','+39'],['Netherlands','+31'],
+    ['Switzerland','+41'],['Sweden','+46'],['Norway','+47'],['Denmark','+45'],
+    ['Finland','+358'],['Belgium','+32'],['Austria','+43'],['Poland','+48'],
+    ['United States','+1'],['Canada','+1'],['Mexico','+52'],['Brazil','+55'],['Argentina','+54'],
+    ['Australia','+61'],['New Zealand','+64'],
+    ['South Africa','+27'],['Kenya','+254'],['Nigeria','+234'],['Egypt','+20'],
+    ['Turkey','+90'],['Israel','+972'],['Other','']
+  ];
+  const dest = document.getElementById('destination-country');
+  const nat  = document.getElementById('current-country');
+  const cc   = document.getElementById('phone-cc');
+  COUNTRIES.forEach(([name,code])=>{
+    dest.add(new Option(name,name));
+    nat.add(new Option(name,name));
+    if(code) cc.add(new Option(`${name} (${code})`, code));
+  });
+
+  /* ---------- Step navigation ---------- */
+  const panes = Array.from(document.querySelectorAll('.step-pane'));
+  let current = 0;
+  function show(i){
+    panes.forEach((p,idx)=>p.classList.toggle('active', idx===i));
+    current = i;
+    document.getElementById('step-label').textContent = `Step ${i+1} of 2`;
+    document.getElementById('step-pct').textContent   = (i===0?'50%':'100%');
+    document.getElementById('progress-fill').style.width = (i===0?'50%':'100%');
+    document.getElementById('form-anchor').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  document.getElementById('btn-next').addEventListener('click', ()=>{
+    if(!document.getElementById('num-people').value){ alert('Please choose number of people'); return; }
+    if(!document.getElementById('destination-country').value){ alert('Please choose your location'); return; }
+    buildAges();
+    show(1);
+  });
+  document.getElementById('btn-back').addEventListener('click', ()=>show(0));
+
+  /* ---------- Dynamic age fields ---------- */
+  function buildAges(){
+    const n = document.getElementById('num-people').value;
+    const wrap = document.getElementById('ages-container');
+    const lbl  = document.getElementById('ages-label');
+    wrap.innerHTML = '';
+    const count = n === '5+' ? 5 : parseInt(n,10) || 1;
+    lbl.textContent = count === 1 ? 'Your Age' : 'Age of each person';
+    for(let i=1;i<=count;i++){
+      const row = document.createElement('div');
+      row.className = 'age-row';
+      row.innerHTML = `<div class="lbl">Person ${i}</div><input type="number" min="0" max="99" required name="age_${i}" placeholder="e.g. 35">`;
+      wrap.appendChild(row);
+    }
+  }
+
+  /* ---------- UTM capture ---------- */
   (function(){
     const p = new URLSearchParams(location.search);
     ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k=>{
@@ -369,69 +439,27 @@
     document.getElementById('page_url').value = location.href;
   })();
 
-  // Quiz state
-  const panes = Array.from(document.querySelectorAll('.step-pane'));
-  const total = panes.length;
-  let current = 0;
-  const answers = {age_range:'',country:'',coverage_type:'',budget:''};
-
-  function show(i){
-    panes.forEach((p,idx)=> p.classList.toggle('active', idx===i));
-    current = i;
-    document.getElementById('step-label').textContent = `Step ${i+1} of ${total}`;
-    const pct = Math.round(((i+1)/total)*100);
-    document.getElementById('step-pct').textContent = pct + '%';
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('quiz-anchor').scrollIntoView({behavior:'smooth',block:'start'});
-  }
-
-  // Option click handlers (for option grids)
-  document.querySelectorAll('.opt-grid').forEach(grid=>{
-    const name = grid.dataset.name;
-    grid.querySelectorAll('.opt').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        grid.querySelectorAll('.opt').forEach(b=>b.classList.remove('selected'));
-        btn.classList.add('selected');
-        answers[name] = btn.dataset.val;
-      });
-    });
-  });
-
-  // Country select
-  document.getElementById('q-country').addEventListener('change', e=>{
-    answers.country = e.target.value;
-  });
-
-  // Next / Back buttons
-  document.querySelectorAll('[data-next]').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      // validation per step
-      const step = current + 1;
-      if(step === 1 && !answers.age_range){ alert('Please choose an age range'); return; }
-      if(step === 2 && !answers.country){ alert('Please choose your country'); return; }
-      if(step === 3 && !answers.coverage_type){ alert('Please choose a coverage area'); return; }
-      if(step === 4 && !answers.budget){ alert('Please choose a budget range'); return; }
-      if(current < total-1) show(current+1);
-    });
-  });
-  document.querySelectorAll('[data-back]').forEach(b=>{
-    b.addEventListener('click', ()=>{ if(current>0) show(current-1); });
-  });
-
-  // Submit
-  const form = document.getElementById('quiz-form');
+  /* ---------- Submit ---------- */
+  const form = document.getElementById('quote-form');
   const btn  = document.getElementById('submit-btn');
   const msg  = document.getElementById('form-msg');
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    document.getElementById('h-age').value    = answers.age_range;
-    document.getElementById('h-cov').value    = answers.coverage_type;
-    document.getElementById('h-budget').value = answers.budget;
     btn.disabled = true; btn.textContent = 'Sending...';
     msg.className = 'form-msg';
+
+    // Collect ages
+    const ages = [];
+    form.querySelectorAll('input[name^="age_"]').forEach(inp=>{ if(inp.value) ages.push(inp.value); });
+    // Collect coverage
+    const cov = Array.from(form.querySelectorAll('input[name="coverage"]:checked')).map(c=>c.value);
+
     const data = Object.fromEntries(new FormData(form).entries());
-    data.country = answers.country;
-    data.to_name = data.full_name; data.to_email = data.email;
+    data.ages = ages.join(', ');
+    data.coverage = cov.join(', ');
+    data.to_name  = data.full_name;
+    data.to_email = data.email;
+
     emailjs.send('service_ngpk8vv','template_1jlezu6', data).then(function(){
       window.location.href = '/thank-you.html?src=quiz_funnel_page&quiz=1';
     }).catch(function(err){
@@ -441,9 +469,6 @@
       btn.disabled = false; btn.textContent = 'Get My Plan Match →';
     });
   });
-
-  // init
-  show(0);
 </script>
 
 </body>
