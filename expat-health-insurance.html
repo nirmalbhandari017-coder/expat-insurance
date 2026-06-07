@@ -29,9 +29,9 @@
   .topbar strong{color:var(--teal-dark)}
 
   .brandbar{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--light);background:#fff}
-  .brand{display:flex;align-items:center;gap:.65rem;font-weight:800;font-size:1.05rem;color:var(--navy)}
-  .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:grid;place-items:center;color:#fff;font-weight:800}
-  .brand small{display:block;font-size:.7rem;font-weight:500;color:var(--grey);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+  .brand{display:flex;align-items:center;gap:.65rem}
+  .brand img{height:46px;width:auto;display:block}
+  @media (max-width:520px){.brand img{height:38px}}
   .brandbar .phone{font-weight:700;color:var(--navy);font-size:.95rem}
   .brandbar .phone span{color:var(--teal)}
 
@@ -166,10 +166,9 @@
 <div class="topbar">&#127760; Trusted by 30,000+ expats worldwide &middot; <strong>Same-day activation</strong> &middot; Direct billing at top global hospitals</div>
 
 <header class="brandbar">
-  <div class="brand">
-    <div class="brand-mark">EP</div>
-    <div>Expat Protect Hub<small>International Insurance Consultants</small></div>
-  </div>
+  <a href="/" class="brand" aria-label="Expat Protect Hub">
+    <img src="/assets/logo-landing.png" alt="Expat Protect Hub">
+  </a>
 </header>
 
 <!-- HERO -->

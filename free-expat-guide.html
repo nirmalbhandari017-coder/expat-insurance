@@ -27,9 +27,9 @@
   .topbar{background:var(--cream);color:var(--navy);padding:.65rem 1.25rem;text-align:center;font-size:.86rem;font-weight:500;border-bottom:1px solid var(--light)}
   .topbar strong{color:#B58816}
   .brandbar{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--light);background:#fff}
-  .brand{display:flex;align-items:center;gap:.65rem;font-weight:800;font-size:1.05rem;color:var(--navy)}
-  .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));display:grid;place-items:center;color:#fff;font-weight:800}
-  .brand small{display:block;font-size:.7rem;font-weight:500;color:var(--grey);letter-spacing:.06em;text-transform:uppercase;margin-top:1px}
+  .brand{display:flex;align-items:center;gap:.65rem}
+  .brand img{height:46px;width:auto;display:block}
+  @media (max-width:520px){.brand img{height:38px}}
 
   /* HERO */
   .hero{background:linear-gradient(135deg,#ffffff 0%,#fffaf0 60%,#fcf3e1 100%);color:var(--navy);padding:3rem 0 4rem;position:relative;overflow:hidden}
@@ -164,10 +164,9 @@
 <div class="topbar">&#128218; Free 15-page expat insurance guide &middot; <strong>Instant download</strong> &middot; Written by licensed advisors</div>
 
 <header class="brandbar">
-  <div class="brand">
-    <div class="brand-mark">EP</div>
-    <div>Expat Protect Hub<small>International Insurance Consultants</small></div>
-  </div>
+  <a href="/" class="brand" aria-label="Expat Protect Hub">
+    <img src="/assets/logo-landing.png" alt="Expat Protect Hub">
+  </a>
 </header>
 
 <!-- HERO -->
