@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expat Protect Hub — Renewal Carousel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:        #0F2A47;
+      --navy-mid:    #1A3A5C;
+      --teal:        #0891B2;
+      --teal-light:  #67E8F9;
+      --bg-light:    #CFFAFE;
+      --bg-pale:     #F0F7FF;
+      --white:       #FFFFFF;
+      --text-muted:  #475569;
+      --text-subtle: #64748B;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      min-height: 100vh;
+      padding: 56px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .page-header {
+      text-align: center;
+    }
+    .page-header h1 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .page-header p {
+      font-size: 11px;
+      color: rgba(255,255,255,0.22);
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Slide shell: native 1080×1350px, displayed at 50% ── */
+    .slide-wrapper {
+      width: 540px;
+      height: 675px;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: 0 28px 80px rgba(0,0,0,0.7);
+    }
+
+    .slide {
+      width: 1080px;
+      height: 1350px;
+      transform: scale(0.5);
+      transform-origin: top left;
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ── Shared components ── */
+
+    .accent-top {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 8px;
+      background: var(--teal);
+      z-index: 10;
+    }
+    .accent-bottom {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 8px;
+      background: var(--teal);
+      z-index: 10;
+    }
+
+    .counter {
+      position: absolute;
+      bottom: 48px;
+      right: 64px;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      z-index: 20;
+    }
+    .c-light { color: rgba(100,116,139,0.65); }
+    .c-dark  { color: rgba(255,255,255,0.38); }
+    .c-teal  { color: rgba(15,42,71,0.4); }
+
+    .eyebrow {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .eb-teal  { color: var(--teal); }
+    .eb-glow  { color: var(--teal-light); }
+
+    .teal-rule {
+      width: 160px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 2px;
+      margin-bottom: 44px;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 1 — HOOK
+       Split: left teal (40%) / right navy (60%)
+    ════════════════════════════════════════ */
+    .s1 {
+      display: flex;
+      width: 1080px;
+      height: 1350px;
+    }
+    .s1-left {
+      width: 432px;
+      background: var(--teal);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px;
+      overflow: hidden;
+    }
+    .s1-lockup {
+      position: relative;
+      z-index: 2;
+    }
+    .s1-brand-expat {
+      font-size: 62px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.07em;
+      line-height: 1;
+    }
+    .s1-brand-hub {
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.82);
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      margin-top: 12px;
+    }
+    .s1-circ-tl {
+      position: absolute;
+      top: -90px; left: -85px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.25);
+    }
+    .s1-circ-br {
+      position: absolute;
+      bottom: -110px; right: -110px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.16);
+    }
+
+    .s1-right {
+      width: 648px;
+      background: var(--navy);
+      padding: 120px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .s1-headline {
+      font-size: 60px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.12;
+      margin-bottom: 36px;
+    }
+    .s1-sub {
+      font-size: 26px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.68);
+      line-height: 1.65;
+      max-width: 500px;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 2 — EDUCATIONAL
+       Background: ice blue (#CFFAFE)
+    ════════════════════════════════════════ */
+    .s2 {
+      width: 1080px;
+      height: 1350px;
+      background: var(--bg-light);
+      padding: 80px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .s2-headline {
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.12;
+      margin-bottom: 32px;
+    }
+    .s2-body {
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.68;
+      margin-bottom: 56px;
+    }
+    .s2-callout {
+      background: var(--bg-pale);
+      border: 3px solid var(--teal);
+      border-radius: 10px;
+      padding: 40px 48px;
+    }
+    .s2-callout-text {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.55;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 3 — LIST
+       Background: ice blue (#CFFAFE)
+    ════════════════════════════════════════ */
+    .s3 {
+      width: 1080px;
+      height: 1350px;
+      background: var(--bg-light);
+      padding: 80px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .s3-headline {
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.12;
+      margin-bottom: 32px;
+    }
+    .s3-list {
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+    }
+    .s3-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+    }
+    .s3-bullet {
+      width: 52px; height: 52px;
+      min-width: 52px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: white;
+      font-size: 22px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .s3-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+    .s3-desc {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 4 — PROCESS
+       Background: ice blue (#CFFAFE)
+    ════════════════════════════════════════ */
+    .s4 {
+      width: 1080px;
+      height: 1350px;
+      background: var(--bg-light);
+      padding: 80px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .s4-headline {
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 32px;
+    }
+    .s4-circles-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .s4-circle {
+      width: 72px; height: 72px;
+      min-width: 72px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+    .s4-dash {
+      flex: 1;
+      height: 4px;
+      background: var(--teal);
+    }
+    .s4-cards {
+      display: flex;
+      gap: 20px;
+    }
+    .s4-card {
+      flex: 1;
+      background: var(--bg-pale);
+      border: 2px solid var(--teal);
+      border-radius: 8px;
+      padding: 32px 22px;
+      text-align: center;
+    }
+    .s4-card-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .s4-card-desc {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.58;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 5 — STATS
+       Background: mid navy (#1A3A5C)
+    ════════════════════════════════════════ */
+    .s5 {
+      width: 1080px;
+      height: 1350px;
+      background: var(--navy-mid);
+      padding: 120px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .s5-headline {
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 68px;
+    }
+    .s5-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .s5-card {
+      background: rgba(255,255,255,0.06);
+      border: 2px solid var(--teal);
+      border-top: 7px solid var(--teal);
+      border-radius: 8px;
+      padding: 52px 36px;
+      text-align: center;
+    }
+    .s5-stat {
+      font-size: 80px;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .s5-label {
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--teal-light);
+      line-height: 1.45;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 6 — QUOTE
+       Background: deep navy (#0F2A47)
+    ════════════════════════════════════════ */
+    .s6 {
+      width: 1080px;
+      height: 1350px;
+      background: var(--navy);
+      padding: 120px 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .s6-qmark {
+      position: absolute;
+      top: 60px;
+      left: 76px;
+      font-size: 320px;
+      font-weight: 800;
+      color: var(--teal);
+      opacity: 0.12;
+      line-height: 1;
+      font-family: Georgia, 'Times New Roman', serif;
+      pointer-events: none;
+      user-select: none;
+    }
+    .s6-eyebrow {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--teal-light);
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 2;
+    }
+    .s6-text {
+      font-size: 36px;
+      font-weight: 400;
+      color: white;
+      line-height: 1.72;
+      margin-bottom: 56px;
+      position: relative;
+      z-index: 2;
+    }
+    .s6-rule {
+      width: 80px;
+      height: 3px;
+      background: var(--teal);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+    .s6-attr {
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--teal-light);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ════════════════════════════════════════
+       SLIDE 7 — CTA
+       Split: left navy (52%) / right teal (48%)
+    ════════════════════════════════════════ */
+    .s7 {
+      display: flex;
+      width: 1080px;
+      height: 1350px;
+    }
+    .s7-left {
+      width: 560px;
+      background: var(--navy);
+      padding: 120px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    .s7-question {
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 40px;
+    }
+    .s7-reassure {
+      font-size: 24px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.72;
+    }
+    .s7-copy {
+      position: absolute;
+      bottom: 52px;
+      left: 72px;
+      font-size: 18px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.26);
+      letter-spacing: 0.04em;
+    }
+
+    .s7-right {
+      width: 520px;
+      background: var(--teal);
+      padding: 120px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .s7-cta-h {
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 24px;
+    }
+    .s7-cta-div {
+      width: 100px;
+      height: 4px;
+      background: rgba(15,42,71,0.28);
+      border-radius: 2px;
+      margin-bottom: 56px;
+    }
+    .s7-details {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .s7-d-label {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(15,42,71,0.5);
+      margin-bottom: 4px;
+    }
+    .s7-d-val {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .s7-circ-tr {
+      position: absolute;
+      top: -90px; right: -90px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.28);
+      pointer-events: none;
+    }
+    .s7-circ-bl {
+      position: absolute;
+      bottom: -100px; left: -70px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.18);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>Expat Protect Hub — Renewal Carousel</h1>
+    <p>7 slides &nbsp;·&nbsp; 4:5 ratio &nbsp;·&nbsp; Native 1080 × 1350 px &nbsp;·&nbsp; Displayed at 50%</p>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1 — HOOK
+  ══════════════════════════════════════ -->
+  <div class="slide-wrapper">
+    <div class="slide s1">
+
+      <!-- Left: teal panel -->
+      <div class="s1-left">
+        <div class="s1-circ-tl"></div>
+        <div class="s1-lockup">
+          <div class="s1-brand-expat">EXPAT</div>
+          <div class="s1-brand-hub">PROTECT HUB</div>
+        </div>
+        <div class="s1-circ-br"></div>
+      </div>
+
+      <!-- Right: navy panel -->
+      <div class="s1-right">
+        <div class="eyebrow eb-glow" style="margin-bottom:32px">RENEWAL GUIDE</div>
+        <div class="s1-headline">Is your expat cover still right for you?</div>
+        <div class="s1-sub">Most people renew on autopilot. Here's what that's quietly costing them.</div>
+        <div class="counter c-dark">1 / 7</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2 — EDUCATIONAL
+  ══════════════════════════════════════ -->
+  <div class="slide-wrapper">
+    <div class="slide s2">
+      <div class="accent-top"></div>
+
+      <div class="eyebrow eb-teal">THE PROBLEM</div>
+      <div class="s2-headline">Loyalty doesn't pay off in expat insurance.</div>
+      <div class="teal-rule"></div>
+      <div class="s2-body">
+        If you've been with the same insurer for more than two years, there's a good chance your plan no longer fits your life. Your situation changes — where you live, who you're covering, how often you use it. Your premium, meanwhile, just quietly goes up.
+      </div>
+      <div class="s2-callout">
+        <div class="s2-callout-text">Most expats haven't reviewed their cover in over two years — and many are paying for benefits they've never once used.</div>
+      </div>
+
+      <div class="accent-bottom"></div>
+      <div class="counter c-light">2 / 7</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3 — LIST
+  ══════════════════════════════════════ -->
+  <div class="slide-wrapper">
+    <div class="slide s3">
+      <div class="accent-top"></div>
+
+      <div class="eyebrow eb-teal">BEFORE YOU RENEW</div>
+      <div class="s3-headline">Five things worth checking.</div>
+      <div class="teal-rule"></div>
+
+      <div class="s3-list">
+        <div class="s3-item">
+          <div class="s3-bullet">1</div>
+          <div>
+            <div class="s3-title">Your deductible</div>
+            <div class="s3-desc">Has your tolerance for out-of-pocket costs changed since you first signed up?</div>
+          </div>
+        </div>
+        <div class="s3-item">
+          <div class="s3-bullet">2</div>
+          <div>
+            <div class="s3-title">Your geography</div>
+            <div class="s3-desc">Are you covered where you actually live — and the places you travel to?</div>
+          </div>
+        </div>
+        <div class="s3-item">
+          <div class="s3-bullet">3</div>
+          <div>
+            <div class="s3-title">Your dependants</div>
+            <div class="s3-desc">Family situations change. Your cover should reflect where you are now, not where you were.</div>
+          </div>
+        </div>
+        <div class="s3-item">
+          <div class="s3-bullet">4</div>
+          <div>
+            <div class="s3-title">Your unused benefits</div>
+            <div class="s3-desc">Are you paying for dental, optical, or wellness extras you've never once claimed?</div>
+          </div>
+        </div>
+        <div class="s3-item">
+          <div class="s3-bullet">5</div>
+          <div>
+            <div class="s3-title">Your renewal price</div>
+            <div class="s3-desc">If it's gone up more than 10%, it's worth a proper look at what else is out there.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="accent-bottom"></div>
+      <div class="counter c-light">3 / 7</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — PROCESS
+  ══════════════════════════════════════ -->
+  <div class="slide-wrapper">
+    <div class="slide s4">
+      <div class="accent-top"></div>
+
+      <div class="eyebrow eb-teal">HOW IT WORKS</div>
+      <div class="s4-headline">Getting a better deal is simpler than you think.</div>
+      <div class="teal-rule"></div>
+
+      <!-- Step circles + connectors -->
+      <div class="s4-circles-row">
+        <div class="s4-circle">1</div>
+        <div class="s4-dash"></div>
+        <div class="s4-circle">2</div>
+        <div class="s4-dash"></div>
+        <div class="s4-circle">3</div>
+        <div class="s4-dash"></div>
+        <div class="s4-circle">4</div>
+      </div>
+
+      <!-- Step cards -->
+      <div class="s4-cards">
+        <div class="s4-card">
+          <div class="s4-card-title">Tell us your situation.</div>
+          <div class="s4-card-desc">We listen before we recommend. No forms, no bots — just a conversation.</div>
+        </div>
+        <div class="s4-card">
+          <div class="s4-card-title">We compare.</div>
+          <div class="s4-card-desc">We search the market on your behalf, across plans you'd never find on your own.</div>
+        </div>
+        <div class="s4-card">
+          <div class="s4-card-title">We advise.</div>
+          <div class="s4-card-desc">Honest recommendation — even if that means staying with what you have.</div>
+        </div>
+        <div class="s4-card">
+          <div class="s4-card-title">You decide.</div>
+          <div class="s4-card-desc">No pressure. No obligation. The decision is always yours.</div>
+        </div>
+      </div>
+
+      <div class="accent-bottom"></div>
+      <div class="counter c-light">4 / 7</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — STATS
+  ══════════════════════════════════════ -->
+  <div class="slide-wrapper">
+    <div class="slide s5">
+
+      <div class="eyebrow eb-glow">BY THE NUMBERS</div>
+      <div class="s5-headline">Why expats choose us at renewal.</div>
+
+      <div class="s5-grid">
+        <div class="s5-card">
+          <div class="s5-stat">120+</div>
+          <div class="s5-label">Countries covered across all plans</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-stat">24h</div>
+          <div class="s5-label">Response time from a real adviser</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-stat">9/10</div>
+          <div class="s5-label">Clients find a better or equal plan</div>
+        </div>
+        <div class="s5-card">
+          <div class="s5-stat" style="font-size:64px">Free</div>
+          <div class="s5-label">To check. Always. No obligation.</div>
+        </div>
+      </div>
+
+      <div class="counter c-dark">5 / 7</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — QUOTE
+  ══════════════════════════════════════ -->
+  <div class="slide-wrapper">
+    <div class="slide s6">
+
+      <div class="s6-qmark">"</div>
+      <div class="s6-eyebrow">WHAT OUR CLIENTS SAY</div>
+      <div class="s6-text">
+        "I'd been renewing on autopilot for four years. In one call, they found me better cover for less money. I only wish I'd done it sooner."
+      </div>
+      <div class="s6-rule"></div>
+      <div class="s6-attr">— Sarah M., expat living in Singapore</div>
+
+      <div class="counter c-dark">6 / 7</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 7 — CTA
+  ══════════════════════════════════════ -->
+  <div class="slide-wrapper">
+    <div class="slide s7">
+
+      <!-- Left: navy panel -->
+      <div class="s7-left">
+        <div class="s7-question">Ready to find out if you're properly covered?</div>
+        <div class="s7-reassure">It's free to check. No obligation. A real adviser gets back to you within 24 hours — and we'll tell you honestly if your current plan is already the right fit.</div>
+        <div class="s7-copy">© 2026 Expat Protect Hub</div>
+      </div>
+
+      <!-- Right: teal panel -->
+      <div class="s7-right">
+        <div class="s7-circ-tr"></div>
+        <div class="s7-cta-h">Get Your Quote.</div>
+        <div class="s7-cta-div"></div>
+        <div class="s7-details">
+          <div>
+            <div class="s7-d-label">RESPONSE</div>
+            <div class="s7-d-val">Within 24 hours</div>
+          </div>
+          <div>
+            <div class="s7-d-label">COVERAGE</div>
+            <div class="s7-d-val">120+ countries</div>
+          </div>
+          <div>
+            <div class="s7-d-label">COST TO CHECK</div>
+            <div class="s7-d-val">Always free</div>
+          </div>
+          <div>
+            <div class="s7-d-label">ADVISER</div>
+            <div class="s7-d-val">A real human</div>
+          </div>
+        </div>
+        <div class="s7-circ-bl"></div>
+        <div class="counter c-teal" style="right:52px">7 / 7</div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

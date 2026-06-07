@@ -1,5 +1,9 @@
 # Clean URLs for landing pages (Netlify)
-/thailand-health-insurance   /thailand-health-insurance.html   200
+/expat-health-insurance      /expat-health-insurance.html      200
 /free-expat-guide            /free-expat-guide.html            200
 /find-my-plan                /find-my-plan.html                200
 /thank-you                   /thank-you.html                   200
+
+# Back-compat: old Thailand URL forwards to new generic page
+/thailand-health-insurance   /expat-health-insurance.html      301
+/thailand-health-insurance.html  /expat-health-insurance.html  301
