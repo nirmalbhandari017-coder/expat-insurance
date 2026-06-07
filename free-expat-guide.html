@@ -66,6 +66,27 @@
   .field input:focus,.field select:focus{outline:none;border-color:var(--gold);background:#fff;box-shadow:0 0 0 4px rgba(233,185,73,.18)}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
   .btn-submit{width:100%;background:linear-gradient(135deg,var(--gold),#C8993A);color:var(--navy);font-family:inherit;font-weight:800;font-size:1rem;padding:1rem;border:none;border-radius:12px;cursor:pointer;letter-spacing:.01em;box-shadow:0 10px 30px -8px rgba(233,185,73,.55)}
+  .btn-submit:disabled{opacity:.6;cursor:wait}
+  .btn-back{background:#f0f2f4;color:var(--navy);font-family:inherit;font-weight:700;font-size:.95rem;padding:1rem 1.4rem;border:none;border-radius:12px;cursor:pointer}
+  .step-pane{display:none}
+  .step-pane.active{display:block;animation:fadeIn .3s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .progress-bar{height:6px;background:var(--light);border-radius:99px;margin-bottom:1.1rem;overflow:hidden}
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#C8993A);transition:width .35s ease;border-radius:99px}
+  .progress-label{font-size:.74rem;color:var(--grey);font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.4rem;display:flex;justify-content:space-between}
+  .phone-row{display:grid;grid-template-columns:120px 1fr;gap:.5rem}
+  .ages-container{display:grid;gap:.55rem}
+  .age-row{display:grid;grid-template-columns:90px 1fr;gap:.55rem;align-items:center}
+  .age-row .lbl{font-size:.85rem;color:var(--grey);font-weight:600}
+  .coverage-options{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+  .coverage-opt{position:relative}
+  .coverage-opt input{position:absolute;opacity:0;pointer-events:none}
+  .coverage-opt label{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:.75rem .35rem;border:1.8px solid var(--light);border-radius:10px;cursor:pointer;font-size:.82rem;font-weight:600;text-align:center;background:#fafbfc;text-transform:none;letter-spacing:0;color:var(--navy);transition:all .15s;margin:0}
+  .coverage-opt label .ico{font-size:1.3rem}
+  .coverage-opt input:checked + label{border-color:var(--gold);background:rgba(233,185,73,.1);box-shadow:0 0 0 3px rgba(233,185,73,.15)}
+  .nav-row{display:flex;gap:.6rem;margin-top:.3rem}
+  .nav-row .btn-submit{flex:1}
+  @media (max-width:520px){.phone-row{grid-template-columns:100px 1fr}.coverage-options{grid-template-columns:1fr 1fr}}
   .privacy{font-size:.76rem;color:var(--grey);text-align:center;margin-top:.85rem;line-height:1.45}
   .privacy a{color:var(--navy);text-decoration:underline}
   .form-msg{margin-top:.8rem;padding:.8rem;border-radius:8px;font-size:.9rem;display:none}
@@ -181,54 +202,106 @@
         </div>
       </div>
 
-      <!-- LEAD FORM -->
-      <form class="form-card" id="lead-form">
-        <h2>Send Me The Free Guide</h2>
-        <p class="lead">Get instant access. No spam &mdash; just one quick email with your PDF download link.</p>
+      <!-- LEAD FORM (2-step, matches main site) -->
+      <form class="form-card" id="lead-form" novalidate>
 
-        <div class="field">
-          <label for="f-name">Full Name</label>
-          <input id="f-name" name="full_name" type="text" required placeholder="John Smith">
-        </div>
-        <div class="field">
-          <label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email" required placeholder="you@example.com">
-        </div>
-        <div class="field">
-          <label for="f-phone">Phone / WhatsApp <span style="color:#9ca3af;font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
-          <input id="f-phone" name="phone" type="tel" placeholder="+66 8X XXX XXXX">
-        </div>
-        <div class="row2">
+        <div class="progress-label"><span id="step-label">Step 1 of 2</span><span id="step-pct">50%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:50%"></div></div>
+
+        <!-- STEP 1 -->
+        <div class="step-pane active" data-step="1">
+          <h2>Send Me The Free Guide</h2>
+          <p class="lead">Tell us who needs cover and where &mdash; we&rsquo;ll tailor the guide and send it instantly.</p>
+
           <div class="field">
-            <label for="f-age">Age</label>
-            <input id="f-age" name="age" type="number" min="0" max="99" required placeholder="35">
+            <label for="num-people">Number of People</label>
+            <select id="num-people" name="num_people" required>
+              <option value="" disabled selected>Select&hellip;</option>
+              <option value="1">1</option><option value="2">2</option>
+              <option value="3">3</option><option value="4">4</option>
+              <option value="5+">5+</option>
+            </select>
           </div>
+
           <div class="field">
-            <label for="f-nat">Nationality</label>
-            <input id="f-nat" name="nationality" type="text" required placeholder="British">
+            <label for="destination-country">Location</label>
+            <select id="destination-country" name="destination_country" required>
+              <option value="" disabled selected>Select country&hellip;</option>
+            </select>
           </div>
-        </div>
-        <div class="field">
-          <label for="f-country">Country of Residence</label>
-          <select id="f-country" name="country" required>
-            <option value="" disabled selected>Select country&hellip;</option>
-            <option>Thailand</option><option>Vietnam</option><option>Indonesia</option>
-            <option>Malaysia</option><option>Philippines</option><option>Singapore</option>
-            <option>UAE</option><option>Hong Kong</option><option>Other</option>
-          </select>
+
+          <button type="button" class="btn-submit" id="btn-next">Next Step &rarr;</button>
+          <p class="privacy">&#128274; We respect your privacy. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
         </div>
 
-        <input type="hidden" name="lead_source" value="meta_guide_page">
-        <input type="hidden" name="utm_source" id="utm_source">
-        <input type="hidden" name="utm_medium" id="utm_medium">
-        <input type="hidden" name="utm_campaign" id="utm_campaign">
-        <input type="hidden" name="utm_content" id="utm_content">
-        <input type="hidden" name="utm_term" id="utm_term">
-        <input type="hidden" name="page_url" id="page_url">
+        <!-- STEP 2 -->
+        <div class="step-pane" data-step="2">
+          <h2>Almost there!</h2>
+          <p class="lead">Fill in your details so we can email your guide and tailor the advice.</p>
 
-        <button class="btn-submit" type="submit" id="submit-btn">Send Me The Free Guide &rarr;</button>
-        <div class="form-msg" id="form-msg"></div>
-        <p class="privacy">&#128274; We respect your privacy. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
+          <div class="field">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" name="full_name" placeholder="Jane Smith" required>
+          </div>
+
+          <div class="row2">
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone Number</label>
+              <div class="phone-row">
+                <select id="phone-cc" name="phone_country_code" required><option value="" disabled selected>Code</option></select>
+                <input type="tel" id="phone" name="phone" placeholder="555 000 0000" required inputmode="numeric" pattern="[0-9 ]+">
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="current-country">Nationality</label>
+            <select id="current-country" name="nationality" required>
+              <option value="" disabled selected>Select country&hellip;</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label id="ages-label">Your Age</label>
+            <div id="ages-container" class="ages-container"></div>
+          </div>
+
+          <div class="field">
+            <label>Coverage Type <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--grey)">(select all)</span></label>
+            <div class="coverage-options">
+              <div class="coverage-opt"><input type="checkbox" id="cov-in" name="coverage" value="inpatient"><label for="cov-in"><span class="ico">&#127973;</span>Inpatient</label></div>
+              <div class="coverage-opt"><input type="checkbox" id="cov-out" name="coverage" value="outpatient"><label for="cov-out"><span class="ico">&#129658;</span>Outpatient</label></div>
+              <div class="coverage-opt"><input type="checkbox" id="cov-dent" name="coverage" value="dental"><label for="cov-dent"><span class="ico">&#129463;</span>Dental</label></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="start-date">Expected Start Date</label>
+            <input type="date" id="start-date" name="start_date" required>
+            <p style="font-size:.74rem;color:var(--grey);margin-top:.3rem">Format: dd/mm/yyyy</p>
+          </div>
+
+          <!-- Hidden tracking -->
+          <input type="hidden" name="lead_source" value="meta_guide_page">
+          <input type="hidden" name="utm_source" id="utm_source">
+          <input type="hidden" name="utm_medium" id="utm_medium">
+          <input type="hidden" name="utm_campaign" id="utm_campaign">
+          <input type="hidden" name="utm_content" id="utm_content">
+          <input type="hidden" name="utm_term" id="utm_term">
+          <input type="hidden" name="page_url" id="page_url">
+
+          <div class="nav-row">
+            <button type="button" class="btn-back" id="btn-back">&larr; Back</button>
+            <button type="submit" class="btn-submit" id="submit-btn">Send Me The Free Guide &rarr;</button>
+          </div>
+          <div class="form-msg" id="form-msg"></div>
+          <p class="privacy">&#128274; We respect your privacy. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
+        </div>
+
       </form>
     </div>
   </div>
@@ -276,6 +349,31 @@
 <div class="sticky-cta"><a href="#lead-form">Send Me The Free Guide &rarr;</a></div>
 
 <script>
+  /* Country list with dialling codes */
+  const COUNTRIES = [
+    ['Thailand','+66'],['Vietnam','+84'],['Indonesia','+62'],['Malaysia','+60'],
+    ['Philippines','+63'],['Singapore','+65'],['Cambodia','+855'],['Hong Kong','+852'],
+    ['Japan','+81'],['South Korea','+82'],['China','+86'],['India','+91'],
+    ['UAE','+971'],['Saudi Arabia','+966'],['Qatar','+974'],['Bahrain','+973'],['Oman','+968'],['Kuwait','+965'],
+    ['United Kingdom','+44'],['Ireland','+353'],['France','+33'],['Germany','+49'],
+    ['Spain','+34'],['Portugal','+351'],['Italy','+39'],['Netherlands','+31'],
+    ['Switzerland','+41'],['Sweden','+46'],['Norway','+47'],['Denmark','+45'],
+    ['Finland','+358'],['Belgium','+32'],['Austria','+43'],['Poland','+48'],
+    ['United States','+1'],['Canada','+1'],['Mexico','+52'],['Brazil','+55'],['Argentina','+54'],
+    ['Australia','+61'],['New Zealand','+64'],
+    ['South Africa','+27'],['Kenya','+254'],['Nigeria','+234'],['Egypt','+20'],
+    ['Turkey','+90'],['Israel','+972'],['Other','']
+  ];
+  const dest = document.getElementById('destination-country');
+  const nat  = document.getElementById('current-country');
+  const cc   = document.getElementById('phone-cc');
+  COUNTRIES.forEach(([name,code])=>{
+    dest.add(new Option(name,name));
+    nat.add(new Option(name,name));
+    if(code) cc.add(new Option(`${name} (${code})`, code));
+  });
+
+  /* UTM capture */
   (function(){
     const p = new URLSearchParams(location.search);
     ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k=>{
@@ -284,6 +382,40 @@
     document.getElementById('page_url').value = location.href;
   })();
 
+  /* Step navigation */
+  const panes = Array.from(document.querySelectorAll('.step-pane'));
+  function show(i){
+    panes.forEach((p,idx)=>p.classList.toggle('active', idx===i));
+    document.getElementById('step-label').textContent = `Step ${i+1} of 2`;
+    document.getElementById('step-pct').textContent   = (i===0?'50%':'100%');
+    document.getElementById('progress-fill').style.width = (i===0?'50%':'100%');
+    document.getElementById('lead-form').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  document.getElementById('btn-next').addEventListener('click', ()=>{
+    if(!document.getElementById('num-people').value){ alert('Please choose number of people'); return; }
+    if(!document.getElementById('destination-country').value){ alert('Please choose your location'); return; }
+    buildAges();
+    show(1);
+  });
+  document.getElementById('btn-back').addEventListener('click', ()=>show(0));
+
+  /* Dynamic age fields */
+  function buildAges(){
+    const n = document.getElementById('num-people').value;
+    const wrap = document.getElementById('ages-container');
+    const lbl  = document.getElementById('ages-label');
+    wrap.innerHTML = '';
+    const count = n === '5+' ? 5 : parseInt(n,10) || 1;
+    lbl.textContent = count === 1 ? 'Your Age' : 'Age of each person';
+    for(let i=1;i<=count;i++){
+      const row = document.createElement('div');
+      row.className = 'age-row';
+      row.innerHTML = `<div class="lbl">Person ${i}</div><input type="number" min="0" max="99" required name="age_${i}" placeholder="e.g. 35">`;
+      wrap.appendChild(row);
+    }
+  }
+
+  /* Submit */
   const form = document.getElementById('lead-form');
   const btn  = document.getElementById('submit-btn');
   const msg  = document.getElementById('form-msg');
@@ -291,8 +423,17 @@
     e.preventDefault();
     btn.disabled = true; btn.textContent = 'Sending...';
     msg.className = 'form-msg';
+
+    const ages = [];
+    form.querySelectorAll('input[name^="age_"]').forEach(inp=>{ if(inp.value) ages.push(inp.value); });
+    const cov  = Array.from(form.querySelectorAll('input[name="coverage"]:checked')).map(c=>c.value);
+
     const data = Object.fromEntries(new FormData(form).entries());
-    data.to_name = data.full_name; data.to_email = data.email;
+    data.ages = ages.join(', ');
+    data.coverage = cov.join(', ');
+    data.to_name = data.full_name;
+    data.to_email = data.email;
+
     emailjs.send('service_ngpk8vv','template_1jlezu6', data).then(function(){
       window.location.href = '/thank-you.html?src=meta_guide_page&guide=1';
     }).catch(function(err){
