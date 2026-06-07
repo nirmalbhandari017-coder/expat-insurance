@@ -2,3 +2,5 @@
 *.pptx
 *.docx
 _*.py
+Marketing/
+_changes_img*.png
