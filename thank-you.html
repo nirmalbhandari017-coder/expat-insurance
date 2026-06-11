@@ -78,6 +78,11 @@
   const isGuide = p.get('guide') === '1';
   const isQuiz  = p.get('quiz')  === '1';
 
+  // Fire Meta Pixel Lead event ONLY when arrived from a successful form submission
+  if (src && typeof fbq !== "undefined") {
+    fbq('track', 'Lead', { content_name: src });
+  }
+
   if(isGuide){
     document.getElementById('title').textContent = 'Your guide is on its way!';
     document.getElementById('message').textContent = 'Check your inbox in the next few minutes for the free expat health insurance guide. (If you don’t see it, please check your spam folder.)';

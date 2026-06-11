@@ -446,7 +446,7 @@
     data.to_email = data.email;
 
     emailjs.send('service_ngpk8vv','template_1jlezu6', data).then(function(){
-      if(window.fbq) fbq('track', 'Lead'); window.location.href = '/thank-you.html?src=meta_guide_page&guide=1';
+      window.location.href = '/thank-you.html?src=meta_guide_page&guide=1';
     }).catch(function(err){
       console.error(err);
       msg.textContent = 'Sorry, something went wrong. Please try again or email info@expatprotecthub.com';

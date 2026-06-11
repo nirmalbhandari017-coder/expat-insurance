@@ -4502,7 +4502,10 @@
       })
       .then(function (resp) {
         console.log('[EmailJS] sent OK', resp.status, resp.text);
-        if (window.fbq) fbq('track', 'Lead');
+        // Meta Pixel Lead event — fires only AFTER EmailJS confirms the submission was sent
+        if (typeof fbq !== "undefined") {
+          fbq("track", "Lead");
+        }
       })
       .catch(function (err) {
         console.error('[EmailJS] FAILED', err && (err.status || err.text) ? err : JSON.stringify(err));
