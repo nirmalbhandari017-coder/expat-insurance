@@ -4370,6 +4370,18 @@
   const formStep2 = document.getElementById('form-step2');
   const tyState   = document.getElementById('thank-you-state');
 
+  // Generate a short, unique quote reference: EPH-YYMMDD-XXXX
+  function makeQuoteRef(){
+    const d = new Date();
+    const yy = String(d.getFullYear()).slice(2);
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let rand = '';
+    for (let i=0;i<4;i++) rand += chars[Math.floor(Math.random()*chars.length)];
+    return 'EPH-' + yy + mm + dd + '-' + rand;
+  }
+
   form.addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -4467,6 +4479,7 @@
         to_email:       email,
         phone:          phone,
         nationality:    curr,
+        quote_ref:      makeQuoteRef(),
         destination:    dest,
         age:            ages.join(', '),
         ages:           ages.join(', '),

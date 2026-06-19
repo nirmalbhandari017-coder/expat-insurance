@@ -432,6 +432,7 @@
     }
     data.to_name  = data.full_name;
     data.to_email = data.email;
+    data.quote_ref = makeQuoteRef();
 
     emailjs.send('service_ngpk8vv','template_1jlezu6', data).then(function(){
       window.location.href = '/thank-you.html?src=quiz_funnel_page&quiz=1';

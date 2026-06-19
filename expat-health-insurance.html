@@ -366,6 +366,18 @@
 <div class="sticky-cta"><a href="#lead-form">Get Your Free Quote &rarr;</a></div>
 
 <script>
+  // Generate a short, unique quote reference: EPH-YYMMDD-XXXX
+  function makeQuoteRef(){
+    const d = new Date();
+    const yy = String(d.getFullYear()).slice(2);
+    const mm = String(d.getMonth()+1).padStart(2,'0');
+    const dd = String(d.getDate()).padStart(2,'0');
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let rand = '';
+    for (let i=0;i<4;i++) rand += chars[Math.floor(Math.random()*chars.length)];
+    return 'EPH-' + yy + mm + dd + '-' + rand;
+  }
+
   /* Country list with dialling codes */
   const COUNTRIES = [
     ['Thailand','+66'],['Vietnam','+84'],['Indonesia','+62'],['Malaysia','+60'],
@@ -454,6 +466,7 @@
     }
     data.to_name = data.full_name;
     data.to_email = data.email;
+    data.quote_ref = makeQuoteRef();
 
     emailjs.send('service_ngpk8vv','template_1jlezu6', data).then(function(){
       window.location.href = '/thank-you.html?src=google_landing_page';
