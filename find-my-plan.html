@@ -426,6 +426,10 @@
     const data = Object.fromEntries(new FormData(form).entries());
     data.ages = ages.join(', ');
     data.coverage = cov.join(', ');
+    // Combine country code + number into a single full phone value
+    if (data.phone_country_code && data.phone) {
+      data.phone = (data.phone_country_code + ' ' + data.phone).trim();
+    }
     data.to_name  = data.full_name;
     data.to_email = data.email;
 
