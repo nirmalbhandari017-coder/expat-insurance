@@ -4509,6 +4509,11 @@
         hdr_std:        highlightPlan === 'standard'            ? HLHDR : NMHDR,
         hdr_comp:       highlightPlan === 'comprehensive'       ? HLHDR : NMHDR,
         hdr_full:       highlightPlan === 'fully-comprehensive' ? HLHDR : NMHDR,
+        // "★ YOUR CHOICE" badge — non-empty only for the plan the customer picked
+        badge_mm:       highlightPlan === 'major-medical'       ? '&#9733; YOUR CHOICE' : '&nbsp;',
+        badge_std:      highlightPlan === 'standard'            ? '&#9733; YOUR CHOICE' : '&nbsp;',
+        badge_comp:     highlightPlan === 'comprehensive'       ? '&#9733; YOUR CHOICE' : '&nbsp;',
+        badge_full:     highlightPlan === 'fully-comprehensive' ? '&#9733; YOUR CHOICE' : '&nbsp;',
         // Variables for the updated email template (green ticks, no numbers, "Oncology Covered")
         tick_color:     '#0FB9B1',
         tick_icon:      '<span style="color:#0FB9B1;font-weight:900;font-size:16px;">&#10003;</span>',
