@@ -4082,7 +4082,7 @@
       input.id = 'age-' + (i + 1);
       input.placeholder = 'e.g. 34';
       input.min = '0';
-      input.max = '99';
+      input.max = '70';
       input.required = true;
       input.setAttribute('inputmode', 'numeric');
       input.setAttribute('pattern', '[0-9]*');
@@ -4407,6 +4407,10 @@
 
     if (!name || !email || !phoneCC || !phoneRaw || !curr || !startDateRaw || ages.length !== ageInputs.length) {
       alert('Please fill in all required fields, including the age for each person and the expected start date.');
+      return;
+    }
+    if (ages.some(v => parseInt(v, 10) > 70)) {
+      alert('Sorry, we are unable to provide coverage for anyone aged 71 or older. Please adjust the ages so that everyone is 70 or younger.');
       return;
     }
 

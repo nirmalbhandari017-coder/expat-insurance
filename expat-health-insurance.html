@@ -439,7 +439,7 @@
     for(let i=1;i<=count;i++){
       const row = document.createElement('div');
       row.className = 'age-row';
-      row.innerHTML = `<div class="lbl">Person ${i}</div><input type="number" min="0" max="99" required name="age_${i}" placeholder="e.g. 35">`;
+      row.innerHTML = `<div class="lbl">Person ${i}</div><input type="number" min="0" max="70" required name="age_${i}" placeholder="e.g. 35" title="Maximum age 70">`;
       wrap.appendChild(row);
     }
   }
@@ -463,6 +463,7 @@
     const _dc  = form.querySelector('#destination-country')?.value || '';
     const _ages = form.querySelectorAll('input[name^="age_"]');
     const _agesOk = _ages.length > 0 && Array.from(_ages).every(i => i.value.trim() !== '');
+    const _ageOver = Array.from(_ages).some(i => parseInt(i.value, 10) > 70);
     const _covOk  = form.querySelectorAll('input[name="coverage"]:checked').length > 0;
 
     if (!_np || !_dc) {
@@ -471,6 +472,10 @@
     }
     if (!_nm || !_em || !_pcc || !_ph || !_nt || !_sd || !_agesOk || !_covOk) {
       alert('Please fill in every field before submitting: name, email, phone (with country code), nationality, ages, coverage type, and expected start date.');
+      return;
+    }
+    if (_ageOver) {
+      alert('Sorry, we are unable to provide coverage for anyone aged 71 or older. Please adjust the ages so that everyone is 70 or younger.');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(_em)) {
