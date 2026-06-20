@@ -450,8 +450,35 @@
   const msg  = document.getElementById('form-msg');
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    btn.disabled = true; btn.textContent = 'Sending...';
     msg.className = 'form-msg';
+
+    // Block submission until every required field is filled
+    const _nm  = (form.querySelector('#full-name')?.value || '').trim();
+    const _em  = (form.querySelector('#email')?.value || '').trim();
+    const _pcc = form.querySelector('#phone-cc')?.value || '';
+    const _ph  = (form.querySelector('#phone')?.value || '').trim();
+    const _nt  = form.querySelector('#current-country')?.value || '';
+    const _sd  = form.querySelector('#start-date')?.value || '';
+    const _np  = form.querySelector('#num-people')?.value || '';
+    const _dc  = form.querySelector('#destination-country')?.value || '';
+    const _ages = form.querySelectorAll('input[name^="age_"]');
+    const _agesOk = _ages.length > 0 && Array.from(_ages).every(i => i.value.trim() !== '');
+    const _covOk  = form.querySelectorAll('input[name="coverage"]:checked').length > 0;
+
+    if (!_np || !_dc) {
+      alert('Please go back and complete Step 1 (number of people and location).');
+      return;
+    }
+    if (!_nm || !_em || !_pcc || !_ph || !_nt || !_sd || !_agesOk || !_covOk) {
+      alert('Please fill in every field before submitting: name, email, phone (with country code), nationality, ages, coverage type, and expected start date.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(_em)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+
+    btn.disabled = true; btn.textContent = 'Sending...';
 
     const ages = [];
     form.querySelectorAll('input[name^="age_"]').forEach(inp=>{ if(inp.value) ages.push(inp.value); });
