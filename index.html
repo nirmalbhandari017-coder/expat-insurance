@@ -4269,7 +4269,7 @@
   function renderPrices(freq) {
     if (!currentRates) return;
     const { divisor, multiplier, label, period } = FREQ[freq];
-    const fmt = v => '$' + (v * multiplier / divisor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmt = v => '$' + Math.ceil(v * multiplier / divisor).toLocaleString('en-US');
 
     document.getElementById('qr-mm').textContent   = fmt(currentRates[0]);
     document.getElementById('qr-std').textContent  = fmt(currentRates[1]);
