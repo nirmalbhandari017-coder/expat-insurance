@@ -4455,7 +4455,8 @@
       const area    = getArea(dest);
       const rates   = sumRatesForAges(ages, area);
       const { multiplier, divisor, label: freqLabel, period } = FREQ[freq];
-      const fmt     = v => '$' + (v * multiplier / divisor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const fmt     = v => '$' + Math.ceil(v * multiplier / divisor).toLocaleString('en-US');
+      const fmtAnnual = v => '$' + Math.ceil(v * multiplier).toLocaleString('en-US');
 
       const planNames = {
         'major-medical':       'Major Medical',
@@ -4463,6 +4464,13 @@
         'comprehensive':       'Comprehensive',
         'fully-comprehensive': 'Fully Comprehensive'
       };
+
+      // Annual base for the highlighted plan
+      const planIdx = { 'major-medical':0, 'standard':1, 'comprehensive':2, 'fully-comprehensive':3 };
+      const selIdx  = planIdx[highlightPlan] ?? 0;
+      const periodPrice  = fmt(rates[selIdx]);                                 // per chosen frequency
+      const annualTotal  = fmtAnnual(rates[selIdx]);                           // 12 × monthly (incl. surcharge)
+      const surchargeLabel = {annual:'no surcharge', semiannual:'incl. 8% surcharge', quarterly:'incl. 12% surcharge', monthly:'incl. 16% surcharge'}[freq] || '';
 
       const HL    = 'background:#E6F7F6;border:2px solid #0FB9B1;';
       const NM    = 'background:#FDF8F4;border:1.5px solid #E5DDD3;';
@@ -4518,6 +4526,10 @@
         badge_std:      highlightPlan === 'standard'            ? '&#9733; YOUR CHOICE' : '&nbsp;',
         badge_comp:     highlightPlan === 'comprehensive'       ? '&#9733; YOUR CHOICE' : '&nbsp;',
         badge_full:     highlightPlan === 'fully-comprehensive' ? '&#9733; YOUR CHOICE' : '&nbsp;',
+        // Selected plan summary — per-period payment + total annual cost incl. surcharge
+        period_price:    periodPrice,
+        annual_total:    annualTotal,
+        surcharge_label: surchargeLabel,
         // Variables for the updated email template (green ticks, no numbers, "Oncology Covered")
         tick_color:     '#0FB9B1',
         tick_icon:      '<span style="color:#0FB9B1;font-weight:900;font-size:16px;">&#10003;</span>',
