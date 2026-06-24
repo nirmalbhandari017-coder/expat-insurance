@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+  // Force-redirect the bare Netlify subdomain to the brand domain
+  (function(){
+    if (location.hostname === 'expatleadgen.netlify.app') {
+      location.replace('https://expatprotecthub.com' + location.pathname + location.search + location.hash);
+    }
+  })();
+  </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="International health insurance for expats &amp; digital nomads in 120+ countries. Get a tailored expat health insurance quote in under 2 minutes &mdash; no medical exam, same-day cover, direct billing at 800+ global hospitals.">
@@ -492,11 +500,20 @@
     data.to_email = data.email;
     data.quote_ref = makeQuoteRef();
 
-    emailjs.send('service_ngpk8vv','template_1jlezu6', data).then(function(){
+    // Race the EmailJS send against a 15s timeout so the button never hangs forever
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Request timed out after 15 seconds')), 15000)
+    );
+    Promise.race([
+      emailjs.send('service_ngpk8vv','template_1jlezu6', data),
+      timeout
+    ]).then(function(resp){
+      console.log('[EmailJS] sent', resp);
       window.location.href = '/thank-you.html?src=quiz_funnel_page&quiz=1';
     }).catch(function(err){
-      console.error(err);
-      msg.textContent = 'Sorry, something went wrong. Please try again or email info@expatprotecthub.com';
+      console.error('[EmailJS] FAILED', err);
+      const detail = (err && (err.text || err.message || err.status)) ? (' (' + (err.text || err.message || err.status) + ')') : '';
+      msg.textContent = 'Sorry, something went wrong' + detail + '. Please try again or email info@expatprotecthub.com';
       msg.className = 'form-msg err';
       btn.disabled = false; btn.textContent = 'Get My Plan Match →';
     });
