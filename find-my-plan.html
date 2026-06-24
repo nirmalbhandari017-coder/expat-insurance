@@ -70,6 +70,45 @@
   .hero-trust span{display:inline-flex;align-items:center;gap:.4rem}
   .hero-trust span::before{content:"\2713";color:var(--teal);font-weight:800}
 
+  /* HERO IMAGE — lifestyle visual above the headline */
+  .hero-image-band{max-width:1080px;margin:0 auto 1.6rem;padding:0 1.25rem;position:relative;z-index:1}
+  .hero-image{width:100%;aspect-ratio:21/9;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#0FB9B1 0%,#0B6E6B 55%,#1B263B 100%);box-shadow:0 25px 60px -20px rgba(15,38,59,.35);position:relative;background-size:cover;background-position:center}
+  /* When the real photo is detected as loadable, JS adds .has-photo and we swap to it */
+  .hero-image.has-photo{background-image:url('/assets/hero-lifestyle.jpg')}
+  .hero-image.has-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.35) 100%)}
+  .hero-image::after{content:"\1F334  Lifestyle photo \2014 expat by the pool / digital nomad with ocean view / family abroad \2014 TODO: drop at /assets/hero-lifestyle.jpg";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#ffffff;font-size:.85rem;letter-spacing:.03em;text-align:center;padding:.7rem 1.1rem;background:rgba(0,0,0,.28);border:1.5px dashed rgba(255,255,255,.6);border-radius:10px;max-width:80%;line-height:1.55;font-weight:500}
+  /* Real photo dropped at /assets/hero-lifestyle.jpg will hide the placeholder ribbon */
+  .hero-image.has-photo::after{display:none}
+  @media (max-width:640px){.hero-image{aspect-ratio:4/3;border-radius:14px}}
+
+  /* NEED HELP CHOOSING — humanise above the form */
+  .need-help{background:#fff;border-top:1px solid var(--light);padding:2.4rem 1.25rem 1rem}
+  .need-help-card{max-width:780px;margin:0 auto;display:grid;grid-template-columns:96px 1fr;gap:1.2rem;align-items:center;background:linear-gradient(135deg,#f0fdfa 0%,#e6f7f6 100%);border:1px solid #c8efec;border-radius:14px;padding:1.2rem 1.4rem}
+  .need-help-photo{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#0FB9B1,#0B6E6B);display:grid;place-items:center;color:#fff;font-size:2.2rem;font-weight:800;background-image:url('/assets/team-photo.jpg');background-size:cover;background-position:center;flex-shrink:0;box-shadow:0 6px 18px -4px rgba(15,185,177,.4)}
+  .need-help h2{font-size:1.2rem;font-weight:800;margin:0 0 .3rem;color:var(--navy);letter-spacing:-.01em}
+  .need-help p{font-size:.95rem;color:var(--grey);margin:0;line-height:1.55}
+  @media (max-width:520px){
+    .need-help-card{grid-template-columns:1fr;text-align:center;padding:1.4rem}
+    .need-help-photo{margin:0 auto}
+  }
+
+  /* MOVING TO THAILAND — country-specific trust section */
+  .thailand{background:linear-gradient(180deg,#fff 0%,var(--cream) 100%);padding:3rem 1.25rem}
+  .thailand-inner{max-width:780px;margin:0 auto;background:#fff;border-radius:16px;border:1px solid var(--light);padding:2rem;box-shadow:0 6px 24px -10px rgba(15,38,59,.08)}
+  .thailand-flag{display:inline-block;font-size:1.6rem;margin-right:.3rem;vertical-align:-3px}
+  .thailand h2{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:800;letter-spacing:-.01em;margin:0 0 1.2rem;color:var(--navy)}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+  .check-item{display:flex;align-items:flex-start;gap:.65rem;font-size:.96rem;color:var(--navy);line-height:1.45;padding:.5rem 0}
+  .check-item::before{content:"\2713";color:var(--teal);font-weight:900;font-size:1.05rem;flex-shrink:0;margin-top:1px}
+  @media (max-width:520px){.check-grid{grid-template-columns:1fr}}
+
+  /* WHY EXPATS CHOOSE US — replaces unverified stats */
+  .why-us{padding:3rem 1.25rem;background:var(--cream)}
+
+  /* URGENCY LINE — under CTA */
+  .urgency-line{display:flex;align-items:center;justify-content:center;gap:.45rem;font-size:.82rem;color:var(--grey);margin-top:.7rem;font-weight:500}
+  .urgency-line::before{content:"\23F1";font-size:.95rem}
+
   /* SEO content band — search-intent keywords above the fold */
   .seo-band{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;max-width:780px;margin:0 auto;position:relative;z-index:1}
   .seo-item{display:flex;align-items:center;gap:.65rem;background:#fff;border:1px solid var(--light);border-radius:12px;padding:.7rem .85rem;text-align:left;box-shadow:0 2px 8px -2px rgba(15,38,59,.05)}
@@ -196,25 +235,70 @@
   </a>
 </header>
 
-<!-- HERO -->
+<!-- HERO — Headline first, then lifestyle photo, then form (see Page Order brief) -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-eyebrow">For expats, digital nomads &amp; globally mobile families</div>
-    <h1>International Health Insurance for <span class="accent">Expats in 120+ Countries</span></h1>
-    <p class="hero-sub">Global medical insurance with direct billing at 800+ leading hospitals worldwide &mdash; Thailand, Vietnam, UAE, Singapore, Europe and beyond. Get a tailored quote in under 2 minutes. No medical questions, no waiting periods, same-day activation.</p>
+
+    <!--
+      HEADLINE  (active variant: A)
+      ──────────────────────────────────────────────────────────────
+      VARIANT A (DEFAULT — emotional pre-move trigger):
+        H1: "Moving Abroad? Don't Forget Your Insurance."
+        Sub: "Get matched with international health plans for Thailand, Vietnam, Europe and 120+ countries in under 2 minutes."
+      VARIANT B (commented out, swap for A/B test):
+        H1: "You're Almost Ready to Move Abroad"
+        Sub: "Find the International Health Insurance Plan That's Right for You in Under 2 Minutes"
+      To test variant B: comment out the active H1+sub block below and uncomment the alternate.
+    -->
+
+    <!-- ACTIVE HEADLINE (Variant A) -->
+    <h1>Moving Abroad? <span class="accent">Don&rsquo;t Forget Your Insurance.</span></h1>
+    <p class="hero-sub">Get matched with international health plans for Thailand, Vietnam, Europe and 120+ countries in under 2 minutes.</p>
+
+    <!-- A/B variant B — leave commented for swap-in
+    <h1>You&rsquo;re Almost Ready to <span class="accent">Move Abroad</span></h1>
+    <p class="hero-sub">Find the International Health Insurance Plan That&rsquo;s Right for You in Under 2 Minutes</p>
+    -->
+
     <div class="hero-trust">
       <span>Worldwide cover</span>
       <span>Same-day activation</span>
       <span>Direct hospital billing</span>
       <span>For digital nomads &amp; expats</span>
     </div>
+  </div>
 
+  <!-- HERO LIFESTYLE IMAGE
+       TODO: drop a real ~1600x685 (21:9) photo at /assets/hero-lifestyle.jpg
+       (compress to <250KB, JPG quality 75-80). The placeholder ribbon will
+       auto-hide as soon as the real image loads (see JS at bottom).
+       Subject ideas: expat at infinity pool with laptop / couple at beach
+       café / family overlooking Bangkok skyline / digital nomad at café. -->
+  <div class="hero-image-band">
+    <div class="hero-image" id="hero-image" role="img"
+         aria-label="Expat lifestyle: working remotely from a beach destination abroad"></div>
+  </div>
+
+  <div class="wrap">
     <!-- SEO content band: search-intent keywords visible above the fold -->
     <div class="seo-band">
       <div class="seo-item"><span class="seo-ico">&#127757;</span><div><strong>Worldwide cover</strong><span>excl. USA (optional add-on)</span></div></div>
       <div class="seo-item"><span class="seo-ico">&#127973;</span><div><strong>800+ hospitals</strong><span>direct-billing network</span></div></div>
       <div class="seo-item"><span class="seo-ico">&#9989;</span><div><strong>No medical exam</strong><span>standard underwriting</span></div></div>
       <div class="seo-item"><span class="seo-ico">&#9889;</span><div><strong>Same-day cover</strong><span>activated the day you sign</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEED HELP CHOOSING — humanise the funnel directly above the form -->
+<section class="need-help">
+  <div class="need-help-card">
+    <!-- TODO: drop a real team photo at /assets/team-photo.jpg (square crop, ~200x200) -->
+    <div class="need-help-photo" id="team-photo" role="img" aria-label="Expat Protect Hub advisor">&#128105;&#8205;&#128188;</div>
+    <div>
+      <h2>Need Help Choosing?</h2>
+      <p>Our team helps expats, retirees and digital nomads find the right coverage before they move abroad.</p>
     </div>
   </div>
 </section>
@@ -328,8 +412,10 @@
 
           <div class="nav-row">
             <button type="button" class="btn btn-back" id="btn-back">&larr; Back</button>
-            <button type="submit" class="btn btn-next" id="submit-btn">Get My Plan Match &rarr;</button>
+            <button type="submit" class="btn btn-next" id="submit-btn" data-cta="submit">Find My Best Expat Plan &rarr;</button>
           </div>
+          <!-- Urgency microcopy under CTA (variant set in CTA_CONFIG below) -->
+          <div class="urgency-line" id="urgency-line">Most quotes are reviewed within 24 hours</div>
           <div class="form-msg" id="form-msg"></div>
           <p class="privacy">&#128274; Your details are encrypted and never shared. Read our <a href="/privacy.html">Privacy Policy</a>.</p>
         </div>
@@ -339,18 +425,33 @@
   </div>
 </section>
 
-<!-- TRUST -->
-<section class="trust">
+<!-- MOVING TO THAILAND — country-specific reassurance for ad cohort -->
+<section class="thailand">
+  <div class="thailand-inner">
+    <h2><span class="thailand-flag">&#127481;&#127469;</span> Moving to Thailand?</h2>
+    <div class="check-grid">
+      <div class="check-item">Visa-compliant coverage options</div>
+      <div class="check-item">Access to private hospitals</div>
+      <div class="check-item">Worldwide protection</div>
+      <div class="check-item">Plans available for retirees, digital nomads and families</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY EXPATS CHOOSE US — replaces unverified "30K+ matched" stats with verifiable checklist -->
+<section class="why-us">
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow">Trusted Globally</div>
-      <h2>Built by people you can trust</h2>
+      <div class="eyebrow">Why Expats Choose Us</div>
+      <h2>Simple, fast, made for life abroad</h2>
     </div>
-    <div class="trust-row">
-      <div class="trust-item"><div class="n">30K+</div><div class="l">Expats Matched</div></div>
-      <div class="trust-item"><div class="n">120+</div><div class="l">Countries Covered</div></div>
-      <div class="trust-item"><div class="n">6+</div><div class="l">A-Rated Insurers</div></div>
-      <div class="trust-item"><div class="n">4.9&#9733;</div><div class="l">Customer Rating</div></div>
+    <div class="thailand-inner" style="background:#fff">
+      <div class="check-grid">
+        <div class="check-item">Compare multiple plans</div>
+        <div class="check-item">Fast online process</div>
+        <div class="check-item">Coverage in 120+ countries</div>
+        <div class="check-item">Personalized recommendations</div>
+      </div>
     </div>
   </div>
 </section>
@@ -377,9 +478,90 @@
   <p style="margin-top:.8rem;font-size:.78rem;color:var(--grey)">&copy; 2026 Expat Protect Hub. All rights reserved.</p>
 </footer>
 
-<div class="sticky-cta"><a href="#form-anchor">Start My Free Plan Check &rarr;</a></div>
+<div class="sticky-cta"><a href="#form-anchor" id="sticky-cta-link" data-cta="sticky">Find My Best Expat Plan &rarr;</a></div>
 
 <script>
+  /* =====================================================================
+     CTA + URGENCY CONFIG (easy to swap for A/B testing)
+     ---------------------------------------------------------------------
+     Change the `active` keys below to switch copy site-wide on this page.
+     ===================================================================== */
+  const CTA_CONFIG = {
+    button: {
+      active: 'default',                          // 'default' | 'free_quote' | 'see_options'
+      variants: {
+        default:    'Find My Best Expat Plan',
+        free_quote: 'Get My Free Expat Quote',
+        see_options:'See My Coverage Options'
+      }
+    },
+    urgency: {
+      active: 'default',                          // 'default' | 'visa'
+      variants: {
+        default: 'Most quotes are reviewed within 24 hours',
+        visa:    'Get matched with plans before your visa application deadline'
+      }
+    }
+  };
+
+  // Apply CTA copy to the submit + sticky buttons + sticky-cta link
+  (function applyCtaConfig(){
+    const txt = CTA_CONFIG.button.variants[CTA_CONFIG.button.active] || CTA_CONFIG.button.variants.default;
+    const sub = document.getElementById('submit-btn');
+    const sticky = document.getElementById('sticky-cta-link');
+    if (sub)    sub.textContent    = txt + ' →';
+    if (sticky) sticky.textContent = txt + ' →';
+    const urg = document.getElementById('urgency-line');
+    if (urg) urg.textContent = CTA_CONFIG.urgency.variants[CTA_CONFIG.urgency.active] || CTA_CONFIG.urgency.variants.default;
+  })();
+
+  /* =====================================================================
+     FUNNEL TRACKING — Meta Pixel custom events
+     ---------------------------------------------------------------------
+     Lets you see in Meta Events Manager where the drop-off happens:
+       PageView   -> arrived from ad
+       CTA_Click  -> clicked any CTA (sticky, Next Step, submit) — fires once
+       Form_Start -> first interaction with any form field — fires once
+       Lead       -> form submitted (existing event, untouched) — fires on /thank-you
+     Existing form-submit conversion event is NOT modified.
+     If GA4 is later added (gtag), these mirror automatically.
+     ===================================================================== */
+  (function funnelTracking(){
+    let ctaFired = false, formStartFired = false;
+    const sendEvent = (name, params) => {
+      if (typeof fbq !== 'undefined')  fbq('trackCustom', name, params || {});
+      if (typeof gtag !== 'undefined') gtag('event', name, params || {});
+    };
+    // Any CTA click — sticky, Next Step, or submit
+    document.querySelectorAll('[data-cta], #btn-next, .sticky-cta a').forEach(el=>{
+      el.addEventListener('click', ()=>{
+        if (ctaFired) return;
+        ctaFired = true;
+        sendEvent('CTA_Click', { location: el.dataset.cta || el.id || 'unknown' });
+      }, { passive:true });
+    });
+    // First form field interaction
+    document.addEventListener('focusin', (e)=>{
+      if (formStartFired) return;
+      if (!e.target.closest('#quote-form')) return;
+      if (!e.target.matches('input, select, textarea')) return;
+      formStartFired = true;
+      sendEvent('Form_Start');
+    });
+  })();
+
+  /* =====================================================================
+     HERO IMAGE — hide placeholder ribbon if real photo loads
+     ===================================================================== */
+  (function checkHeroImage(){
+    const el = document.getElementById('hero-image');
+    if (!el) return;
+    const img = new Image();
+    img.onload  = () => el.classList.add('has-photo');
+    img.onerror = () => {/* keep placeholder visible */};
+    img.src = '/assets/hero-lifestyle.jpg';
+  })();
+
   /* ---------- Country / dialling-code lists (compact) ---------- */
   const COUNTRIES = [
     ['Thailand','+66'],['Vietnam','+84'],['Indonesia','+62'],['Malaysia','+60'],
