@@ -72,13 +72,9 @@
 
   /* HERO IMAGE — lifestyle visual above the headline */
   .hero-image-band{max-width:1080px;margin:0 auto 1.6rem;padding:0 1.25rem;position:relative;z-index:1}
-  .hero-image{width:100%;aspect-ratio:21/9;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#0FB9B1 0%,#0B6E6B 55%,#1B263B 100%);box-shadow:0 25px 60px -20px rgba(15,38,59,.35);position:relative;background-size:cover;background-position:center}
-  /* When the real photo is detected as loadable, JS adds .has-photo and we swap to it */
+  .hero-image{width:100%;aspect-ratio:21/9;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#0FB9B1 0%,#0B6E6B 55%,#1B263B 100%);background-image:url('/assets/hero-lifestyle.svg');background-size:cover;background-position:center;box-shadow:0 25px 60px -20px rgba(15,38,59,.35);position:relative}
+  /* When a real photo is uploaded (overrides the SVG illustration) JS adds .has-photo */
   .hero-image.has-photo{background-image:url('/assets/hero-lifestyle.jpg')}
-  .hero-image.has-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.35) 100%)}
-  .hero-image::after{content:"\1F334  Lifestyle photo \2014 expat by the pool / digital nomad with ocean view / family abroad \2014 TODO: drop at /assets/hero-lifestyle.jpg";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:#ffffff;font-size:.85rem;letter-spacing:.03em;text-align:center;padding:.7rem 1.1rem;background:rgba(0,0,0,.28);border:1.5px dashed rgba(255,255,255,.6);border-radius:10px;max-width:80%;line-height:1.55;font-weight:500}
-  /* Real photo dropped at /assets/hero-lifestyle.jpg will hide the placeholder ribbon */
-  .hero-image.has-photo::after{display:none}
   @media (max-width:640px){.hero-image{aspect-ratio:4/3;border-radius:14px}}
 
   /* NEED HELP CHOOSING — humanise above the form */

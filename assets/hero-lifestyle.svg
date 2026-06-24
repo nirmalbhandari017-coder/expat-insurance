@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 685" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Expat lifestyle abroad: tropical beach with palms and laptop at a table overlooking the ocean">
+  <defs>
+    <!-- Sky -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#FFC788"/>
+      <stop offset="40%" stop-color="#FFA982"/>
+      <stop offset="78%" stop-color="#5EC8C2"/>
+      <stop offset="100%" stop-color="#0FB9B1"/>
+    </linearGradient>
+
+    <!-- Ocean -->
+    <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#0FB9B1"/>
+      <stop offset="60%" stop-color="#0B6E6B"/>
+      <stop offset="100%" stop-color="#063e3c"/>
+    </linearGradient>
+
+    <!-- Beach sand -->
+    <linearGradient id="sand" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#F4DAA8"/>
+      <stop offset="100%" stop-color="#D9B074"/>
+    </linearGradient>
+
+    <!-- Sun glow -->
+    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"  stop-color="#FFF1C2" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#FFCB6E" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFA982" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Sun reflection on water -->
+    <linearGradient id="sunRefl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#FFE6A8" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#FFE6A8" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Subtle vignette for text legibility -->
+    <linearGradient id="vignette" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%"  stop-color="rgba(15,38,59,0.35)"/>
+      <stop offset="50%" stop-color="rgba(15,38,59,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- SKY -->
+  <rect x="0" y="0" width="1600" height="430" fill="url(#sky)"/>
+
+  <!-- Sun glow halo -->
+  <circle cx="1180" cy="265" r="280" fill="url(#sunGlow)"/>
+  <!-- Sun disc -->
+  <circle cx="1180" cy="265" r="78" fill="#FFE6A8"/>
+
+  <!-- Distant island silhouette -->
+  <path d="M0,400 Q220,330 380,360 Q500,380 640,355 Q780,335 920,370 Q1100,405 1300,385 Q1500,365 1600,400 L1600,440 L0,440 Z"
+        fill="#0B6E6B" opacity="0.55"/>
+
+  <!-- OCEAN -->
+  <rect x="0" y="430" width="1600" height="180" fill="url(#ocean)"/>
+
+  <!-- Sun reflection on water -->
+  <path d="M1100,430 L1260,430 L1230,610 L1130,610 Z" fill="url(#sunRefl)"/>
+
+  <!-- Small soft wave highlights -->
+  <g fill="#ffffff" opacity="0.18">
+    <ellipse cx="160"  cy="475" rx="80"  ry="3"/>
+    <ellipse cx="420"  cy="495" rx="120" ry="3"/>
+    <ellipse cx="800"  cy="478" rx="100" ry="3"/>
+    <ellipse cx="1480" cy="500" rx="90"  ry="3"/>
+    <ellipse cx="300"  cy="540" rx="70"  ry="2.5"/>
+    <ellipse cx="640"  cy="555" rx="110" ry="2.5"/>
+    <ellipse cx="980"  cy="540" rx="80"  ry="2.5"/>
+  </g>
+
+  <!-- BEACH -->
+  <path d="M0,610 Q400,580 800,605 Q1200,625 1600,600 L1600,685 L0,685 Z" fill="url(#sand)"/>
+
+  <!-- Beach shadow detail -->
+  <path d="M0,615 Q400,595 800,615 Q1200,635 1600,615 L1600,635 L0,635 Z" fill="#000" opacity="0.06"/>
+
+  <!-- PALM TREE — LEFT (large foreground) -->
+  <g transform="translate(180,-30)">
+    <!-- Trunk -->
+    <path d="M0,680 C-10,540 8,400 -2,260 C-6,210 4,170 0,160" stroke="#2b1810" stroke-width="14" fill="none" stroke-linecap="round" opacity="0.92"/>
+    <!-- Coconuts -->
+    <circle cx="-8" cy="175" r="9" fill="#3b2614"/>
+    <circle cx="6"  cy="170" r="9" fill="#3b2614"/>
+    <circle cx="-2" cy="186" r="9" fill="#3b2614"/>
+    <!-- Fronds -->
+    <g fill="#0B6E6B" opacity="0.95">
+      <path d="M0,160 Q-110,90  -210,30   Q-130,90  0,160 Z"/>
+      <path d="M0,160 Q120,90   220,40    Q140,100 0,160 Z"/>
+      <path d="M0,160 Q-50,40    -110,-30  Q-30,40  0,160 Z"/>
+      <path d="M0,160 Q60,40     130,-20   Q40,50   0,160 Z"/>
+      <path d="M0,160 Q-180,130 -280,150  Q-180,150 0,160 Z"/>
+      <path d="M0,160 Q190,140  290,160   Q190,160 0,160 Z"/>
+    </g>
+  </g>
+
+  <!-- PALM TREE — RIGHT (smaller, background) -->
+  <g transform="translate(1420,80)" opacity="0.85">
+    <path d="M0,540 C-6,420 6,300 -2,200 C-4,170 2,140 0,130" stroke="#2b1810" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <circle cx="-6" cy="142" r="7" fill="#3b2614"/>
+    <circle cx="5"  cy="138" r="7" fill="#3b2614"/>
+    <g fill="#0B6E6B">
+      <path d="M0,130 Q-80,70  -160,30   Q-90,80   0,130 Z"/>
+      <path d="M0,130 Q90,70   170,40    Q100,80   0,130 Z"/>
+      <path d="M0,130 Q-40,30   -80,-20   Q-20,40   0,130 Z"/>
+      <path d="M0,130 Q50,30    100,-15   Q30,40    0,130 Z"/>
+    </g>
+  </g>
+
+  <!-- Bottom vignette so overlaid white text stays legible if reused -->
+  <rect x="0" y="430" width="1600" height="255" fill="url(#vignette)"/>
+</svg>
