@@ -83,6 +83,11 @@
   .need-help-photo{width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,#0FB9B1,#0B6E6B);display:grid;place-items:center;color:#fff;font-size:2.2rem;font-weight:800;background-image:url('/assets/team-photo.jpg');background-size:cover;background-position:center;flex-shrink:0;box-shadow:0 6px 18px -4px rgba(15,185,177,.4)}
   .need-help h2{font-size:1.2rem;font-weight:800;margin:0 0 .3rem;color:var(--navy);letter-spacing:-.01em}
   .need-help p{font-size:.95rem;color:var(--grey);margin:0;line-height:1.55}
+  .need-help-actions{list-style:none;padding:0;margin:.75rem 0 0;display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-size:.9rem}
+  .need-help-actions li{display:inline-flex}
+  .need-help-actions a{color:var(--teal-dark);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(11,110,107,.25);padding-bottom:1px}
+  .need-help-actions a:hover{border-bottom-color:var(--teal-dark)}
+  .need-help-actions span{color:var(--navy);font-weight:500}
   @media (max-width:520px){
     .need-help-card{grid-template-columns:1fr;text-align:center;padding:1.4rem}
     .need-help-photo{margin:0 auto}
@@ -248,20 +253,28 @@
       To test variant B: comment out the active H1+sub block below and uncomment the alternate.
     -->
 
-    <!-- ACTIVE HEADLINE (Variant A) -->
+    <!--
+      ACTIVE HEADLINE (Variant C — direct + outcome-driven, recommended after CRO review)
+      Previous variants kept as comments for A/B testing:
+        A: "Moving Abroad? Don't Forget Your Insurance."
+        B: "You're Almost Ready to Move Abroad"
+    -->
+    <h1>Moving Abroad? <span class="accent">Get Your Expat Health Insurance Quote in Under 2 Minutes.</span></h1>
+    <p class="hero-sub">Trusted by expats, retirees &amp; digital nomads moving abroad &mdash; compare plans from leading international insurance providers.</p>
+
+    <!-- A/B variants — leave commented for swap-in
     <h1>Moving Abroad? <span class="accent">Don&rsquo;t Forget Your Insurance.</span></h1>
     <p class="hero-sub">Get matched with international health plans for Thailand, Vietnam, Europe and 120+ countries in under 2 minutes.</p>
 
-    <!-- A/B variant B — leave commented for swap-in
     <h1>You&rsquo;re Almost Ready to <span class="accent">Move Abroad</span></h1>
     <p class="hero-sub">Find the International Health Insurance Plan That&rsquo;s Right for You in Under 2 Minutes</p>
     -->
 
     <div class="hero-trust">
-      <span>Worldwide cover</span>
+      <span>Visa-compliant coverage</span>
+      <span>Private hospitals</span>
+      <span>Worldwide protection</span>
       <span>Same-day activation</span>
-      <span>Direct hospital billing</span>
-      <span>For digital nomads &amp; expats</span>
     </div>
   </div>
 
@@ -294,7 +307,12 @@
     <div class="need-help-photo" id="team-photo" role="img" aria-label="Expat Protect Hub advisor">&#128105;&#8205;&#128188;</div>
     <div>
       <h2>Need Help Choosing?</h2>
-      <p>Our team helps expats, retirees and digital nomads find the right coverage before they move abroad.</p>
+      <p>Speak directly with a licensed expat insurance specialist before you move abroad.</p>
+      <ul class="need-help-actions">
+        <li><a href="mailto:info@expatprotecthub.com" data-cta="email">&#9993;&nbsp; Email a specialist</a></li>
+        <li><a href="#form-anchor" data-cta="schedule">&#128197;&nbsp; Schedule a call</a></li>
+        <li><span>&#127919;&nbsp; Personalized recommendations</span></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -310,8 +328,8 @@
 
         <!-- STEP 1 -->
         <div class="step-pane active" data-step="1">
-          <h2>Tell us about your group</h2>
-          <p class="desc">Who needs cover, and where are you based?</p>
+          <h2>Get Your Free Personalized Quote</h2>
+          <p class="desc">Two quick steps. No medical exam. No spam. Takes about 60 seconds.</p>
 
           <div class="field">
             <label for="num-people">Number of People</label>
@@ -484,11 +502,12 @@
      ===================================================================== */
   const CTA_CONFIG = {
     button: {
-      active: 'default',                          // 'default' | 'free_quote' | 'see_options'
+      active: 'free_quote',                       // 'free_quote' (lower-commitment) | 'default' | 'see_options' | 'compare'
       variants: {
-        default:    'Find My Best Expat Plan',
-        free_quote: 'Get My Free Expat Quote',
-        see_options:'See My Coverage Options'
+        free_quote: 'Get My Free Quote',
+        compare:    'Compare Plans & Prices',
+        see_options:'See My Options',
+        default:    'Find My Best Expat Plan'
       }
     },
     urgency: {
