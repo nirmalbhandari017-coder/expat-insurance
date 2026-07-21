@@ -1,2 +1,3 @@
 [build]
   publish = "."
+  command = "npm --prefix crm-app ci && npm --prefix crm-app run build"

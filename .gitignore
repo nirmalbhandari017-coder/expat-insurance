@@ -4,3 +4,8 @@
 _*.py
 Marketing/
 _changes_img*.png
+
+# Commission CRM: built output (Netlify builds on deploy) + local secrets
+/crm/
+crm-app/node_modules/
+crm-app/.env

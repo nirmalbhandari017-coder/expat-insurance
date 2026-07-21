@@ -9,6 +9,11 @@
 /privacy                     /privacy.html                     200
 /terms                       /terms.html                       200
 
+# Commission CRM single-page app — serve index.html for all /crm routes
+/crm/assets/*  /crm/assets/:splat  200
+/crm           /crm/index.html     200
+/crm/*         /crm/index.html     200
+
 # Back-compat: old Thailand URL forwards to new generic page
 /thailand-health-insurance       /expat-health-insurance.html  301
 /thailand-health-insurance.html  /expat-health-insurance.html  301
