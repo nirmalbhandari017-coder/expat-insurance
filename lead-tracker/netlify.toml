@@ -1,0 +1,12 @@
+# Separate Netlify site for the Lead Tracker (base = lead-tracker/ within the repo).
+# In Netlify: set "Base directory" to lead-tracker so this file and package.json resolve.
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# The Next.js runtime plugin handles App Router, server actions and route handlers.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

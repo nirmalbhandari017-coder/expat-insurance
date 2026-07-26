@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 12%;
+    /* Single accent: deep teal, reserved for primary actions + active stage. */
+    --primary: 178 60% 30%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 20% 20%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 44%;
+    --accent: 220 14% 94%;
+    --accent-foreground: 220 20% 20%;
+    --destructive: 0 72% 46%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 13% 90%;
+    --input: 220 13% 88%;
+    --ring: 178 60% 30%;
+    --radius: 0.5rem;
+
+    /* Fixed status ramp — muted, distinguishable, colour = status everywhere. */
+    --status-inbound: 220 12% 55%;
+    --status-contacted: 214 70% 52%;
+    --status-opportunity: 262 60% 58%;
+    --status-pending: 38 82% 50%;
+    --status-open: 158 64% 40%;
+    --status-lapsed: 24 70% 50%;
+    --status-lost: 0 65% 55%;
+  }
+
+  .dark {
+    --background: 220 24% 9%;
+    --foreground: 220 14% 92%;
+    --card: 220 22% 11%;
+    --card-foreground: 220 14% 92%;
+    --popover: 220 22% 11%;
+    --popover-foreground: 220 14% 92%;
+    --primary: 178 55% 45%;
+    --primary-foreground: 220 24% 9%;
+    --secondary: 220 16% 18%;
+    --secondary-foreground: 220 14% 88%;
+    --muted: 220 16% 16%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 220 16% 20%;
+    --accent-foreground: 220 14% 90%;
+    --destructive: 0 62% 52%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 14% 20%;
+    --input: 220 14% 22%;
+    --ring: 178 55% 45%;
+
+    --status-inbound: 220 10% 62%;
+    --status-contacted: 214 68% 62%;
+    --status-opportunity: 262 55% 68%;
+    --status-pending: 38 80% 58%;
+    --status-open: 158 55% 50%;
+    --status-lapsed: 24 68% 58%;
+    --status-lost: 0 62% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  /* Tabular figures in every table + KPI — no shifting digits. */
+  table, .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
