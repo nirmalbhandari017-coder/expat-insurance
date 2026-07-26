@@ -5,7 +5,12 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requirePermission } from "@/lib/auth";
 import { importRowSchema } from "@/lib/schemas/misc";
-import { PIPELINE_STATUSES, STATUS_LABEL, type LeadStatus } from "@/lib/domain/pipeline";
+import {
+  PIPELINE_STAGES,
+  STAGE_LABEL,
+  type PipelineStage,
+  type QualificationStatus,
+} from "@/lib/domain/pipeline";
 import { ok, fail, messageFromError, type ActionResult } from "./_result";
 import type { TablesInsert, Json } from "@/types/database";
 
@@ -19,7 +24,8 @@ export interface ImportPreviewRow {
   customer_name: string;
   email: string;
   affiliate: string;
-  status: LeadStatus;
+  qualification: QualificationStatus;
+  stage: PipelineStage | null;
   duplicate: boolean;
   valid: boolean;
 }
@@ -33,19 +39,27 @@ export interface ImportPreview {
   preview: ImportPreviewRow[];
 }
 
-const STATUS_BY_LABEL = new Map<string, LeadStatus>(
-  PIPELINE_STATUSES.flatMap((s) => [
+const STAGE_BY_LABEL = new Map<string, PipelineStage>(
+  PIPELINE_STAGES.flatMap((s) => [
     [s.toLowerCase(), s],
-    [STATUS_LABEL[s].toLowerCase(), s],
+    [STAGE_LABEL[s].toLowerCase(), s],
   ]),
 );
+
+const QUALIFICATION_BY_LABEL = new Map<string, QualificationStatus>([
+  ["pending", "pending"],
+  ["pending qualification", "pending"],
+  ["qualified", "qualified"],
+  ["not qualified", "not_qualified"],
+  ["not_qualified", "not_qualified"],
+]);
 
 function normalizePhone(phone?: string) {
   return (phone ?? "").replace(/[^0-9+]/g, "");
 }
 
 interface Resolved {
-  valid: { insert: TablesInsert<"leads">; preview: ImportPreviewRow }[];
+  valid: { insert: TablesInsert<"leads">; productIds: string[]; preview: ImportPreviewRow }[];
   errors: ImportError[];
   duplicateRows: number;
   totalRows: number;
@@ -54,12 +68,24 @@ interface Resolved {
 async function resolveRows(csvText: string): Promise<Resolved> {
   const supabase = await createClient();
 
-  const [{ data: affiliates }, { data: types }] = await Promise.all([
-    supabase.from("affiliates").select("id, name").is("deleted_at", null),
-    supabase.from("insurance_types").select("id, name").is("deleted_at", null),
-  ]);
+  const [{ data: affiliates }, { data: products }, { data: generators }, { data: brokers }] =
+    await Promise.all([
+      supabase.from("affiliates").select("id, name").is("deleted_at", null),
+      supabase.from("products").select("id, name").is("deleted_at", null),
+      supabase.from("generators").select("id, full_name, affiliate_id").is("deleted_at", null),
+      supabase.from("brokers").select("id, full_name").is("deleted_at", null),
+    ]);
   const affMap = new Map((affiliates ?? []).map((a) => [a.name.toLowerCase().trim(), a.id]));
-  const typeMap = new Map((types ?? []).map((t) => [t.name.toLowerCase().trim(), t.id]));
+  const productMap = new Map((products ?? []).map((t) => [t.name.toLowerCase().trim(), t.id]));
+  const generatorMap = new Map(
+    (generators ?? []).map((g) => [
+      g.affiliate_id + "::" + (g.full_name ?? "").toLowerCase().trim(),
+      g.id,
+    ]),
+  );
+  const brokerMap = new Map(
+    (brokers ?? []).map((b) => [(b.full_name ?? "").toLowerCase().trim(), b.id]),
+  );
 
   const parsed = Papa.parse<Record<string, string>>(csvText, {
     header: true,
@@ -100,32 +126,82 @@ async function resolveRows(csvText: string): Promise<Resolved> {
 
     const affId = affMap.get(r.affiliate.toLowerCase().trim());
     if (!affId) {
-      errors.push({ row: rowNum, field: "affiliate", message: `Unknown affiliate "${r.affiliate}"` });
+      errors.push({ row: rowNum, field: "affiliate", message: `Unknown source "${r.affiliate}"` });
       return;
     }
-    let typeId: string | null = null;
-    if (r.insurance_type) {
-      typeId = typeMap.get(r.insurance_type.toLowerCase().trim()) ?? null;
-      if (!typeId) {
-        errors.push({ row: rowNum, field: "insurance_type", message: `Unknown insurance type "${r.insurance_type}"` });
+
+    // Products are comma-separated in one column: "Health, Life".
+    const productIds: string[] = [];
+    if (r.product) {
+      const names = r.product.split(",").map((x) => x.trim()).filter(Boolean);
+      let bad = false;
+      for (const name of names) {
+        const pid = productMap.get(name.toLowerCase());
+        if (!pid) {
+          errors.push({ row: rowNum, field: "product", message: `Unknown product "${name}"` });
+          bad = true;
+          break;
+        }
+        productIds.push(pid);
+      }
+      if (bad) return;
+    }
+
+    let generatorId: string | null = null;
+    if (r.generator) {
+      generatorId = generatorMap.get(affId + "::" + r.generator.toLowerCase().trim()) ?? null;
+      if (!generatorId) {
+        errors.push({
+          row: rowNum,
+          field: "generator",
+          message: `"${r.generator}" is not a generator for ${r.affiliate}`,
+        });
         return;
       }
     }
-    let status: LeadStatus = "inbound";
-    if (r.status) {
-      const mapped = STATUS_BY_LABEL.get(r.status.toLowerCase().trim());
+
+    let brokerId: string | null = null;
+    if (r.broker) {
+      brokerId = brokerMap.get(r.broker.toLowerCase().trim()) ?? null;
+      if (!brokerId) {
+        errors.push({ row: rowNum, field: "broker", message: `Unknown broker "${r.broker}"` });
+        return;
+      }
+    }
+
+    let qualification: QualificationStatus = "pending";
+    if (r.qualification) {
+      const mapped = QUALIFICATION_BY_LABEL.get(r.qualification.toLowerCase().trim());
       if (!mapped) {
-        errors.push({ row: rowNum, field: "status", message: `Unknown status "${r.status}"` });
+        errors.push({
+          row: rowNum,
+          field: "qualification",
+          message: `Unknown qualification "${r.qualification}"`,
+        });
         return;
       }
-      status = mapped;
+      qualification = mapped;
     }
-    if (status === "lost") {
-      errors.push({ row: rowNum, field: "status", message: "Importing directly as Lost isn't allowed (needs a lost reason)" });
-      return;
+
+    let stage: PipelineStage | null = null;
+    if (r.stage) {
+      const mapped = STAGE_BY_LABEL.get(r.stage.toLowerCase().trim());
+      if (!mapped) {
+        errors.push({ row: rowNum, field: "stage", message: `Unknown stage "${r.stage}"` });
+        return;
+      }
+      stage = mapped;
+      qualification = "qualified"; // holding a stage implies qualification
+    } else if (qualification === "qualified") {
+      stage = "qualified";
     }
-    if (!r.email && !r.phone) {
-      errors.push({ row: rowNum, field: "email", message: "Provide at least an email or phone" });
+
+    if (!r.email && !r.phone && !r.whatsapp_phone) {
+      errors.push({
+        row: rowNum,
+        field: "email",
+        message: "Provide at least an email, phone or WhatsApp number",
+      });
       return;
     }
 
@@ -141,24 +217,34 @@ async function resolveRows(csvText: string): Promise<Resolved> {
 
     valid.push({
       insert: {
-        customer_name: r.customer_name,
+        customer_name: (r.first_name + ' ' + r.last_name).trim(),
+        title: r.title || null,
+        first_name: r.first_name,
+        last_name: r.last_name,
+        date_of_birth: r.date_of_birth || null,
         email: r.email || null,
         phone: r.phone || null,
+        whatsapp_phone: r.whatsapp_phone || r.phone || null,
+        whatsapp_same_as_phone: !r.whatsapp_phone && !!r.phone,
         nationality: r.nationality || null,
         country_of_residence: r.country_of_residence || null,
-        insurance_type_id: typeId,
         affiliate_id: affId,
-        current_status: status,
+        generator_id: generatorId,
+        broker_id: brokerId,
+        qualification,
+        stage,
         policy_number: r.policy_number || null,
         notes: r.notes || null,
         source_channel: "csv",
       },
+      productIds,
       preview: {
         row: rowNum,
-        customer_name: r.customer_name,
+        customer_name: r.first_name + ' ' + r.last_name,
         email: r.email || "",
         affiliate: r.affiliate,
-        status,
+        qualification,
+        stage,
         duplicate: Boolean(isDup),
         valid: true,
       },
@@ -224,12 +310,18 @@ export async function commitImport(
     let inserted = 0;
     const CHUNK = 500;
     for (let i = 0; i < resolved.valid.length; i += CHUNK) {
-      const chunk = resolved.valid.slice(i, i + CHUNK).map((v) => ({ ...v.insert, import_job_id: jobId }));
+      const slice = resolved.valid.slice(i, i + CHUNK);
+      const chunk = slice.map((v) => ({ ...v.insert, import_job_id: jobId }));
       const { data, error } = await supabase.from("leads").insert(chunk).select("id");
       if (error) {
         await supabase.from("import_jobs").update({ status: "failed" }).eq("id", jobId);
         return fail(messageFromError(error));
       }
+      // Products live in a join table, so they are linked once ids exist.
+      const links = (data ?? []).flatMap((row, idx) =>
+        (slice[idx]?.productIds ?? []).map((product_id) => ({ lead_id: row.id, product_id })),
+      );
+      if (links.length) await supabase.from("lead_products").insert(links);
       inserted += data?.length ?? 0;
     }
 

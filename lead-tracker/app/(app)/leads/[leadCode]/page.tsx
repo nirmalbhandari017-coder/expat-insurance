@@ -8,14 +8,22 @@ import type { PipelinePerms } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-export default async function LeadDetailPage({ params }: { params: Promise<{ leadCode: string }> }) {
+export default async function LeadDetailPage({
+  params,
+}: {
+  params: Promise<{ leadCode: string }>;
+}) {
   const { leadCode } = await params;
-  const [user, matrix, supabase] = await Promise.all([requireAppUser(), getPermissionMatrix(), createClient()]);
+  const [user, matrix, supabase] = await Promise.all([
+    requireAppUser(),
+    getPermissionMatrix(),
+    createClient(),
+  ]);
 
   const { data: lead } = await supabase
     .from("leads")
     .select(
-      "*, affiliate:affiliates(id, name), rm:app_users!leads_assigned_rm_id_fkey(id, full_name), itype:insurance_types(name)",
+      "*, affiliate:affiliates(id, name), generator:generators(id, full_name), broker:brokers(id, full_name, company), lost_reason:lost_reasons(label), products:lead_products(product:products(id, name))",
     )
     .eq("lead_code", leadCode)
     .is("deleted_at", null)
@@ -23,11 +31,11 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ lea
 
   if (!lead) notFound();
 
-  const [{ data: history }, { data: comments }, { data: activity }, { data: documents }, { data: rms }] =
+  const [{ data: history }, { data: comments }, { data: activity }, { data: documents }, { data: brokers }] =
     await Promise.all([
       supabase
-        .from("lead_status_history")
-        .select("*, changed_by_user:app_users!lead_status_history_changed_by_fkey(full_name)")
+        .from("lead_stage_history")
+        .select("*, changed_by_user:app_users!lead_stage_history_changed_by_fkey(full_name)")
         .eq("lead_id", lead.id)
         .order("changed_at", { ascending: false }),
       supabase
@@ -35,15 +43,25 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ lea
         .select("*, author:app_users(full_name)")
         .eq("lead_id", lead.id)
         .is("deleted_at", null)
-        .order("created_at", { ascending: true }),
+        .order("created_at", { ascending: false }),
       supabase
         .from("activity_log")
         .select("*, actor:app_users(full_name)")
         .eq("lead_id", lead.id)
         .order("created_at", { ascending: false })
         .limit(50),
-      supabase.from("documents").select("*").eq("lead_id", lead.id).is("deleted_at", null).order("created_at", { ascending: false }),
-      supabase.from("app_users").select("id, full_name").eq("is_rm", true).is("deleted_at", null).order("full_name"),
+      supabase
+        .from("documents")
+        .select("*")
+        .eq("lead_id", lead.id)
+        .is("deleted_at", null)
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("brokers")
+        .select("id, full_name, company")
+        .eq("is_active", true)
+        .is("deleted_at", null)
+        .order("full_name"),
     ]);
 
   // View audit (app-layer, per the GDPR posture).
@@ -53,7 +71,7 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ lea
     canCreate: can(matrix, user.role, "leads", "create"),
     canUpdate: can(matrix, user.role, "leads", "update"),
     canDelete: can(matrix, user.role, "leads", "delete"),
-    canCorrect: user.role === "admin" || user.role === "business_development",
+    canManageEntities: can(matrix, user.role, "generators", "create"),
     updateScope: scopeOf(matrix, user.role, "leads", "update"),
     currentUserId: user.id,
   };
@@ -67,7 +85,10 @@ export default async function LeadDetailPage({ params }: { params: Promise<{ lea
       comments={(comments ?? []) as never}
       activity={(activity ?? []) as never}
       documents={(documents ?? []) as never}
-      rms={(rms ?? []).map((r) => ({ id: r.id, label: r.full_name }))}
+      brokers={(brokers ?? []).map((b) => ({
+        id: b.id,
+        label: b.company ? `${b.full_name} — ${b.company}` : (b.full_name ?? ""),
+      }))}
       perms={perms}
       canComment={canComment}
       canViewAudit={canViewAudit}

@@ -5,31 +5,40 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { X, ChevronDown, UserCog } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { StatusDot } from "@/components/leads/status-badge";
-import { assignRm } from "@/lib/actions/leads";
-import { PIPELINE_STATUSES, STATUS_LABEL, type LeadStatus } from "@/lib/domain/pipeline";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { StageDot } from "@/components/leads/status-badge";
+import { assignBroker } from "@/lib/actions/leads";
+import { PIPELINE_STAGES, STAGE_LABEL, type PipelineStage } from "@/lib/domain/pipeline";
 import type { Option } from "@/lib/types";
 
 export function BulkActionBar({
   count,
   ids,
-  rms,
-  onBulkStatus,
+  brokers,
+  onBulkStage,
+  onBulkLost,
   onClear,
 }: {
   count: number;
   ids: string[];
-  rms: Option[];
-  onBulkStatus: (to: LeadStatus) => void;
+  brokers: Option[];
+  onBulkStage: (to: PipelineStage) => void;
+  onBulkLost: () => void;
   onClear: () => void;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
 
-  function assign(rmId: string | null) {
+  function assign(brokerId: string | null) {
     startTransition(async () => {
-      const res = await assignRm({ ids, rmId });
+      const res = await assignBroker({ ids, brokerId });
       if (res.ok) {
         toast.success(`Assigned ${res.data.updated}`);
         router.refresh();
@@ -45,31 +54,45 @@ export function BulkActionBar({
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm">Set status <ChevronDown className="h-3.5 w-3.5" /></Button>
+          <Button variant="outline" size="sm">
+            Set stage <ChevronDown className="h-3.5 w-3.5" />
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Move {count} to</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {PIPELINE_STATUSES.map((s) => (
-            <DropdownMenuItem key={s} onSelect={() => onBulkStatus(s)}>
-              <StatusDot status={s} /> {STATUS_LABEL[s]}
+          {PIPELINE_STAGES.map((s) => (
+            <DropdownMenuItem key={s} onSelect={() => onBulkStage(s)}>
+              <StageDot stage={s} /> {STAGE_LABEL[s]}
             </DropdownMenuItem>
           ))}
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onSelect={onBulkLost} className="text-red-600 dark:text-red-400">
+            Mark as Lost
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm" disabled={pending}><UserCog className="h-4 w-4" /> Assign RM</Button>
+          <Button variant="outline" size="sm" disabled={pending}>
+            <UserCog className="h-4 w-4" /> Assign broker
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem onSelect={() => assign(null)}>Unassign</DropdownMenuItem>
           <DropdownMenuSeparator />
-          {rms.map((r) => <DropdownMenuItem key={r.id} onSelect={() => assign(r.id)}>{r.label}</DropdownMenuItem>)}
+          {brokers.map((b) => (
+            <DropdownMenuItem key={b.id} onSelect={() => assign(b.id)}>
+              {b.label}
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Button variant="ghost" size="sm" onClick={onClear} className="ml-auto"><X className="h-4 w-4" /> Clear</Button>
+      <Button variant="ghost" size="sm" onClick={onClear} className="ml-auto">
+        <X className="h-4 w-4" /> Clear
+      </Button>
     </div>
   );
 }

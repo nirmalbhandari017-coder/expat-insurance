@@ -4,7 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Users, FileUser } from "lucide-react";
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
-import { StatusBadge } from "@/components/leads/status-badge";
+import { StageBadge, QualificationBadge } from "@/components/leads/status-badge";
 import { globalSearch, type SearchResults } from "@/lib/actions/search";
 
 export function CommandPalette() {
@@ -54,7 +54,7 @@ export function CommandPalette() {
                 <FileUser className="h-4 w-4 text-muted-foreground" />
                 <span className="flex-1 truncate">{l.customer_name}</span>
                 <span className="tabular text-xs text-muted-foreground">{l.lead_code}</span>
-                <StatusBadge status={l.current_status} />
+                {l.stage ? <StageBadge stage={l.stage} /> : <QualificationBadge qualification={l.qualification} />}
               </CommandItem>
             ))}
           </CommandGroup>

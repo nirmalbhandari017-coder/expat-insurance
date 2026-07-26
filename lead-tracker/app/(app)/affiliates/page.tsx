@@ -67,10 +67,10 @@ export default async function AffiliatesPage() {
                     {a.contact_person && <div className="text-xs text-muted-foreground">{a.contact_person}</div>}
                   </td>
                   <td className="tabular px-3 py-2">{s?.total_leads ?? 0}</td>
-                  <td className="tabular px-3 py-2">{s?.n_open ?? 0}</td>
+                  <td className="tabular px-3 py-2">{(s?.n_policy_issued ?? 0) + (s?.n_renewal ?? 0)}</td>
                   <td className="tabular px-3 py-2">{s?.n_lost ?? 0}</td>
                   <td className="tabular px-3 py-2">{formatPct(s?.conversion_rate ?? null)}</td>
-                  <td className="tabular px-3 py-2">{formatPct(s?.retention_rate ?? null)}</td>
+                  <td className="tabular px-3 py-2">{s?.n_qualified ?? 0}</td>
                   {canSeeCommission && <td className="tabular px-3 py-2">{comm != null ? `${comm}%` : "—"}</td>}
                   <td className="px-3 py-2">
                     <span className={a.is_active ? "text-status-open" : "text-muted-foreground"}>

@@ -4,54 +4,64 @@ import {
   decidedCount,
   conversionRate,
   decidedPct,
-  retentionRate,
+  renewalRate,
   formatPct,
+  type StageCounts,
 } from "@/lib/domain/conversion";
 
-// Mirrors the seeded Bangkok Relocation figures verified against mv_affiliate_stats.
-const bangkok = {
-  inbound: 2,
-  account_pending: 1,
-  account_open: 1,
-  account_lapsed: 1,
-  lost: 1,
+/**
+ * In the new model a lost lead keeps the stage it died at, so `lost` is passed
+ * alongside the stage counts rather than being one of them.
+ */
+const bangkok: StageCounts = {
+  qualified: 2,
+  application_received: 1,
+  policy_issued: 1,
+  renewal: 1,
 };
+const bangkokLost = 1;
 
 describe("conversion metrics", () => {
-  it("converted = open + lapsed", () => {
+  it("counts a live policy (issued or renewing) as converted", () => {
     expect(convertedCount(bangkok)).toBe(2);
   });
-  it("decided = converted + lost (excludes stages 1–4)", () => {
-    expect(decidedCount(bangkok)).toBe(3);
+
+  it("counts decided as converted + lost", () => {
+    expect(decidedCount(bangkok, bangkokLost)).toBe(3);
   });
-  it("conversion_rate = converted / decided", () => {
-    expect(conversionRate(bangkok)).toBeCloseTo(2 / 3, 6);
+
+  it("computes conversion as converted / decided", () => {
+    expect(conversionRate(bangkok, bangkokLost)).toBeCloseTo(2 / 3, 5);
   });
-  it("retention_rate = open / converted (Lost vs Lapsed distinction)", () => {
-    expect(retentionRate(bangkok)).toBeCloseTo(0.5, 6);
+
+  it("returns null rather than a misleading 0% when nothing is decided", () => {
+    expect(conversionRate({ qualified: 4 }, 0)).toBeNull();
+    expect(decidedPct({}, 0)).toBeNull();
+    expect(renewalRate({ qualified: 3 })).toBeNull();
   });
-  it("decided_pct guards the stuck-junk blind spot", () => {
-    // 3 decided of 6 total
-    expect(decidedPct(bangkok)).toBeCloseTo(0.5, 6);
+
+  it("reports the share of leads that reached a decided state", () => {
+    // 5 stage rows + 1 lost = 6 total, of which 3 are decided.
+    expect(decidedPct(bangkok, bangkokLost)).toBeCloseTo(3 / 6, 5);
+  });
+
+  it("computes renewal rate as renewals / converted", () => {
+    expect(renewalRate(bangkok)).toBeCloseTo(1 / 2, 5);
+  });
+
+  it("treats a lost-only affiliate as 0% converted, not null", () => {
+    expect(conversionRate({}, 3)).toBe(0);
   });
 });
 
-describe("edge cases", () => {
-  it("returns null (not 0%) when nothing decided", () => {
-    expect(conversionRate({ inbound: 5, contacted: 2 })).toBeNull();
-    expect(retentionRate({ inbound: 5 })).toBeNull();
-    expect(decidedPct({})).toBeNull();
-  });
-  it("all lost => 0% conversion, null retention", () => {
-    expect(conversionRate({ lost: 4 })).toBe(0);
-    expect(retentionRate({ lost: 4 })).toBeNull();
-  });
-  it("all open => 100% conversion and retention", () => {
-    expect(conversionRate({ account_open: 3 })).toBe(1);
-    expect(retentionRate({ account_open: 3 })).toBe(1);
-  });
-  it("formatPct handles null", () => {
+describe("formatPct", () => {
+  it("renders a dash for null so empty cells don't read as zero", () => {
     expect(formatPct(null)).toBe("—");
-    expect(formatPct(2 / 3)).toBe("66.7%");
+  });
+
+  it("formats to one decimal by default", () => {
+    expect(formatPct(0.6667)).toBe("66.7%");
+    expect(formatPct(1)).toBe("100.0%");
+    expect(formatPct(0, 0)).toBe("0%");
   });
 });

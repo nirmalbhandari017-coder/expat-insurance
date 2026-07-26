@@ -26,14 +26,25 @@ export type DocumentMetaInput = z.infer<typeof documentMetaSchema>;
 // (affiliate name -> id, insurance type name -> id) happens in the import action,
 // which produces a per-row error report.
 export const importRowSchema = z.object({
-  customer_name: z.string().min(1, "Customer name required"),
+  first_name: z.string().min(1, "First name required"),
+  last_name: z.string().min(1, "Last name required"),
+  title: z.string().optional().or(z.literal("")),
+  date_of_birth: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "Date of birth must be YYYY-MM-DD")
+    .optional()
+    .or(z.literal("")),
   email: z.string().email("Invalid email").optional().or(z.literal("")),
   phone: z.string().optional().or(z.literal("")),
+  whatsapp_phone: z.string().optional().or(z.literal("")),
   nationality: z.string().max(2).optional().or(z.literal("")),
   country_of_residence: z.string().max(2).optional().or(z.literal("")),
-  insurance_type: z.string().optional().or(z.literal("")),
-  affiliate: z.string().min(1, "Affiliate required"),
-  status: z.string().optional().or(z.literal("")),
+  product: z.string().optional().or(z.literal("")),
+  affiliate: z.string().min(1, "Source required"),
+  generator: z.string().optional().or(z.literal("")),
+  broker: z.string().optional().or(z.literal("")),
+  qualification: z.string().optional().or(z.literal("")),
+  stage: z.string().optional().or(z.literal("")),
   policy_number: z.string().optional().or(z.literal("")),
   notes: z.string().optional().or(z.literal("")),
 });

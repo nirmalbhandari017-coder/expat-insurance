@@ -3,84 +3,139 @@
 import { useCallback, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { changeLeadStatus, bulkChangeStatus } from "@/lib/actions/leads";
-import { transitionKind, isTransitionAllowed, type LeadStatus } from "@/lib/domain/pipeline";
+import {
+  changeStage,
+  bulkChangeStage,
+  setQualification,
+  markLost,
+  reopenLead,
+} from "@/lib/actions/leads";
+import { isBackward, type PipelineStage, type QualificationStatus } from "@/lib/domain/pipeline";
 import { LostReasonDialog, type LostReasonResult } from "@/components/leads/lost-reason-dialog";
 import { ReasonDialog } from "@/components/leads/reason-dialog";
 import type { LeadRow } from "@/lib/types";
 
-interface Pending {
+interface PendingStage {
   ids: string[];
-  toStatus: LeadStatus;
+  stage: PipelineStage;
   bulk: boolean;
 }
+
+type LeadLike = Pick<LeadRow, "id" | "stage" | "qualification" | "opportunity">;
 
 export function usePipelineActions(onDone?: () => void) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const [lost, setLost] = useState<Pending | null>(null);
-  const [correction, setCorrection] = useState<Pending | null>(null);
+  const [lost, setLost] = useState<{ ids: string[] } | null>(null);
+  const [correction, setCorrection] = useState<PendingStage | null>(null);
 
-  const run = useCallback(
-    (p: Pending, extra?: { reason?: string } & Partial<LostReasonResult>) => {
-      startTransition(async () => {
-        if (p.bulk) {
-          const res = await bulkChangeStatus({
-            ids: p.ids,
-            toStatus: p.toStatus,
-            reason: extra?.reason,
-            lostReason: extra?.lostReason,
-            lostReasonDetail: extra?.lostReasonDetail,
-          });
-          if (res.ok) {
-            const { updated, failed } = res.data;
-            toast.success(`${updated} updated${failed ? `, ${failed} skipped` : ""}`);
-            router.refresh();
-            onDone?.();
-          } else toast.error(res.error);
-        } else {
-          const res = await changeLeadStatus({
-            id: p.ids[0],
-            toStatus: p.toStatus,
-            reason: extra?.reason,
-            lostReason: extra?.lostReason,
-            lostReasonDetail: extra?.lostReasonDetail,
-          });
-          if (res.ok) {
-            toast.success("Status updated");
-            router.refresh();
-            onDone?.();
-          } else toast.error(res.error);
-        }
-      });
+  const after = useCallback(
+    (msg: string) => {
+      toast.success(msg);
+      router.refresh();
+      onDone?.();
     },
     [router, onDone],
   );
 
+  const runStage = useCallback(
+    (p: PendingStage, reason?: string) => {
+      startTransition(async () => {
+        if (p.bulk) {
+          const res = await bulkChangeStage({ ids: p.ids, stage: p.stage, reason });
+          if (res.ok) {
+            const { updated, failed } = res.data;
+            after(`${updated} updated${failed ? `, ${failed} skipped` : ""}`);
+          } else toast.error(res.error);
+        } else {
+          const res = await changeStage({ id: p.ids[0], stage: p.stage, reason });
+          if (res.ok) after("Stage updated");
+          else toast.error(res.error);
+        }
+      });
+    },
+    [after],
+  );
+
+  /**
+   * Moving a deal backwards is legitimate practice, so it is allowed — but it
+   * asks for a reason, because an unexplained reversal is the kind of thing
+   * someone will want to understand three months later.
+   */
   const request = useCallback(
-    (lead: Pick<LeadRow, "id" | "current_status">, toStatus: LeadStatus) => {
-      if (lead.current_status === toStatus) return;
-      if (!isTransitionAllowed(lead.current_status, toStatus)) {
-        toast.error("That status change isn't allowed.");
+    (lead: LeadLike, stage: PipelineStage) => {
+      if (lead.stage === stage) return;
+      if (lead.qualification !== "qualified") {
+        toast.error("Qualify this lead before moving it through the pipeline.");
         return;
       }
-      const kind = transitionKind(lead.current_status, toStatus);
-      const pending: Pending = { ids: [lead.id], toStatus, bulk: false };
-      if (toStatus === "lost") setLost(pending);
-      else if (kind === "correction") setCorrection(pending);
-      else run(pending);
+      if (lead.opportunity === "lost") {
+        toast.error("Reopen this lead before changing its stage.");
+        return;
+      }
+      const pending: PendingStage = { ids: [lead.id], stage, bulk: false };
+      if (lead.stage && isBackward(lead.stage, stage)) setCorrection(pending);
+      else runStage(pending);
     },
-    [run],
+    [runStage],
   );
 
   const requestBulk = useCallback(
-    (ids: string[], toStatus: LeadStatus) => {
+    (ids: string[], stage: PipelineStage) => {
       if (ids.length === 0) return;
-      const pending: Pending = { ids, toStatus, bulk: true };
-      if (toStatus === "lost") setLost(pending);
-      else run(pending); // corrections aren't offered in bulk
+      runStage({ ids, stage, bulk: true });
     },
-    [run],
+    [runStage],
+  );
+
+  const requestQualification = useCallback(
+    (id: string, qualification: QualificationStatus) => {
+      startTransition(async () => {
+        const res = await setQualification({ id, qualification });
+        if (res.ok) {
+          after(
+            qualification === "qualified"
+              ? "Lead qualified — now in the pipeline"
+              : qualification === "not_qualified"
+                ? "Marked Not Qualified"
+                : "Moved back to Pending Qualification",
+          );
+        } else toast.error(res.error);
+      });
+    },
+    [after],
+  );
+
+  const requestLost = useCallback((ids: string[]) => {
+    if (ids.length) setLost({ ids });
+  }, []);
+
+  const requestReopen = useCallback(
+    (id: string, stage?: PipelineStage | null) => {
+      startTransition(async () => {
+        const res = await reopenLead({ id, stage: stage ?? undefined });
+        if (res.ok) after("Lead reopened");
+        else toast.error(res.error);
+      });
+    },
+    [after],
+  );
+
+  const confirmLost = useCallback(
+    (ids: string[], r: LostReasonResult) => {
+      startTransition(async () => {
+        let done = 0;
+        let failed = 0;
+        for (const id of ids) {
+          const res = await markLost({ id, lostReasonId: r.lostReasonId, lostNotes: r.lostNotes });
+          if (res.ok) done++;
+          else failed++;
+        }
+        if (done) after(`${done} marked lost${failed ? `, ${failed} skipped` : ""}`);
+        else toast.error("Could not mark as lost");
+      });
+    },
+    [after],
   );
 
   const dialogs = (
@@ -90,22 +145,30 @@ export function usePipelineActions(onDone?: () => void) {
         count={lost?.ids.length ?? 1}
         onOpenChange={(o) => !o && setLost(null)}
         onConfirm={(r) => {
-          if (lost) run(lost, r);
+          if (lost) confirmLost(lost.ids, r);
           setLost(null);
         }}
       />
       <ReasonDialog
         open={!!correction}
-        title="Correcting status backward"
-        description="Backward moves clear that stage's date. A reason is required and recorded."
+        title="Moving this deal backwards"
+        description="This is allowed, but the reason is recorded in the lead's history."
         onOpenChange={(o) => !o && setCorrection(null)}
         onConfirm={(reason) => {
-          if (correction) run(correction, { reason });
+          if (correction) runStage(correction, reason);
           setCorrection(null);
         }}
       />
     </>
   );
 
-  return { request, requestBulk, dialogs, isPending };
+  return {
+    request,
+    requestBulk,
+    requestQualification,
+    requestLost,
+    requestReopen,
+    dialogs,
+    isPending,
+  };
 }

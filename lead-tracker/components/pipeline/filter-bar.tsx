@@ -5,23 +5,47 @@ import { useRouter, usePathname } from "next/navigation";
 import { Search, X, ListFilter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
-import { StatusDot } from "@/components/leads/status-badge";
-import { PIPELINE_STATUSES, STATUS_LABEL, type LeadStatus } from "@/lib/domain/pipeline";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { StageDot } from "@/components/leads/status-badge";
+import {
+  PIPELINE_STAGES,
+  STAGE_LABEL,
+  QUALIFICATION_LABEL,
+  type PipelineStage,
+  type QualificationStatus,
+} from "@/lib/domain/pipeline";
 import { serializeFilters, countActiveFilters, type LeadFilters } from "@/lib/filters";
-import type { Option } from "@/lib/types";
+import type { Option, GeneratorOption } from "@/lib/types";
 
 const ALL = "__all__";
+const QUALIFICATIONS: QualificationStatus[] = ["pending", "qualified", "not_qualified"];
 
 export function FilterBar({
   filters,
   affiliates,
-  rms,
+  generators,
+  brokers,
+  products,
 }: {
   filters: LeadFilters;
   affiliates: Option[];
-  rms: Option[];
+  generators: GeneratorOption[];
+  brokers: Option[];
+  products: Option[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -41,12 +65,24 @@ export function FilterBar({
     router.push(qs ? `${pathname}?${qs}` : pathname);
   }
 
-  function toggleStatus(s: LeadStatus) {
-    const set = new Set(filters.status ?? []);
+  function toggleStage(s: PipelineStage) {
+    const set = new Set(filters.stage ?? []);
     if (set.has(s)) set.delete(s);
     else set.add(s);
-    apply({ ...filters, status: set.size ? Array.from(set) : undefined });
+    apply({ ...filters, stage: set.size ? Array.from(set) : undefined });
   }
+
+  function toggleQualification(s: QualificationStatus) {
+    const set = new Set(filters.qualification ?? []);
+    if (set.has(s)) set.delete(s);
+    else set.add(s);
+    apply({ ...filters, qualification: set.size ? Array.from(set) : undefined });
+  }
+
+  // Generators are scoped to the chosen source, mirroring the lead form.
+  const shownGenerators = filters.affiliate
+    ? generators.filter((g) => g.affiliateId === filters.affiliate)
+    : generators;
 
   const active = countActiveFilters(filters);
 
@@ -54,45 +90,156 @@ export function FilterBar({
     <div className="flex flex-wrap items-center gap-2">
       <div className="relative">
         <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-        <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search name, email, phone, policy…" className="h-8 w-64 pl-8" />
+        <Input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search name, email, phone, WhatsApp…"
+          className="h-8 w-64 pl-8"
+        />
       </div>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm">
             <ListFilter className="h-4 w-4" />
-            Status{filters.status?.length ? ` (${filters.status.length})` : ""}
+            Stage{filters.stage?.length ? ` (${filters.stage.length})` : ""}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-52">
-          <DropdownMenuLabel>Filter by status</DropdownMenuLabel>
+        <DropdownMenuContent className="w-56">
+          <DropdownMenuLabel>Pipeline stage</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {PIPELINE_STATUSES.map((s) => (
-            <DropdownMenuCheckboxItem key={s} checked={filters.status?.includes(s) ?? false} onSelect={(e) => { e.preventDefault(); toggleStatus(s); }}>
-              <span className="flex items-center gap-2"><StatusDot status={s} />{STATUS_LABEL[s]}</span>
+          {PIPELINE_STAGES.map((s) => (
+            <DropdownMenuCheckboxItem
+              key={s}
+              checked={filters.stage?.includes(s) ?? false}
+              onSelect={(e) => {
+                e.preventDefault();
+                toggleStage(s);
+              }}
+            >
+              <span className="flex items-center gap-2">
+                <StageDot stage={s} />
+                {STAGE_LABEL[s]}
+              </span>
+            </DropdownMenuCheckboxItem>
+          ))}
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Qualification</DropdownMenuLabel>
+          {QUALIFICATIONS.map((s) => (
+            <DropdownMenuCheckboxItem
+              key={s}
+              checked={filters.qualification?.includes(s) ?? false}
+              onSelect={(e) => {
+                e.preventDefault();
+                toggleQualification(s);
+              }}
+            >
+              {QUALIFICATION_LABEL[s]}
             </DropdownMenuCheckboxItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Select value={filters.affiliate ?? ALL} onValueChange={(v) => apply({ ...filters, affiliate: v === ALL ? undefined : v })}>
-        <SelectTrigger className="h-8 w-44"><SelectValue placeholder="Affiliate" /></SelectTrigger>
+      <Select
+        value={filters.opportunity ?? ALL}
+        onValueChange={(v) =>
+          apply({ ...filters, opportunity: v === ALL ? undefined : (v as "active" | "lost") })
+        }
+      >
+        <SelectTrigger className="h-8 w-32">
+          <SelectValue placeholder="Outcome" />
+        </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>All affiliates</SelectItem>
-          {affiliates.map((a) => <SelectItem key={a.id} value={a.id}>{a.label}</SelectItem>)}
+          <SelectItem value={ALL}>Active + Lost</SelectItem>
+          <SelectItem value="active">Active only</SelectItem>
+          <SelectItem value="lost">Lost only</SelectItem>
         </SelectContent>
       </Select>
 
-      <Select value={filters.rm ?? ALL} onValueChange={(v) => apply({ ...filters, rm: v === ALL ? undefined : v })}>
-        <SelectTrigger className="h-8 w-40"><SelectValue placeholder="RM" /></SelectTrigger>
+      <Select
+        value={filters.affiliate ?? ALL}
+        onValueChange={(v) =>
+          // Changing source clears a generator that no longer belongs to it.
+          apply({
+            ...filters,
+            affiliate: v === ALL ? undefined : v,
+            generator: undefined,
+          })
+        }
+      >
+        <SelectTrigger className="h-8 w-44">
+          <SelectValue placeholder="Source" />
+        </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>All RMs</SelectItem>
-          {rms.map((r) => <SelectItem key={r.id} value={r.id}>{r.label}</SelectItem>)}
+          <SelectItem value={ALL}>All sources</SelectItem>
+          {affiliates.map((a) => (
+            <SelectItem key={a.id} value={a.id}>
+              {a.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        value={filters.generator ?? ALL}
+        onValueChange={(v) => apply({ ...filters, generator: v === ALL ? undefined : v })}
+      >
+        <SelectTrigger className="h-8 w-40">
+          <SelectValue placeholder="Generator" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={ALL}>All generators</SelectItem>
+          {shownGenerators.map((g) => (
+            <SelectItem key={g.id} value={g.id}>
+              {g.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        value={filters.broker ?? ALL}
+        onValueChange={(v) => apply({ ...filters, broker: v === ALL ? undefined : v })}
+      >
+        <SelectTrigger className="h-8 w-40">
+          <SelectValue placeholder="Broker" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={ALL}>All brokers</SelectItem>
+          {brokers.map((b) => (
+            <SelectItem key={b.id} value={b.id}>
+              {b.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        value={filters.product ?? ALL}
+        onValueChange={(v) => apply({ ...filters, product: v === ALL ? undefined : v })}
+      >
+        <SelectTrigger className="h-8 w-36">
+          <SelectValue placeholder="Product" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value={ALL}>All products</SelectItem>
+          {products.map((p) => (
+            <SelectItem key={p.id} value={p.id}>
+              {p.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
 
       {active > 0 && (
-        <Button variant="ghost" size="sm" onClick={() => { setQ(""); router.push(pathname); }}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            setQ("");
+            router.push(pathname);
+          }}
+        >
           <X className="h-4 w-4" /> Clear ({active})
         </Button>
       )}

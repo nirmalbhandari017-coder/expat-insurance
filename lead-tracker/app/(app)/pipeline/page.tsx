@@ -1,10 +1,16 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
 import { can, scopeOf } from "@/lib/domain/permissions";
-import { applyLeadFilters } from "@/lib/queries/leads";
+import { applyLeadFilters, leadIdsForProduct } from "@/lib/queries/leads";
 import { parseFilters } from "@/lib/filters";
 import { PipelineShell } from "@/components/pipeline/pipeline-shell";
-import { LEAD_ROW_COLUMNS, type LeadRow, type Option, type PipelinePerms } from "@/lib/types";
+import {
+  LEAD_ROW_COLUMNS,
+  type LeadRow,
+  type Option,
+  type GeneratorOption,
+  type PipelinePerms,
+} from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
@@ -26,25 +32,61 @@ export default async function PipelinePage({
     createClient(),
   ]);
 
-  const [{ data: leadRows, count }, { data: affiliates }, { data: rms }, { data: types }] = await Promise.all([
-    applyLeadFilters(supabase, filters, { columns: LEAD_ROW_COLUMNS, count: true }).limit(PAGE_CAP),
+  // Product lives in a join table, so narrow by id first when it's filtered.
+  const productLeadIds = filters.product
+    ? await leadIdsForProduct(supabase, filters.product)
+    : null;
+
+  let leadQuery = applyLeadFilters(supabase, filters, {
+    columns: LEAD_ROW_COLUMNS,
+    count: true,
+  }).limit(PAGE_CAP);
+  if (productLeadIds) leadQuery = leadQuery.in("id", productLeadIds.length ? productLeadIds : [""]);
+
+  const [
+    { data: leadRows, count },
+    { data: affiliates },
+    { data: generators },
+    { data: brokers },
+    { data: products },
+  ] = await Promise.all([
+    leadQuery,
     supabase.from("affiliates").select("id, name").is("deleted_at", null).order("name"),
-    supabase.from("app_users").select("id, full_name").eq("is_rm", true).is("deleted_at", null).order("full_name"),
-    supabase.from("insurance_types").select("id, name").eq("is_active", true).order("sort_order"),
+    supabase
+      .from("generators")
+      .select("id, full_name, affiliate_id")
+      .eq("is_active", true)
+      .is("deleted_at", null)
+      .order("full_name"),
+    supabase
+      .from("brokers")
+      .select("id, full_name, company")
+      .eq("is_active", true)
+      .is("deleted_at", null)
+      .order("full_name"),
+    supabase.from("products").select("id, name").eq("is_active", true).order("sort_order"),
   ]);
 
   const perms: PipelinePerms = {
     canCreate: can(matrix, user.role, "leads", "create"),
     canUpdate: can(matrix, user.role, "leads", "update"),
     canDelete: can(matrix, user.role, "leads", "delete"),
-    canCorrect: user.role === "admin" || user.role === "business_development",
+    canManageEntities: can(matrix, user.role, "generators", "create"),
     updateScope: scopeOf(matrix, user.role, "leads", "update"),
     currentUserId: user.id,
   };
 
   const affiliateOptions: Option[] = (affiliates ?? []).map((a) => ({ id: a.id, label: a.name }));
-  const rmOptions: Option[] = (rms ?? []).map((r) => ({ id: r.id, label: r.full_name }));
-  const typeOptions: Option[] = (types ?? []).map((t) => ({ id: t.id, label: t.name }));
+  const generatorOptions: GeneratorOption[] = (generators ?? []).map((g) => ({
+    id: g.id,
+    label: g.full_name ?? "",
+    affiliateId: g.affiliate_id,
+  }));
+  const brokerOptions: Option[] = (brokers ?? []).map((b) => ({
+    id: b.id,
+    label: b.company ? `${b.full_name} — ${b.company}` : (b.full_name ?? ""),
+  }));
+  const productOptions: Option[] = (products ?? []).map((p) => ({ id: p.id, label: p.name }));
 
   return (
     <PipelineShell
@@ -53,8 +95,9 @@ export default async function PipelinePage({
       initialView={user.last_pipeline_view}
       filters={filters}
       affiliates={affiliateOptions}
-      rms={rmOptions}
-      insuranceTypes={typeOptions}
+      generators={generatorOptions}
+      brokers={brokerOptions}
+      products={productOptions}
       total={count ?? (leadRows?.length ?? 0)}
     />
   );

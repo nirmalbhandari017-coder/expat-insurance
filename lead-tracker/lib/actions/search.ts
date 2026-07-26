@@ -2,10 +2,17 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { requireAppUser } from "@/lib/auth";
-import type { LeadStatus } from "@/lib/domain/pipeline";
+import type { PipelineStage, QualificationStatus } from "@/lib/domain/pipeline";
 
 export interface SearchResults {
-  leads: { id: string; lead_code: string; customer_name: string; current_status: LeadStatus; email: string | null }[];
+  leads: {
+    id: string;
+    lead_code: string;
+    customer_name: string;
+    qualification: QualificationStatus;
+    stage: PipelineStage | null;
+    email: string | null;
+  }[];
   affiliates: { id: string; name: string }[];
 }
 
@@ -21,9 +28,11 @@ export async function globalSearch(q: string): Promise<SearchResults> {
   const [{ data: leads }, { data: affiliates }] = await Promise.all([
     supabase
       .from("leads")
-      .select("id, lead_code, customer_name, current_status, email")
+      .select("id, lead_code, customer_name, qualification, stage, email")
       .is("deleted_at", null)
-      .or(`customer_name.ilike.${like},email.ilike.${like},phone.ilike.${like},policy_number.ilike.${like},lead_code.ilike.${like}`)
+      .or(
+        `customer_name.ilike.${like},email.ilike.${like},phone.ilike.${like},whatsapp_phone.ilike.${like},policy_number.ilike.${like},lead_code.ilike.${like}`,
+      )
       .order("updated_at", { ascending: false })
       .limit(8),
     supabase
@@ -35,7 +44,7 @@ export async function globalSearch(q: string): Promise<SearchResults> {
   ]);
 
   return {
-    leads: (leads ?? []) as SearchResults["leads"],
+    leads: (leads ?? []) as unknown as SearchResults["leads"],
     affiliates: (affiliates ?? []) as SearchResults["affiliates"],
   };
 }

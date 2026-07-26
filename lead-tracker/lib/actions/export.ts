@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
 import { can } from "@/lib/domain/permissions";
 import { applyLeadFilters } from "@/lib/queries/leads";
-import { STATUS_LABEL } from "@/lib/domain/pipeline";
+import { STAGE_LABEL, QUALIFICATION_LABEL } from "@/lib/domain/pipeline";
 import type { LeadFilters } from "@/lib/filters";
 import { ok, fail, messageFromError, type ActionResult } from "./_result";
 
@@ -16,7 +16,15 @@ export interface ExportFile {
 }
 
 // PII columns are withheld unless the user has leads:export_pii (Admin/BD).
-const PII_COLUMNS = new Set(["customer_name", "email", "phone", "nationality", "policy_number"]);
+const PII_COLUMNS = new Set([
+  "customer_name",
+  "email",
+  "phone",
+  "whatsapp_phone",
+  "date_of_birth",
+  "nationality",
+  "policy_number",
+]);
 
 const ALL_COLUMNS: { key: string; header: string }[] = [
   { key: "lead_code", header: "Lead Code" },
@@ -25,9 +33,12 @@ const ALL_COLUMNS: { key: string; header: string }[] = [
   { key: "phone", header: "Phone" },
   { key: "nationality", header: "Nationality" },
   { key: "country_of_residence", header: "Residence" },
-  { key: "current_status", header: "Status" },
-  { key: "affiliate_name", header: "Affiliate" },
-  { key: "rm_name", header: "RM" },
+  { key: "qualification", header: "Qualification" },
+  { key: "stage", header: "Pipeline Stage" },
+  { key: "opportunity", header: "Outcome" },
+  { key: "affiliate_name", header: "Source" },
+  { key: "broker_name", header: "Broker" },
+  { key: "generator_name", header: "Generator" },
   { key: "policy_number", header: "Policy #" },
   { key: "source_channel", header: "Source" },
   { key: "quote_date", header: "Quote Date" },
@@ -39,9 +50,10 @@ const ALL_COLUMNS: { key: string; header: string }[] = [
 async function loadRows(filters: LeadFilters, includePii: boolean) {
   const supabase = await createClient();
   const columns =
-    "lead_code, customer_name, email, phone, nationality, country_of_residence, current_status, " +
+    "lead_code, customer_name, email, phone, whatsapp_phone, date_of_birth, nationality, " +
+    "country_of_residence, qualification, stage, opportunity, " +
     "source_channel, policy_number, quote_date, application_date, payment_date, created_at, " +
-    "affiliate:affiliates(name), rm:app_users!leads_assigned_rm_id_fkey(full_name)";
+    "affiliate:affiliates(name), generator:generators(full_name), broker:brokers(full_name)";
 
   const { data, error } = await applyLeadFilters(supabase, filters, { columns }).limit(50000);
   if (error) throw error;
@@ -55,9 +67,15 @@ async function loadRows(filters: LeadFilters, includePii: boolean) {
       phone: r.phone,
       nationality: r.nationality,
       country_of_residence: r.country_of_residence,
-      current_status: STATUS_LABEL[r.current_status as keyof typeof STATUS_LABEL] ?? r.current_status,
+      whatsapp_phone: r.whatsapp_phone,
+      date_of_birth: r.date_of_birth,
+      qualification:
+        QUALIFICATION_LABEL[r.qualification as keyof typeof QUALIFICATION_LABEL] ?? r.qualification,
+      stage: r.stage ? (STAGE_LABEL[r.stage as keyof typeof STAGE_LABEL] ?? r.stage) : "",
+      opportunity: r.opportunity,
       affiliate_name: (r.affiliate as { name?: string } | null)?.name ?? "",
-      rm_name: (r.rm as { full_name?: string } | null)?.full_name ?? "",
+      generator_name: (r.generator as { full_name?: string } | null)?.full_name ?? "",
+      broker_name: (r.broker as { full_name?: string } | null)?.full_name ?? "",
       policy_number: r.policy_number,
       source_channel: r.source_channel,
       quote_date: r.quote_date,

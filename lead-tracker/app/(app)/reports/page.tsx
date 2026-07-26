@@ -20,8 +20,8 @@ export default async function ReportsPage() {
     .map((s) => ({
       name: nameById.get(s.affiliate_id!) ?? "—",
       total: s.total_leads ?? 0,
-      open: s.n_open ?? 0,
-      lapsed: s.n_lapsed ?? 0,
+      open: (s.n_policy_issued ?? 0) + (s.n_renewal ?? 0),
+      lapsed: s.n_qualified ?? 0,
       lost: s.n_lost ?? 0,
       conversion: s.conversion_rate,
     }))

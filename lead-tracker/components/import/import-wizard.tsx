@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { UploadCloud, AlertTriangle, CheckCircle2, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { validateImport, commitImport, type ImportPreview } from "@/lib/actions/import";
-import { STATUS_LABEL } from "@/lib/domain/pipeline";
+import { STAGE_LABEL, QUALIFICATION_LABEL } from "@/lib/domain/pipeline";
 
 const TEMPLATE = "customer_name,email,phone,nationality,country_of_residence,insurance_type,affiliate,status,policy_number,notes";
 
@@ -122,7 +122,9 @@ export function ImportWizard() {
                       <td className="px-3 py-1.5">{r.customer_name}</td>
                       <td className="px-3 py-1.5 text-muted-foreground">{r.email || "—"}</td>
                       <td className="px-3 py-1.5">{r.affiliate}</td>
-                      <td className="px-3 py-1.5">{STATUS_LABEL[r.status]}</td>
+                      <td className="px-3 py-1.5">
+                        {r.stage ? STAGE_LABEL[r.stage] : QUALIFICATION_LABEL[r.qualification]}
+                      </td>
                       <td className="px-3 py-1.5">{r.duplicate && <span className="text-xs text-status-pending">possible duplicate</span>}</td>
                     </tr>
                   ))}

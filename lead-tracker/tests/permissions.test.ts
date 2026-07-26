@@ -44,13 +44,13 @@ describe("scopeOf()", () => {
 
 describe("canEditLead() — mirrors leads_update RLS", () => {
   it("admin edits any lead", () => {
-    expect(canEditLead(m, "admin", { assignedRmIsSelf: false })).toBe(true);
+    expect(canEditLead(m, "admin", { brokerIsSelf: false })).toBe(true);
   });
   it("RM edits only their own assigned lead", () => {
-    expect(canEditLead(m, "rm_staff", { assignedRmIsSelf: true })).toBe(true);
-    expect(canEditLead(m, "rm_staff", { assignedRmIsSelf: false })).toBe(false);
+    expect(canEditLead(m, "rm_staff", { brokerIsSelf: true })).toBe(true);
+    expect(canEditLead(m, "rm_staff", { brokerIsSelf: false })).toBe(false);
   });
   it("read-only cannot edit even their own", () => {
-    expect(canEditLead(m, "read_only", { assignedRmIsSelf: true })).toBe(false);
+    expect(canEditLead(m, "read_only", { brokerIsSelf: true })).toBe(false);
   });
 });

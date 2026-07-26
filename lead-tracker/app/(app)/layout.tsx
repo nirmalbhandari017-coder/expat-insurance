@@ -11,7 +11,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 const NAV = [
   { href: "/dashboard", label: "Dashboard", resource: null },
   { href: "/pipeline", label: "Pipeline", resource: null },
-  { href: "/affiliates", label: "Affiliates", resource: null },
+  { href: "/affiliates", label: "Sources", resource: null },
+  { href: "/generators", label: "Generators", resource: null },
+  { href: "/brokers", label: "Brokers", resource: null },
   { href: "/analytics", label: "Analytics", resource: null },
   { href: "/reports", label: "Reports", resource: null },
 ] as const;

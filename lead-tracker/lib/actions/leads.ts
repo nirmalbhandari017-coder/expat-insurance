@@ -77,6 +77,7 @@ export async function createLead(raw: unknown): Promise<ActionResult<Lead>> {
     const { data, error } = await supabase
       .from("leads")
       .insert({
+        customer_name: `${d.firstName} ${d.lastName}`.trim(),
         title: d.title ?? null,
         first_name: d.firstName,
         last_name: d.lastName,

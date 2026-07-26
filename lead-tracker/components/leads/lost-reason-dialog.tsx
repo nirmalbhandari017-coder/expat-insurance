@@ -1,18 +1,41 @@
 "use client";
 
-import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { LOST_REASONS, LOST_REASON_LABEL, type LostReason } from "@/lib/domain/pipeline";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { createClient } from "@/lib/supabase/client";
 
 export interface LostReasonResult {
-  lostReason: LostReason;
-  lostReasonDetail?: string;
+  lostReasonId: string;
+  lostNotes?: string;
 }
 
+interface Reason {
+  id: string;
+  code: string;
+  label: string;
+}
+
+/**
+ * Reasons come from the `lost_reasons` table rather than a hard-coded enum, so
+ * the list can be edited without a migration (spec §22).
+ */
 export function LostReasonDialog({
   open,
   onOpenChange,
@@ -24,10 +47,24 @@ export function LostReasonDialog({
   onConfirm: (r: LostReasonResult) => void;
   count?: number;
 }) {
-  const [reason, setReason] = useState<LostReason | "">("");
-  const [detail, setDetail] = useState("");
-  const needsDetail = reason === "other";
-  const valid = reason && (!needsDetail || detail.trim().length > 0);
+  const [reasons, setReasons] = useState<Reason[]>([]);
+  const [reasonId, setReasonId] = useState("");
+  const [notes, setNotes] = useState("");
+
+  useEffect(() => {
+    if (!open) return;
+    const supabase = createClient();
+    supabase
+      .from("lost_reasons")
+      .select("id, code, label")
+      .eq("is_active", true)
+      .order("sort_order")
+      .then(({ data }) => setReasons(data ?? []));
+  }, [open]);
+
+  const selected = reasons.find((r) => r.id === reasonId);
+  const needsNotes = selected?.code === "other";
+  const valid = !!reasonId && (!needsNotes || notes.trim().length > 0);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -35,41 +72,51 @@ export function LostReasonDialog({
         <DialogHeader>
           <DialogTitle>Mark as Lost</DialogTitle>
           <DialogDescription>
-            {count > 1 ? `${count} leads` : "This lead"} never converted. A reason is required — it&apos;s the
-            single most valuable reporting field.
+            {count > 1 ? `${count} leads` : "This lead"} didn&apos;t convert. The current stage is kept
+            so you can see where deals are being lost.
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-3">
           <div className="space-y-1.5">
             <Label>Lost reason</Label>
-            <Select value={reason} onValueChange={(v) => setReason(v as LostReason)}>
-              <SelectTrigger><SelectValue placeholder="Select a reason…" /></SelectTrigger>
+            <Select value={reasonId} onValueChange={setReasonId}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select a reason…" />
+              </SelectTrigger>
               <SelectContent>
-                {LOST_REASONS.map((r) => (
-                  <SelectItem key={r} value={r}>{LOST_REASON_LABEL[r]}</SelectItem>
+                {reasons.map((r) => (
+                  <SelectItem key={r.id} value={r.id}>
+                    {r.label}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
-          {needsDetail && (
-            <div className="space-y-1.5">
-              <Label>Details</Label>
-              <Textarea value={detail} onChange={(e) => setDetail(e.target.value)} placeholder="Explain the reason…" />
-            </div>
-          )}
+          <div className="space-y-1.5">
+            <Label>
+              Lost notes {needsNotes ? "" : <span className="text-muted-foreground">(optional)</span>}
+            </Label>
+            <Textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Any detail worth remembering…"
+            />
+          </div>
         </div>
 
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
           <Button
             variant="destructive"
             disabled={!valid}
             onClick={() => {
-              if (!reason) return;
-              onConfirm({ lostReason: reason, lostReasonDetail: needsDetail ? detail.trim() : undefined });
-              setReason("");
-              setDetail("");
+              if (!reasonId) return;
+              onConfirm({ lostReasonId: reasonId, lostNotes: notes.trim() || undefined });
+              setReasonId("");
+              setNotes("");
             }}
           >
             Mark as Lost

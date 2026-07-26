@@ -21,20 +21,22 @@ export default async function AnalyticsPage() {
   // Funnel: sum reached_* across affiliates.
   const f = (funnel ?? []).reduce(
     (acc, r) => ({
-      inbound: acc.inbound + (r.reached_inbound ?? 0),
-      contacted: acc.contacted + (r.reached_contacted ?? 0),
-      opportunity: acc.opportunity + (r.reached_opportunity ?? 0),
-      pending: acc.pending + (r.reached_pending ?? 0),
-      open: acc.open + (r.reached_open ?? 0),
+      qualified: acc.qualified + (r.reached_qualified ?? 0),
+      quote: acc.quote + (r.reached_quote_sent ?? 0),
+      negotiation: acc.negotiation + (r.reached_negotiation ?? 0),
+      application: acc.application + (r.reached_application ?? 0),
+      policy: acc.policy + (r.reached_policy ?? 0),
+      renewal: acc.renewal + (r.reached_renewal ?? 0),
     }),
-    { inbound: 0, contacted: 0, opportunity: 0, pending: 0, open: 0 },
+    { qualified: 0, quote: 0, negotiation: 0, application: 0, policy: 0, renewal: 0 },
   );
   const funnelData = [
-    { stage: "Inbound", count: f.inbound },
-    { stage: "Contacted", count: f.contacted },
-    { stage: "Opportunity", count: f.opportunity },
-    { stage: "Acct Pending", count: f.pending },
-    { stage: "Acct Open", count: f.open },
+    { stage: "Qualified", count: f.qualified },
+    { stage: "Quote Sent", count: f.quote },
+    { stage: "Negotiation", count: f.negotiation },
+    { stage: "Application", count: f.application },
+    { stage: "Policy Issued", count: f.policy },
+    { stage: "Renewal", count: f.renewal },
   ];
 
   // Monthly trend: aggregate cohorts by month.
@@ -55,7 +57,7 @@ export default async function AnalyticsPage() {
   const nameById = new Map((affiliates ?? []).map((a) => [a.id, a.name]));
   const ranked = (stats ?? [])
     .filter((s) => (s.total_leads ?? 0) > 0)
-    .map((s) => ({ id: s.affiliate_id!, name: nameById.get(s.affiliate_id!) ?? "—", leads: s.total_leads ?? 0, conversion: s.conversion_rate, decided: s.decided ?? 0 }))
+    .map((s) => ({ id: s.affiliate_id!, name: nameById.get(s.affiliate_id!) ?? "—", leads: s.total_leads ?? 0, conversion: s.conversion_rate, decided: (s.n_policy_issued ?? 0) + (s.n_renewal ?? 0) + (s.n_lost ?? 0) }))
     .sort((a, b) => (b.conversion ?? -1) - (a.conversion ?? -1));
   const top = ranked.slice(0, 5);
   const bottom = ranked.filter((r) => r.decided > 0).slice(-5).reverse();
