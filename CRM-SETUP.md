@@ -1,6 +1,6 @@
 # Commission CRM — Setup Guide
 
-The CRM lives at **expatprotecthub.com/crm** once deployed. Source is in `crm-app/`,
+The CRM lives at **expatprotecthub.com/crm** once deployed. Source is in `expatprotecthub-crm/`,
 the database schema is in `supabase/schema.sql`, and Netlify builds it automatically
 on every deploy.
 
@@ -22,7 +22,7 @@ on every deploy.
 2. In **Netlify** (site settings → Environment variables), add:
    - `VITE_SUPABASE_URL` = the Project URL
    - `VITE_SUPABASE_ANON_KEY` = the anon key
-3. For local development, copy `crm-app/.env.example` to `crm-app/.env` and fill in the same two values.
+3. For local development, copy `expatprotecthub-crm/.env.example` to `expatprotecthub-crm/.env` and fill in the same two values.
 4. Trigger a new Netlify deploy (or push any commit).
 
 > The anon key is designed to be public — every data-access rule is enforced inside the

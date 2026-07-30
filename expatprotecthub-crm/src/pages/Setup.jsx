@@ -15,7 +15,7 @@ export default function Setup() {
           </li>
           <li>
             Copy the project's <strong>URL</strong> and <strong>anon public key</strong> from{' '}
-            Settings → API, and put them in <code className="inline">crm-app/.env</code>:
+            Settings → API, and put them in <code className="inline">expatprotecthub-crm/.env</code>:
             <pre style={{ background: '#EDF0F3', padding: 12, borderRadius: 8, marginTop: 8, fontSize: 12 }}>
 {`VITE_SUPABASE_URL=https://xxxx.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...`}
