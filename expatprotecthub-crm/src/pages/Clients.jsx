@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { useSession } from '../App.jsx'
 import { Modal, Field, Badge, Empty } from '../components/ui.jsx'
@@ -8,6 +9,7 @@ const BLANK = {
   name: '', company: '', email: '', phone: '', product_type: '',
   start_date: today(), premium: '', currency: 'USD', commission_pct: '',
   frequency: 'monthly', status: 'active', notes: '',
+  generator_id: '', referred_by_id: '', policy_number: '',
 }
 
 export default function Clients() {
@@ -17,18 +19,24 @@ export default function Clients() {
   const [consultants, setConsultants] = useState([])
   const [links, setLinks] = useState([]) // client_consultants
   const [editing, setEditing] = useState(null) // {client, splits: [{consultant_id, payout_pct_override}]}
+  const [generators, setGenerators] = useState([])
+  const [people, setPeople] = useState([])
   const [filter, setFilter] = useState('all')
   const [error, setError] = useState('')
 
   async function load() {
-    const [c, co, cc] = await Promise.all([
+    const [c, co, cc, lg, pe] = await Promise.all([
       supabase.from('clients').select('*').order('created_at', { ascending: false }),
       supabase.from('consultants').select('*').eq('active', true).order('name'),
       supabase.from('client_consultants').select('*'),
+      supabase.from('lead_generators').select('id, name, is_referral').eq('is_active', true).order('sort_order'),
+      supabase.from('people').select('id, full_name').eq('active', true).order('full_name'),
     ])
     setClients(c.data || [])
     setConsultants(co.data || [])
     setLinks(cc.data || [])
+    setGenerators(lg.data || [])
+    setPeople(pe.data || [])
   }
   useEffect(() => { load() }, [])
 
@@ -54,6 +62,9 @@ export default function Clients() {
       premium: Number(c.premium) || 0, currency: c.currency,
       commission_pct: Number(c.commission_pct) || 0,
       frequency: c.frequency, status: c.status, notes: c.notes,
+      generator_id: c.generator_id || null,
+      referred_by_id: c.referred_by_id || null,
+      policy_number: c.policy_number || null,
     }
     let clientId = editing.id
     if (clientId) {
@@ -125,7 +136,7 @@ export default function Clients() {
               ) : shown.map((c) => (
                 <tr key={c.id}>
                   <td>
-                    <strong>{c.name}</strong>
+                    <Link to={`/clients/${c.id}`} style={{ fontWeight: 600 }}>{c.name}</Link>
                     {c.company && <span className="cell-sub">{c.company}</span>}
                   </td>
                   <td>{c.product_type || '—'}</td>
@@ -170,6 +181,8 @@ export default function Clients() {
           <ClientForm
             value={editing}
             consultants={consultants}
+            generators={generators}
+            people={people}
             onChange={setEditing}
           />
         </Modal>
@@ -178,7 +191,7 @@ export default function Clients() {
   )
 }
 
-function ClientForm({ value, consultants, onChange }) {
+function ClientForm({ value, consultants, generators, people, onChange }) {
   const c = value.client
   const set = (k, v) => onChange({ ...value, client: { ...c, [k]: v } })
   const setSplits = (splits) => onChange({ ...value, splits })
@@ -239,6 +252,34 @@ function ClientForm({ value, consultants, onChange }) {
           </select>
         </Field>
       </div>
+
+      <div className="form-row">
+        <Field label="Lead source" hint="How this client reached the business.">
+          <select value={c.generator_id || ''} onChange={(e) => set('generator_id', e.target.value)}>
+            <option value="">— not set —</option>
+            {(generators || []).map((g) => (
+              <option key={g.id} value={g.id}>{g.name}</option>
+            ))}
+          </select>
+        </Field>
+        <Field label="Policy number">
+          <input value={c.policy_number || ''} onChange={(e) => set('policy_number', e.target.value)} />
+        </Field>
+      </div>
+
+      {(generators || []).find((g) => g.id === c.generator_id)?.is_referral && (
+        <Field
+          label="Referred by"
+          hint="Referrals pay differently — the referrer is paid from the premium and other recipients are excluded."
+        >
+          <select value={c.referred_by_id || ''} onChange={(e) => set('referred_by_id', e.target.value)}>
+            <option value="">— select —</option>
+            {(people || []).map((p) => (
+              <option key={p.id} value={p.id}>{p.full_name}</option>
+            ))}
+          </select>
+        </Field>
+      )}
 
       <Field
         label="Assigned consultants"

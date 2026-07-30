@@ -2,12 +2,14 @@ import { useEffect, useState, createContext, useContext } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { supabase } from './lib/supabase.js'
 import { isConfigured } from './lib/config.js'
+import { CurrencyProvider } from './lib/currency.jsx'
 import Layout from './components/Layout.jsx'
 import Setup from './pages/Setup.jsx'
 import Login from './pages/Login.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import Clients from './pages/Clients.jsx'
-import Consultants from './pages/Consultants.jsx'
+import ClientFinancials from './pages/ClientFinancials.jsx'
+import People from './pages/People.jsx'
 import Commissions from './pages/Commissions.jsx'
 import Payouts from './pages/Payouts.jsx'
 import Expenses from './pages/Expenses.jsx'
@@ -49,25 +51,28 @@ export default function App() {
 
   return (
     <SessionContext.Provider value={{ session, profile, role }}>
-      <Layout>
-        <Routes>
-          {isStaff ? (
-            <>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/clients" element={<Clients />} />
-              <Route path="/consultants" element={<Consultants />} />
-              <Route path="/commissions" element={<Commissions />} />
-              <Route path="/payouts" element={<Payouts />} />
-              <Route path="/expenses" element={<Expenses />} />
-              <Route path="/reports" element={<Reports />} />
-              {role === 'admin' && <Route path="/settings" element={<Settings />} />}
-            </>
-          ) : (
-            <Route path="/" element={<MyEarnings />} />
-          )}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Layout>
+      <CurrencyProvider>
+        <Layout>
+          <Routes>
+            {isStaff ? (
+              <>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/clients" element={<Clients />} />
+                <Route path="/clients/:id" element={<ClientFinancials />} />
+                <Route path="/people" element={<People />} />
+                <Route path="/commissions" element={<Commissions />} />
+                <Route path="/payouts" element={<Payouts />} />
+                <Route path="/expenses" element={<Expenses />} />
+                <Route path="/reports" element={<Reports />} />
+                {role === 'admin' && <Route path="/settings" element={<Settings />} />}
+              </>
+            ) : (
+              <Route path="/" element={<MyEarnings />} />
+            )}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Layout>
+      </CurrencyProvider>
     </SessionContext.Provider>
   )
 }
