@@ -415,3 +415,186 @@ code.inline {
   background: var(--teal);
   color: var(--navy-dark);
 }
+
+/* ============================================================
+   Dashboard: finance-statement layout
+   Eleven equal-weight cards made every number shout at once and
+   hid the arithmetic. These primitives give one hero figure, a
+   readable P&L where the sums are visible, and colour reserved
+   for things that actually need attention.
+   ============================================================ */
+
+.dash-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+/* ---------- Hero figure ---------- */
+.hero {
+  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-dark) 100%);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+}
+.hero .hero-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+}
+.hero .hero-value {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-top: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.hero .hero-value.neg { color: #FF8A8A; }
+.hero .hero-sub { font-size: 12.5px; color: rgba(255, 255, 255, 0.6); margin-top: 6px; }
+.hero .hero-split {
+  display: flex;
+  gap: 28px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.hero .hero-split div { min-width: 0; }
+.hero .hero-split .k {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+}
+.hero .hero-split .v {
+  font-size: 17px;
+  font-weight: 700;
+  margin-top: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- P&L statement ---------- */
+.pnl { padding: 6px 20px 16px; }
+.pnl-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  font-size: 13.5px;
+}
+.pnl-row .label { color: var(--text-muted); }
+.pnl-row .val {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.pnl-row.deduct .label::before {
+  content: '−';
+  display: inline-block;
+  width: 14px;
+  color: var(--text-faint);
+  font-weight: 600;
+}
+.pnl-row.deduct .val { color: var(--text); }
+.pnl-row.rule { border-top: 1px solid var(--border); margin-top: 4px; padding-top: 12px; }
+.pnl-row.total .label { color: var(--text); font-weight: 700; }
+.pnl-row.total .val { font-size: 17px; font-weight: 800; letter-spacing: -0.01em; }
+.pnl-row.total .val.pos { color: var(--green); }
+.pnl-row.total .val.neg { color: var(--red); }
+.pnl-row.sub .label,
+.pnl-row.sub .val { color: var(--text-faint); font-size: 12.5px; font-weight: 500; }
+
+/* ---------- Compact stat strip ---------- */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  padding: 16px 20px;
+}
+.stat-strip > div { padding-right: 16px; }
+.stat-strip > div + div {
+  border-left: 1px solid var(--border);
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.stat-strip .k {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+}
+.stat-strip .v {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.stat-strip .v.muted { color: var(--text-muted); }
+.stat-strip .v.warn { color: #B4740A; }
+.stat-strip .s { font-size: 11.5px; color: var(--text-faint); margin-top: 2px; }
+
+/* ---------- Progress (premium collected) ---------- */
+.progress {
+  height: 6px;
+  border-radius: 999px;
+  background: #E8ECF0;
+  overflow: hidden;
+  margin: 4px 20px 18px;
+}
+.progress > span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--teal);
+}
+
+/* ---------- Attention list ---------- */
+.attn { padding: 6px 8px 10px; }
+.attn-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  text-decoration: none;
+  color: inherit;
+}
+.attn-item:hover { background: #F7F9FA; }
+.attn-item .dot {
+  width: 8px; height: 8px; border-radius: 999px; flex-shrink: 0;
+}
+.attn-item .dot.red { background: var(--red); }
+.attn-item .dot.yellow { background: var(--yellow); }
+.attn-item .dot.green { background: var(--green); }
+.attn-item .txt { flex: 1; min-width: 0; }
+.attn-item .txt .t { font-weight: 600; }
+.attn-item .txt .d { font-size: 12px; color: var(--text-faint); }
+.attn-item .amt { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.attn-empty {
+  padding: 22px 12px;
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 13px;
+}
+
+@media (max-width: 1000px) {
+  .dash-grid { grid-template-columns: 1fr; }
+  .stat-strip { grid-template-columns: 1fr; }
+  .stat-strip > div + div {
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+  .hero .hero-value { font-size: 30px; }
+}
