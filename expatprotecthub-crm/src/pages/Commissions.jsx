@@ -11,7 +11,7 @@ export default function Commissions() {
 
   async function load() {
     // generate upcoming records + refresh overdue flags, then fetch
-    await supabase.rpc('generate_due_commissions', { horizon_days: 60 })
+    await supabase.rpc('generate_due_commissions', { horizon_days: 400 })
     const { data } = await supabase
       .from('commissions')
       .select('*, clients(name, company)')

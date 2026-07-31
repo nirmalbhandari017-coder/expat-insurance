@@ -33,7 +33,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     (async () => {
-      await supabase.rpc('generate_due_commissions', { horizon_days: 60 })
+      await supabase.rpc('generate_due_commissions', { horizon_days: 400 })
       const [schedule, commissions, payouts, expenses] = await Promise.all([
         supabase.from('premium_payments').select('*, clients(id, name)').order('due_date'),
         supabase.from('commissions').select('*, clients(id, name)').order('due_date'),
@@ -100,7 +100,14 @@ export default function Dashboard() {
     const overdueCommissions = commissions.filter((c) => c.status === 'overdue')
     const overdueInstalments = live.filter((s) => s.status === 'overdue')
 
+    // commissions now link to the instalment that earns them, so each
+    // upcoming premium can show what it is actually worth to the business.
+    const commissionByInstalment = new Map(
+      commissions.filter((cm) => cm.premium_payment_id).map((cm) => [cm.premium_payment_id, cm]),
+    );
+
     return {
+      commissionByInstalment,
       totalPremium, premiumReceived, premiumOutstanding, collectedEver,
       commissionEarned, commissionReceived,
       consultantPayouts, ownerPayouts, pendingPayouts, owedRows,
@@ -312,27 +319,45 @@ export default function Dashboard() {
             <div className="table-wrap">
               <table>
                 <thead>
-                  <tr><th>Client</th><th>Due</th><th className="num">Amount</th><th>Status</th></tr>
+                  <tr>
+                    <th>Client</th><th>Due</th>
+                    <th className="num">Premium</th>
+                    <th className="num">Commission</th>
+                    <th>Status</th>
+                  </tr>
                 </thead>
                 <tbody>
                   {m.upcoming.length === 0 ? (
                     <tr>
-                      <td colSpan={4}>
+                      <td colSpan={5}>
                         <Empty>
                           Nothing scheduled — generate a schedule from a client&apos;s Financials page.
                         </Empty>
                       </td>
                     </tr>
-                  ) : m.upcoming.map((s) => (
-                    <tr key={s.id}>
-                      <td><Link to={`/clients/${s.clients?.id}`}>{s.clients?.name ?? '—'}</Link></td>
-                      <td>{fmtDate(s.due_date)}</td>
-                      <td className="num">{fmt(Number(s.amount_due), s.currency)}</td>
-                      <td>
-                        <Badge status={s.status === 'overdue' ? 'overdue' : 'pending'}>{s.status}</Badge>
-                      </td>
-                    </tr>
-                  ))}
+                  ) : m.upcoming.map((s) => {
+                    const cm = m.commissionByInstalment.get(s.id)
+                    return (
+                      <tr key={s.id}>
+                        <td><Link to={`/clients/${s.clients?.id}`}>{s.clients?.name ?? '—'}</Link></td>
+                        <td>{fmtDate(s.due_date)}</td>
+                        <td className="num">{fmt(Number(s.amount_due), s.currency)}</td>
+                        <td className="num">
+                          {cm ? (
+                            <>
+                              <strong>{fmt(Number(cm.expected_amount), cm.currency)}</strong>
+                              <span className="cell-sub">due {fmtDate(cm.due_date)}</span>
+                            </>
+                          ) : (
+                            <span className="muted">—</span>
+                          )}
+                        </td>
+                        <td>
+                          <Badge status={s.status === 'overdue' ? 'overdue' : 'pending'}>{s.status}</Badge>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
