@@ -19,24 +19,29 @@ export default function Clients() {
   const [consultants, setConsultants] = useState([])
   const [links, setLinks] = useState([]) // client_consultants
   const [editing, setEditing] = useState(null) // {client, splits: [{consultant_id, payout_pct_override}]}
+  const [instalments, setInstalments] = useState([])
   const [generators, setGenerators] = useState([])
   const [people, setPeople] = useState([])
   const [filter, setFilter] = useState('all')
   const [error, setError] = useState('')
 
   async function load() {
-    const [c, co, cc, lg, pe] = await Promise.all([
+    const [c, co, cc, lg, pe, pp] = await Promise.all([
       supabase.from('clients').select('*').order('created_at', { ascending: false }),
       supabase.from('consultants').select('*').eq('active', true).order('name'),
       supabase.from('client_consultants').select('*'),
       supabase.from('lead_generators').select('id, name, is_referral').eq('is_active', true).order('sort_order'),
       supabase.from('people').select('id, full_name').eq('active', true).order('full_name'),
+      supabase.from('premium_payments')
+        .select('client_id, due_date, received_date, amount_due, amount_received, status')
+        .order('due_date'),
     ])
     setClients(c.data || [])
     setConsultants(co.data || [])
     setLinks(cc.data || [])
     setGenerators(lg.data || [])
     setPeople(pe.data || [])
+    setInstalments(pp.data || [])
   }
   useEffect(() => { load() }, [])
 
@@ -99,6 +104,31 @@ export default function Clients() {
   }
 
   const consultantName = (id) => consultants.find((c) => c.id === id)?.name || '—'
+
+  /**
+   * Premium payment state, derived from the instalment ledger. A client can
+   * have many instalments, so a single stored date on the client record would
+   * only ever be a stale copy of one of them.
+   */
+  function premiumState(clientId) {
+    const rows = instalments.filter((i) => i.client_id === clientId && i.status !== 'cancelled')
+    if (!rows.length) return { label: 'No schedule', tone: 'muted', sub: null }
+
+    const paid = rows.filter((i) => Number(i.amount_received) > 0 && i.received_date)
+    const lastPaid = paid.sort((a, b) => (a.received_date < b.received_date ? 1 : -1))[0]
+    const overdue = rows.filter((i) => i.status === 'overdue')
+
+    if (!lastPaid) {
+      return overdue.length
+        ? { label: 'Not paid', tone: 'bad', sub: `due ${fmtDate(overdue[0].due_date)}` }
+        : { label: 'Awaiting', tone: 'muted', sub: `due ${fmtDate(rows[0].due_date)}` }
+    }
+    return {
+      label: fmtDate(lastPaid.received_date),
+      tone: overdue.length ? 'warn' : 'good',
+      sub: overdue.length ? `${overdue.length} instalment(s) overdue` : `${paid.length} of ${rows.length} paid`,
+    }
+  }
   const shown = (clients || []).filter((c) => filter === 'all' || c.status === filter)
 
   return (
@@ -126,13 +156,14 @@ export default function Clients() {
             <thead>
               <tr>
                 <th>Client</th><th>Product</th><th className="num">Premium</th>
-                <th className="num">Comm. %</th><th>Frequency</th><th>Consultants</th>
+                <th className="num">Comm. %</th><th>Frequency</th>
+                <th>Premium paid</th><th>Consultants</th>
                 <th>Start</th><th>Status</th>{isAdmin && <th></th>}
               </tr>
             </thead>
             <tbody>
               {clients === null ? null : shown.length === 0 ? (
-                <tr><td colSpan={9}><Empty>No clients yet{isAdmin && ' — add your first one'}.</Empty></td></tr>
+                <tr><td colSpan={10}><Empty>No clients yet{isAdmin && ' — add your first one'}.</Empty></td></tr>
               ) : shown.map((c) => (
                 <tr key={c.id}>
                   <td>
@@ -143,6 +174,22 @@ export default function Clients() {
                   <td className="num">{money(c.premium, c.currency)}</td>
                   <td className="num">{pct(c.commission_pct)}</td>
                   <td>{FREQUENCY_LABELS[c.frequency]}</td>
+                  <td>
+                    {(() => {
+                      const p = premiumState(c.id)
+                      const colour = p.tone === 'good' ? 'var(--green)'
+                        : p.tone === 'bad' ? 'var(--red)'
+                          : p.tone === 'warn' ? '#B4740A' : 'var(--text-faint)'
+                      return (
+                        <>
+                          <span style={{ color: colour, fontWeight: p.tone === 'muted' ? 400 : 600 }}>
+                            {p.label}
+                          </span>
+                          {p.sub && <span className="cell-sub">{p.sub}</span>}
+                        </>
+                      )
+                    })()}
+                  </td>
                   <td>
                     {links.filter((l) => l.client_id === c.id).map((l) => (
                       <span key={l.id} className="badge navy" style={{ marginRight: 4 }}>
