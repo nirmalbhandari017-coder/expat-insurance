@@ -185,10 +185,10 @@ export function FilterBar({
         onValueChange={(v) => apply({ ...filters, generator: v === ALL ? undefined : v })}
       >
         <SelectTrigger className="h-8 w-40">
-          <SelectValue placeholder="Generator" />
+          <SelectValue placeholder="Agent" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>All generators</SelectItem>
+          <SelectItem value={ALL}>All agents</SelectItem>
           {shownGenerators.map((g) => (
             <SelectItem key={g.id} value={g.id}>
               {g.label}
@@ -202,10 +202,10 @@ export function FilterBar({
         onValueChange={(v) => apply({ ...filters, broker: v === ALL ? undefined : v })}
       >
         <SelectTrigger className="h-8 w-40">
-          <SelectValue placeholder="Broker" />
+          <SelectValue placeholder="CRM" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>All brokers</SelectItem>
+          <SelectItem value={ALL}>All CRMs</SelectItem>
           {brokers.map((b) => (
             <SelectItem key={b.id} value={b.id}>
               {b.label}

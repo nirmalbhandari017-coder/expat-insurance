@@ -154,7 +154,7 @@ async function resolveRows(csvText: string): Promise<Resolved> {
         errors.push({
           row: rowNum,
           field: "generator",
-          message: `"${r.generator}" is not a generator for ${r.affiliate}`,
+          message: `"${r.generator}" is not an agent for ${r.affiliate}`,
         });
         return;
       }
@@ -164,7 +164,7 @@ async function resolveRows(csvText: string): Promise<Resolved> {
     if (r.broker) {
       brokerId = brokerMap.get(r.broker.toLowerCase().trim()) ?? null;
       if (!brokerId) {
-        errors.push({ row: rowNum, field: "broker", message: `Unknown broker "${r.broker}"` });
+        errors.push({ row: rowNum, field: "broker", message: `Unknown CRM "${r.broker}"` });
         return;
       }
     }

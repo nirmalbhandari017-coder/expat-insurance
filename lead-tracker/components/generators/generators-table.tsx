@@ -72,7 +72,7 @@ export function GeneratorsTable({
     <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight">Generators</h1>
+          <h1 className="text-xl font-semibold tracking-tight">Agents</h1>
           <p className="text-xs text-muted-foreground">
             The individual people who bring in leads, each belonging to one source.
           </p>
@@ -93,7 +93,7 @@ export function GeneratorsTable({
           </Select>
           {canManage && (
             <Button size="sm" onClick={() => setEditing("new")}>
-              <Plus className="h-4 w-4" /> New generator
+              <Plus className="h-4 w-4" /> New agent
             </Button>
           )}
         </div>
@@ -124,7 +124,7 @@ export function GeneratorsTable({
                     <Link
                       href={`/pipeline?generator=${g.id}`}
                       className="font-medium hover:underline"
-                      title="See this generator's leads"
+                      title="See this agent's leads"
                     >
                       {g.full_name ?? `${g.first_name} ${g.last_name}`}
                     </Link>
@@ -164,7 +164,7 @@ export function GeneratorsTable({
             {shown.length === 0 && (
               <tr>
                 <td colSpan={10} className="px-3 py-10 text-center text-sm text-muted-foreground">
-                  No generators yet.
+                  No agents yet.
                 </td>
               </tr>
             )}
@@ -215,7 +215,7 @@ function GeneratorDialog({
         ? await updateGenerator({ ...input, id: value.id })
         : await createGenerator(input);
       if (res.ok) {
-        toast.success(value ? "Generator updated" : "Generator created");
+        toast.success(value ? "Agent updated" : "Agent created");
         onClose();
         router.refresh();
       } else {
@@ -232,7 +232,7 @@ function GeneratorDialog({
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>{value ? "Edit generator" : "New generator"}</DialogTitle>
+          <DialogTitle>{value ? "Edit agent" : "New agent"}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="space-y-3">
           <div className="space-y-1.5">

@@ -76,7 +76,7 @@ export function BulkActionBar({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm" disabled={pending}>
-            <UserCog className="h-4 w-4" /> Assign broker
+            <UserCog className="h-4 w-4" /> Assign CRM
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>

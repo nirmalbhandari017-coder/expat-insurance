@@ -245,9 +245,9 @@ export function LeadDetail({
           {/* Attribution: source -> generator -> broker, the core question */}
           <Section title="Attribution">
             <Fact label="Source" value={lead.affiliate?.name ?? null} />
-            <Fact label="Generator" value={lead.generator?.full_name ?? null} />
+            <Fact label="Agent" value={lead.generator?.full_name ?? null} />
             <Fact
-              label="Broker"
+              label="CRM"
               value={
                 lead.broker
                   ? lead.broker.company
@@ -462,7 +462,7 @@ function AssignBrokerButton({
     start(async () => {
       const res = await assignBroker({ ids: [leadId], brokerId });
       if (res.ok) {
-        toast.success("Broker updated");
+        toast.success("CRM updated");
         router.refresh();
       } else toast.error(res.error);
     });
@@ -471,7 +471,7 @@ function AssignBrokerButton({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" disabled={pending}>
-          <UserCog className="h-4 w-4" /> {current ?? "Assign broker"}
+          <UserCog className="h-4 w-4" /> {current ?? "Assign CRM"}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

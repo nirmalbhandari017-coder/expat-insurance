@@ -160,7 +160,7 @@ export default async function AffiliateDetailPage({
       {/* Generators belonging to this source */}
       <div className="rounded-lg border">
         <div className="flex items-center justify-between border-b px-4 py-2.5">
-          <span className="text-sm font-medium">Generators ({generators?.length ?? 0})</span>
+          <span className="text-sm font-medium">Agents ({generators?.length ?? 0})</span>
           <Link href="/generators" className="text-xs text-muted-foreground hover:text-foreground">
             Manage →
           </Link>
@@ -195,7 +195,7 @@ export default async function AffiliateDetailPage({
             {(generators ?? []).length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-6 text-center text-muted-foreground">
-                  No generators for this source yet.
+                  No agents for this source yet.
                 </td>
               </tr>
             )}

@@ -171,7 +171,7 @@ export function NewLeadDialog({
                 {err("affiliateId")}
               </div>
               <div className="space-y-1.5">
-                <Label>Generator</Label>
+                <Label>Agent</Label>
                 <Select
                   value={generatorId || NONE}
                   onValueChange={(v) => setGeneratorId(v === NONE ? "" : v)}
@@ -191,7 +191,7 @@ export function NewLeadDialog({
                 </Select>
               </div>
               <div className="space-y-1.5">
-                <Label>Broker</Label>
+                <Label>CRM</Label>
                 <Select
                   value={brokerId || NONE}
                   onValueChange={(v) => setBrokerId(v === NONE ? "" : v)}

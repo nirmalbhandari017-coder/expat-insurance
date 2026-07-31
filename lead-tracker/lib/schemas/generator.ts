@@ -6,7 +6,7 @@ const blank = <T extends z.ZodTypeAny>(s: T) =>
 export const generatorSchema = z.object({
   firstName: z.string().min(1, "First name is required").max(100),
   lastName: z.string().min(1, "Last name is required").max(100),
-  affiliateId: z.string().uuid("Select the source this generator belongs to"),
+  affiliateId: z.string().uuid("Select the source this agent belongs to"),
   email: blank(z.string().email("Invalid email")),
   phone: blank(z.string().max(40)),
   notes: blank(z.string().max(5000)),

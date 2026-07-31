@@ -69,7 +69,7 @@ export function BrokersTable({
     <div className="space-y-3">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight">Brokers</h1>
+          <h1 className="text-xl font-semibold tracking-tight">CRMs</h1>
           <p className="text-xs text-muted-foreground">
             The people handling leads. Link one to a login account to scope their view to their own
             leads.
@@ -77,7 +77,7 @@ export function BrokersTable({
         </div>
         {canManage && (
           <Button size="sm" onClick={() => setEditing("new")}>
-            <Plus className="h-4 w-4" /> New broker
+            <Plus className="h-4 w-4" /> New CRM
           </Button>
         )}
       </div>
@@ -108,7 +108,7 @@ export function BrokersTable({
                     <Link
                       href={`/pipeline?broker=${b.id}`}
                       className="font-medium hover:underline"
-                      title="See this broker's leads"
+                      title="See this CRM's leads"
                     >
                       {b.full_name ?? `${b.first_name} ${b.last_name}`}
                     </Link>
@@ -144,7 +144,7 @@ export function BrokersTable({
             {brokers.length === 0 && (
               <tr>
                 <td colSpan={11} className="px-3 py-10 text-center text-sm text-muted-foreground">
-                  No brokers yet.
+                  No CRMs yet.
                 </td>
               </tr>
             )}
@@ -194,7 +194,7 @@ function BrokerDialog({
     start(async () => {
       const res = value ? await updateBroker({ ...input, id: value.id }) : await createBroker(input);
       if (res.ok) {
-        toast.success(value ? "Broker updated" : "Broker created");
+        toast.success(value ? "CRM updated" : "CRM created");
         onClose();
         router.refresh();
       } else {
@@ -211,7 +211,7 @@ function BrokerDialog({
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>{value ? "Edit broker" : "New broker"}</DialogTitle>
+          <DialogTitle>{value ? "Edit CRM" : "New CRM"}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit} className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
@@ -260,7 +260,7 @@ function BrokerDialog({
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Only needed if this broker signs in. Linking is what scopes an RM Staff account to its
+              Only needed if this CRM signs in. Linking is what scopes their staff account to its
               own leads.
             </p>
           </div>

@@ -57,8 +57,8 @@ export function LeadsTable({
             <th className="px-3 py-2 font-medium">Product</th>
             <th className="px-3 py-2 font-medium">Location</th>
             <th className="px-3 py-2 font-medium">Age</th>
-            <th className="px-3 py-2 font-medium">Source / Generator</th>
-            <th className="px-3 py-2 font-medium">Broker</th>
+            <th className="px-3 py-2 font-medium">Source / Agent</th>
+            <th className="px-3 py-2 font-medium">CRM</th>
             <th className="px-3 py-2 font-medium">Qualification</th>
             <th className="px-3 py-2 font-medium">Stage</th>
             <th className="px-3 py-2 font-medium">Updated</th>
