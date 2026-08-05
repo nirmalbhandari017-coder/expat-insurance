@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { useSession } from '../App.jsx'
 import { Modal, Field, Badge, Empty } from '../components/ui.jsx'
 import { money, fmtDate, pct, FREQUENCY_LABELS, today } from '../lib/format.js'
+import { downloadCsv, stampedName } from '../lib/csv.js'
 
 const BLANK = {
   name: '', company: '', email: '', phone: '', product_type: '',
@@ -23,6 +24,8 @@ export default function Clients() {
   const [generators, setGenerators] = useState([])
   const [people, setPeople] = useState([])
   const [filter, setFilter] = useState('all')
+  const [sort, setSort] = useState('start_desc')
+  const [month, setMonth] = useState('all')
   const [error, setError] = useState('')
 
   async function load() {
@@ -129,7 +132,53 @@ export default function Clients() {
       sub: overdue.length ? `${overdue.length} instalment(s) overdue` : `${paid.length} of ${rows.length} paid`,
     }
   }
-  const shown = (clients || []).filter((c) => filter === 'all' || c.status === filter)
+  /** "2026-08" — the month a policy started, used for both sorting and filtering. */
+  const monthKey = (d) => (d ? String(d).slice(0, 7) : '')
+  const monthLabel = (key) =>
+    new Date(key + '-01T00:00:00').toLocaleDateString(undefined, { month: 'long', year: 'numeric' })
+
+  // Only offer months that actually have clients in them.
+  const months = useMemo(() => {
+    const set = new Set((clients || []).map((c) => monthKey(c.start_date)).filter(Boolean))
+    return [...set].sort().reverse()
+  }, [clients])
+
+  const shown = useMemo(() => (clients || [])
+    .filter((c) => filter === 'all' || c.status === filter)
+    .filter((c) => month === 'all' || monthKey(c.start_date) === month)
+    .sort((a, b) => {
+      switch (sort) {
+        case 'start_asc': return String(a.start_date).localeCompare(String(b.start_date))
+        case 'name': return a.name.localeCompare(b.name)
+        case 'premium_desc': return Number(b.premium) - Number(a.premium)
+        case 'added': return String(b.created_at).localeCompare(String(a.created_at))
+        default: return String(b.start_date).localeCompare(String(a.start_date))
+      }
+    }), [clients, filter, month, sort])
+
+  // When sorted by start date, break the table up with a heading per month.
+  const grouped = sort === 'start_desc' || sort === 'start_asc'
+
+  function exportCsv() {
+    downloadCsv(stampedName('clients'), [
+      { key: 'name', header: 'Client' },
+      { key: 'company', header: 'Company' },
+      { key: 'email', header: 'Email' },
+      { key: 'phone', header: 'Phone' },
+      { key: 'policy_number', header: 'Policy number' },
+      { key: 'product_type', header: 'Product' },
+      { key: 'premium', header: 'Premium' },
+      { key: 'currency', header: 'Currency' },
+      { key: 'commission_pct', header: 'Commission %' },
+      { header: 'Frequency', format: (c) => FREQUENCY_LABELS[c.frequency] },
+      { key: 'start_date', header: 'Start date' },
+      { header: 'Start month', format: (c) => monthKey(c.start_date) },
+      { header: 'Premium paid', format: (c) => premiumState(c.id).label },
+      { header: 'Consultants', format: (c) =>
+          links.filter((l) => l.client_id === c.id).map((l) => consultantName(l.consultant_id)).join(' / ') },
+      { key: 'status', header: 'Status' },
+    ], shown)
+  }
 
   return (
     <>
@@ -148,6 +197,23 @@ export default function Clients() {
           <option value="lapsed">Lapsed</option>
           <option value="cancelled">Cancelled</option>
         </select>
+
+        <select value={month} onChange={(e) => setMonth(e.target.value)} title="Filter by start month">
+          <option value="all">All months</option>
+          {months.map((m) => <option key={m} value={m}>{monthLabel(m)}</option>)}
+        </select>
+
+        <select value={sort} onChange={(e) => setSort(e.target.value)} title="Sort order">
+          <option value="start_desc">By month — newest first</option>
+          <option value="start_asc">By month — oldest first</option>
+          <option value="name">By name</option>
+          <option value="premium_desc">By premium</option>
+          <option value="added">Recently added</option>
+        </select>
+
+        <span style={{ marginLeft: 'auto' }}>
+          <button className="btn outline" onClick={exportCsv} disabled={!shown.length}>Export CSV</button>
+        </span>
       </div>
 
       <div className="card">
@@ -164,8 +230,16 @@ export default function Clients() {
             <tbody>
               {clients === null ? null : shown.length === 0 ? (
                 <tr><td colSpan={10}><Empty>No clients yet{isAdmin && ' — add your first one'}.</Empty></td></tr>
-              ) : shown.map((c) => (
-                <tr key={c.id}>
+              ) : shown.map((c, i) => (
+                <Fragment key={c.id}>
+                {grouped && monthKey(c.start_date) !== monthKey(shown[i - 1]?.start_date) && (
+                  <tr className="group-row">
+                    <td colSpan={isAdmin ? 10 : 9}>
+                      {c.start_date ? monthLabel(monthKey(c.start_date)) : 'No start date'}
+                    </td>
+                  </tr>
+                )}
+                <tr>
                   <td>
                     <Link to={`/clients/${c.id}`} style={{ fontWeight: 600 }}>{c.name}</Link>
                     {c.company && <span className="cell-sub">{c.company}</span>}
@@ -207,6 +281,7 @@ export default function Clients() {
                     </td>
                   )}
                 </tr>
+                </Fragment>
               ))}
             </tbody>
           </table>

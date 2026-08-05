@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabase.js'
 import { Modal, Field, Badge, Empty } from '../components/ui.jsx'
 import { fmtDate, today, EXPENSE_CATEGORIES } from '../lib/format.js'
 import { useCurrency, fmt, displayAmount, sumIn } from '../lib/currency.jsx'
+import { downloadCsv, stampedName } from '../lib/csv.js'
 
 const BLANK = {
   name: '', category: EXPENSE_CATEGORIES[0], description: '', amount: '',
@@ -44,6 +45,7 @@ export default function Expenses() {
   const [fCurrency, setFCurrency] = useState('all')
   const [fStatus, setFStatus] = useState('all')
   const [fPaidBy, setFPaidBy] = useState('all')
+  const [sort, setSort] = useState('date_desc')
 
   async function load() {
     await supabase.rpc('generate_recurring_expenses')
@@ -73,7 +75,15 @@ export default function Expenses() {
     if (fStatus !== 'all' && r.payment_status !== fStatus) return false
     if (fPaidBy !== 'all' && r.paid_by !== fPaidBy) return false
     return true
-  }), [rows, from, to, fCategory, fPerson, fCurrency, fStatus, fPaidBy])
+  }).sort((a, b) => {
+    switch (sort) {
+      case 'date_asc': return a.expense_date.localeCompare(b.expense_date)
+      case 'amount_desc': return sumIn([b], display, rate) - sumIn([a], display, rate)
+      case 'amount_asc': return sumIn([a], display, rate) - sumIn([b], display, rate)
+      case 'category': return (a.category || '').localeCompare(b.category || '')
+      default: return b.expense_date.localeCompare(a.expense_date)  // newest first
+    }
+  }), [rows, from, to, fCategory, fPerson, fCurrency, fStatus, fPaidBy, sort, display, rate])
 
   const total = sumIn(shown, display, rate)
   const byCategory = useMemo(() => {
@@ -119,6 +129,27 @@ export default function Expenses() {
     load()
   }
 
+  function exportCsv() {
+    // Export what is on screen — the current period, filters and sort order —
+    // so the file matches what you are looking at.
+    downloadCsv(stampedName('expenses'), [
+      { key: 'expense_date', header: 'Date' },
+      { key: 'name', header: 'Expense' },
+      { key: 'description', header: 'Description' },
+      { key: 'category', header: 'Category' },
+      { key: 'amount', header: 'Amount' },
+      { key: 'currency', header: 'Currency' },
+      { key: 'amount_usd', header: 'Amount (USD)' },
+      { key: 'amount_thb', header: 'Amount (THB)' },
+      { header: 'Made by', format: (r) => r.made_by?.full_name ?? '' },
+      { key: 'paid_by', header: 'Paid by' },
+      { key: 'payment_status', header: 'Status' },
+      { header: 'Client', format: (r) => r.clients?.name ?? '' },
+      { header: 'Recurring', format: (r) => (r.recurring ? 'Yes' : 'No') },
+      { key: 'receipt_url', header: 'Receipt' },
+    ], shown)
+  }
+
   async function remove(row) {
     if (!confirm('Delete this expense?')) return
     await supabase.from('expenses').delete().eq('id', row.id)
@@ -136,9 +167,14 @@ export default function Expenses() {
           <h1>Expenses</h1>
           <p>{periodLabel} · shown in {display}</p>
         </div>
-        <button className="btn primary" onClick={() => setEditing({ value: { ...BLANK }, id: null })}>
-          + New expense
-        </button>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button className="btn outline" onClick={exportCsv} disabled={!shown.length}>
+            Export CSV
+          </button>
+          <button className="btn primary" onClick={() => setEditing({ value: { ...BLANK }, id: null })}>
+            + New expense
+          </button>
+        </div>
       </div>
 
       {error && <div className="auth-error">{error}</div>}
@@ -203,6 +239,14 @@ export default function Expenses() {
           <option value="all">Any currency</option>
           <option value="USD">USD</option>
           <option value="THB">THB</option>
+        </select>
+
+        <select value={sort} onChange={(e) => setSort(e.target.value)} title="Sort order">
+          <option value="date_desc">Newest first</option>
+          <option value="date_asc">Oldest first</option>
+          <option value="amount_desc">Largest first</option>
+          <option value="amount_asc">Smallest first</option>
+          <option value="category">By category</option>
         </select>
 
         <select value={fStatus} onChange={(e) => setFStatus(e.target.value)}>
