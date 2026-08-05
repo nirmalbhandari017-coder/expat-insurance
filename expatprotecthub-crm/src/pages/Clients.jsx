@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { useSession } from '../App.jsx'
 import { Modal, Field, Badge, Empty } from '../components/ui.jsx'
-import { money, fmtDate, pct, FREQUENCY_LABELS, today } from '../lib/format.js'
+import { money, fmtDate, FREQUENCY_LABELS, today } from '../lib/format.js'
 import { downloadCsv, stampedName } from '../lib/csv.js'
 
 const BLANK = {
@@ -132,6 +132,10 @@ export default function Clients() {
       sub: overdue.length ? `${overdue.length} instalment(s) overdue` : `${paid.length} of ${rows.length} paid`,
     }
   }
+  /** What the commission on this policy is actually worth over a year. */
+  const commissionAmount = (c) =>
+    (Number(c.premium) || 0) * (Number(c.commission_pct) || 0) / 100
+
   /** "2026-08" — the month a policy started, used for both sorting and filtering. */
   const monthKey = (d) => (d ? String(d).slice(0, 7) : '')
   const monthLabel = (key) =>
@@ -170,6 +174,7 @@ export default function Clients() {
       { key: 'premium', header: 'Premium' },
       { key: 'currency', header: 'Currency' },
       { key: 'commission_pct', header: 'Commission %' },
+      { header: 'Commission amount', format: (c) => commissionAmount(c).toFixed(2) },
       { header: 'Frequency', format: (c) => FREQUENCY_LABELS[c.frequency] },
       { key: 'start_date', header: 'Start date' },
       { header: 'Start month', format: (c) => monthKey(c.start_date) },
@@ -222,7 +227,7 @@ export default function Clients() {
             <thead>
               <tr>
                 <th>Client</th><th>Product</th><th className="num">Premium</th>
-                <th className="num">Comm. %</th><th>Frequency</th>
+                <th className="num">Commission</th><th>Frequency</th>
                 <th>Premium paid</th><th>Consultants</th>
                 <th>Start</th><th>Status</th>{isAdmin && <th></th>}
               </tr>
@@ -246,7 +251,7 @@ export default function Clients() {
                   </td>
                   <td>{c.product_type || '—'}</td>
                   <td className="num">{money(c.premium, c.currency)}</td>
-                  <td className="num">{pct(c.commission_pct)}</td>
+                  <td className="num">{money(commissionAmount(c), c.currency)}</td>
                   <td>{FREQUENCY_LABELS[c.frequency]}</td>
                   <td>
                     {(() => {
