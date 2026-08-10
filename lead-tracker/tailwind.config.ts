@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 // Design direction (Phase 1): Linear-dense, calm typography, one teal accent,
 // a fixed 7-colour status ramp used identically across Kanban, charts, badges.
@@ -63,7 +64,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 };
 
 export default config;
