@@ -13,12 +13,21 @@ import { conversionRate, renewalRate, formatPct, type StageCounts } from "@/lib/
 import { StageBadge, QualificationBadge } from "@/components/leads/status-badge";
 import { formatPct as pct } from "@/lib/domain/conversion";
 import { relativeAge, shortDate } from "@/lib/format";
+import { periodRange, isPeriod, type Period } from "@/lib/domain/period";
+import { PeriodToggle } from "@/components/dashboard/period-toggle";
 
 export const dynamic = "force-dynamic";
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ period?: string }>;
+}) {
   const user = await requireAppUser();
   const supabase = await createClient();
+  const sp = await searchParams;
+  const period: Period = isPeriod(sp.period) ? sp.period : "ytd";
+  const range = periodRange(period);
 
   const [
     { data: statusRows },
@@ -28,7 +37,12 @@ export default async function DashboardPage() {
     { data: activity },
     { data: recent },
   ] = await Promise.all([
-    supabase.from("leads").select("qualification, stage, opportunity").is("deleted_at", null),
+    supabase
+      .from("leads")
+      .select("qualification, stage, opportunity")
+      .is("deleted_at", null)
+      .gte("created_at", range.fromISO)
+      .lte("created_at", range.toISO),
     supabase.from("mv_affiliate_stats").select("*"),
     supabase.from("affiliates").select("id, name").is("deleted_at", null),
     supabase
@@ -81,12 +95,16 @@ export default async function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-5">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
-          Welcome back, {user.full_name.split(" ")[0]}.
-          {user.role === "rm_staff" && " Showing leads assigned to you."}
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">
+            Welcome back, {user.full_name.split(" ")[0]}. Metrics for{" "}
+            <span className="font-medium text-foreground">{range.label.toLowerCase()}</span>.
+            {user.role === "rm_staff" && " Leads assigned to you."}
+          </p>
+        </div>
+        <PeriodToggle current={period} />
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
@@ -154,7 +172,7 @@ export default async function DashboardPage() {
             ))}
           </div>
           <div className="mt-4 border-t pt-3">
-            <div className="mb-2 text-xs font-medium text-muted-foreground">Top sources</div>
+            <div className="mb-2 text-xs font-medium text-muted-foreground">Top sources · all-time</div>
             <div className="divide-y">
               {topAffiliates.map((a) => (
                 <Link

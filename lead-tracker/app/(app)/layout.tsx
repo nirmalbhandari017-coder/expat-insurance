@@ -12,7 +12,6 @@ const NAV = [
   { href: "/dashboard", label: "Dashboard", resource: null },
   { href: "/pipeline", label: "Pipeline", resource: null },
   { href: "/affiliates", label: "Sources", resource: null },
-  { href: "/generators", label: "Agents", resource: null },
   { href: "/brokers", label: "CRMs", resource: null },
   { href: "/analytics", label: "Analytics", resource: null },
   { href: "/reports", label: "Reports", resource: null },
