@@ -81,6 +81,13 @@ export type Database = {
             foreignKeyName: "activity_log_affiliate_id_fkey"
             columns: ["affiliate_id"]
             isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "activity_log_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
             referencedRelation: "v_my_source"
             referencedColumns: ["id"]
           },
@@ -480,6 +487,13 @@ export type Database = {
             columns: ["affiliate_id"]
             isOneToOne: false
             referencedRelation: "v_affiliate_commission"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "generators_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
             referencedColumns: ["affiliate_id"]
           },
           {
@@ -890,6 +904,13 @@ export type Database = {
             foreignKeyName: "leads_affiliate_id_fkey"
             columns: ["affiliate_id"]
             isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
             referencedRelation: "v_my_source"
             referencedColumns: ["id"]
           },
@@ -1073,6 +1094,13 @@ export type Database = {
             foreignKeyName: "notifications_affiliate_id_fkey"
             columns: ["affiliate_id"]
             isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "notifications_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
             referencedRelation: "v_my_source"
             referencedColumns: ["id"]
           },
@@ -1142,6 +1170,13 @@ export type Database = {
             columns: ["affiliate_id"]
             isOneToOne: false
             referencedRelation: "v_affiliate_commission"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "pinned_affiliates_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
             referencedColumns: ["affiliate_id"]
           },
           {
@@ -1317,6 +1352,24 @@ export type Database = {
         }
         Relationships: []
       }
+      v_affiliate_stats: {
+        Row: {
+          affiliate_id: string | null
+          conversion_rate: number | null
+          last_lead_at: string | null
+          n_application: number | null
+          n_lost: number | null
+          n_negotiation: number | null
+          n_not_qualified: number | null
+          n_pending: number | null
+          n_policy_issued: number | null
+          n_qualified: number | null
+          n_quote_sent: number | null
+          n_renewal: number | null
+          total_leads: number | null
+        }
+        Relationships: []
+      }
       v_broker_stats: {
         Row: {
           active_leads: number | null
@@ -1366,6 +1419,13 @@ export type Database = {
             foreignKeyName: "leads_affiliate_id_fkey"
             columns: ["affiliate_id"]
             isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
             referencedRelation: "v_my_source"
             referencedColumns: ["id"]
           },
@@ -1401,6 +1461,13 @@ export type Database = {
             columns: ["affiliate_id"]
             isOneToOne: false
             referencedRelation: "v_affiliate_commission"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "generators_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
             referencedColumns: ["affiliate_id"]
           },
           {
@@ -1478,6 +1545,13 @@ export type Database = {
             foreignKeyName: "leads_affiliate_id_fkey"
             columns: ["affiliate_id"]
             isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
             referencedRelation: "v_my_source"
             referencedColumns: ["id"]
           },
@@ -1526,6 +1600,13 @@ export type Database = {
             columns: ["affiliate_id"]
             isOneToOne: false
             referencedRelation: "v_affiliate_commission"
+            referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_affiliate_stats"
             referencedColumns: ["affiliate_id"]
           },
           {
@@ -1652,6 +1733,7 @@ export type Database = {
         Args: { p_action: string; p_resource: string }
         Returns: boolean
       }
+      is_internal: { Args: never; Returns: boolean }
       lead_transition_kind: {
         Args: {
           p_from: Database["public"]["Enums"]["lead_status"]

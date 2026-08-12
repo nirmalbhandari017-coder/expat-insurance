@@ -46,7 +46,7 @@ export default async function DashboardPage({
       .is("deleted_at", null)
       .gte("created_at", range.fromISO)
       .lte("created_at", range.toISO),
-    supabase.from("mv_affiliate_stats").select("*"),
+    supabase.from("v_affiliate_stats").select("*"),
     supabase.from("affiliates").select("id, name").is("deleted_at", null),
     supabase
       .from("v_lead_aging")

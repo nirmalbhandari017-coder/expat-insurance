@@ -18,7 +18,7 @@ export default async function AffiliatesPage() {
 
   const [{ data: affiliates }, { data: stats }, { data: commissions }, { data: pins }] = await Promise.all([
     supabase.from("affiliates").select("id, name, type, country, is_active, contact_person").is("deleted_at", null).order("name"),
-    supabase.from("mv_affiliate_stats").select("*"),
+    supabase.from("v_affiliate_stats").select("*"),
     supabase.from("v_affiliate_commission").select("affiliate_id, commission_pct"),
     supabase.from("pinned_affiliates").select("affiliate_id"),
   ]);

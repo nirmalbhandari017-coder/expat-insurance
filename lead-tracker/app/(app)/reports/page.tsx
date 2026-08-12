@@ -11,7 +11,7 @@ export default async function ReportsPage() {
   const canExport = can(matrix, user.role, "leads", "export");
 
   const [{ data: stats }, { data: affiliates }] = await Promise.all([
-    supabase.from("mv_affiliate_stats").select("*"),
+    supabase.from("v_affiliate_stats").select("*"),
     supabase.from("affiliates").select("id, name").is("deleted_at", null),
   ]);
   const nameById = new Map((affiliates ?? []).map((a) => [a.id, a.name]));

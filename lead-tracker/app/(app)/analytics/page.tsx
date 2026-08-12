@@ -14,7 +14,7 @@ export default async function AnalyticsPage() {
   const [{ data: funnel }, { data: cohorts }, { data: stats }, { data: affiliates }] = await Promise.all([
     supabase.from("v_funnel_by_affiliate").select("*"),
     supabase.from("v_monthly_cohorts").select("*"),
-    supabase.from("mv_affiliate_stats").select("*"),
+    supabase.from("v_affiliate_stats").select("*"),
     supabase.from("affiliates").select("id, name").is("deleted_at", null),
   ]);
 

@@ -49,7 +49,7 @@ export default async function AffiliateDetailPage({
 
   const [{ data: stat }, { data: comm }, { data: leads }, { data: cohorts }, { data: generators }, { data: genStats }] =
     await Promise.all([
-      supabase.from("mv_affiliate_stats").select("*").eq("affiliate_id", id).maybeSingle(),
+      supabase.from("v_affiliate_stats").select("*").eq("affiliate_id", id).maybeSingle(),
       supabase
         .from("v_affiliate_commission")
         .select("commission_pct")
