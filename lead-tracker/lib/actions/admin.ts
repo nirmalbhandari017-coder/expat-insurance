@@ -39,6 +39,60 @@ export async function setUserRm(userId: string, isRm: boolean): Promise<ActionRe
   }
 }
 
+// Link an external login to a Source (affiliate). Also sets the user's role to
+// 'source' and ensures a login is linked to at most one Source/CRM. Pass
+// appUserId=null to unlink.
+export async function linkSourceLogin(affiliateId: string, appUserId: string | null): Promise<ActionResult> {
+  try {
+    const admin = await requireAdmin();
+    const supabase = await createClient();
+    if (appUserId) {
+      if (appUserId === admin.id) return fail("You can't turn your own admin account into an external login.");
+      // one login -> one entity: clear any prior links for this user
+      await supabase.from("affiliates").update({ app_user_id: null }).eq("app_user_id", appUserId);
+      await supabase.from("brokers").update({ app_user_id: null }).eq("app_user_id", appUserId);
+      // clear whoever was on this affiliate, then link + set role
+      await supabase.from("affiliates").update({ app_user_id: null }).eq("id", affiliateId);
+      const { error } = await supabase.from("affiliates").update({ app_user_id: appUserId }).eq("id", affiliateId);
+      if (error) return fail(messageFromError(error));
+      const { error: rErr } = await supabase.from("app_users").update({ role: "source" }).eq("id", appUserId);
+      if (rErr) return fail(messageFromError(rErr));
+    } else {
+      const { error } = await supabase.from("affiliates").update({ app_user_id: null }).eq("id", affiliateId);
+      if (error) return fail(messageFromError(error));
+    }
+    revalidatePath("/settings");
+    return ok(undefined);
+  } catch (e) {
+    return fail(messageFromError(e));
+  }
+}
+
+// Link an external login to a CRM (broker); sets the user's role to 'crm'.
+export async function linkCrmLogin(brokerId: string, appUserId: string | null): Promise<ActionResult> {
+  try {
+    const admin = await requireAdmin();
+    const supabase = await createClient();
+    if (appUserId) {
+      if (appUserId === admin.id) return fail("You can't turn your own admin account into an external login.");
+      await supabase.from("affiliates").update({ app_user_id: null }).eq("app_user_id", appUserId);
+      await supabase.from("brokers").update({ app_user_id: null }).eq("app_user_id", appUserId);
+      await supabase.from("brokers").update({ app_user_id: null }).eq("id", brokerId);
+      const { error } = await supabase.from("brokers").update({ app_user_id: appUserId }).eq("id", brokerId);
+      if (error) return fail(messageFromError(error));
+      const { error: rErr } = await supabase.from("app_users").update({ role: "crm" }).eq("id", appUserId);
+      if (rErr) return fail(messageFromError(rErr));
+    } else {
+      const { error } = await supabase.from("brokers").update({ app_user_id: null }).eq("id", brokerId);
+      if (error) return fail(messageFromError(error));
+    }
+    revalidatePath("/settings");
+    return ok(undefined);
+  } catch (e) {
+    return fail(messageFromError(e));
+  }
+}
+
 export async function updateNotificationRule(
   id: string,
   patch: { threshold_days?: number | null; is_active?: boolean; notify_assigned_rm?: boolean },
