@@ -1,4 +1,4 @@
-import { startOfMonth, endOfMonth, subMonths } from "date-fns";
+import { startOfMonth, endOfMonth, subMonths, format } from "date-fns";
 
 // Source reporting date filter (spec §8): This month / Previous month / Custom.
 // Ranges are on payment_date (= policy placed date), returned as YYYY-MM-DD.
@@ -8,7 +8,9 @@ export function isSourceMode(v: string | null | undefined): v is SourceMode {
   return v === "this_month" || v === "prev_month" || v === "custom";
 }
 
-const day = (d: Date) => d.toISOString().slice(0, 10);
+// Format in LOCAL time — payment_date is a DATE, so a UTC shift would move the
+// month boundary by a day in tz's like +07.
+const day = (d: Date) => format(d, "yyyy-MM-dd");
 
 export function sourcePeriod(
   mode: SourceMode,
