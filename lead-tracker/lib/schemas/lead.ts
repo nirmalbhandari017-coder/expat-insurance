@@ -93,6 +93,12 @@ export const leadUpdateSchema = z.object({
   generatorId: z.string().uuid().nullable().optional(),
   brokerId: z.string().uuid().nullable().optional(),
   policyNumber: blankToUndefined(z.string().max(60)),
+  // Filled by the CRM when the policy is placed (spec §7).
+  premiumAmount: z.preprocess(
+    (v) => (v === "" || v === null || v === undefined ? undefined : typeof v === "string" ? Number(v) : v),
+    z.number().min(0).optional(),
+  ),
+  renewalDate: isoDate,
   notes: blankToUndefined(z.string().max(5000)),
 });
 export type LeadUpdateInput = z.infer<typeof leadUpdateSchema>;

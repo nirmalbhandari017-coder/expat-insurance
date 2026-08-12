@@ -73,6 +73,8 @@ interface DetailLead {
   application_date: string | null;
   payment_date: string | null;
   policy_number: string | null;
+  premium_amount: number | null;
+  renewal_date: string | null;
   notes: string | null;
   source_channel: string;
   created_at: string;
@@ -280,6 +282,8 @@ export function LeadDetail({
             <Fact label="Location" value={lead.country_of_residence} />
             <Fact label="Products" value={products.join(", ") || null} />
             <Fact label="Policy #" value={lead.policy_number} />
+            <Fact label="Premium" value={lead.premium_amount != null ? String(lead.premium_amount) : null} />
+            <Fact label="Renewal" value={shortDate(lead.renewal_date)} />
           </Section>
 
           <Section title="Milestones">
@@ -507,6 +511,8 @@ function EditLeadButton({ lead }: { lead: DetailLead }) {
         nationality: String(fd.get("nationality") ?? ""),
         countryOfResidence: String(fd.get("countryOfResidence") ?? ""),
         policyNumber: String(fd.get("policyNumber") ?? ""),
+        premiumAmount: String(fd.get("premiumAmount") ?? ""),
+        renewalDate: String(fd.get("renewalDate") ?? ""),
         notes: String(fd.get("notes") ?? ""),
       });
       if (res.ok) {
@@ -552,6 +558,13 @@ function EditLeadButton({ lead }: { lead: DetailLead }) {
               maxLength={2}
             />
             <Field name="policyNumber" label="Policy #" defaultValue={lead.policy_number} />
+            <Field
+              name="premiumAmount"
+              label="Premium"
+              type="number"
+              defaultValue={lead.premium_amount != null ? String(lead.premium_amount) : ""}
+            />
+            <Field name="renewalDate" label="Renewal date" type="date" defaultValue={lead.renewal_date} />
           </div>
           <div className="space-y-1.5">
             <Label>Summary note</Label>

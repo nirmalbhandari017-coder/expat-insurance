@@ -143,6 +143,8 @@ export async function updateLead(raw: unknown): Promise<ActionResult<Lead>> {
     if (d.generatorId !== undefined) patch.generator_id = d.generatorId;
     if (d.brokerId !== undefined) patch.broker_id = d.brokerId;
     if (d.policyNumber !== undefined) patch.policy_number = d.policyNumber ?? null;
+    if (d.premiumAmount !== undefined) patch.premium_amount = d.premiumAmount ?? null;
+    if (d.renewalDate !== undefined) patch.renewal_date = d.renewalDate ?? null;
     if (d.notes !== undefined) patch.notes = d.notes ?? null;
 
     const { data, error } = await supabase
