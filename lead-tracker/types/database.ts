@@ -78,6 +78,13 @@ export type Database = {
             referencedColumns: ["affiliate_id"]
           },
           {
+            foreignKeyName: "activity_log_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "activity_log_lead_id_fkey"
             columns: ["lead_id"]
             isOneToOne: false
@@ -95,6 +102,7 @@ export type Database = {
       }
       affiliates: {
         Row: {
+          app_user_id: string | null
           commission_pct: number | null
           contact_person: string | null
           country: string | null
@@ -111,6 +119,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          app_user_id?: string | null
           commission_pct?: number | null
           contact_person?: string | null
           country?: string | null
@@ -127,6 +136,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          app_user_id?: string | null
           commission_pct?: number | null
           contact_person?: string | null
           country?: string | null
@@ -142,7 +152,15 @@ export type Database = {
           type?: Database["public"]["Enums"]["affiliate_type"]
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "affiliates_app_user_id_fkey"
+            columns: ["app_user_id"]
+            isOneToOne: true
+            referencedRelation: "app_users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       app_users: {
         Row: {
@@ -464,6 +482,13 @@ export type Database = {
             referencedRelation: "v_affiliate_commission"
             referencedColumns: ["affiliate_id"]
           },
+          {
+            foreignKeyName: "generators_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
+          },
         ]
       }
       import_jobs: {
@@ -733,9 +758,11 @@ export type Database = {
           phone: string | null
           phone_normalized: string | null
           policy_number: string | null
+          premium_amount: number | null
           qualification: Database["public"]["Enums"]["qualification_status"]
           qualified_at: string | null
           quote_date: string | null
+          renewal_date: string | null
           search_tsv: unknown
           source_channel: Database["public"]["Enums"]["source_channel"]
           stage: Database["public"]["Enums"]["pipeline_stage"] | null
@@ -776,9 +803,11 @@ export type Database = {
           phone?: string | null
           phone_normalized?: string | null
           policy_number?: string | null
+          premium_amount?: number | null
           qualification?: Database["public"]["Enums"]["qualification_status"]
           qualified_at?: string | null
           quote_date?: string | null
+          renewal_date?: string | null
           search_tsv?: unknown
           source_channel?: Database["public"]["Enums"]["source_channel"]
           stage?: Database["public"]["Enums"]["pipeline_stage"] | null
@@ -819,9 +848,11 @@ export type Database = {
           phone?: string | null
           phone_normalized?: string | null
           policy_number?: string | null
+          premium_amount?: number | null
           qualification?: Database["public"]["Enums"]["qualification_status"]
           qualified_at?: string | null
           quote_date?: string | null
+          renewal_date?: string | null
           search_tsv?: unknown
           source_channel?: Database["public"]["Enums"]["source_channel"]
           stage?: Database["public"]["Enums"]["pipeline_stage"] | null
@@ -854,6 +885,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_affiliate_commission"
             referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "leads_broker_id_fkey"
@@ -1032,6 +1070,13 @@ export type Database = {
             referencedColumns: ["affiliate_id"]
           },
           {
+            foreignKeyName: "notifications_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "notifications_lead_id_fkey"
             columns: ["lead_id"]
             isOneToOne: false
@@ -1098,6 +1143,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_affiliate_commission"
             referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "pinned_affiliates_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "pinned_affiliates_user_id_fkey"
@@ -1310,6 +1362,13 @@ export type Database = {
             referencedRelation: "v_affiliate_commission"
             referencedColumns: ["affiliate_id"]
           },
+          {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
+          },
         ]
       }
       v_generator_stats: {
@@ -1343,6 +1402,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_affiliate_commission"
             referencedColumns: ["affiliate_id"]
+          },
+          {
+            foreignKeyName: "generators_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -1409,6 +1475,13 @@ export type Database = {
             referencedColumns: ["affiliate_id"]
           },
           {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "leads_broker_id_fkey"
             columns: ["broker_id"]
             isOneToOne: false
@@ -1455,7 +1528,38 @@ export type Database = {
             referencedRelation: "v_affiliate_commission"
             referencedColumns: ["affiliate_id"]
           },
+          {
+            foreignKeyName: "leads_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "v_my_source"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      v_my_source: {
+        Row: {
+          commission_pct: number | null
+          country: string | null
+          id: string | null
+          is_active: boolean | null
+          name: string | null
+        }
+        Insert: {
+          commission_pct?: number | null
+          country?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          name?: string | null
+        }
+        Update: {
+          commission_pct?: number | null
+          country?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          name?: string | null
+        }
+        Relationships: []
       }
     }
     Functions: {
@@ -1499,9 +1603,11 @@ export type Database = {
           phone: string | null
           phone_normalized: string | null
           policy_number: string | null
+          premium_amount: number | null
           qualification: Database["public"]["Enums"]["qualification_status"]
           qualified_at: string | null
           quote_date: string | null
+          renewal_date: string | null
           search_tsv: unknown
           source_channel: Database["public"]["Enums"]["source_channel"]
           stage: Database["public"]["Enums"]["pipeline_stage"] | null
@@ -1584,9 +1690,11 @@ export type Database = {
           phone: string | null
           phone_normalized: string | null
           policy_number: string | null
+          premium_amount: number | null
           qualification: Database["public"]["Enums"]["qualification_status"]
           qualified_at: string | null
           quote_date: string | null
+          renewal_date: string | null
           search_tsv: unknown
           source_channel: Database["public"]["Enums"]["source_channel"]
           stage: Database["public"]["Enums"]["pipeline_stage"] | null
@@ -1605,6 +1713,8 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      my_affiliate_ids: { Args: never; Returns: string[] }
+      my_broker_ids: { Args: never; Returns: string[] }
       owns_lead: { Args: { p_lead_id: string }; Returns: boolean }
       perm_scope: {
         Args: { p_action: string; p_resource: string }
@@ -1645,9 +1755,11 @@ export type Database = {
           phone: string | null
           phone_normalized: string | null
           policy_number: string | null
+          premium_amount: number | null
           qualification: Database["public"]["Enums"]["qualification_status"]
           qualified_at: string | null
           quote_date: string | null
+          renewal_date: string | null
           search_tsv: unknown
           source_channel: Database["public"]["Enums"]["source_channel"]
           stage: Database["public"]["Enums"]["pipeline_stage"] | null
@@ -1701,9 +1813,11 @@ export type Database = {
           phone: string | null
           phone_normalized: string | null
           policy_number: string | null
+          premium_amount: number | null
           qualification: Database["public"]["Enums"]["qualification_status"]
           qualified_at: string | null
           quote_date: string | null
+          renewal_date: string | null
           search_tsv: unknown
           source_channel: Database["public"]["Enums"]["source_channel"]
           stage: Database["public"]["Enums"]["pipeline_stage"] | null
@@ -1790,7 +1904,13 @@ export type Database = {
         | "qualify"
         | "disqualify"
         | "lost"
-      user_role: "admin" | "business_development" | "rm_staff" | "read_only"
+      user_role:
+        | "admin"
+        | "business_development"
+        | "rm_staff"
+        | "read_only"
+        | "source"
+        | "crm"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1974,7 +2094,14 @@ export const Constants = {
         "disqualify",
         "lost",
       ],
-      user_role: ["admin", "business_development", "rm_staff", "read_only"],
+      user_role: [
+        "admin",
+        "business_development",
+        "rm_staff",
+        "read_only",
+        "source",
+        "crm",
+      ],
     },
   },
 } as const

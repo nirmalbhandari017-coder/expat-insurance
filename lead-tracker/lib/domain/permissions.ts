@@ -81,4 +81,12 @@ export const ROLE_LABEL: Record<Role, string> = {
   business_development: "Business Development",
   rm_staff: "RM Staff",
   read_only: "Read Only",
+  source: "Source (external)",
+  crm: "CRM (external)",
 };
+
+// Internal staff roles (full app). External roles (source/crm) are restricted.
+export const INTERNAL_ROLES: Role[] = ["admin", "business_development", "rm_staff", "read_only"];
+export function isInternalRole(role: Role): boolean {
+  return INTERNAL_ROLES.includes(role);
+}

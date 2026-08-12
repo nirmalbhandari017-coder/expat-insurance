@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { requireAppUser } from "@/lib/auth";
 import {
@@ -24,6 +25,8 @@ export default async function DashboardPage({
   searchParams: Promise<{ period?: string }>;
 }) {
   const user = await requireAppUser();
+  // External Source users get their own scoped reporting home (spec §11).
+  if (user.role === "source") redirect("/source");
   const supabase = await createClient();
   const sp = await searchParams;
   const period: Period = isPeriod(sp.period) ? sp.period : "ytd";
