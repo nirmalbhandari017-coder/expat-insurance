@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
+import { requireInternal, getPermissionMatrix } from "@/lib/auth";
 import { can } from "@/lib/domain/permissions";
 import { BrokersTable, type BrokerRow, type BrokerStat } from "@/components/brokers/brokers-table";
 import type { Option } from "@/lib/types";
@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function BrokersPage() {
   const [user, matrix, supabase] = await Promise.all([
-    requireAppUser(),
+    requireInternal(),
     getPermissionMatrix(),
     createClient(),
   ]);

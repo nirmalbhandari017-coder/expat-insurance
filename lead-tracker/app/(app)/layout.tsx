@@ -1,24 +1,24 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
-import { can } from "@/lib/domain/permissions";
-import { ROLE_LABEL } from "@/lib/domain/permissions";
+import { requireAppUser, getPermissionMatrix, homeForRole } from "@/lib/auth";
+import { can, isInternalRole, ROLE_LABEL } from "@/lib/domain/permissions";
 import { CommandPalette } from "@/components/search/command-palette";
 import { NotificationsPopover, type NotificationItem } from "@/components/notifications/notifications-popover";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const NAV = [
-  { href: "/dashboard", label: "Dashboard", resource: null },
-  { href: "/pipeline", label: "Pipeline", resource: null },
-  { href: "/affiliates", label: "Sources", resource: null },
-  { href: "/brokers", label: "CRMs", resource: null },
-  { href: "/analytics", label: "Analytics", resource: null },
-  { href: "/reports", label: "Reports", resource: null },
-] as const;
+const INTERNAL_NAV = [
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/pipeline", label: "Pipeline" },
+  { href: "/affiliates", label: "Sources" },
+  { href: "/brokers", label: "CRMs" },
+  { href: "/analytics", label: "Analytics" },
+  { href: "/reports", label: "Reports" },
+];
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const [user, matrix, supabase] = await Promise.all([requireAppUser(), getPermissionMatrix(), createClient()]);
+  const internal = isInternalRole(user.role);
 
   const { data: notifs } = await supabase
     .from("notifications")
@@ -32,15 +32,22 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   }));
   const unread = items.filter((n) => !n.read_at).length;
 
-  const canImport = can(matrix, user.role, "imports", "create");
+  const canImport = internal && can(matrix, user.role, "imports", "create");
   const isAdmin = user.role === "admin";
+
+  // External users get only their own scoped entry (spec §11).
+  const nav = internal
+    ? INTERNAL_NAV
+    : user.role === "source"
+      ? [{ href: "/source", label: "My Reporting" }]
+      : [{ href: "/pipeline", label: "My Leads" }]; // crm
 
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-30 flex h-14 items-center gap-5 border-b bg-background/95 px-6 backdrop-blur">
-        <Link href="/dashboard" className="text-sm font-semibold tracking-tight">Lead Tracker</Link>
+        <Link href={homeForRole(user.role)} className="text-sm font-semibold tracking-tight">Lead Tracker</Link>
         <nav className="flex items-center gap-0.5 text-sm">
-          {NAV.map((n) => (
+          {nav.map((n) => (
             <Link key={n.href} href={n.href} className="rounded-md px-3 py-1.5 text-muted-foreground transition hover:bg-accent hover:text-foreground">
               {n.label}
             </Link>
@@ -50,7 +57,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </nav>
 
         <div className="ml-auto flex items-center gap-2 text-sm">
-          <CommandHint />
+          {internal && <CommandHint />}
           <NotificationsPopover items={items} unread={unread} />
           <ThemeToggle />
           <div className="ml-1 text-right leading-tight">
@@ -63,7 +70,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </div>
       </header>
       <main className="flex-1 px-6 py-6">{children}</main>
-      <CommandPalette />
+      {internal && <CommandPalette />}
     </div>
   );
 }

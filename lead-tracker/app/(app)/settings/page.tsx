@@ -1,13 +1,13 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser } from "@/lib/auth";
+import { requireInternal } from "@/lib/auth";
 import { TeamTable, type TeamMember } from "@/components/settings/team-table";
 import { RulesTable, type Rule } from "@/components/settings/rules-table";
 
 export const dynamic = "force-dynamic";
 
 export default async function SettingsPage() {
-  const user = await requireAppUser();
+  const user = await requireInternal();
   if (user.role !== "admin") redirect("/dashboard");
   const supabase = await createClient();
 

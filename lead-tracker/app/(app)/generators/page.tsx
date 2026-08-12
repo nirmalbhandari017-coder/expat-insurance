@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
+import { requireInternal, getPermissionMatrix } from "@/lib/auth";
 import { can } from "@/lib/domain/permissions";
 import {
   GeneratorsTable,
@@ -12,7 +12,7 @@ export const dynamic = "force-dynamic";
 
 export default async function GeneratorsPage() {
   const [user, matrix, supabase] = await Promise.all([
-    requireAppUser(),
+    requireInternal(),
     getPermissionMatrix(),
     createClient(),
   ]);

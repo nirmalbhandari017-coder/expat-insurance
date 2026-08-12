@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { format } from "date-fns";
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser } from "@/lib/auth";
+import { requireInternal } from "@/lib/auth";
 import { formatPct } from "@/lib/domain/conversion";
 import { FunnelChart, MonthlyTrend } from "@/components/analytics/analytics-charts";
 
 export const dynamic = "force-dynamic";
 
 export default async function AnalyticsPage() {
-  await requireAppUser();
+  await requireInternal();
   const supabase = await createClient();
 
   const [{ data: funnel }, { data: cohorts }, { data: stats }, { data: affiliates }] = await Promise.all([

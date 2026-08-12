@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
-import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
+import { requireInternal, getPermissionMatrix } from "@/lib/auth";
 import { can } from "@/lib/domain/permissions";
 import { ImportWizard } from "@/components/import/import-wizard";
 
 export const dynamic = "force-dynamic";
 
 export default async function ImportPage() {
-  const [user, matrix] = await Promise.all([requireAppUser(), getPermissionMatrix()]);
+  const [user, matrix] = await Promise.all([requireInternal(), getPermissionMatrix()]);
   if (!can(matrix, user.role, "imports", "create")) redirect("/dashboard");
 
   return (

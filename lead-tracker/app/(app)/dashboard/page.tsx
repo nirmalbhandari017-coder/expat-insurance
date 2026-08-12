@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser } from "@/lib/auth";
+import { requireAppUser, homeForRole } from "@/lib/auth";
 import {
   PIPELINE_STAGES,
   STAGE_LABEL,
@@ -15,6 +15,7 @@ import { StageBadge, QualificationBadge } from "@/components/leads/status-badge"
 import { formatPct as pct } from "@/lib/domain/conversion";
 import { relativeAge, shortDate } from "@/lib/format";
 import { periodRange, isPeriod, type Period } from "@/lib/domain/period";
+import { isInternalRole } from "@/lib/domain/permissions";
 import { PeriodToggle } from "@/components/dashboard/period-toggle";
 
 export const dynamic = "force-dynamic";
@@ -25,8 +26,8 @@ export default async function DashboardPage({
   searchParams: Promise<{ period?: string }>;
 }) {
   const user = await requireAppUser();
-  // External Source users get their own scoped reporting home (spec §11).
-  if (user.role === "source") redirect("/source");
+  // External users never see the internal dashboard; send them to their home (§11).
+  if (!isInternalRole(user.role)) redirect(homeForRole(user.role));
   const supabase = await createClient();
   const sp = await searchParams;
   const period: Period = isPeriod(sp.period) ? sp.period : "ytd";

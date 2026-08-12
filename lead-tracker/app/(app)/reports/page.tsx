@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
+import { requireInternal, getPermissionMatrix } from "@/lib/auth";
 import { can } from "@/lib/domain/permissions";
 import { formatPct } from "@/lib/domain/conversion";
 import { ExportBar } from "@/components/reports/export-bar";
@@ -7,7 +7,7 @@ import { ExportBar } from "@/components/reports/export-bar";
 export const dynamic = "force-dynamic";
 
 export default async function ReportsPage() {
-  const [user, matrix, supabase] = await Promise.all([requireAppUser(), getPermissionMatrix(), createClient()]);
+  const [user, matrix, supabase] = await Promise.all([requireInternal(), getPermissionMatrix(), createClient()]);
   const canExport = can(matrix, user.role, "leads", "export");
 
   const [{ data: stats }, { data: affiliates }] = await Promise.all([

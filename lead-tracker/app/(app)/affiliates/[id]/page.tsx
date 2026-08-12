@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
+import { requireInternal, getPermissionMatrix } from "@/lib/auth";
 import { can } from "@/lib/domain/permissions";
 import { formatPct } from "@/lib/domain/conversion";
 import { StageBadge, QualificationBadge } from "@/components/leads/status-badge";
@@ -33,7 +33,7 @@ export default async function AffiliateDetailPage({
 }) {
   const { id } = await params;
   const [user, matrix, supabase] = await Promise.all([
-    requireAppUser(),
+    requireInternal(),
     getPermissionMatrix(),
     createClient(),
   ]);

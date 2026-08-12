@@ -6,14 +6,23 @@ import {
   buildMatrix,
   can,
   scopeOf,
+  isInternalRole,
   type PermissionMatrix,
   type PermissionRow,
   type Resource,
   type Action,
+  type Role,
 } from "@/lib/domain/permissions";
 import type { Tables } from "@/types/database";
 
 export type AppUser = Tables<"app_users">;
+
+// Where each role lands. External roles get their own restricted home.
+export function homeForRole(role: Role): string {
+  if (role === "source") return "/source";
+  if (role === "crm") return "/pipeline";
+  return "/dashboard";
+}
 
 // Cached per request. Returns the linked app_users row for the signed-in user.
 export const getAppUser = cache(async (): Promise<AppUser | null> => {
@@ -54,6 +63,14 @@ export async function requirePermission(resource: Resource, action: Action): Pro
   if (!can(matrix, user.role, resource, action)) {
     throw new Error(`Not authorized: ${action} ${resource}`);
   }
+  return user;
+}
+
+// Guard for internal-only pages (§11): redirect external users to their home,
+// so admin/internal modules are never exposed to Source/CRM users.
+export async function requireInternal(): Promise<AppUser> {
+  const user = await requireAppUser();
+  if (!isInternalRole(user.role)) redirect(homeForRole(user.role));
   return user;
 }
 

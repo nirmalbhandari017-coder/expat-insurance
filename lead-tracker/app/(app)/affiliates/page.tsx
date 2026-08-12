@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
+import { requireInternal, getPermissionMatrix } from "@/lib/auth";
 import { can } from "@/lib/domain/permissions";
 import { formatPct } from "@/lib/domain/conversion";
 import { PinButton } from "@/components/affiliates/pin-button";
@@ -10,7 +10,7 @@ import { AffiliateRowActions } from "@/components/affiliates/affiliate-row-actio
 export const dynamic = "force-dynamic";
 
 export default async function AffiliatesPage() {
-  const [user, matrix, supabase] = await Promise.all([requireAppUser(), getPermissionMatrix(), createClient()]);
+  const [user, matrix, supabase] = await Promise.all([requireInternal(), getPermissionMatrix(), createClient()]);
   const canManage = can(matrix, user.role, "affiliates", "create");
   const canUpdate = can(matrix, user.role, "affiliates", "update");
   const canDelete = can(matrix, user.role, "affiliates", "delete");
