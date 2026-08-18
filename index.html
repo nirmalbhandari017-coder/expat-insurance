@@ -2400,6 +2400,50 @@
       margin-top: .2rem;
     }
 
+    /* Strikethrough "was" price above the discounted price */
+    .qr-plan-was {
+      font-size: .78rem;
+      color: var(--warm-gray-lt);
+      text-decoration: line-through;
+      text-decoration-color: rgba(107,114,128,.55);
+      font-weight: 500;
+      min-height: .95rem;
+      line-height: 1;
+      margin-bottom: .12rem;
+    }
+
+    /* 20% inquiry-discount banner across the top of the results */
+    .qr-discount-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .8rem;
+      flex-wrap: wrap;
+      background: linear-gradient(135deg, #FFF7E6 0%, #FDF1CE 100%);
+      border: 1px solid #F4D06F;
+      border-radius: 12px;
+      padding: .7rem 1rem;
+      margin: 0 0 1rem;
+      font-size: .85rem;
+      color: #7A5300;
+      line-height: 1.4;
+    }
+    .qr-discount-badge {
+      background: #E9B949;
+      color: #1B263B;
+      font-weight: 800;
+      font-size: .75rem;
+      letter-spacing: .06em;
+      padding: .35rem .65rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .qr-discount-text strong { color: #5C3D00; font-weight: 700; }
+    @media (max-width: 640px) {
+      .qr-discount-banner { flex-direction: column; text-align: center; gap: .5rem; padding: .8rem; }
+    }
+
     .qr-disclaimer {
       font-size: .7rem;
       color: var(--warm-gray-lt);
@@ -3345,6 +3389,11 @@
         <p><strong>Coverage area:</strong> Worldwide excluding the USA &middot; All prices in USD</p>
       </div>
 
+      <div class="qr-discount-banner" role="status" aria-label="Discount applied">
+        <span class="qr-discount-badge">&#127881; 20% OFF</span>
+        <span class="qr-discount-text"><strong>Inquiry Discount Applied</strong> &mdash; the prices below already include your 20% online-enquiry saving.</span>
+      </div>
+
       <p class="qr-freq-hint">Click on your preferred payment option</p>
       <div class="qr-freq">
         <button class="qr-freq-btn active" data-freq="annual">Annual</button>
@@ -3356,21 +3405,25 @@
       <div class="qr-plans">
         <div class="qr-plan" id="qr-card-major-medical">
           <div class="qr-plan-name">Major Medical</div>
+          <div class="qr-plan-was" id="qr-mm-was">&nbsp;</div>
           <div class="qr-plan-price" id="qr-mm">&mdash;</div>
           <div class="qr-plan-period qr-period">per year</div>
         </div>
         <div class="qr-plan" id="qr-card-standard">
           <div class="qr-plan-name">Standard</div>
+          <div class="qr-plan-was" id="qr-std-was">&nbsp;</div>
           <div class="qr-plan-price" id="qr-std">&mdash;</div>
           <div class="qr-plan-period qr-period">per year</div>
         </div>
         <div class="qr-plan" id="qr-card-comprehensive">
           <div class="qr-plan-name">Comprehensive</div>
+          <div class="qr-plan-was" id="qr-comp-was">&nbsp;</div>
           <div class="qr-plan-price" id="qr-comp">&mdash;</div>
           <div class="qr-plan-period qr-period">per year</div>
         </div>
         <div class="qr-plan" id="qr-card-fully-comprehensive">
           <div class="qr-plan-name">✦ Fully Comprehensive</div>
+          <div class="qr-plan-was" id="qr-full-was">&nbsp;</div>
           <div class="qr-plan-price" id="qr-full">&mdash;</div>
           <div class="qr-plan-period qr-period">per year</div>
         </div>
@@ -3508,7 +3561,7 @@
       </div>
 
       <div class="qr-disclaimer">
-        Indicative premium for <span id="qr-num-people">1</span> person(s) &middot; Includes 40% low claims discount.<br>
+        Indicative premium for <span id="qr-num-people">1</span> person(s) &middot; Includes 40% low-claims discount + <strong>20% inquiry discount</strong>.<br>
         Final premium confirmed in your personalised quote.
       </div>
 
@@ -4279,17 +4332,27 @@
     monthly:    { label: 'Monthly',     period: 'per month',       divisor: 12, multiplier: 1.16 }
   };
 
+  // Inquiry discount — automatically applied to every quote generated from the lead form
+  const INQUIRY_DISCOUNT = 0.20;   // 20% off the base rate-card
+  const DISCOUNT_MULT    = 1 - INQUIRY_DISCOUNT;
+  const DISCOUNT_LABEL   = '20% Inquiry Discount';
+
   let currentRates = null;
 
   function renderPrices(freq) {
     if (!currentRates) return;
     const { divisor, multiplier, label, period } = FREQ[freq];
-    const fmt = v => '$' + Math.ceil(v * multiplier / divisor).toLocaleString('en-US');
+    // Discounted (what the customer pays) + original (what the strikethrough shows)
+    const fmt     = v => '$' + Math.ceil(v * multiplier / divisor * DISCOUNT_MULT).toLocaleString('en-US');
+    const fmtWas  = v => '$' + Math.ceil(v * multiplier / divisor).toLocaleString('en-US');
 
-    document.getElementById('qr-mm').textContent   = fmt(currentRates[0]);
-    document.getElementById('qr-std').textContent  = fmt(currentRates[1]);
-    document.getElementById('qr-comp').textContent = fmt(currentRates[2]);
-    document.getElementById('qr-full').textContent = fmt(currentRates[3]);
+    ['mm','std','comp','full'].forEach((k, i) => {
+      const priceEl = document.getElementById('qr-' + k);
+      const wasEl   = document.getElementById('qr-' + k + '-was');
+      if (priceEl) priceEl.textContent = fmt(currentRates[i]);
+      if (wasEl)   wasEl.textContent   = fmtWas(currentRates[i]);
+    });
+
     document.getElementById('qr-freq-label').textContent = label;
     document.querySelectorAll('.qr-period').forEach(el => el.textContent = period);
     document.querySelectorAll('.qr-freq-btn').forEach(btn => {
@@ -4470,8 +4533,11 @@
       const area    = getArea(dest);
       const rates   = sumRatesForAges(ages, area);
       const { multiplier, divisor, label: freqLabel, period } = FREQ[freq];
-      const fmt     = v => '$' + Math.ceil(v * multiplier / divisor).toLocaleString('en-US');
-      const fmtAnnual = v => '$' + Math.ceil(v * multiplier).toLocaleString('en-US');
+      // Discounted (final quoted amount) + original (rate-card, shown crossed out)
+      const fmt        = v => '$' + Math.ceil(v * multiplier / divisor * DISCOUNT_MULT).toLocaleString('en-US');
+      const fmtWas     = v => '$' + Math.ceil(v * multiplier / divisor).toLocaleString('en-US');
+      const fmtAnnual  = v => '$' + Math.ceil(v * multiplier * DISCOUNT_MULT).toLocaleString('en-US');
+      const fmtAnnWas  = v => '$' + Math.ceil(v * multiplier).toLocaleString('en-US');
 
       const planNames = {
         'major-medical':       'Major Medical',
@@ -4483,9 +4549,11 @@
       // Annual base for the highlighted plan
       const planIdx = { 'major-medical':0, 'standard':1, 'comprehensive':2, 'fully-comprehensive':3 };
       const selIdx  = planIdx[highlightPlan] ?? 0;
-      const periodPrice  = fmt(rates[selIdx]);                                 // per chosen frequency
-      const annualTotal  = fmtAnnual(rates[selIdx]);                           // 12 × monthly (incl. surcharge)
-      const surchargeLabel = {annual:'no surcharge', semiannual:'incl. 8% surcharge', quarterly:'incl. 12% surcharge', monthly:'incl. 16% surcharge'}[freq] || '';
+      const periodPrice     = fmt(rates[selIdx]);                              // per chosen frequency (discounted)
+      const periodPriceWas  = fmtWas(rates[selIdx]);                           // per chosen frequency (rate-card)
+      const annualTotal     = fmtAnnual(rates[selIdx]);                        // 12 × monthly (discounted, incl. surcharge)
+      const annualTotalWas  = fmtAnnWas(rates[selIdx]);                        // 12 × monthly (rate-card,   incl. surcharge)
+      const surchargeLabel  = {annual:'no surcharge', semiannual:'incl. 8% surcharge', quarterly:'incl. 12% surcharge', monthly:'incl. 16% surcharge'}[freq] || '';
 
       const HL    = 'background:#E6F7F6;border:2px solid #0FB9B1;';
       const NM    = 'background:#FDF8F4;border:1.5px solid #E5DDD3;';
@@ -4518,8 +4586,12 @@
         start_date:     startDate,
         price_mm:       fmt(rates[0]),
         price_std:      fmt(rates[1]),
+        price_mm_was:   fmtWas(rates[0]),
+        price_std_was:  fmtWas(rates[1]),
         price_comp:     fmt(rates[2]),
         price_full:     fmt(rates[3]),
+        price_comp_was: fmtWas(rates[2]),
+        price_full_was: fmtWas(rates[3]),
         style_mm:       highlightPlan === 'major-medical'       ? HL : NM,
         style_std:      highlightPlan === 'standard'            ? HL : NM,
         style_comp:     highlightPlan === 'comprehensive'       ? HL : NM,
@@ -4542,9 +4614,15 @@
         badge_comp:     highlightPlan === 'comprehensive'       ? '&#9733; YOUR CHOICE' : '&nbsp;',
         badge_full:     highlightPlan === 'fully-comprehensive' ? '&#9733; YOUR CHOICE' : '&nbsp;',
         // Selected plan summary — per-period payment + total annual cost incl. surcharge
-        period_price:    periodPrice,
-        annual_total:    annualTotal,
-        surcharge_label: surchargeLabel,
+        period_price:       periodPrice,
+        period_price_was:   periodPriceWas,
+        annual_total:       annualTotal,
+        annual_total_was:   annualTotalWas,
+        surcharge_label:    surchargeLabel,
+        // Inquiry discount messaging (email template can reference these)
+        inquiry_discount:       DISCOUNT_LABEL,           // e.g. "20% Inquiry Discount"
+        inquiry_discount_pct:   Math.round(INQUIRY_DISCOUNT * 100) + '%',
+        inquiry_discount_note:  DISCOUNT_LABEL + ' applied &mdash; automatic when you enquire online',
         // Variables for the updated email template (green ticks, no numbers, "Oncology Covered")
         tick_color:     '#0FB9B1',
         tick_icon:      '<span style="color:#0FB9B1;font-weight:900;font-size:16px;">&#10003;</span>',
