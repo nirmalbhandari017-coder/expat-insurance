@@ -12,8 +12,7 @@ const INTERNAL_NAV = [
   { href: "/pipeline", label: "Pipeline" },
   { href: "/affiliates", label: "Sources" },
   { href: "/brokers", label: "CRMs" },
-  { href: "/analytics", label: "Analytics" },
-  { href: "/reports", label: "Reports" },
+  { href: "/analytics", label: "Analytics & Reports" },
 ];
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
