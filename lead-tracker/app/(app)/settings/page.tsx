@@ -18,7 +18,7 @@ export default async function SettingsPage() {
     await Promise.all([
       supabase
         .from("app_users")
-        .select("id, full_name, email, role, is_rm")
+        .select("id, full_name, email, role")
         .is("deleted_at", null)
         .order("created_at"),
       supabase
@@ -41,7 +41,6 @@ export default async function SettingsPage() {
     full_name: m.full_name,
     email: m.email,
     role: m.role as Role,
-    is_rm: m.is_rm,
     linkedSourceId: sourceByUser.get(m.id)?.id ?? null,
     linkedCrmName: crmByUser.get(m.id)?.full_name ?? null,
   }));

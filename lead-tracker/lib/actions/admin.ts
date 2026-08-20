@@ -26,19 +26,6 @@ export async function setUserRole(userId: string, role: Enums<"user_role">): Pro
   }
 }
 
-export async function setUserRm(userId: string, isRm: boolean): Promise<ActionResult> {
-  try {
-    await requireAdmin();
-    const supabase = await createClient();
-    const { error } = await supabase.from("app_users").update({ is_rm: isRm }).eq("id", userId);
-    if (error) return fail(messageFromError(error));
-    revalidatePath("/settings");
-    return ok(undefined);
-  } catch (e) {
-    return fail(messageFromError(e));
-  }
-}
-
 // Link an external login to a Source (affiliate). Also sets the user's role to
 // 'source' and ensures a login is linked to at most one Source/CRM. Pass
 // appUserId=null to unlink.

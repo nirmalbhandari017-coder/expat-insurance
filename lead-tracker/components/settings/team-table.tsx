@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { AlertTriangle } from "lucide-react";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
-import { setUserRole, setUserRm, linkSourceLogin } from "@/lib/actions/admin";
+import { setUserRole, linkSourceLogin } from "@/lib/actions/admin";
 import { ROLE_LABEL, ASSIGNABLE_ROLES, type Role } from "@/lib/domain/permissions";
 import type { Option } from "@/lib/types";
 
@@ -16,7 +16,6 @@ export interface TeamMember {
   full_name: string;
   email: string;
   role: Role;
-  is_rm: boolean;
   /** Source (affiliate) this login is linked to, if any. */
   linkedSourceId: string | null;
   /** CRM (broker) record this login is linked to, if any. */
@@ -61,14 +60,6 @@ export function TeamTable({
     });
   }
 
-  function toggleRm(id: string, isRm: boolean) {
-    start(async () => {
-      const res = await setUserRm(id, isRm);
-      if (res.ok) router.refresh();
-      else toast.error(res.error);
-    });
-  }
-
   return (
     <div className="overflow-x-auto rounded-lg border">
       <table className="w-full text-sm">
@@ -78,7 +69,6 @@ export function TeamTable({
             <th className="px-3 py-2 font-medium">Email</th>
             <th className="px-3 py-2 font-medium">Role</th>
             <th className="px-3 py-2 font-medium">Assigned to</th>
-            <th className="px-3 py-2 font-medium">Is CRM</th>
           </tr>
         </thead>
         <tbody>
@@ -152,15 +142,6 @@ export function TeamTable({
                 ) : (
                   <span className="text-xs text-muted-foreground">All data</span>
                 )}
-              </td>
-
-              <td className="px-3 py-2">
-                <input
-                  type="checkbox"
-                  checked={m.is_rm}
-                  onChange={(e) => toggleRm(m.id, e.target.checked)}
-                  aria-label="Is CRM"
-                />
               </td>
             </tr>
           ))}
