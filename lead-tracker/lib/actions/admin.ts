@@ -68,7 +68,8 @@ export async function linkSourceLogin(affiliateId: string, appUserId: string | n
   }
 }
 
-// Link an external login to a CRM (broker); sets the user's role to 'crm'.
+// Link a login to a CRM (broker) record. CRMs are internal staff, so this sets
+// the internal 'rm_staff' role — which is labelled "CRM" in the UI.
 export async function linkCrmLogin(brokerId: string, appUserId: string | null): Promise<ActionResult> {
   try {
     const admin = await requireAdmin();
@@ -80,7 +81,10 @@ export async function linkCrmLogin(brokerId: string, appUserId: string | null): 
       await supabase.from("brokers").update({ app_user_id: null }).eq("id", brokerId);
       const { error } = await supabase.from("brokers").update({ app_user_id: appUserId }).eq("id", brokerId);
       if (error) return fail(messageFromError(error));
-      const { error: rErr } = await supabase.from("app_users").update({ role: "crm" }).eq("id", appUserId);
+      const { error: rErr } = await supabase
+        .from("app_users")
+        .update({ role: "rm_staff", is_rm: true })
+        .eq("id", appUserId);
       if (rErr) return fail(messageFromError(rErr));
     } else {
       const { error } = await supabase.from("brokers").update({ app_user_id: null }).eq("id", brokerId);

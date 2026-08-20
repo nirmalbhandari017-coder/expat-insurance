@@ -79,11 +79,23 @@ export function canEditLead(
 export const ROLE_LABEL: Record<Role, string> = {
   admin: "Admin",
   business_development: "Business Development",
-  rm_staff: "RM Staff",
+  // Internal Client Relationship Manager — the person who works assigned leads.
+  rm_staff: "CRM",
   read_only: "Read Only",
   source: "Source (external)",
-  crm: "CRM (external)",
+  // Deprecated: CRMs are internal, so `rm_staff` above is the CRM role. Kept
+  // only so existing rows still render; not offered when assigning a role.
+  crm: "CRM (deprecated)",
 };
+
+/** Roles an admin can assign. Excludes the deprecated external `crm`. */
+export const ASSIGNABLE_ROLES: Role[] = [
+  "admin",
+  "business_development",
+  "rm_staff",
+  "read_only",
+  "source",
+];
 
 // Internal staff roles (full app). External roles (source/crm) are restricted.
 export const INTERNAL_ROLES: Role[] = ["admin", "business_development", "rm_staff", "read_only"];

@@ -79,19 +79,23 @@ export function ExternalAccess({
   return (
     <div className="space-y-4">
       <p className="rounded-md border border-status-pending/30 bg-status-pending/5 px-3 py-2 text-xs text-muted-foreground">
-        To give an external partner access: have them <b>sign up</b> first (they start with no access), then link
-        their login below. Linking sets their role and scopes them to only that Source&apos;s / CRM&apos;s leads.
+        The person must <b>sign up</b> first (they start with no access), then link their login here.
+        Linking sets their role and scopes them to only that Source&apos;s / CRM&apos;s leads.
       </p>
 
       <div>
-        <h3 className="text-sm font-medium">Sources</h3>
-        <p className="text-xs text-muted-foreground">A linked login becomes a Source user — sees only that source&apos;s leads.</p>
+        <h3 className="text-sm font-medium">Sources (external partners)</h3>
+        <p className="text-xs text-muted-foreground">
+          A linked login becomes a Source user — sees only that source&apos;s leads.
+        </p>
       </div>
       {table("source", sources, "Source")}
 
       <div className="pt-1">
-        <h3 className="text-sm font-medium">CRMs</h3>
-        <p className="text-xs text-muted-foreground">A linked login becomes a CRM user — sees only its assigned leads.</p>
+        <h3 className="text-sm font-medium">CRMs (internal staff)</h3>
+        <p className="text-xs text-muted-foreground">
+          Links a CRM record to their login so they see the leads assigned to them.
+        </p>
       </div>
       {table("crm", crms, "CRM")}
     </div>
