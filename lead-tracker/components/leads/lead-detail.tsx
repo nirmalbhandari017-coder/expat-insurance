@@ -4,7 +4,7 @@ import { useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { ArrowLeft, ChevronDown, Paperclip, Upload, UserCog, Pencil } from "lucide-react";
+import { ArrowLeft, Building2, ChevronDown, Paperclip, Upload, UserCog, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,6 +20,7 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuLabel,
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
@@ -125,6 +126,7 @@ export function LeadDetail({
   activity,
   documents,
   brokers,
+  sources,
   perms,
   canComment,
 }: {
@@ -134,6 +136,7 @@ export function LeadDetail({
   activity: ActivityRow[];
   documents: DocRow[];
   brokers: Option[];
+  sources: Option[];
   perms: PipelinePerms;
   canComment: boolean;
   canViewAudit: boolean;
@@ -194,6 +197,13 @@ export function LeadDetail({
             </StageMenu>
           ) : null}
           {canEdit && (
+            <AssignSourceButton
+              leadId={lead.id}
+              sources={sources}
+              current={lead.affiliate?.name}
+            />
+          )}
+          {canEdit && (
             <AssignBrokerButton
               leadId={lead.id}
               brokers={brokers}
@@ -252,9 +262,7 @@ export function LeadDetail({
               label="CRM"
               value={
                 lead.broker
-                  ? lead.broker.company
-                    ? `${lead.broker.full_name} (${lead.broker.company})`
-                    : lead.broker.full_name
+                  ? lead.broker.full_name
                   : null
               }
             />
@@ -448,6 +456,50 @@ function ContactFact({
         <span className="text-right">—</span>
       )}
     </div>
+  );
+}
+
+/**
+ * Points a lead at the Source it came from. Changing the Source clears the
+ * Agent, because an Agent belongs to exactly one Source.
+ */
+function AssignSourceButton({
+  leadId,
+  sources,
+  current,
+}: {
+  leadId: string;
+  sources: Option[];
+  current?: string;
+}) {
+  const router = useRouter();
+  const [pending, start] = useTransition();
+  function assign(affiliateId: string) {
+    start(async () => {
+      const res = await updateLead({ id: leadId, affiliateId, generatorId: null });
+      if (res.ok) {
+        toast.success("Source updated");
+        router.refresh();
+      } else toast.error(res.error);
+    });
+  }
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" disabled={pending}>
+          <Building2 className="h-4 w-4" /> {current ?? "Set source"}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="max-h-80 overflow-y-auto">
+        <DropdownMenuLabel>Lead came from</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {sources.map((s) => (
+          <DropdownMenuItem key={s.id} onSelect={() => assign(s.id)}>
+            {s.label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 

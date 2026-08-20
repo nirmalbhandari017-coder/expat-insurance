@@ -31,8 +31,14 @@ export default async function LeadDetailPage({
 
   if (!lead) notFound();
 
-  const [{ data: history }, { data: comments }, { data: activity }, { data: documents }, { data: brokers }] =
-    await Promise.all([
+  const [
+    { data: history },
+    { data: comments },
+    { data: activity },
+    { data: documents },
+    { data: brokers },
+    { data: sources },
+  ] = await Promise.all([
       supabase
         .from("lead_stage_history")
         .select("*, changed_by_user:app_users!lead_stage_history_changed_by_fkey(full_name)")
@@ -58,10 +64,11 @@ export default async function LeadDetailPage({
         .order("created_at", { ascending: false }),
       supabase
         .from("brokers")
-        .select("id, full_name, company")
+        .select("id, full_name")
         .eq("is_active", true)
         .is("deleted_at", null)
         .order("full_name"),
+      supabase.from("affiliates").select("id, name").is("deleted_at", null).order("name"),
     ]);
 
   // View audit (app-layer, per the GDPR posture).
@@ -87,8 +94,9 @@ export default async function LeadDetailPage({
       documents={(documents ?? []) as never}
       brokers={(brokers ?? []).map((b) => ({
         id: b.id,
-        label: b.company ? `${b.full_name} — ${b.company}` : (b.full_name ?? ""),
+        label: b.full_name ?? "",
       }))}
+      sources={(sources ?? []).map((a) => ({ id: a.id, label: a.name }))}
       perms={perms}
       canComment={canComment}
       canViewAudit={canViewAudit}

@@ -87,7 +87,6 @@ export function BrokersTable({
           <thead>
             <tr className="border-b bg-muted/40 text-left text-xs text-muted-foreground">
               <th className="px-3 py-2 font-medium">Name</th>
-              <th className="px-3 py-2 font-medium">Company</th>
               <th className="px-3 py-2 font-medium">Active leads</th>
               <th className="px-3 py-2 font-medium">Quotes</th>
               <th className="px-3 py-2 font-medium">Applications</th>
@@ -116,7 +115,6 @@ export function BrokersTable({
                       <div className="text-xs text-muted-foreground">{b.email}</div>
                     )}
                   </td>
-                  <td className="px-3 py-2 text-muted-foreground">{b.company ?? "—"}</td>
                   <td className="tabular px-3 py-2">{s?.active_leads ?? 0}</td>
                   <td className="tabular px-3 py-2">{s?.n_quotes ?? 0}</td>
                   <td className="tabular px-3 py-2">{s?.n_applications ?? 0}</td>
@@ -143,7 +141,7 @@ export function BrokersTable({
             })}
             {brokers.length === 0 && (
               <tr>
-                <td colSpan={11} className="px-3 py-10 text-center text-sm text-muted-foreground">
+                <td colSpan={10} className="px-3 py-10 text-center text-sm text-muted-foreground">
                   No CRMs yet.
                 </td>
               </tr>
@@ -184,7 +182,6 @@ function BrokerDialog({
     const input = {
       firstName: String(fd.get("firstName") ?? ""),
       lastName: String(fd.get("lastName") ?? ""),
-      company: String(fd.get("company") ?? ""),
       email: String(fd.get("email") ?? ""),
       phone: String(fd.get("phone") ?? ""),
       notes: String(fd.get("notes") ?? ""),
@@ -225,10 +222,6 @@ function BrokerDialog({
               <Input name="lastName" defaultValue={value?.last_name ?? ""} />
               {err("lastName")}
             </div>
-          </div>
-          <div className="space-y-1.5">
-            <Label>Company</Label>
-            <Input name="company" defaultValue={value?.company ?? ""} />
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">

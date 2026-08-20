@@ -39,6 +39,10 @@ export interface LeadRow {
   created_at: string;
   updated_at: string;
 
+  // Most recent note, denormalised by trigger so the list needs no extra query.
+  last_note: string | null;
+  last_note_at: string | null;
+
   affiliate: { name: string } | null;
   generator: { full_name: string } | null;
   broker: { full_name: string; company: string | null } | null;
@@ -51,6 +55,7 @@ export const LEAD_ROW_COLUMNS =
   "lead_state, qualification, stage, opportunity, stage_at_loss, " +
   "affiliate_id, generator_id, broker_id, " +
   "quote_date, application_date, payment_date, stage_entered_at, created_at, updated_at, " +
+  "last_note, last_note_at, " +
   "affiliate:affiliates(name), generator:generators(full_name), " +
   "broker:brokers(full_name, company), " +
   "products:lead_products(product:products(id, name))";

@@ -24,6 +24,7 @@ export async function addComment(raw: unknown): Promise<ActionResult> {
       summary: "Comment added",
     });
     revalidatePath("/leads");
+    revalidatePath("/pipeline"); // the card/table shows the latest note
     return ok(undefined);
   } catch (e) {
     return fail(messageFromError(e));

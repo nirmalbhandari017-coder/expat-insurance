@@ -84,7 +84,7 @@ export default async function PipelinePage({
   }));
   const brokerOptions: Option[] = (brokers ?? []).map((b) => ({
     id: b.id,
-    label: b.company ? `${b.full_name} — ${b.company}` : (b.full_name ?? ""),
+    label: b.full_name ?? "",
   }));
   const productOptions: Option[] = (products ?? []).map((p) => ({ id: p.id, label: p.name }));
 

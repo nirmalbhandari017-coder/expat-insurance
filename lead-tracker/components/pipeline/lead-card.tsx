@@ -100,12 +100,21 @@ export function LeadCard({
         </div>
       )}
 
+      {lead.last_note && (
+        <p
+          title={lead.last_note}
+          className="mt-1.5 line-clamp-2 rounded border-l-2 border-muted-foreground/25 bg-muted/40 py-1 pl-1.5 pr-1 text-[11px] leading-snug text-muted-foreground"
+        >
+          {lead.last_note}
+        </p>
+      )}
+
       <div className="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">
         <span className="tabular">{lead.lead_code}</span>
         <div className="flex items-center gap-2">
           {lead.broker && (
             <span
-              title={lead.broker.company ?? lead.broker.full_name}
+              title={lead.broker.full_name}
               className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-secondary text-[9px] font-medium text-secondary-foreground"
             >
               {initials(lead.broker.full_name)}
