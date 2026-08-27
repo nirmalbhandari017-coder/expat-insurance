@@ -11,9 +11,38 @@ writes to the CRM. That last step is manual and had not been run since 3 Aug.
   Ali, partner Dora Bereczky, child Dilara). Activation email 13 Aug, so
   received_date 13 Aug; commission $2,486.87 due 15 Sep 2026. Owner split
   $1,243.44 / $1,243.43 — balances to the cent.
-- **Still missing:** John Clayton (RIH/2026/ES20/20188966, 18 Aug),
-  Anthony Priestly (RIH/2026/MM/60859403, 19 Aug), Alain Roland Pons
-  (RIH/2026/ES/85706695, 27 Aug). Their certificates are not in Drive.
+- **Also entered, once the filter bug below was fixed:**
+  - **John Clayton**, RIH/2026/ES20/20188966, Essential with 20% Co-insurance.
+    Commencement **01 Nov 2026** — two and a half months after the 18 Aug
+    activation email, the widest gap seen so far. Premium US$1,683.64,
+    Annually. Commission $631.37 due 15 Sep 2026.
+  - **Anthony Priestly**, RIH/2026/MM/60859403, Major Medical. Commencement
+    20 Aug 2026, premium US$4,562.00 **Quarterly** — the first quarterly
+    client. Only instalment 1 ($1,140.50) is paid; commission $427.69 per
+    quarter, first due 15 Sep 2026.
+  - **Alain Roland Pons**, RIH/2026/ES/85706695, Essential. Commencement
+    25 Aug 2026, premium US$1,504.41, Annually. Commission $564.15 due
+    15 Sep 2026.
+
+  All commission rates were set to the standard 37.5%. See the rate query
+  below — this needs confirming against the next statement.
+
+### Commission rates are not uniform
+
+The Aug-2026 statement (addressed to **Leadlyfe Marketing**, where Jul-2026
+was addressed to **Expat Protect Hub**) pays two clients at rates the CRM does
+not hold:
+
+| Client | Statement | CRM | Statement pays | CRM expects |
+|---|---|---|---|---|
+| Sharifah Scarth | 25.5% | 37.5% | $514.29 | $756.31 |
+| Andrea Stapley | 28.5% | 37.5% | $2,367.69 | $3,115.38 |
+
+The other five match to the cent at 37.5%. Plan type does not explain it —
+Sharifah and Julie Raxworthy both hold ES20 policies and are paid 25.5% and
+37.5% respectively. Left unchanged pending confirmation from Regency; if the
+statement is right, the CRM overstates expected commission by $989.71 and the
+owner splits for those two clients are correspondingly overstated.
 
 ### Two bugs found
 
