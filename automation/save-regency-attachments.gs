@@ -162,10 +162,19 @@ function saveRegencyAttachments() {
   return { saved: saved, skipped: skipped, failures: failures, threads: threads.length };
 }
 
-/** Keep real documents; drop signature images and the generic brochure. */
+/**
+ * Keep real documents; drop signature images and the generic brochure.
+ *
+ * The extension decides, not the MIME type. Somewhere between 13 and 18 Aug
+ * 2026 Regency's mail system started labelling its PDFs
+ * application/octet-stream, and a strict `!== 'application/pdf'` test threw
+ * away three certificates without recording anything — the run still reported
+ * a clean "saved 0, failed 0". A sender's Content-Type header is a hint, so
+ * accept either signal.
+ */
 function isWorthSaving_(name, mimeType) {
-  if (mimeType !== 'application/pdf') return false;
-  const n = name.toLowerCase();
+  const n = (name || '').toLowerCase();
+  if (n.slice(-4) !== '.pdf' && mimeType !== 'application/pdf') return false;
   if (n.indexOf('brochure') !== -1) return false;
   if (/^image\d+\./.test(n)) return false;
   return true;
