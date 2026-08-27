@@ -60,8 +60,9 @@ function findRecentActivations(days) {
 
 function sendReport_(result, activations) {
   // Stay quiet on days when nothing happened — a report that always arrives
-  // stops being read.
-  if (!activations.length && !result.saved) return;
+  // stops being read. A failure is never a quiet day.
+  const failures = result.failures || [];
+  if (!activations.length && !result.saved && !failures.length) return;
 
   let body = 'Regency daily check\n\n';
 
@@ -83,11 +84,20 @@ function sendReport_(result, activations) {
   body += 'Already present, skipped: ' + result.skipped + '\n';
   body += 'Folder: ' + FOLDER_NAME + '\n';
 
+  if (failures.length) {
+    body += '\n' + failures.length + ' FILE(S) FAILED TO SAVE:\n';
+    failures.forEach(function (f) { body += '  • ' + f + '\n'; });
+    body += '\nThese threads were left unlabelled and will be retried on the\n';
+    body += 'next run. If they keep failing, check Drive storage quota.\n';
+  }
+
   MailApp.sendEmail({
     to: REPORT_TO,
-    subject: activations.length
-      ? 'Regency: ' + activations.length + ' new policy activation(s)'
-      : 'Regency daily check',
+    subject: failures.length
+      ? 'Regency: ' + failures.length + ' document(s) FAILED to save'
+      : activations.length
+        ? 'Regency: ' + activations.length + ' new policy activation(s)'
+        : 'Regency daily check',
     body: body,
   });
 }
@@ -104,8 +114,16 @@ function saveRegencyAttachments() {
   const threads = GmailApp.search(SEARCH, 0, 50);
   let saved = 0;
   let skipped = 0;
+  const failures = [];
 
   threads.forEach(function (thread) {
+    // The label is what stops a thread being looked at again, so it is only
+    // safe to apply once every attachment is genuinely on disk. Labelling
+    // first meant one transient Drive error retired the thread for good:
+    // John Clayton (18 Aug) and Anthony Priestly (19 Aug) were both marked
+    // saved with nothing in the folder, and nothing ever retried them.
+    let threadOk = true;
+
     thread.getMessages().forEach(function (message) {
       message.getAttachments().forEach(function (attachment) {
         const name = attachment.getName();
@@ -120,15 +138,28 @@ function saveRegencyAttachments() {
           skipped++;
           return;
         }
-        folder.createFile(attachment.copyBlob()).setName(filename);
-        saved++;
+
+        try {
+          folder.createFile(attachment.copyBlob()).setName(filename);
+          // Trust the folder, not the return value — confirm it is really there.
+          if (!folder.getFilesByName(filename).hasNext()) {
+            throw new Error('file not found in folder after write');
+          }
+          saved++;
+        } catch (e) {
+          threadOk = false;
+          failures.push(filename + ' — ' + e.message);
+          Logger.log('FAILED %s: %s', filename, e.message);
+        }
       });
     });
-    thread.addLabel(label);
+
+    if (threadOk) thread.addLabel(label);
   });
 
-  Logger.log('Saved %s file(s), skipped %s, across %s thread(s).', saved, skipped, threads.length);
-  return { saved: saved, skipped: skipped, threads: threads.length };
+  Logger.log('Saved %s file(s), skipped %s, failed %s, across %s thread(s).',
+    saved, skipped, failures.length, threads.length);
+  return { saved: saved, skipped: skipped, failures: failures, threads: threads.length };
 }
 
 /** Keep real documents; drop signature images and the generic brochure. */
@@ -171,6 +202,23 @@ function backfillAll() {
   Logger.log('Backfilling %s thread(s)…', threads.length);
   threads.forEach(function (t) { t.removeLabel(label); });
   saveRegencyAttachments();
+}
+
+/**
+ * Un-retire recent threads so the next run picks them up again. Use this when
+ * a thread was labelled as saved but its documents are not in the folder —
+ * lighter than backfillAll, which re-checks the entire history.
+ */
+function retryRecent(days) {
+  const label = getOrCreateLabel_(DONE_LABEL);
+  const threads = GmailApp.search(
+    'from:regencyforexpats.com has:attachment newer_than:' + (days || 30) + 'd', 0, 100);
+  threads.forEach(function (t) { t.removeLabel(label); });
+  Logger.log('Cleared the label on %s thread(s); re-saving now…', threads.length);
+  const result = saveRegencyAttachments();
+  Logger.log('Saved %s, skipped %s, failed %s.',
+    result.saved, result.skipped, (result.failures || []).length);
+  return result;
 }
 
 /** Check the last 30 days and report — useful to confirm nothing was missed. */
