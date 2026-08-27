@@ -221,6 +221,33 @@ function retryRecent(days) {
   return result;
 }
 
+/**
+ * Diagnostic: show exactly what Gmail reports for each recent activation.
+ *
+ * On 27 Aug a run logged "saved 0, skipped 6, failed 0" while three
+ * certificates were plainly missing. Zero failures means those attachments
+ * never reached the save step, so the filter dropped them — most likely on
+ * content type. This prints the raw name, type and size so the filter can be
+ * matched to reality instead of guessed at.
+ */
+function debugAttachments() {
+  const threads = GmailApp.search(
+    'from:regencyforexpats.com subject:"' + ACTIVATION_SUBJECT + '" newer_than:20d', 0, 10);
+  Logger.log('Found %s thread(s)', threads.length);
+
+  threads.forEach(function (t) {
+    t.getMessages().forEach(function (m) {
+      const atts = m.getAttachments();
+      Logger.log('--- %s | %s attachment(s)', m.getSubject(), atts.length);
+      atts.forEach(function (a) {
+        Logger.log('    "%s" | type=%s | %s bytes | worthSaving=%s',
+          a.getName(), a.getContentType(), a.getSize(),
+          isWorthSaving_(a.getName(), a.getContentType()));
+      });
+    });
+  });
+}
+
 /** Check the last 30 days and report — useful to confirm nothing was missed. */
 function reportLast30Days() {
   const activations = findRecentActivations(30);
