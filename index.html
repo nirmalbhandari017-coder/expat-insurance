@@ -3348,8 +3348,11 @@
 
         <div class="form-group">
           <label for="start-date">Expected Start Date</label>
-          <input type="date" id="start-date" name="start_date" required />
-          <p class="form-hint">Format: dd/mm/yyyy</p>
+          <input type="text" id="start-date" name="start_date" required
+                 placeholder="DD/MM/YYYY" inputmode="numeric" maxlength="10"
+                 pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)\d{2}"
+                 autocomplete="off" />
+          <p class="form-hint">Format: dd/mm/yyyy (e.g. 15/03/2026)</p>
         </div>
 
         <div class="form-group">
@@ -4022,13 +4025,29 @@
   populateNationality('current-country');
   populateSelect('destination-country');
 
-  // Constrain start-date to today or later
+  // Start-date: DD/MM/YYYY text field — auto-insert slashes as the user types
   (function () {
     const dt = document.getElementById('start-date');
     if (!dt) return;
-    const today = new Date();
-    const iso = today.toISOString().slice(0, 10);
-    dt.setAttribute('min', iso);
+    dt.addEventListener('input', function (e) {
+      // Strip anything non-digit, then reinsert slashes at positions 2 and 4
+      let v = e.target.value.replace(/\D/g, '').slice(0, 8);
+      if (v.length >= 5) {
+        v = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
+      } else if (v.length >= 3) {
+        v = v.slice(0,2) + '/' + v.slice(2);
+      }
+      e.target.value = v;
+    });
+    // Block anything that doesn't match DD/MM/YYYY on blur so the field never carries junk
+    dt.addEventListener('blur', function (e) {
+      const v = e.target.value;
+      if (v && !/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.test(v)) {
+        e.target.setCustomValidity('Please enter a valid date in DD/MM/YYYY format.');
+      } else {
+        e.target.setCustomValidity('');
+      }
+    });
   })();
 
   // ── Phone country codes ─────────────────────────────────────────────────
@@ -4115,6 +4134,51 @@
       opt.value = code;
       opt.textContent = code + '  ' + country;
       sel.appendChild(opt);
+    });
+  })();
+
+  // Nationality -> auto-fill the phone country code (only if user hasn't
+  // manually picked one yet). Country-name matching handles aliases.
+  (function () {
+    const nat = document.getElementById('current-country');
+    const cc  = document.getElementById('phone-cc');
+    if (!nat || !cc) return;
+    // Build a lowercase-country -> dialling-code map from phoneCodes.
+    // Split multi-country labels (e.g. "United States / Canada") so both work.
+    const nameToCode = {};
+    phoneCodes.forEach(([code, label]) => {
+      label.split('/').forEach(part => {
+        nameToCode[part.trim().toLowerCase()] = code;
+      });
+    });
+    // A few common aliases that don't match the phoneCodes label verbatim
+    const aliases = {
+      'united kingdom': '+44', 'uk': '+44', 'britain': '+44', 'great britain': '+44',
+      'usa': '+1', 'united states': '+1', 'united states of america': '+1', 'america': '+1',
+      'south korea': '+82', 'korea, south': '+82', 'republic of korea': '+82',
+      'north korea': '+850',
+      'hong kong': '+852',
+      'uae': '+971', 'united arab emirates': '+971',
+      'saudi arabia': '+966', 'ksa': '+966',
+      'russia': '+7', 'russian federation': '+7',
+      'vietnam': '+84', 'viet nam': '+84',
+      'philippines': '+63', 'the philippines': '+63',
+      'netherlands': '+31', 'the netherlands': '+31', 'holland': '+31',
+      'czech republic': '+420', 'czechia': '+420',
+      'new zealand': '+64'
+    };
+    Object.assign(nameToCode, aliases);
+
+    let ccTouched = false;
+    cc.addEventListener('change', () => { ccTouched = true; });
+
+    nat.addEventListener('change', () => {
+      if (ccTouched) return;                               // don't override a manual pick
+      const key  = (nat.value || '').trim().toLowerCase();
+      const code = nameToCode[key];
+      if (code && cc.querySelector('option[value="' + code + '"]')) {
+        cc.value = code;
+      }
     });
   })();
 
@@ -4477,11 +4541,9 @@
     const covs  = [...document.querySelectorAll('input[name="coverage"]:checked')].map(i => i.value);
     const plan  = document.querySelector('input[name="preferred_plan"]:checked')?.value || '';
     const freq  = document.querySelector('input[name="payment_frequency"]:checked')?.value || 'annual';
-    // Start date &mdash; input gives ISO (YYYY-MM-DD); convert to DD/MM/YYYY for display
-    const startDateRaw = document.getElementById('start-date').value;
-    const startDate    = startDateRaw
-      ? startDateRaw.split('-').reverse().join('/')   // 2026-04-26 &rarr; 26/04/2026
-      : '';
+    // Start date — text field in DD/MM/YYYY format (see the auto-formatter above)
+    const startDateRaw = document.getElementById('start-date').value.trim();
+    const startDate    = startDateRaw;
 
     if (!name || !email || !phoneCC || !phoneRaw || !curr || !startDateRaw || ages.length !== ageInputs.length) {
       alert('Please fill in all required fields, including the age for each person and the expected start date.');
@@ -4494,6 +4556,19 @@
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       alert('Please enter a valid email address.');
+      return;
+    }
+
+    // Validate DD/MM/YYYY start date and reject anything before today
+    const dm = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.exec(startDateRaw);
+    if (!dm) {
+      alert('Please enter the expected start date in DD/MM/YYYY format (e.g. 15/03/2026).');
+      return;
+    }
+    const chosen = new Date(+dm[3] < 100 ? 2000 + +dm[3] : +dm[3], +dm[2] - 1, +dm[1]);
+    const startOfToday = new Date(); startOfToday.setHours(0,0,0,0);
+    if (isNaN(chosen.getTime()) || chosen < startOfToday) {
+      alert('The expected start date must be today or later.');
       return;
     }
 
