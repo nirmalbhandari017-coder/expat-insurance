@@ -755,6 +755,17 @@
     }
     .phone-row select.phone-cc { min-width: 0; }
 
+    /* Day / Month / Year dropdowns for the start-date field */
+    .date-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 100px;
+      gap: .5rem;
+    }
+    .date-row .date-part { min-width: 0; }
+    @media (max-width: 460px) {
+      .date-row { grid-template-columns: 1fr 1.4fr 1fr; }
+    }
+
     label {
       display: block;
       font-size: .72rem;
@@ -3347,12 +3358,14 @@
         </div>
 
         <div class="form-group">
-          <label for="start-date">Expected Start Date</label>
-          <input type="text" id="start-date" name="start_date" required
-                 placeholder="DD/MM/YYYY" inputmode="numeric" maxlength="10"
-                 pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)\d{2}"
-                 autocomplete="off" />
-          <p class="form-hint">Format: dd/mm/yyyy (e.g. 15/03/2026)</p>
+          <label>Expected Start Date</label>
+          <div class="date-row">
+            <select id="start-day"   name="start_day"   class="date-part" aria-label="Day" required></select>
+            <select id="start-month" name="start_month" class="date-part" aria-label="Month" required></select>
+            <select id="start-year"  name="start_year"  class="date-part" aria-label="Year" required></select>
+          </div>
+          <input type="hidden" id="start-date" name="start_date" />
+          <p class="form-hint">Choose the day you want cover to start (today or later).</p>
         </div>
 
         <div class="form-group">
@@ -4025,29 +4038,62 @@
   populateNationality('current-country');
   populateSelect('destination-country');
 
-  // Start-date: DD/MM/YYYY text field — auto-insert slashes as the user types
+  // Start-date: three dropdowns (Day / Month / Year) -> hidden #start-date in DD/MM/YYYY
   (function () {
-    const dt = document.getElementById('start-date');
-    if (!dt) return;
-    dt.addEventListener('input', function (e) {
-      // Strip anything non-digit, then reinsert slashes at positions 2 and 4
-      let v = e.target.value.replace(/\D/g, '').slice(0, 8);
-      if (v.length >= 5) {
-        v = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
-      } else if (v.length >= 3) {
-        v = v.slice(0,2) + '/' + v.slice(2);
+    const dSel = document.getElementById('start-day');
+    const mSel = document.getElementById('start-month');
+    const ySel = document.getElementById('start-year');
+    const hid  = document.getElementById('start-date');
+    if (!dSel || !mSel || !ySel || !hid) return;
+
+    // Populate months
+    const MONTHS = ['January','February','March','April','May','June',
+                    'July','August','September','October','November','December'];
+    mSel.appendChild(new Option('Month', ''));
+    MONTHS.forEach((name, i) => mSel.appendChild(new Option(name, String(i + 1).padStart(2, '0'))));
+
+    // Populate days 01..31
+    dSel.appendChild(new Option('Day', ''));
+    for (let d = 1; d <= 31; d++) dSel.appendChild(new Option(String(d).padStart(2, '0'), String(d).padStart(2, '0')));
+
+    // Populate current year + next 2 years
+    const now = new Date();
+    ySel.appendChild(new Option('Year', ''));
+    for (let y = now.getFullYear(); y <= now.getFullYear() + 2; y++) {
+      ySel.appendChild(new Option(String(y), String(y)));
+    }
+
+    // Sync the hidden combined field on any change, and shrink day count for short months
+    function syncDayCount() {
+      const m = parseInt(mSel.value, 10);
+      const y = parseInt(ySel.value, 10);
+      if (!m) return;
+      const daysInMonth = new Date(y || 2001, m, 0).getDate();  // last day of that month
+      const current = dSel.value;
+      // Remove day options that no longer fit
+      Array.from(dSel.options).forEach(opt => {
+        if (opt.value && parseInt(opt.value, 10) > daysInMonth) opt.remove();
+      });
+      // Add days back if the count grew (e.g. switched from Feb to March)
+      const have = Array.from(dSel.options).map(o => o.value).filter(Boolean).map(Number);
+      const maxHave = have.length ? Math.max(...have) : 0;
+      for (let d = maxHave + 1; d <= daysInMonth; d++) {
+        dSel.appendChild(new Option(String(d).padStart(2, '0'), String(d).padStart(2, '0')));
       }
-      e.target.value = v;
-    });
-    // Block anything that doesn't match DD/MM/YYYY on blur so the field never carries junk
-    dt.addEventListener('blur', function (e) {
-      const v = e.target.value;
-      if (v && !/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.test(v)) {
-        e.target.setCustomValidity('Please enter a valid date in DD/MM/YYYY format.');
+      if (current && parseInt(current, 10) > daysInMonth) dSel.value = '';
+    }
+
+    function syncHidden() {
+      if (dSel.value && mSel.value && ySel.value) {
+        hid.value = dSel.value + '/' + mSel.value + '/' + ySel.value;
       } else {
-        e.target.setCustomValidity('');
+        hid.value = '';
       }
-    });
+    }
+
+    mSel.addEventListener('change', () => { syncDayCount(); syncHidden(); });
+    ySel.addEventListener('change', () => { syncDayCount(); syncHidden(); });
+    dSel.addEventListener('change', syncHidden);
   })();
 
   // ── Phone country codes ─────────────────────────────────────────────────
@@ -4605,8 +4651,12 @@
     const covs  = [...document.querySelectorAll('input[name="coverage"]:checked')].map(i => i.value);
     const plan  = document.querySelector('input[name="preferred_plan"]:checked')?.value || '';
     const freq  = document.querySelector('input[name="payment_frequency"]:checked')?.value || 'annual';
-    // Start date — text field in DD/MM/YYYY format (see the auto-formatter above)
-    const startDateRaw = document.getElementById('start-date').value.trim();
+    // Start date — three dropdowns (Day / Month / Year) combined into DD/MM/YYYY
+    const dayV   = document.getElementById('start-day').value;
+    const monthV = document.getElementById('start-month').value;
+    const yearV  = document.getElementById('start-year').value;
+    const startDateRaw = (dayV && monthV && yearV) ? (dayV + '/' + monthV + '/' + yearV) : '';
+    document.getElementById('start-date').value = startDateRaw;
     const startDate    = startDateRaw;
 
     if (!name || !email || !phoneCC || !phoneRaw || !curr || !startDateRaw || ages.length !== ageInputs.length) {
@@ -4623,14 +4673,13 @@
       return;
     }
 
-    // Validate DD/MM/YYYY start date and reject anything before today
-    const dm = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.exec(startDateRaw);
-    if (!dm) {
-      alert('Please enter the expected start date in DD/MM/YYYY format (e.g. 15/03/2026).');
+    // Validate the composed start date (Day/Month/Year selects) is today or later
+    if (!dayV || !monthV || !yearV) {
+      alert('Please choose the day, month and year for your expected start date.');
       return;
     }
-    const chosen = new Date(+dm[3] < 100 ? 2000 + +dm[3] : +dm[3], +dm[2] - 1, +dm[1]);
-    const startOfToday = new Date(); startOfToday.setHours(0,0,0,0);
+    const chosen = new Date(parseInt(yearV, 10), parseInt(monthV, 10) - 1, parseInt(dayV, 10));
+    const startOfToday = new Date(); startOfToday.setHours(0, 0, 0, 0);
     if (isNaN(chosen.getTime()) || chosen < startOfToday) {
       alert('The expected start date must be today or later.');
       return;
