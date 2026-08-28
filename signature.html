@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+  // Block deprecated hostnames — only expatprotecthub.com is active
+  (function(){
+    const dead = ['expatleadgen.netlify.app','expatcovered.com','www.expatcovered.com'];
+    if (dead.indexOf(location.hostname) !== -1) {
+      document.documentElement.innerHTML =
+        '<head><meta charset="utf-8"><title>Page Not Found</title><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+        '<body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#1b263b;color:#fff;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;">' +
+        '<div><div style="font-size:5rem;font-weight:800;letter-spacing:-.02em;line-height:1;color:#0FB9B1;">404</div>' +
+        '<div style="font-size:1.2rem;font-weight:700;margin-top:.6rem;">Page not found</div>' +
+        '<div style="font-size:.95rem;opacity:.7;margin-top:.5rem;max-width:380px;">The page you are looking for does not exist on this domain.</div></div></body>';
+      if (window.stop) window.stop();
+    }
+  })();
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Expat Protect Hub &mdash; Gmail Signature Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#1B263B; --teal:#0FB9B1; --teal-dark:#0B6E6B; --grey:#6B7280;
+    --light:#E4E7EB; --cream:#F8F9FA;
+    --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  body{font-family:var(--font);color:var(--navy);background:var(--cream);-webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:900px;margin:0 auto;padding:2.5rem 1.25rem 4rem}
+  header{background:#fff;border-bottom:1px solid var(--light);padding:1rem 1.25rem;display:flex;align-items:center;gap:.75rem}
+  header img{height:52px;width:auto;display:block}
+
+  h1{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:800;letter-spacing:-.01em;margin-bottom:.4rem}
+  .lede{color:var(--grey);font-size:1rem;margin-bottom:2rem;max-width:640px}
+  .step-num{display:inline-block;background:var(--teal);color:#fff;width:26px;height:26px;border-radius:50%;text-align:center;font-weight:800;line-height:26px;font-size:14px;margin-right:.5rem;vertical-align:-4px}
+
+  section{background:#fff;border:1px solid var(--light);border-radius:14px;padding:1.6rem 1.75rem;margin-bottom:1.25rem;box-shadow:0 4px 16px -8px rgba(15,38,59,.06)}
+  section h2{font-size:1.05rem;font-weight:800;letter-spacing:-.005em;margin-bottom:1rem;color:var(--navy)}
+
+  /* Form grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media (max-width:640px){.grid{grid-template-columns:1fr}}
+  label{display:block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--grey);margin-bottom:.35rem}
+  input{width:100%;padding:.7rem .85rem;border:1.5px solid var(--light);border-radius:8px;font-family:inherit;font-size:.95rem;background:#fafbfc;color:var(--navy)}
+  input:focus{outline:none;border-color:var(--teal);background:#fff;box-shadow:0 0 0 4px rgba(15,185,177,.12)}
+  .hint{font-size:.75rem;color:var(--grey);margin-top:.3rem}
+
+  /* Preview */
+  .preview-wrap{background:#f4f5f7;border:1px dashed var(--light);border-radius:10px;padding:1.5rem;overflow-x:auto}
+  #signature-preview{background:#fff;padding:1.5rem;border-radius:6px;box-shadow:0 2px 6px rgba(0,0,0,.05);display:inline-block;min-width:100%}
+
+  /* Copy button */
+  .copy-row{display:flex;gap:.7rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+  .btn{display:inline-block;background:var(--teal);background-image:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-family:inherit;font-weight:700;font-size:.95rem;padding:.75rem 1.4rem;border:none;border-radius:999px;cursor:pointer;letter-spacing:.01em;box-shadow:0 6px 18px -4px rgba(15,185,177,.5);transition:transform .1s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.secondary{background:#f0f2f4;background-image:none;color:var(--navy);box-shadow:none}
+  .copy-status{color:var(--teal-dark);font-weight:600;font-size:.88rem;display:none}
+  .copy-status.show{display:inline-block}
+
+  /* Install steps */
+  ol.steps{list-style:none;padding:0;counter-reset:step}
+  ol.steps li{counter-increment:step;padding:.6rem 0 .6rem 2.4rem;position:relative;font-size:.98rem;color:#374151;line-height:1.55;border-bottom:1px solid #f0f2f4}
+  ol.steps li:last-child{border-bottom:none}
+  ol.steps li::before{content:counter(step);position:absolute;left:0;top:.55rem;background:var(--teal);color:#fff;width:26px;height:26px;border-radius:50%;text-align:center;font-weight:800;font-size:13px;line-height:26px}
+  ol.steps li strong{color:var(--navy)}
+  ol.steps kbd{background:var(--navy);color:#fff;font-family:Menlo,Consolas,monospace;font-size:.8rem;padding:2px 6px;border-radius:4px;font-weight:600}
+
+  footer{text-align:center;color:var(--grey);font-size:.82rem;padding:2rem 1rem}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" style="display:block"><img src="/assets/logo.png" alt="Expat Protect Hub"></a>
+</header>
+
+<div class="wrap">
+  <h1>Gmail Signature Generator</h1>
+  <p class="lede">Type your details below, then click <strong>Copy Signature</strong> and paste it into Gmail&rsquo;s signature settings. Every consultant ends up with the same brand-consistent block.</p>
+
+  <!-- STEP 1 -->
+  <section>
+    <h2><span class="step-num">1</span>Your details</h2>
+    <div class="grid">
+      <div>
+        <label for="i-name">Full Name</label>
+        <input id="i-name" type="text" placeholder="Jane Smith" value="Jane Smith">
+      </div>
+      <div>
+        <label for="i-title">Job Title</label>
+        <input id="i-title" type="text" placeholder="Sales Consultant" value="Sales Consultant">
+      </div>
+      <div>
+        <label for="i-email">Email</label>
+        <input id="i-email" type="email" placeholder="jane@expatprotecthub.com" value="jane@expatprotecthub.com">
+      </div>
+      <div>
+        <label for="i-phone">Phone / WhatsApp <span style="color:var(--grey);text-transform:none;letter-spacing:0;font-weight:500">(international format)</span></label>
+        <input id="i-phone" type="tel" placeholder="+66 82 683 3448" value="+66 82 683 3448">
+        <div class="hint">Include the + and country code. Used for both the tap-to-call link and WhatsApp button.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section>
+    <h2><span class="step-num">2</span>Live preview</h2>
+    <div class="preview-wrap">
+      <div id="signature-preview" contenteditable="false"></div>
+    </div>
+
+    <div class="copy-row">
+      <button type="button" class="btn" id="btn-copy">&#128203; Copy Signature</button>
+      <button type="button" class="btn secondary" id="btn-copy-html">Copy HTML source</button>
+      <span class="copy-status" id="copy-status">&#10003; Copied &mdash; paste into Gmail now</span>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section>
+    <h2><span class="step-num">3</span>Paste it into Gmail</h2>
+    <ol class="steps">
+      <li>In Gmail (desktop, in Chrome), click the gear icon top-right &rarr; <strong>See all settings</strong>.</li>
+      <li>Stay on the <strong>General</strong> tab and scroll down to the <strong>Signature</strong> section.</li>
+      <li>Click <strong>+ Create new</strong>, name it &ldquo;Expat Protect Hub&rdquo;, and click <strong>Create</strong>.</li>
+      <li>Click inside the empty signature box, then press <kbd>Ctrl</kbd> + <kbd>V</kbd> (Windows) or <kbd>&#8984;</kbd> + <kbd>V</kbd> (Mac) to paste. The full brand block will appear with formatting intact.</li>
+      <li>Under <strong>Signature defaults</strong>, set your new signature as the default for <strong>NEW EMAILS USE</strong> and <strong>ON REPLY/FORWARD USE</strong>.</li>
+      <li>Scroll to the bottom and click <strong>Save Changes</strong>. Done &mdash; open a new email to confirm.</li>
+    </ol>
+    <p class="hint" style="margin-top:1rem">
+      Tip: if a colleague can&rsquo;t see the logo, make sure they clicked <strong>Copy Signature</strong> (rich HTML) not <strong>Copy HTML source</strong> (raw code).
+    </p>
+  </section>
+
+</div>
+
+<footer>Expat Protect Hub &middot; internal tool for sales consultants</footer>
+
+<script>
+  const nameEl  = document.getElementById('i-name');
+  const titleEl = document.getElementById('i-title');
+  const emailEl = document.getElementById('i-email');
+  const phoneEl = document.getElementById('i-phone');
+  const preview = document.getElementById('signature-preview');
+  const status  = document.getElementById('copy-status');
+
+  function build(){
+    const name  = (nameEl.value  || '').trim() || 'Full Name';
+    const title = (titleEl.value || '').trim() || 'Sales Consultant';
+    const email = (emailEl.value || '').trim() || 'you@expatprotecthub.com';
+    const phone = (phoneEl.value || '').trim() || '+66 82 683 3448';
+    // Digits-only version for tel: and wa.me links
+    const digits = phone.replace(/[^0-9]/g,'');
+    const telHref  = 'tel:+'  + digits;
+    const waHref   = 'https://wa.me/' + digits;
+
+    return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;color:#1B263B;line-height:1.4;">
+  <tr>
+    <td style="padding-right:18px;border-right:3px solid #0FB9B1;vertical-align:top;">
+      <img src="https://expatprotecthub.com/assets/logo.png" width="120" height="auto" alt="Expat Protect Hub" style="display:block;border:0;">
+    </td>
+    <td style="padding-left:18px;vertical-align:top;font-size:14px;">
+      <div style="font-size:16px;font-weight:700;color:#1B263B;letter-spacing:-.01em;">${escapeHtml(name)}</div>
+      <div style="font-size:12px;color:#0B6E6B;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-top:2px;">${escapeHtml(title)} &middot; Expat Protect Hub</div>
+      <div style="height:8px;line-height:8px;">&nbsp;</div>
+      <table cellpadding="0" cellspacing="0" border="0" style="font-size:13px;color:#4a5568;">
+        <tr>
+          <td style="padding:2px 8px 2px 0;color:#0FB9B1;font-weight:700;">&#9993;</td>
+          <td style="padding:2px 0;"><a href="mailto:${escapeAttr(email)}" style="color:#1B263B;text-decoration:none;">${escapeHtml(email)}</a></td>
+        </tr>
+        <tr>
+          <td style="padding:2px 8px 2px 0;color:#0FB9B1;font-weight:700;">&#128241;</td>
+          <td style="padding:2px 0;"><a href="${telHref}" style="color:#1B263B;text-decoration:none;">${escapeHtml(phone)}</a> &nbsp;&middot;&nbsp; <a href="${waHref}" style="color:#0B6E6B;text-decoration:none;font-weight:600;">WhatsApp</a></td>
+        </tr>
+        <tr>
+          <td style="padding:2px 8px 2px 0;color:#0FB9B1;font-weight:700;">&#127760;</td>
+          <td style="padding:2px 0;"><a href="https://expatprotecthub.com" style="color:#1B263B;text-decoration:none;">expatprotecthub.com</a></td>
+        </tr>
+      </table>
+      <div style="height:12px;line-height:12px;">&nbsp;</div>
+      <a href="https://expatprotecthub.com/find-my-plan" style="display:inline-block;background:#0FB9B1;color:#ffffff;font-size:12px;font-weight:700;text-decoration:none;padding:8px 16px;border-radius:999px;letter-spacing:.02em;">Get a free quote &rarr;</a>
+      <div style="font-size:11px;color:#8a94a4;margin-top:10px;line-height:1.45;max-width:380px;">
+        International health insurance for expats, retirees &amp; digital nomads in 120+ countries.
+      </div>
+    </td>
+  </tr>
+</table>
+<div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:10px;color:#9ca3af;line-height:1.4;margin-top:14px;max-width:560px;">
+  This email and any attachments are confidential and intended solely for the addressee. If you are not the intended recipient, please notify the sender and delete this message. Expat Protect Hub &mdash; International Insurance Consultants.
+</div>`;
+  }
+
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function escapeAttr(s){ return escapeHtml(s); }
+
+  function render(){
+    preview.innerHTML = build();
+  }
+  [nameEl, titleEl, emailEl, phoneEl].forEach(el => el.addEventListener('input', render));
+  render();
+
+  // Copy the rendered signature as rich HTML to the clipboard
+  async function copyRichSignature(){
+    const html = build();
+    const plain = preview.innerText;
+    try {
+      if (navigator.clipboard && window.ClipboardItem) {
+        const blob = new Blob([html], { type: 'text/html' });
+        const textBlob = new Blob([plain], { type: 'text/plain' });
+        await navigator.clipboard.write([ new ClipboardItem({ 'text/html': blob, 'text/plain': textBlob }) ]);
+      } else {
+        // Fallback: select the preview and use execCommand
+        const range = document.createRange();
+        range.selectNodeContents(preview);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+      }
+      showStatus('&#10003; Copied &mdash; paste into Gmail now');
+    } catch (e) {
+      alert('Copy failed. Please select the signature preview manually and press Ctrl+C.');
+    }
+  }
+  async function copyHtmlSource(){
+    try {
+      await navigator.clipboard.writeText(build());
+      showStatus('&#10003; HTML source copied');
+    } catch (e) {
+      alert('Copy failed.');
+    }
+  }
+  function showStatus(html){
+    status.innerHTML = html;
+    status.classList.add('show');
+    clearTimeout(showStatus._t);
+    showStatus._t = setTimeout(() => status.classList.remove('show'), 4000);
+  }
+
+  document.getElementById('btn-copy').addEventListener('click', copyRichSignature);
+  document.getElementById('btn-copy-html').addEventListener('click', copyHtmlSource);
+</script>
+
+</body>
+</html>

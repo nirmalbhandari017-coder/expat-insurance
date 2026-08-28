@@ -8,6 +8,7 @@
 /faq                         /faq.html                         200
 /privacy                     /privacy.html                     200
 /terms                       /terms.html                       200
+/signature                   /signature.html                   200
 
 # Commission CRM single-page app — serve index.html for all /crm routes
 /crm/assets/*  /crm/assets/:splat  200
