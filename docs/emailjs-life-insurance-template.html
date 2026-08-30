@@ -19,7 +19,7 @@
          To email      : {{to_email}}                 ← the customer
          Reply-to      : info@expatprotecthub.com     ← replies come back to sales
          Bcc           : info@expatprotecthub.com     ← optional: also copy the sales inbox
-         Subject       : Your life insurance quote — {{quote_sum_assured}} cover for {{quote_annual_premium}}/yr
+         Subject       : Your life insurance quote — {{quote_sum_assured}} cover for {{quote_payment_amount}} {{quote_payment_period}}
     4. Content tab: paste EVERYTHING BELOW THIS COMMENT BLOCK
        (from <!DOCTYPE html> to </html>) into the HTML body.
     5. Save → copy the new template ID (e.g. template_abc1234)
@@ -31,7 +31,12 @@
     {{quote_ref}}
     {{quote_age}}  {{quote_gender}}  {{quote_smoker}}
     {{quote_sum_assured}}
-    {{quote_annual_premium}}  {{quote_monthly_premium}}
+    {{quote_frequency}}         (Annual / Semi-Annual / Quarterly / Monthly)
+    {{quote_payment_amount}}    (US$X per-period payment)
+    {{quote_payment_period}}    (per year / per 6 months / per quarter / per month)
+    {{quote_surcharge}}         (no surcharge / incl. 8% surcharge / …)
+    {{quote_annual_premium}}    (total per year, INCLUDING the surcharge)
+    {{quote_monthly_premium}}   (annual / 12, monthly-equivalent reference)
     {{quote_summary}}
     {{product}}    {{lead_source}}
     {{utm_source}} {{utm_medium}} {{utm_campaign}}
@@ -141,13 +146,14 @@
               <tr>
                 <td class="p-hero" align="center" style="padding:22px 20px;">
                   <div class="hero-label" style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0B6E6B;">
-                    Your Indicative Annual Premium
+                    Your Indicative Premium
                   </div>
                   <div class="hero-price" style="font-size:40px;font-weight:800;color:#0B6E6B;letter-spacing:-.02em;padding-top:6px;line-height:1.1;">
-                    {{quote_annual_premium}}
+                    {{quote_payment_amount}}
                   </div>
                   <div class="hero-sub" style="font-size:13px;color:#1B263B;padding-top:4px;">
-                    Approx. <strong>{{quote_monthly_premium}}/mo</strong> &middot; for <strong>{{quote_sum_assured}}</strong> of cover
+                    {{quote_payment_period}} &middot; total <strong>{{quote_annual_premium}}</strong> per year<br>
+                    <span style="color:#6B7280;">for <strong>{{quote_sum_assured}}</strong> of cover &middot; {{quote_surcharge}}</span>
                   </div>
                 </td>
               </tr>
@@ -183,7 +189,15 @@
                 <td class="kv-v" style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_smoker}}</td>
               </tr>
               <tr>
-                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;">Annual premium</td>
+                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Payment frequency</td>
+                <td class="kv-v" style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_frequency}} &mdash; <span style="color:#6B7280;font-weight:500;">{{quote_surcharge}}</span></td>
+              </tr>
+              <tr>
+                <td class="kv-k" style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Payment</td>
+                <td class="kv-v" style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:700;border-bottom:1px solid #E4E7EB;">{{quote_payment_amount}} <span style="color:#6B7280;font-weight:500;">{{quote_payment_period}}</span></td>
+              </tr>
+              <tr>
+                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;">Total per year</td>
                 <td class="kv-v" style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:700;">{{quote_annual_premium}}</td>
               </tr>
             </table>

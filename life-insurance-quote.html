@@ -100,8 +100,12 @@
   @media (max-width:520px){.chips{grid-template-columns:repeat(2,1fr)}}
   .chip{position:relative}
   .chip input{position:absolute;opacity:0;pointer-events:none}
-  .chip label{display:flex;align-items:center;justify-content:center;padding:.7rem .4rem;border:1.8px solid var(--light);border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:700;text-align:center;background:#fafbfc;color:var(--navy);transition:all .15s}
+  .chip label{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.7rem .4rem;border:1.8px solid var(--light);border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:700;text-align:center;background:#fafbfc;color:var(--navy);transition:all .15s;gap:.15rem}
   .chip input:checked + label{border-color:var(--teal);background:rgba(15,185,177,.08);color:var(--teal-dark);box-shadow:0 0 0 3px rgba(15,185,177,.1)}
+  .chip-sub{font-size:.7rem;font-weight:500;color:var(--grey);letter-spacing:0}
+  .chip input:checked + label .chip-sub{color:var(--teal-dark);opacity:.85}
+  .freq-chips{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:520px){.freq-chips{grid-template-columns:repeat(2,1fr)}}
   .cover-note{font-size:.78rem;color:var(--grey);margin-top:.3rem}
 
   /* RESULT PANEL */
@@ -212,6 +216,17 @@
         <input type="number" id="q-sum-custom" placeholder="Enter a custom amount, e.g. 175000" min="25000" max="350000" step="5000" style="display:none;margin-top:.5rem">
         <p class="cover-note">Maximum cover: US$350,000.</p>
       </div>
+
+      <div class="field">
+        <label>Payment Frequency</label>
+        <div class="chips freq-chips" role="radiogroup" aria-label="Payment frequency">
+          <div class="chip"><input type="radio" id="f-annual" name="frequency" value="annual" checked><label for="f-annual">Annual<span class="chip-sub">no surcharge</span></label></div>
+          <div class="chip"><input type="radio" id="f-semi" name="frequency" value="semiannual"><label for="f-semi">Semi-Annual<span class="chip-sub">+8%</span></label></div>
+          <div class="chip"><input type="radio" id="f-quarterly" name="frequency" value="quarterly"><label for="f-quarterly">Quarterly<span class="chip-sub">+12%</span></label></div>
+          <div class="chip"><input type="radio" id="f-monthly" name="frequency" value="monthly"><label for="f-monthly">Monthly<span class="chip-sub">+16%</span></label></div>
+        </div>
+        <p class="cover-note">Non-annual schedules include a small surcharge to cover the extra processing.</p>
+      </div>
     </form>
 
     <!-- RIGHT: RESULT + LEAD -->
@@ -220,10 +235,10 @@
 
       <div id="result-shown" style="display:none">
         <div class="result-hero">
-          <div class="result-label">Your Annual Premium</div>
-          <div class="result-price"><span class="cur">US$</span><span id="r-annual">0</span></div>
-          <div class="result-per">per year, based on your current age</div>
-          <div class="result-monthly">Approx. <span id="r-monthly">$0</span> / month</div>
+          <div class="result-label" id="r-label">Your Annual Premium</div>
+          <div class="result-price"><span class="cur">US$</span><span id="r-payment">0</span></div>
+          <div class="result-per" id="r-period">per year, based on your current age</div>
+          <div class="result-monthly">Total: <span id="r-annual-total">US$0</span> per year <span id="r-surcharge" style="color:var(--grey);font-weight:500"></span></div>
         </div>
 
         <div class="summary">
@@ -231,6 +246,7 @@
           <div class="summary-item"><div class="k">Age</div><div class="v" id="r-age">&mdash;</div></div>
           <div class="summary-item"><div class="k">Gender</div><div class="v" id="r-gender">&mdash;</div></div>
           <div class="summary-item"><div class="k">Smoker</div><div class="v" id="r-smoker">&mdash;</div></div>
+          <div class="summary-item" style="grid-column:1/-1"><div class="k">Payment Frequency</div><div class="v" id="r-frequency">&mdash;</div></div>
         </div>
 
         <div class="callout">
@@ -271,6 +287,10 @@
           <input type="hidden" name="quote_gender" id="h-gender">
           <input type="hidden" name="quote_smoker" id="h-smoker">
           <input type="hidden" name="quote_sum_assured" id="h-sum">
+          <input type="hidden" name="quote_frequency" id="h-frequency">
+          <input type="hidden" name="quote_payment_amount" id="h-payment">
+          <input type="hidden" name="quote_payment_period" id="h-period">
+          <input type="hidden" name="quote_surcharge" id="h-surcharge">
           <input type="hidden" name="quote_annual_premium" id="h-annual">
           <input type="hidden" name="quote_monthly_premium" id="h-monthly">
           <input type="hidden" name="utm_source" id="utm_source">
@@ -391,22 +411,40 @@
   /* ── Quote inputs ── */
   const $  = id => document.getElementById(id);
   const MAX_COVER = 350000;
+
+  // Payment frequency loading (mirrors the health-insurance quote)
+  const FREQ = {
+    annual:     { label:'Annual',      period:'per year',     divisor:1,  multiplier:1.00, surcharge:'no surcharge' },
+    semiannual: { label:'Semi-Annual', period:'per 6 months', divisor:2,  multiplier:1.08, surcharge:'incl. 8% surcharge' },
+    quarterly:  { label:'Quarterly',   period:'per quarter',  divisor:4,  multiplier:1.12, surcharge:'incl. 12% surcharge' },
+    monthly:    { label:'Monthly',     period:'per month',    divisor:12, multiplier:1.16, surcharge:'incl. 16% surcharge' }
+  };
+
   const els = {
     age: $('q-age'),
     genderInputs: document.querySelectorAll('input[name="gender"]'),
     smokerInputs: document.querySelectorAll('input[name="smoker"]'),
     sumPresetInputs: document.querySelectorAll('input[name="sum_preset"]'),
     sumCustom: $('q-sum-custom'),
+    freqInputs: document.querySelectorAll('input[name="frequency"]'),
     resultEmpty: $('result-empty'),
     resultShown: $('result-shown'),
-    rAnnual: $('r-annual'),
-    rMonthly: $('r-monthly'),
+    rLabel: $('r-label'),
+    rPayment: $('r-payment'),
+    rPeriod: $('r-period'),
+    rAnnualTotal: $('r-annual-total'),
+    rSurcharge: $('r-surcharge'),
     rSum: $('r-sum'),
     rAge: $('r-age'),
     rGender: $('r-gender'),
     rSmoker: $('r-smoker'),
+    rFrequency: $('r-frequency'),
     hAge: $('h-age'), hGender: $('h-gender'), hSmoker: $('h-smoker'),
     hSum: $('h-sum'),
+    hFrequency: $('h-frequency'),
+    hPayment: $('h-payment'),
+    hPeriod: $('h-period'),
+    hSurcharge: $('h-surcharge'),
     hAnnual: $('h-annual'), hMonthly: $('h-monthly')
   };
 
@@ -429,11 +467,18 @@
     return n;
   }
 
+  function getFreq(){
+    const r = Array.from(els.freqInputs).find(x=>x.checked);
+    return (r && FREQ[r.value]) ? r.value : 'annual';
+  }
+
   function calc(){
     const age = parseInt(els.age.value, 10);
     const gender = getGender();
     const smoker = getSmoker();
     const sum = getSum();
+    const freqKey = getFreq();
+    const freq = FREQ[freqKey];
 
     // Validate
     if (!age || age < 18 || age > 65 || !gender || !smoker || !sum || sum < 25000) {
@@ -451,26 +496,42 @@
     else if (gender === 'Female' && smoker === 'Non-Smoker') idx = 2;
     else idx = 3;
     const rate = row[idx];
-    const annual = Math.round(sum * rate);
-    const monthly = Math.round(annual / 12);
 
-    // Show
+    // Base annual (no surcharge)
+    const baseAnnual = Math.round(sum * rate);
+    // Total annual customer pays under chosen frequency (incl. surcharge)
+    const totalAnnual = Math.round(baseAnnual * freq.multiplier);
+    // Per-period payment
+    const perPeriod = Math.round(totalAnnual / freq.divisor);
+    // Monthly equivalent (for email compatibility)
+    const monthlyEq = Math.round(totalAnnual / 12);
+
+    // Update result panel
     els.resultEmpty.style.display = 'none';
     els.resultShown.style.display = 'block';
-    els.rAnnual.textContent = fmt(annual);
-    els.rMonthly.textContent = '$' + fmt(monthly);
+    els.rLabel.textContent = (freqKey === 'annual') ? 'Your Annual Premium' : 'Your ' + freq.label + ' Payment';
+    els.rPayment.textContent = fmt(perPeriod);
+    els.rPeriod.textContent  = (freqKey === 'annual') ? 'per year, based on your current age' : freq.period;
+    els.rAnnualTotal.textContent = 'US$' + fmt(totalAnnual);
+    els.rSurcharge.textContent   = (freqKey === 'annual') ? '' : '(' + freq.surcharge + ')';
     els.rSum.textContent = 'US$' + fmt(sum);
     els.rAge.textContent = age;
     els.rGender.textContent = gender;
     els.rSmoker.textContent = smoker;
+    els.rFrequency.textContent = freq.label + ' — US$' + fmt(perPeriod) + ' ' + freq.period +
+      ((freqKey === 'annual') ? '' : ' (' + freq.surcharge + ')');
 
     // Fill hidden lead fields (formatted for display in the email)
     els.hAge.value = age;
     els.hGender.value = gender;
     els.hSmoker.value = smoker;
     els.hSum.value = 'US$' + fmt(sum);
-    els.hAnnual.value = 'US$' + fmt(annual);
-    els.hMonthly.value = 'US$' + fmt(monthly);
+    els.hFrequency.value = freq.label;
+    els.hPayment.value = 'US$' + fmt(perPeriod);
+    els.hPeriod.value = freq.period;
+    els.hSurcharge.value = freq.surcharge;
+    els.hAnnual.value = 'US$' + fmt(totalAnnual);
+    els.hMonthly.value = 'US$' + fmt(monthlyEq);
   }
 
   // Live re-price on any change
@@ -542,7 +603,9 @@
       data.quote_gender + ', age ' + data.quote_age +
       ', ' + data.quote_smoker +
       ', ' + data.quote_sum_assured + ' cover' +
-      ' — ' + data.quote_annual_premium + '/yr (' + data.quote_monthly_premium + '/mo)';
+      ' — ' + data.quote_payment_amount + ' ' + data.quote_payment_period +
+      ' (' + data.quote_frequency + '; ' + data.quote_surcharge + ')' +
+      ' = ' + data.quote_annual_premium + '/yr';
 
     if (window.fbq) fbq('track', 'Lead', { content_name: 'Life Insurance Quote' });
 
