@@ -6,7 +6,8 @@
   Goes TO the customer who filled the form on
   /life-insurance/quote — thanks them, shows their personal
   details back to them, and displays the indicative premium
-  and cover clearly.
+  and cover clearly. Mobile-friendly: paddings and hero font
+  shrink at 600px and again at 400px, with Outlook shims.
 
   Where this goes:
     1. Log in to https://dashboard.emailjs.com
@@ -38,31 +39,81 @@
   =============================================================
 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="x-apple-disable-message-reformatting">
 <title>Your life insurance quote</title>
+<!--[if mso]>
+<noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+<![endif]-->
+<style>
+  /* Client resets */
+  html,body{margin:0!important;padding:0!important;height:100%!important;width:100%!important;}
+  *{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+  table,td{mso-table-lspace:0pt!important;mso-table-rspace:0pt!important;border-collapse:collapse!important;}
+  img{-ms-interpolation-mode:bicubic;border:0;line-height:100%;outline:none;text-decoration:none;}
+  a{text-decoration:none;}
+  /* iOS auto-linking */
+  a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important;}
+
+  /* ── MOBILE (≤600px) ─────────────────────────────── */
+  @media only screen and (max-width:600px){
+    .wrap-pad{padding:12px 8px!important;}
+    .card{border-radius:10px!important;}
+    .p-lg{padding-left:18px!important;padding-right:18px!important;}
+    .p-hero{padding:18px 12px!important;}
+    .greet-h{font-size:19px!important;line-height:1.25!important;}
+    .greet-p{font-size:14px!important;}
+    .hero-label{font-size:10px!important;letter-spacing:.14em!important;}
+    .hero-price{font-size:32px!important;}
+    .hero-sub{font-size:12px!important;}
+    .sec-title{font-size:10px!important;letter-spacing:.12em!important;padding:10px 0 6px!important;}
+    .kv-k{font-size:12px!important;padding:9px 12px!important;}
+    .kv-v{font-size:13px!important;padding:9px 12px!important;}
+    .step-t{font-size:13px!important;}
+    .cta-a{display:block!important;width:auto!important;padding:14px 18px!important;font-size:14px!important;}
+    .fine{font-size:11px!important;}
+    .footer{font-size:11px!important;padding:14px 18px 22px!important;}
+    .brand-title{font-size:12px!important;}
+    .brand-sub{font-size:10px!important;}
+    .brand-band{padding:16px 18px!important;}
+  }
+
+  /* ── VERY NARROW (≤400px) ────────────────────────── */
+  @media only screen and (max-width:400px){
+    .hero-price{font-size:28px!important;}
+    .greet-h{font-size:18px!important;}
+    .kv-k{width:42%!important;}
+  }
+</style>
 </head>
 <body style="margin:0;padding:0;background:#f4f6f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1B263B;">
 
-<!-- Preheader (hidden in body, shown in inbox preview) -->
-<div style="display:none;font-size:1px;color:#f4f6f8;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+<!-- Preheader (hidden preview text in inbox) -->
+<div style="display:none;font-size:1px;color:#f4f6f8;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
   Thanks {{to_name}} — your indicative annual premium is {{quote_annual_premium}} for {{quote_sum_assured}} of cover. A specialist will be in touch shortly.
 </div>
 
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6f8;padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6f8;">
   <tr>
-    <td align="center">
+    <td class="wrap-pad" align="center" style="padding:24px 12px;">
 
-      <table role="presentation" width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.06);">
+      <!--[if mso]>
+      <table role="presentation" align="center" width="620" cellpadding="0" cellspacing="0" border="0"><tr><td>
+      <![endif]-->
+
+      <table role="presentation" class="card" width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.06);">
 
         <!-- ── BRAND HEADER ─────────────────────────────── -->
         <tr>
-          <td style="background:linear-gradient(135deg,#0FB9B1,#0B6E6B);padding:22px 28px;text-align:center;">
-            <div style="color:#ffffff;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.9;">
+          <td class="brand-band" style="background:#0B6E6B;background:linear-gradient(135deg,#0FB9B1,#0B6E6B);padding:22px 28px;text-align:center;">
+            <div class="brand-title" style="color:#ffffff;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;opacity:.9;">
               Expat Protect Hub
             </div>
-            <div style="color:#ffffff;font-size:11px;font-weight:600;letter-spacing:.08em;opacity:.75;padding-top:4px;">
+            <div class="brand-sub" style="color:#ffffff;font-size:11px;font-weight:600;letter-spacing:.08em;opacity:.75;padding-top:4px;">
               International Insurance Consultants
             </div>
           </td>
@@ -70,11 +121,11 @@
 
         <!-- ── GREETING ─────────────────────────────────── -->
         <tr>
-          <td style="padding:28px 28px 4px 28px;">
-            <div style="font-size:22px;font-weight:800;letter-spacing:-.01em;color:#1B263B;">
+          <td class="p-lg" style="padding:28px 28px 4px 28px;">
+            <div class="greet-h" style="font-size:22px;font-weight:800;letter-spacing:-.01em;color:#1B263B;line-height:1.25;">
               Thanks, {{to_name}} &mdash; here&rsquo;s your quote
             </div>
-            <p style="font-size:14px;line-height:1.6;color:#4B5563;margin:10px 0 0;">
+            <p class="greet-p" style="font-size:14px;line-height:1.6;color:#4B5563;margin:10px 0 0;">
               We&rsquo;ve received your request for an international life insurance quote.
               Based on the details you entered, this is your indicative annual premium.
               A licensed specialist will be in touch within <strong>24 hours</strong> to
@@ -85,22 +136,19 @@
 
         <!-- ── PREMIUM HERO ─────────────────────────────── -->
         <tr>
-          <td style="padding:22px 28px 8px 28px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                   style="background:#f0fdfa;border:1px solid #cceeeb;border-radius:12px;padding:22px 20px;">
+          <td class="p-lg" style="padding:22px 28px 8px 28px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f0fdfa;border:1px solid #cceeeb;border-radius:12px;">
               <tr>
-                <td align="center" style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0B6E6B;">
-                  Your Indicative Annual Premium
-                </td>
-              </tr>
-              <tr>
-                <td align="center" style="font-size:40px;font-weight:800;color:#0B6E6B;letter-spacing:-.02em;padding-top:6px;line-height:1.1;">
-                  {{quote_annual_premium}}
-                </td>
-              </tr>
-              <tr>
-                <td align="center" style="font-size:13px;color:#1B263B;padding-top:4px;">
-                  Approx. <strong>{{quote_monthly_premium}}/mo</strong> &middot; for <strong>{{quote_sum_assured}}</strong> of cover
+                <td class="p-hero" align="center" style="padding:22px 20px;">
+                  <div class="hero-label" style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0B6E6B;">
+                    Your Indicative Annual Premium
+                  </div>
+                  <div class="hero-price" style="font-size:40px;font-weight:800;color:#0B6E6B;letter-spacing:-.02em;padding-top:6px;line-height:1.1;">
+                    {{quote_annual_premium}}
+                  </div>
+                  <div class="hero-sub" style="font-size:13px;color:#1B263B;padding-top:4px;">
+                    Approx. <strong>{{quote_monthly_premium}}/mo</strong> &middot; for <strong>{{quote_sum_assured}}</strong> of cover
+                  </div>
                 </td>
               </tr>
             </table>
@@ -109,35 +157,34 @@
 
         <!-- ── YOUR QUOTE ───────────────────────────────── -->
         <tr>
-          <td style="padding:16px 28px 0 28px;">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
+          <td class="p-lg" style="padding:16px 28px 0 28px;">
+            <div class="sec-title" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
               Your Quote
             </div>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                   style="border:1px solid #E4E7EB;border-radius:10px;overflow:hidden;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E4E7EB;border-radius:10px;overflow:hidden;">
               <tr>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;width:44%;border-bottom:1px solid #E4E7EB;">Product</td>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{product}}</td>
+                <td class="kv-k" style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;width:44%;border-bottom:1px solid #E4E7EB;">Product</td>
+                <td class="kv-v" style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{product}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Sum assured</td>
-                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:700;border-bottom:1px solid #E4E7EB;">{{quote_sum_assured}}</td>
+                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Sum assured</td>
+                <td class="kv-v" style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:700;border-bottom:1px solid #E4E7EB;">{{quote_sum_assured}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Age</td>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_age}}</td>
+                <td class="kv-k" style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Age</td>
+                <td class="kv-v" style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_age}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Gender</td>
-                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_gender}}</td>
+                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Gender</td>
+                <td class="kv-v" style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_gender}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Smoker status</td>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_smoker}}</td>
+                <td class="kv-k" style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Smoker status</td>
+                <td class="kv-v" style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_smoker}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;">Annual premium</td>
-                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:700;">{{quote_annual_premium}}</td>
+                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;">Annual premium</td>
+                <td class="kv-v" style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:700;">{{quote_annual_premium}}</td>
               </tr>
             </table>
           </td>
@@ -145,30 +192,29 @@
 
         <!-- ── YOUR DETAILS ─────────────────────────────── -->
         <tr>
-          <td style="padding:16px 28px 0 28px;">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
+          <td class="p-lg" style="padding:16px 28px 0 28px;">
+            <div class="sec-title" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
               Your Details
             </div>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
-                   style="border:1px solid #E4E7EB;border-radius:10px;overflow:hidden;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E4E7EB;border-radius:10px;overflow:hidden;">
               <tr>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;width:44%;border-bottom:1px solid #E4E7EB;">Full name</td>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:700;border-bottom:1px solid #E4E7EB;">{{full_name}}</td>
+                <td class="kv-k" style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;width:44%;border-bottom:1px solid #E4E7EB;">Full name</td>
+                <td class="kv-v" style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:700;border-bottom:1px solid #E4E7EB;">{{full_name}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Email</td>
-                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{email}}</td>
+                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Email</td>
+                <td class="kv-v" style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;word-break:break-word;">{{email}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Phone</td>
-                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{phone}}</td>
+                <td class="kv-k" style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Phone</td>
+                <td class="kv-v" style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{phone}}</td>
               </tr>
               <tr>
-                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;">Country of residence</td>
-                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;">{{country}}</td>
+                <td class="kv-k" style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;">Country of residence</td>
+                <td class="kv-v" style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;">{{country}}</td>
               </tr>
             </table>
-            <p style="font-size:12px;color:#6B7280;margin:8px 4px 0;">
+            <p class="fine" style="font-size:12px;color:#6B7280;margin:8px 4px 0;">
               Something not right? Just reply to this email and we&rsquo;ll fix it.
             </p>
           </td>
@@ -176,8 +222,8 @@
 
         <!-- ── WHAT HAPPENS NEXT ────────────────────────── -->
         <tr>
-          <td style="padding:22px 28px 4px 28px;">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 10px;">
+          <td class="p-lg" style="padding:22px 28px 4px 28px;">
+            <div class="sec-title" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 10px;">
               What Happens Next
             </div>
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:14px;color:#1B263B;line-height:1.55;">
@@ -185,7 +231,7 @@
                 <td width="34" valign="top" style="padding:6px 0;">
                   <div style="width:26px;height:26px;border-radius:999px;background:#0FB9B1;color:#ffffff;font-weight:800;font-size:13px;line-height:26px;text-align:center;">1</div>
                 </td>
-                <td valign="top" style="padding:6px 0 6px 4px;">
+                <td class="step-t" valign="top" style="padding:6px 0 6px 4px;font-size:14px;">
                   <strong>A specialist calls you within 24 hours</strong> on the number you provided to answer questions and confirm the quote.
                 </td>
               </tr>
@@ -193,7 +239,7 @@
                 <td width="34" valign="top" style="padding:6px 0;">
                   <div style="width:26px;height:26px;border-radius:999px;background:#0FB9B1;color:#ffffff;font-weight:800;font-size:13px;line-height:26px;text-align:center;">2</div>
                 </td>
-                <td valign="top" style="padding:6px 0 6px 4px;">
+                <td class="step-t" valign="top" style="padding:6px 0 6px 4px;font-size:14px;">
                   <strong>Short online health questionnaire</strong> &mdash; most standard cases are accepted without a medical exam.
                 </td>
               </tr>
@@ -201,7 +247,7 @@
                 <td width="34" valign="top" style="padding:6px 0;">
                   <div style="width:26px;height:26px;border-radius:999px;background:#0FB9B1;color:#ffffff;font-weight:800;font-size:13px;line-height:26px;text-align:center;">3</div>
                 </td>
-                <td valign="top" style="padding:6px 0 6px 4px;">
+                <td class="step-t" valign="top" style="padding:6px 0 6px 4px;font-size:14px;">
                   <strong>Cover in force</strong> once underwriting is approved and the first annual premium is paid.
                 </td>
               </tr>
@@ -211,9 +257,9 @@
 
         <!-- ── CTA ROW ──────────────────────────────────── -->
         <tr>
-          <td style="padding:20px 28px 4px 28px;" align="center">
-            <a href="https://expatprotecthub.com/life-insurance"
-               style="display:inline-block;background:linear-gradient(135deg,#0FB9B1,#0B6E6B);color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 22px;border-radius:999px;letter-spacing:.02em;">
+          <td class="p-lg" style="padding:20px 28px 4px 28px;" align="center">
+            <a class="cta-a" href="https://expatprotecthub.com/life-insurance"
+               style="display:inline-block;background:#0B6E6B;background:linear-gradient(135deg,#0FB9B1,#0B6E6B);color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 22px;border-radius:999px;letter-spacing:.02em;">
               Learn more about the cover &rarr;
             </a>
           </td>
@@ -221,8 +267,8 @@
 
         <!-- ── FINE PRINT ───────────────────────────────── -->
         <tr>
-          <td style="padding:18px 28px 6px 28px;">
-            <p style="font-size:11px;color:#6B7280;line-height:1.6;margin:0;">
+          <td class="p-lg" style="padding:18px 28px 6px 28px;">
+            <p class="fine" style="font-size:11px;color:#6B7280;line-height:1.6;margin:0;">
               The premium shown is indicative, calculated from the current published rate table and the details you entered. Your final premium is confirmed by the insurer once underwriting is complete. Cover is subject to standard health and eligibility conditions. This email is a quote, not a policy.
             </p>
           </td>
@@ -230,7 +276,7 @@
 
         <!-- ── QUOTE REFERENCE / FOOTER ─────────────────── -->
         <tr>
-          <td style="padding:14px 28px 24px 28px;text-align:center;font-size:11px;color:#8a94a4;line-height:1.6;border-top:1px solid #E4E7EB;">
+          <td class="footer" style="padding:14px 28px 24px 28px;text-align:center;font-size:11px;color:#8a94a4;line-height:1.6;border-top:1px solid #E4E7EB;">
             Quote reference: <strong style="color:#1B263B;">{{quote_ref}}</strong><br>
             Expat Protect Hub &middot; International Insurance Consultants<br>
             <a href="https://expatprotecthub.com" style="color:#0B6E6B;text-decoration:none;">expatprotecthub.com</a>
@@ -240,6 +286,10 @@
         </tr>
 
       </table>
+
+      <!--[if mso]>
+      </td></tr></table>
+      <![endif]-->
 
     </td>
   </tr>
