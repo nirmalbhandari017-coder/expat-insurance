@@ -163,7 +163,7 @@
   <div class="wrap">
     <div class="eyebrow">Life Insurance Quote</div>
     <h1>See your annual premium in 30 seconds</h1>
-    <p>Level term life cover for expats. Enter four details &mdash; get an instant, no-strings price.</p>
+    <p>Life cover for expats up to US$350,000. Enter four details &mdash; get an instant, no-strings price.</p>
   </div>
 </section>
 
@@ -175,21 +175,9 @@
       <h2>Your details</h2>
       <p class="lead">All fields are needed to price your cover accurately.</p>
 
-      <div class="row2">
-        <div class="field">
-          <label for="q-age">Age</label>
-          <input type="number" id="q-age" name="age" min="18" max="65" placeholder="e.g. 35" inputmode="numeric" required>
-        </div>
-        <div class="field">
-          <label for="q-term">Term Length</label>
-          <select id="q-term" name="term">
-            <option value="10">10 years</option>
-            <option value="15">15 years</option>
-            <option value="20" selected>20 years</option>
-            <option value="25">25 years</option>
-            <option value="30">30 years</option>
-          </select>
-        </div>
+      <div class="field">
+        <label for="q-age">Age</label>
+        <input type="number" id="q-age" name="age" min="18" max="65" placeholder="e.g. 35" inputmode="numeric" required>
       </div>
 
       <div class="field">
@@ -212,18 +200,17 @@
       <div class="field">
         <label>Cover Amount (Sum Assured)</label>
         <div class="chips" role="radiogroup" aria-label="Cover amount">
-          <div class="chip"><input type="radio" id="s1" name="sum_preset" value="100000"><label for="s1">US$100k</label></div>
-          <div class="chip"><input type="radio" id="s2" name="sum_preset" value="250000"><label for="s2">US$250k</label></div>
-          <div class="chip"><input type="radio" id="s3" name="sum_preset" value="350000" checked><label for="s3">US$350k</label></div>
-          <div class="chip"><input type="radio" id="s4" name="sum_preset" value="500000"><label for="s4">US$500k</label></div>
-          <div class="chip"><input type="radio" id="s5" name="sum_preset" value="750000"><label for="s5">US$750k</label></div>
-          <div class="chip"><input type="radio" id="s6" name="sum_preset" value="1000000"><label for="s6">US$1M</label></div>
-          <div class="chip"><input type="radio" id="s7" name="sum_preset" value="1500000"><label for="s7">US$1.5M</label></div>
-          <div class="chip"><input type="radio" id="s8" name="sum_preset" value="2000000"><label for="s8">US$2M</label></div>
-          <div class="chip"><input type="radio" id="s9" name="sum_preset" value="custom"><label for="s9">Custom</label></div>
+          <div class="chip"><input type="radio" id="s1" name="sum_preset" value="50000"><label for="s1">US$50k</label></div>
+          <div class="chip"><input type="radio" id="s2" name="sum_preset" value="100000"><label for="s2">US$100k</label></div>
+          <div class="chip"><input type="radio" id="s3" name="sum_preset" value="150000"><label for="s3">US$150k</label></div>
+          <div class="chip"><input type="radio" id="s4" name="sum_preset" value="200000"><label for="s4">US$200k</label></div>
+          <div class="chip"><input type="radio" id="s5" name="sum_preset" value="250000"><label for="s5">US$250k</label></div>
+          <div class="chip"><input type="radio" id="s6" name="sum_preset" value="300000"><label for="s6">US$300k</label></div>
+          <div class="chip"><input type="radio" id="s7" name="sum_preset" value="350000" checked><label for="s7">US$350k</label></div>
+          <div class="chip"><input type="radio" id="s8" name="sum_preset" value="custom"><label for="s8">Custom</label></div>
         </div>
-        <input type="number" id="q-sum-custom" placeholder="Enter a custom amount, e.g. 400000" min="50000" max="2000000" step="10000" style="display:none;margin-top:.5rem">
-        <p class="cover-note">Cover from US$100,000 to US$2,000,000.</p>
+        <input type="number" id="q-sum-custom" placeholder="Enter a custom amount, e.g. 175000" min="25000" max="350000" step="5000" style="display:none;margin-top:.5rem">
+        <p class="cover-note">Maximum cover: US$350,000.</p>
       </div>
     </form>
 
@@ -235,7 +222,7 @@
         <div class="result-hero">
           <div class="result-label">Your Annual Premium</div>
           <div class="result-price"><span class="cur">US$</span><span id="r-annual">0</span></div>
-          <div class="result-per">per year, fixed for the term</div>
+          <div class="result-per">per year, based on your current age</div>
           <div class="result-monthly">Approx. <span id="r-monthly">$0</span> / month</div>
         </div>
 
@@ -244,8 +231,6 @@
           <div class="summary-item"><div class="k">Age</div><div class="v" id="r-age">&mdash;</div></div>
           <div class="summary-item"><div class="k">Gender</div><div class="v" id="r-gender">&mdash;</div></div>
           <div class="summary-item"><div class="k">Smoker</div><div class="v" id="r-smoker">&mdash;</div></div>
-          <div class="summary-item"><div class="k">Term</div><div class="v" id="r-term">&mdash;</div></div>
-          <div class="summary-item"><div class="k">Total Payout</div><div class="v" id="r-payout">&mdash;</div></div>
         </div>
 
         <div class="callout">
@@ -286,7 +271,6 @@
           <input type="hidden" name="quote_gender" id="h-gender">
           <input type="hidden" name="quote_smoker" id="h-smoker">
           <input type="hidden" name="quote_sum_assured" id="h-sum">
-          <input type="hidden" name="quote_term" id="h-term">
           <input type="hidden" name="quote_annual_premium" id="h-annual">
           <input type="hidden" name="quote_monthly_premium" id="h-monthly">
           <input type="hidden" name="utm_source" id="utm_source">
@@ -405,9 +389,9 @@
 
   /* ── Quote inputs ── */
   const $  = id => document.getElementById(id);
+  const MAX_COVER = 350000;
   const els = {
     age: $('q-age'),
-    term: $('q-term'),
     genderInputs: document.querySelectorAll('input[name="gender"]'),
     smokerInputs: document.querySelectorAll('input[name="smoker"]'),
     sumPresetInputs: document.querySelectorAll('input[name="sum_preset"]'),
@@ -420,10 +404,8 @@
     rAge: $('r-age'),
     rGender: $('r-gender'),
     rSmoker: $('r-smoker'),
-    rTerm: $('r-term'),
-    rPayout: $('r-payout'),
     hAge: $('h-age'), hGender: $('h-gender'), hSmoker: $('h-smoker'),
-    hSum: $('h-sum'), hTerm: $('h-term'),
+    hSum: $('h-sum'),
     hAnnual: $('h-annual'), hMonthly: $('h-monthly')
   };
 
@@ -438,8 +420,12 @@
   function getSum(){
     const r = Array.from(els.sumPresetInputs).find(x=>x.checked);
     if (!r) return 0;
-    if (r.value === 'custom') return parseInt(els.sumCustom.value || 0, 10) || 0;
-    return parseInt(r.value, 10) || 0;
+    let n;
+    if (r.value === 'custom') n = parseInt(els.sumCustom.value || 0, 10) || 0;
+    else n = parseInt(r.value, 10) || 0;
+    // Enforce hard cap of $350,000
+    if (n > MAX_COVER) n = MAX_COVER;
+    return n;
   }
 
   function calc(){
@@ -447,10 +433,9 @@
     const gender = getGender();
     const smoker = getSmoker();
     const sum = getSum();
-    const term = parseInt(els.term.value, 10) || 20;
 
     // Validate
-    if (!age || age < 18 || age > 65 || !gender || !smoker || !sum || sum < 50000) {
+    if (!age || age < 18 || age > 65 || !gender || !smoker || !sum || sum < 25000) {
       els.resultEmpty.style.display = 'block';
       els.resultShown.style.display = 'none';
       return;
@@ -477,15 +462,12 @@
     els.rAge.textContent = age;
     els.rGender.textContent = gender;
     els.rSmoker.textContent = smoker;
-    els.rTerm.textContent = term + ' years';
-    els.rPayout.textContent = 'US$' + fmt(sum);
 
     // Fill hidden lead fields
     els.hAge.value = age;
     els.hGender.value = gender;
     els.hSmoker.value = smoker;
     els.hSum.value = sum;
-    els.hTerm.value = term + ' years';
     els.hAnnual.value = 'US$' + fmt(annual);
     els.hMonthly.value = 'US$' + fmt(monthly);
   }
@@ -558,7 +540,6 @@
       data.quote_gender + ', age ' + data.quote_age +
       ', ' + data.quote_smoker +
       ', ' + data.quote_sum_assured + ' cover' +
-      ', ' + data.quote_term +
       ' — ' + data.quote_annual_premium + '/yr (' + data.quote_monthly_premium + '/mo)';
 
     if (window.fbq) fbq('track', 'Lead', { content_name: 'Life Insurance Quote' });
