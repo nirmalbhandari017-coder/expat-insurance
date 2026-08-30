@@ -549,7 +549,7 @@
       setTimeout(() => reject(new Error('Request timed out after 15 seconds')), 15000)
     );
     Promise.race([
-      emailjs.send('service_ngpk8vv', 'template_1jlezu6', data),
+      emailjs.send('service_ngpk8vv', 'template_un8zyux', data),
       timeout
     ]).then(function(resp){
       window.location.href = '/thank-you.html?src=life_insurance_quote';
