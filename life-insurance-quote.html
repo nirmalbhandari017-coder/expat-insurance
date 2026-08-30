@@ -464,11 +464,11 @@
     els.rGender.textContent = gender;
     els.rSmoker.textContent = smoker;
 
-    // Fill hidden lead fields
+    // Fill hidden lead fields (formatted for display in the email)
     els.hAge.value = age;
     els.hGender.value = gender;
     els.hSmoker.value = smoker;
-    els.hSum.value = sum;
+    els.hSum.value = 'US$' + fmt(sum);
     els.hAnnual.value = 'US$' + fmt(annual);
     els.hMonthly.value = 'US$' + fmt(monthly);
   }
@@ -534,6 +534,7 @@
 
     const data = Object.fromEntries(new FormData(leadForm).entries());
     data.to_name = data.full_name;
+    data.first_name = (data.full_name || '').trim().split(/\s+/)[0] || data.full_name;
     data.to_email = data.email;
     data.quote_ref = makeQuoteRef();
     // Convenience combined summary for the sales team

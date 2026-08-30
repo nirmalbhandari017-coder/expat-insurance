@@ -26,7 +26,7 @@
        and send it to Claude to swap into life-insurance-quote.html
 
   Variables the form sends (all safe to reference below):
-    {{to_name}}    {{to_email}}
+    {{to_name}}    {{to_email}}    {{first_name}}
     {{full_name}}  {{email}}  {{phone}}  {{country}}
     {{quote_ref}}
     {{quote_age}}  {{quote_gender}}  {{quote_smoker}}
@@ -94,7 +94,7 @@
 
 <!-- Preheader (hidden preview text in inbox) -->
 <div style="display:none;font-size:1px;color:#f4f6f8;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
-  Thanks {{to_name}} — your indicative annual premium is {{quote_annual_premium}} for {{quote_sum_assured}} of cover. A specialist will be in touch shortly.
+  Thank you {{first_name}} — your indicative annual premium is {{quote_annual_premium}} for {{quote_sum_assured}} of cover. A specialist will be in touch shortly.
 </div>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6f8;">
@@ -123,7 +123,7 @@
         <tr>
           <td class="p-lg" style="padding:28px 28px 4px 28px;">
             <div class="greet-h" style="font-size:22px;font-weight:800;letter-spacing:-.01em;color:#1B263B;line-height:1.25;">
-              Thanks, {{to_name}} &mdash; here&rsquo;s your quote
+              Thank you, {{first_name}} &mdash; here&rsquo;s your quote
             </div>
             <p class="greet-p" style="font-size:14px;line-height:1.6;color:#4B5563;margin:10px 0 0;">
               We&rsquo;ve received your request for an international life insurance quote.
