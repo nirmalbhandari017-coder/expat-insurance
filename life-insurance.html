@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+  // Block deprecated hostnames — only expatprotecthub.com is active
+  (function(){
+    const dead = ['expatleadgen.netlify.app','expatcovered.com','www.expatcovered.com'];
+    if (dead.indexOf(location.hostname) !== -1) {
+      document.documentElement.innerHTML =
+        '<head><meta charset="utf-8"><title>Page Not Found</title><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"></head>' +
+        '<body style="font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;background:#1b263b;color:#fff;margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;">' +
+        '<div><div style="font-size:5rem;font-weight:800;letter-spacing:-.02em;line-height:1;color:#0FB9B1;">404</div>' +
+        '<div style="font-size:1.2rem;font-weight:700;margin-top:.6rem;">Page not found</div>' +
+        '<div style="font-size:.95rem;opacity:.7;margin-top:.5rem;max-width:380px;">The page you are looking for does not exist on this domain.</div></div></body>';
+      if (window.stop) window.stop();
+    }
+  })();
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="International term life insurance for expats. Cover up to US$2M with fixed annual premiums, no medical exam for standard cases, and a payout to your family from day one.">
+<meta name="robots" content="index,follow">
+<title>Expat Life Insurance | Instant Quote &mdash; Expat Protect Hub</title>
+  <link rel="canonical" href="https://expatprotecthub.com/life-insurance">
+  <meta property="og:url" content="https://expatprotecthub.com/life-insurance">
+  <meta property="og:site_name" content="Expat Protect Hub">
+  <meta property="og:title" content="Expat Life Insurance | Instant Quote">
+  <meta property="og:description" content="Protect your family with international term life insurance built for expats. Instant online quote — no medical exam for standard cases.">
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1537114314553498');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1537114314553498&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#1B263B; --navy-dark:#0F1620; --teal:#0FB9B1; --teal-dark:#0B6E6B;
+    --gold:#E9B949; --cream:#F8F9FA; --grey:#6B7280; --light:#E4E7EB; --white:#fff;
+    --font:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font);color:var(--navy);line-height:1.55;background:var(--white);-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  a{color:var(--teal);text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 1.25rem}
+
+  .topbar{background:var(--cream);color:var(--navy);padding:.65rem 1.25rem;text-align:center;font-size:.86rem;font-weight:500;border-bottom:1px solid var(--light)}
+  .topbar strong{color:var(--teal-dark)}
+
+  .brandbar{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--light);background:#fff}
+  .brand{display:flex;align-items:center;gap:.65rem}
+  .brand img{height:69px;width:auto;display:block}
+  @media (max-width:520px){.brand img{height:57px}}
+  .brandbar .nav-mini{display:flex;gap:1.5rem;align-items:center;font-size:.92rem;font-weight:600}
+  .brandbar .nav-mini a{color:var(--navy)}
+  .brandbar .nav-mini a:hover{color:var(--teal)}
+  @media (max-width:640px){.brandbar .nav-mini{gap:1rem;font-size:.85rem}.brandbar .nav-mini a:not(.mini-cta){display:none}}
+  .mini-cta{background:var(--teal);color:#fff !important;padding:.5rem .95rem;border-radius:999px;font-weight:700}
+
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#ffffff 0%,#f0fdfa 60%,#e6f7f6 100%);color:var(--navy);padding:3rem 0 4rem;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-100px;right:-100px;width:400px;height:400px;border-radius:50%;background:rgba(15,185,177,.14);filter:blur(80px)}
+  .hero::after{content:"";position:absolute;bottom:-150px;left:-100px;width:400px;height:400px;border-radius:50%;background:rgba(27,38,59,.06);filter:blur(80px)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:3rem;align-items:center;position:relative;z-index:1}
+  .hero h1{font-size:clamp(2rem,4.2vw,3.1rem);font-weight:800;line-height:1.15;margin-bottom:1.1rem;letter-spacing:-.02em;color:var(--navy)}
+  .hero h1 .accent{color:var(--teal-dark)}
+  .hero-sub{font-size:1.1rem;color:var(--grey);margin-bottom:1.6rem;max-width:520px}
+  .trust-strip{display:flex;flex-wrap:wrap;gap:1.2rem;margin-bottom:1.5rem;font-size:.92rem;color:var(--navy);font-weight:500}
+  .trust-strip span{display:inline-flex;align-items:center;gap:.4rem}
+  .trust-strip span::before{content:"\2713";color:var(--teal);font-weight:800}
+  .hero-badges{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.4rem}
+  .hero-badges .b{background:#fff;border:1px solid var(--light);padding:.45rem .8rem;border-radius:999px;font-size:.82rem;color:var(--navy);box-shadow:0 2px 8px -2px rgba(0,0,0,.05)}
+  .hero-cta-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:.4rem}
+  .btn-primary{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff !important;font-weight:700;padding:.95rem 1.8rem;border-radius:999px;font-size:1rem;box-shadow:0 12px 30px -8px rgba(15,185,177,.55);transition:transform .15s}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{display:inline-block;background:#fff;color:var(--navy) !important;font-weight:700;padding:.95rem 1.6rem;border-radius:999px;font-size:.95rem;border:1.5px solid var(--light)}
+
+  /* HERO SIDE CARD */
+  .price-card{background:#fff;border-radius:20px;padding:1.9rem;color:var(--navy);box-shadow:0 25px 60px -20px rgba(0,0,0,.4);border-top:5px solid var(--teal);text-align:center}
+  .price-card .eyebrow{color:var(--teal);font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem}
+  .price-card h3{font-size:1.4rem;font-weight:800;margin-bottom:.5rem}
+  .price-card .price-example{font-size:2.4rem;font-weight:800;color:var(--teal-dark);letter-spacing:-.02em;margin:.8rem 0 .2rem}
+  .price-card .price-example small{font-size:1rem;color:var(--grey);font-weight:600}
+  .price-card .price-desc{color:var(--grey);font-size:.92rem;margin-bottom:1.3rem}
+  .price-card .price-fine{color:var(--grey);font-size:.76rem;margin-top:1rem}
+
+  /* SECTIONS */
+  section{padding:4rem 0}
+  .sec-head{text-align:center;margin-bottom:2.5rem}
+  .eyebrow{color:var(--teal);font-size:.8rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem}
+  .sec-head h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;letter-spacing:-.01em;margin-bottom:.6rem}
+  .sec-head p{color:var(--grey);max-width:640px;margin:0 auto;font-size:1.02rem}
+
+  /* BENEFITS */
+  .benefits{background:var(--cream)}
+  .benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+  .benefit{background:#fff;padding:1.7rem;border-radius:14px;border:1px solid var(--light);transition:transform .2s,box-shadow .2s}
+  .benefit:hover{transform:translateY(-3px);box-shadow:0 18px 40px -20px rgba(15,185,177,.3)}
+  .benefit .ico{width:46px;height:46px;border-radius:12px;background:rgba(15,185,177,.12);color:var(--teal);display:grid;place-items:center;font-size:1.4rem;font-weight:800;margin-bottom:.9rem}
+  .benefit h3{font-size:1.1rem;font-weight:700;margin-bottom:.45rem}
+  .benefit p{color:var(--grey);font-size:.94rem}
+
+  /* WHO IT'S FOR */
+  .audience-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-top:.5rem}
+  .aud-card{background:#fff;padding:1.6rem 1.2rem;border:1px solid var(--light);border-radius:14px;text-align:center}
+  .aud-card .ico{font-size:2rem;margin-bottom:.6rem}
+  .aud-card h4{font-size:1.02rem;font-weight:700;margin-bottom:.35rem}
+  .aud-card p{color:var(--grey);font-size:.9rem}
+
+  /* HOW IT WORKS */
+  .how{background:linear-gradient(180deg,#fff 0%,var(--cream) 100%)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;position:relative}
+  .step{background:#fff;padding:1.8rem;border-radius:14px;border:1px solid var(--light);text-align:center}
+  .step .n{width:42px;height:42px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:800;margin:0 auto .9rem}
+  .step h3{font-size:1.1rem;font-weight:700;margin-bottom:.4rem}
+  .step p{color:var(--grey);font-size:.93rem}
+
+  /* FAQ */
+  .faq-list{max-width:780px;margin:0 auto}
+  details{background:#fff;border:1px solid var(--light);border-radius:12px;padding:1.1rem 1.3rem;margin-bottom:.7rem;transition:box-shadow .15s}
+  details[open]{box-shadow:0 8px 30px -10px rgba(0,0,0,.08)}
+  summary{font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;color:var(--navy);font-size:1.02rem}
+  summary::after{content:"+";color:var(--teal);font-size:1.5rem;font-weight:400;transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{color:var(--grey);margin-top:.7rem;font-size:.95rem;line-height:1.6}
+
+  /* FINAL CTA */
+  .final{background:linear-gradient(135deg,#f0fdfa 0%,#e6f7f6 100%);color:var(--navy);text-align:center;padding:4.5rem 1.25rem;border-top:1px solid var(--light)}
+  .final h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:.8rem;letter-spacing:-.01em;color:var(--navy)}
+  .final p{color:var(--grey);max-width:560px;margin:0 auto 1.7rem;font-size:1.05rem}
+  .btn-cta{display:inline-block;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-weight:700;padding:1.05rem 2.3rem;border-radius:999px;font-size:1.05rem;box-shadow:0 12px 30px -8px rgba(15,185,177,.55);transition:transform .15s}
+  .btn-cta:hover{transform:translateY(-2px)}
+
+  /* FOOTER */
+  footer{background:#fff;color:var(--grey);padding:2rem 1.25rem;text-align:center;font-size:.85rem;border-top:1px solid var(--light)}
+  footer a{color:var(--navy);margin:0 .9rem;font-weight:500}
+  footer .fb-brand{color:var(--navy);font-weight:700;margin-bottom:.6rem;display:block}
+
+  /* STICKY MOBILE CTA */
+  .sticky-cta{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--light);padding:.7rem 1rem;display:none;z-index:50;box-shadow:0 -8px 30px -10px rgba(0,0,0,.18)}
+  .sticky-cta a{display:block;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;font-weight:700;padding:.85rem;border-radius:10px;text-align:center;font-size:.98rem}
+
+  @media (max-width:880px){
+    .hero{padding:2rem 0 2.5rem}
+    .hero-grid{grid-template-columns:1fr;gap:1.8rem}
+    .benefit-grid,.steps{grid-template-columns:1fr 1fr}
+    .audience-row{grid-template-columns:1fr 1fr}
+    section{padding:2.8rem 0}
+    .sticky-cta{display:block}
+    body{padding-bottom:80px}
+    .topbar{font-size:.78rem}
+  }
+  @media (max-width:520px){
+    .benefit-grid,.steps{grid-template-columns:1fr}
+    .audience-row{grid-template-columns:1fr 1fr;gap:.6rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">&#128737; Financial protection for the people who depend on you &middot; <strong>Instant online quote</strong> &middot; No medical exam for standard cases</div>
+
+<header class="brandbar">
+  <a href="/" class="brand" aria-label="Expat Protect Hub">
+    <img src="/assets/logo.png" alt="Expat Protect Hub">
+  </a>
+  <nav class="nav-mini" aria-label="Primary">
+    <a href="/expat-health-insurance">Health</a>
+    <a href="/life-insurance">Life</a>
+    <a href="/about.html">About</a>
+    <a href="/life-insurance/quote" class="mini-cta">Get Quote &rarr;</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>International Life Insurance <span class="accent">for Expats &amp; Their Families</span></h1>
+      <p class="hero-sub">Level term life cover up to US$2 million with fixed annual premiums. If the worst happens, a tax-free lump sum goes straight to your loved ones &mdash; wherever in the world they are.</p>
+      <div class="trust-strip">
+        <span>Cover from US$100k to US$2M</span>
+        <span>Fixed annual premium</span>
+        <span>Worldwide payout</span>
+      </div>
+      <div class="hero-cta-row">
+        <a href="/life-insurance/quote" class="btn-primary">Get My Instant Quote &rarr;</a>
+        <a href="#benefits" class="btn-ghost">See What&rsquo;s Covered</a>
+      </div>
+      <div class="hero-badges">
+        <div class="b">&#11088; Underwritten by A-rated insurer</div>
+        <div class="b">No medical exam for standard cases</div>
+        <div class="b">Cover ages 18&ndash;65</div>
+      </div>
+    </div>
+
+    <!-- Sample price card -->
+    <div class="price-card">
+      <div class="eyebrow">Sample Premium</div>
+      <h3>US$350,000 cover</h3>
+      <div class="price-example">$266<small>/yr</small></div>
+      <div class="price-desc">Male, age 25, non-smoker. Fixed for the term.</div>
+      <a href="/life-insurance/quote" class="btn-primary" style="padding:.85rem 1.6rem;font-size:.95rem">Price My Cover &rarr;</a>
+      <div class="price-fine">Your price depends on age, gender, smoker status and cover amount. Quote takes ~30 seconds.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Why Expats Choose This Cover</div>
+      <h2>Life cover that works across borders</h2>
+      <p>Most home-country life policies weaken or lapse when you move abroad. This one is built from the ground up for globally mobile individuals and families.</p>
+    </div>
+    <div class="benefit-grid">
+      <div class="benefit"><div class="ico">&#128176;</div><h3>Lump-Sum Payout</h3><p>A single tax-free payment to your named beneficiaries so they can cover the mortgage, school fees, or day-to-day living without disruption.</p></div>
+      <div class="benefit"><div class="ico">&#128200;</div><h3>Fixed Annual Premium</h3><p>Your premium is locked in at the age you buy. No surprise increases year after year &mdash; budget with confidence.</p></div>
+      <div class="benefit"><div class="ico">&#127760;</div><h3>Portable Worldwide</h3><p>Move country, change job, retire abroad &mdash; your cover stays in force. Payout can be made to beneficiaries anywhere in the world.</p></div>
+      <div class="benefit"><div class="ico">&#128203;</div><h3>Simple Application</h3><p>Most standard cases are accepted with a short health questionnaire &mdash; no medical exam required.</p></div>
+      <div class="benefit"><div class="ico">&#128737;</div><h3>Terminal Illness Benefit</h3><p>If you&rsquo;re diagnosed with a terminal illness with less than 12 months to live, we pay out early so you can put your affairs in order.</p></div>
+      <div class="benefit"><div class="ico">&#128101;</div><h3>Joint &amp; Family Options</h3><p>Cover yourself, your spouse, or both lives on a single policy. Add extra cover as your family grows.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Who It&rsquo;s For</div>
+      <h2>If people depend on your income, you need this</h2>
+      <p>Life insurance isn&rsquo;t about you &mdash; it&rsquo;s about the people you leave behind. This cover is designed for expats in these situations.</p>
+    </div>
+    <div class="audience-row">
+      <div class="aud-card"><div class="ico">&#128104;&#8205;&#128105;&#8205;&#128103;</div><h4>Parents</h4><p>Replace years of income so your family keeps their home and lifestyle.</p></div>
+      <div class="aud-card"><div class="ico">&#127968;</div><h4>Mortgage Holders</h4><p>Cover the outstanding balance so your partner isn&rsquo;t forced to sell.</p></div>
+      <div class="aud-card"><div class="ico">&#128188;</div><h4>Business Owners</h4><p>Fund a buy-sell agreement or protect a key employee.</p></div>
+      <div class="aud-card"><div class="ico">&#128200;</div><h4>High Earners</h4><p>Lock in low premiums while you&rsquo;re young and healthy.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">How It Works</div>
+      <h2>Covered in 3 simple steps</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Instant Quote</h3><p>Enter your age, gender, smoker status and desired cover amount &mdash; see your annual premium in seconds.</p></div>
+      <div class="step"><div class="n">2</div><h3>Short Application</h3><p>Complete a simple online health questionnaire. Most standard cases are accepted without a medical exam.</p></div>
+      <div class="step"><div class="n">3</div><h3>Cover in Force</h3><p>Pay the first annual premium and receive your policy documents. Cover starts the moment underwriting is complete.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Common Questions</div>
+      <h2>Life insurance for expats, explained</h2>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>How much life cover do I actually need?</summary>
+        <p>A common rule is 10&times; your annual income, plus any outstanding mortgage and expected education costs for your children. Our licensed advisors can walk you through it &mdash; there&rsquo;s no cost or obligation.</p>
+      </details>
+      <details>
+        <summary>Do I need a medical exam?</summary>
+        <p>For standard cover amounts and ages under 50, most applicants qualify with only a short online health questionnaire. Higher sums assured or existing conditions may require a simple GP report or medical check.</p>
+      </details>
+      <details>
+        <summary>Will my premium go up over time?</summary>
+        <p>No. Our level term life plans lock in the same annual premium for the entire term you choose. The rate is set at your age today and never re-priced.</p>
+      </details>
+      <details>
+        <summary>Is the payout tax-free?</summary>
+        <p>The lump-sum payout is generally paid to your beneficiaries free of income tax. Local inheritance tax rules vary by country of residence &mdash; we can help you structure the beneficiary nomination to minimise this.</p>
+      </details>
+      <details>
+        <summary>What if I move to another country?</summary>
+        <p>Your cover follows you. Unlike most domestic life policies, this plan is designed for globally mobile clients &mdash; a change of country of residence does not invalidate the policy.</p>
+      </details>
+      <details>
+        <summary>How is the premium calculated?</summary>
+        <p>Premiums are based on your age, gender, smoker status and the sum assured you choose. Our online quote tool uses the current rate table directly &mdash; so the price you see is the price you pay.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final">
+  <h2>See your premium in 30 seconds</h2>
+  <p>Instant quote &mdash; no email or phone number needed to get the price. Just tell us who&rsquo;s being covered.</p>
+  <a href="/life-insurance/quote" class="btn-cta">Get My Instant Quote &rarr;</a>
+</section>
+
+<footer>
+  <span class="fb-brand">Expat Protect Hub &middot; International Insurance Consultants</span>
+  <a href="/expat-health-insurance">Health Insurance</a>
+  <a href="/life-insurance">Life Insurance</a>
+  <a href="/about.html">About</a>
+  <a href="/privacy.html">Privacy Policy</a>
+  <a href="/terms.html">Terms</a>
+  <p style="margin-top:.8rem;font-size:.78rem;color:var(--grey)">&copy; 2026 Expat Protect Hub. All rights reserved.</p>
+</footer>
+
+<div class="sticky-cta"><a href="/life-insurance/quote">Get My Instant Quote &rarr;</a></div>
+
+</body>
+</html>
