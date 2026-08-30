@@ -1,0 +1,222 @@
+<!--
+  =============================================================
+  EMAILJS TEMPLATE — Life Insurance Lead Notification
+  =============================================================
+
+  Where this goes:
+    1. Log in to https://dashboard.emailjs.com
+    2. Templates → Create New Template
+    3. Settings tab:
+         Template name : Life Insurance Lead
+         From name     : Expat Protect Hub Website
+         From email    : (your existing service address)
+         To email      : info@expatprotecthub.com   ← adjust
+         Reply-to      : {{email}}
+         Subject       : New Life Insurance Lead — {{full_name}}
+                         ({{quote_sum_assured}} @ {{quote_annual_premium}}/yr)
+    4. Content tab: paste EVERYTHING BELOW THIS COMMENT BLOCK
+       (from <!DOCTYPE html> to </html>) into the HTML body.
+    5. Save → copy the new template ID (e.g. template_abc1234)
+       and send it to Claude to swap into life-insurance-quote.html
+
+  Variables the form sends (all safe to reference below):
+    {{full_name}}  {{email}}  {{phone}}  {{country}}
+    {{quote_ref}}
+    {{quote_age}}  {{quote_gender}}  {{quote_smoker}}
+    {{quote_sum_assured}}
+    {{quote_annual_premium}}  {{quote_monthly_premium}}
+    {{quote_summary}}
+    {{lead_source}}  {{product}}
+    {{utm_source}}  {{utm_medium}}  {{utm_campaign}}
+    {{utm_content}} {{utm_term}}    {{page_url}}
+  =============================================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Life Insurance Lead</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1B263B;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f6f8;padding:24px 12px;">
+  <tr>
+    <td align="center">
+
+      <table role="presentation" width="620" cellpadding="0" cellspacing="0" border="0" style="max-width:620px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.06);">
+
+        <!-- ── HEADER ─────────────────────────────────────── -->
+        <tr>
+          <td style="background:linear-gradient(135deg,#0FB9B1,#0B6E6B);padding:22px 28px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="color:#ffffff;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.85;">
+                  Expat Protect Hub &middot; Life Insurance
+                </td>
+                <td align="right" style="color:#ffffff;font-size:11px;font-weight:600;letter-spacing:.06em;opacity:.85;">
+                  {{quote_ref}}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="color:#ffffff;font-size:22px;font-weight:800;letter-spacing:-.01em;padding-top:6px;">
+                  New Life Insurance Lead
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="color:#ffffff;font-size:14px;padding-top:4px;opacity:.9;">
+                  A quote was priced on the website and the visitor asked a specialist to call back.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ── QUOTED PREMIUM (HERO) ──────────────────────── -->
+        <tr>
+          <td style="padding:28px 28px 8px 28px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="background:#f0fdfa;border:1px solid #cceeeb;border-radius:12px;padding:20px;">
+              <tr>
+                <td align="center" style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0B6E6B;">
+                  Quoted Annual Premium
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="font-size:38px;font-weight:800;color:#0B6E6B;letter-spacing:-.02em;padding-top:6px;line-height:1.1;">
+                  {{quote_annual_premium}}
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="font-size:13px;color:#1B263B;padding-top:4px;">
+                  Approx. <strong>{{quote_monthly_premium}}/mo</strong> &middot; Cover: <strong>{{quote_sum_assured}}</strong>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ── QUOTE DETAILS ─────────────────────────────── -->
+        <tr>
+          <td style="padding:16px 28px 0 28px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
+              Quote Details
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="border:1px solid #E4E7EB;border-radius:10px;overflow:hidden;">
+              <tr>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;width:40%;border-bottom:1px solid #E4E7EB;">Age</td>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_age}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Gender</td>
+                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_gender}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Smoker status</td>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_smoker}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Sum assured</td>
+                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">{{quote_sum_assured}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;">Product</td>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;">{{product}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ── CONTACT DETAILS ───────────────────────────── -->
+        <tr>
+          <td style="padding:16px 28px 0 28px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
+              Contact
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="border:1px solid #E4E7EB;border-radius:10px;overflow:hidden;">
+              <tr>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;width:40%;border-bottom:1px solid #E4E7EB;">Full name</td>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:700;border-bottom:1px solid #E4E7EB;">{{full_name}}</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Email</td>
+                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">
+                  <a href="mailto:{{email}}" style="color:#0B6E6B;text-decoration:none;">{{email}}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:12px;color:#6B7280;font-weight:600;border-bottom:1px solid #E4E7EB;">Phone</td>
+                <td style="padding:10px 14px;background:#fafbfc;font-size:14px;color:#1B263B;font-weight:600;border-bottom:1px solid #E4E7EB;">
+                  <a href="tel:{{phone}}" style="color:#0B6E6B;text-decoration:none;">{{phone}}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;font-size:12px;color:#6B7280;font-weight:600;">Country of residence</td>
+                <td style="padding:10px 14px;font-size:14px;color:#1B263B;font-weight:600;">{{country}}</td>
+              </tr>
+            </table>
+
+            <!-- Call CTA -->
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="padding-top:16px;">
+              <tr>
+                <td align="center">
+                  <a href="tel:{{phone}}"
+                     style="display:inline-block;background:linear-gradient(135deg,#0FB9B1,#0B6E6B);color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 22px;border-radius:999px;letter-spacing:.02em;">
+                    &#128222;&nbsp; Call {{full_name}}
+                  </a>
+                  &nbsp;
+                  <a href="mailto:{{email}}?subject=Your%20Expat%20Protect%20Hub%20life%20insurance%20quote&amp;body=Hi%20{{full_name}}%2C%0A%0AThanks%20for%20requesting%20a%20quote.%20Your%20indicative%20annual%20premium%20is%20{{quote_annual_premium}}%20for%20{{quote_sum_assured}}%20of%20cover.%0A%0AI%27d%20be%20happy%20to%20walk%20you%20through%20the%20next%20steps%20whenever%20suits%20you."
+                     style="display:inline-block;background:#ffffff;color:#1B263B;text-decoration:none;font-weight:700;font-size:14px;padding:11px 22px;border-radius:999px;letter-spacing:.02em;border:1.5px solid #E4E7EB;">
+                    &#9993;&nbsp; Reply by email
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ── SOURCE / TRACKING ─────────────────────────── -->
+        <tr>
+          <td style="padding:22px 28px 0 28px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
+              Source
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:12px;color:#1B263B;line-height:1.7;">
+              <tr><td width="42%" style="color:#6B7280;">Lead source</td><td>{{lead_source}}</td></tr>
+              <tr><td style="color:#6B7280;">Landing page</td><td><a href="{{page_url}}" style="color:#0B6E6B;text-decoration:none;word-break:break-all;">{{page_url}}</a></td></tr>
+              <tr><td style="color:#6B7280;">UTM source</td><td>{{utm_source}}</td></tr>
+              <tr><td style="color:#6B7280;">UTM medium</td><td>{{utm_medium}}</td></tr>
+              <tr><td style="color:#6B7280;">UTM campaign</td><td>{{utm_campaign}}</td></tr>
+              <tr><td style="color:#6B7280;">UTM content</td><td>{{utm_content}}</td></tr>
+              <tr><td style="color:#6B7280;">UTM term</td><td>{{utm_term}}</td></tr>
+              <tr><td style="color:#6B7280;">Quote reference</td><td><strong>{{quote_ref}}</strong></td></tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ── ONE-LINE SUMMARY (handy for CRM copy-paste) ── -->
+        <tr>
+          <td style="padding:20px 28px 8px 28px;">
+            <div style="background:#fafbfc;border:1px dashed #E4E7EB;border-radius:8px;padding:12px 14px;font-family:'Menlo','Consolas',monospace;font-size:12px;color:#1B263B;line-height:1.55;word-break:break-word;">
+              {{quote_summary}}
+            </div>
+          </td>
+        </tr>
+
+        <!-- ── FOOTER ─────────────────────────────────────── -->
+        <tr>
+          <td style="padding:16px 28px 26px 28px;font-size:11px;color:#8a94a4;text-align:center;line-height:1.6;">
+            Sent automatically by the Expat Protect Hub website &middot; Please respond within 24 hours.<br>
+            Premium is indicative &mdash; final rate confirmed by the insurer after underwriting.
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
