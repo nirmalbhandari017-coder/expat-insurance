@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { Badge, Empty } from '../components/ui.jsx'
+import InboundActivations from '../components/InboundActivations.jsx'
 import { fmtDate, today } from '../lib/format.js'
 import { useCurrency, fmt, sumIn } from '../lib/currency.jsx'
 
@@ -243,6 +244,8 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
+
+          <InboundActivations />
 
           <div className="card" style={{ marginTop: 16 }}>
             <div className="card-title">Needs attention</div>

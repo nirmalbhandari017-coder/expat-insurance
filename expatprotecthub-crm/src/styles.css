@@ -609,3 +609,24 @@ code.inline {
   color: var(--text-faint);
   padding: 8px 12px;
 }
+
+/* Activations Regency has sent that are not yet clients. */
+.inbound-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.inbound-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid var(--line, #E6EAEF);
+}
+.inbound-main { display: flex; flex-direction: column; min-width: 0; }
+.inbound-facts { display: flex; flex-direction: column; text-align: right; white-space: nowrap; }
+.inbound-actions { display: flex; align-items: center; gap: 8px; }
+.inbound-actions .pct { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--text-faint); }
+.warn-text { color: #B4740A; }
+
+@media (max-width: 700px) {
+  .inbound-row { grid-template-columns: 1fr; }
+  .inbound-facts { text-align: left; }
+}
