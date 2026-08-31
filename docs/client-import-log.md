@@ -40,9 +40,21 @@ not hold:
 
 The other five match to the cent at 37.5%. Plan type does not explain it —
 Sharifah and Julie Raxworthy both hold ES20 policies and are paid 25.5% and
-37.5% respectively. Left unchanged pending confirmation from Regency; if the
-statement is right, the CRM overstates expected commission by $989.71 and the
-owner splits for those two clients are correspondingly overstated.
+37.5% respectively.
+
+**Corrected on the user's instruction, 27 Aug 2026.** Both rates now match the
+statement; expected commission fell $989.71 and the owner splits were
+regenerated on the smaller pots (no payout had been marked paid, so nothing
+already settled was rewritten). Two `financial_audit` rows per client record
+the rate change and the restated commission amount.
+
+All seven clients on the Aug-2026 statement now reconcile to the cent against
+the CRM, totalling $5,579.46.
+
+**Rates are per client, not per plan, and the CRM has no way to know one until
+a statement arrives.** New clients are entered at 37.5% by default, so Ali
+Gueler, John Clayton, Anthony Priestly and Alain Roland Pons all need checking
+against the Sep-2026 statement.
 
 ### Two bugs found
 
