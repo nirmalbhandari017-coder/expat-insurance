@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useDraggable } from "@dnd-kit/core";
 import { GripVertical, MoreHorizontal } from "lucide-react";
 import { StageMenu } from "./status-menu";
+import { NoteEditor } from "./note-editor";
 import { Button } from "@/components/ui/button";
 import { relativeAge } from "@/lib/format";
 import { ageFromDob, type PipelineStage, type QualificationStatus } from "@/lib/domain/pipeline";
@@ -100,13 +101,24 @@ export function LeadCard({
         </div>
       )}
 
-      {lead.last_note && (
-        <p
-          title={lead.last_note}
-          className="mt-1.5 line-clamp-2 rounded border-l-2 border-muted-foreground/25 bg-muted/40 py-1 pl-1.5 pr-1 text-[11px] leading-snug text-muted-foreground"
-        >
-          {lead.last_note}
-        </p>
+      {perms.canComment ? (
+        <div className="mt-1.5 rounded border-l-2 border-muted-foreground/25 bg-muted/40 py-0.5 pl-1 pr-0.5">
+          <NoteEditor
+            leadId={lead.id}
+            note={lead.last_note}
+            noteAt={lead.last_note_at}
+            variant="card"
+          />
+        </div>
+      ) : (
+        lead.last_note && (
+          <p
+            title={lead.last_note}
+            className="mt-1.5 line-clamp-2 rounded border-l-2 border-muted-foreground/25 bg-muted/40 py-1 pl-1.5 pr-1 text-[11px] leading-snug text-muted-foreground"
+          >
+            {lead.last_note}
+          </p>
+        )
       )}
 
       <div className="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">

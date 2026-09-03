@@ -127,7 +127,8 @@ export function PipelineShell({
 
       {view === "kanban" && (
         <p className="text-xs text-muted-foreground">
-          The board shows qualified, active opportunities. Lost leads are under the Outcome filter.
+          The board shows qualified, active opportunities. Squandered leads are under the Outcome
+          filter.
         </p>
       )}
 

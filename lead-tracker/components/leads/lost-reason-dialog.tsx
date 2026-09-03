@@ -70,7 +70,7 @@ export function LostReasonDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Mark as Lost</DialogTitle>
+          <DialogTitle>Mark as Squander</DialogTitle>
           <DialogDescription>
             {count > 1 ? `${count} leads` : "This lead"} didn&apos;t convert. The current stage is kept
             so you can see where deals are being lost.
@@ -79,7 +79,7 @@ export function LostReasonDialog({
 
         <div className="space-y-3">
           <div className="space-y-1.5">
-            <Label>Lost reason</Label>
+            <Label>Squander reason</Label>
             <Select value={reasonId} onValueChange={setReasonId}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a reason…" />
@@ -95,7 +95,7 @@ export function LostReasonDialog({
           </div>
           <div className="space-y-1.5">
             <Label>
-              Lost notes {needsNotes ? "" : <span className="text-muted-foreground">(optional)</span>}
+              Squander notes {needsNotes ? "" : <span className="text-muted-foreground">(optional)</span>}
             </Label>
             <Textarea
               value={notes}
@@ -119,7 +119,7 @@ export function LostReasonDialog({
               setNotes("");
             }}
           >
-            Mark as Lost
+            Mark as Squander
           </Button>
         </DialogFooter>
       </DialogContent>

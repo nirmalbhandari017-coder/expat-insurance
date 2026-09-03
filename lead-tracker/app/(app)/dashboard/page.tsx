@@ -155,7 +155,7 @@ export default async function DashboardPage({
               href="/pipeline?opportunity=lost"
               className="flex items-center gap-3 rounded border-t px-1 pt-2 text-sm hover:bg-muted/40"
             >
-              <div className="w-40 text-muted-foreground">Lost</div>
+              <div className="w-40 text-muted-foreground">Squander</div>
               <div className="flex-1" />
               <span className="tabular w-8 text-right font-medium">{lost}</span>
             </Link>

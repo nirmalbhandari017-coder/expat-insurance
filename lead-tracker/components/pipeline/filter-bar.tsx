@@ -150,9 +150,9 @@ export function FilterBar({
           <SelectValue placeholder="Outcome" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>Active + Lost</SelectItem>
+          <SelectItem value={ALL}>Active + Squander</SelectItem>
           <SelectItem value="active">Active only</SelectItem>
-          <SelectItem value="lost">Lost only</SelectItem>
+          <SelectItem value="lost">Squander only</SelectItem>
         </SelectContent>
       </Select>
 

@@ -109,7 +109,7 @@ export function GeneratorsTable({
               <th className="px-3 py-2 font-medium">Leads</th>
               <th className="px-3 py-2 font-medium">Qualified</th>
               <th className="px-3 py-2 font-medium">Policies</th>
-              <th className="px-3 py-2 font-medium">Lost</th>
+              <th className="px-3 py-2 font-medium">Squander</th>
               <th className="px-3 py-2 font-medium">Conversion</th>
               <th className="px-3 py-2 font-medium">Status</th>
               {canManage && <th className="w-8 px-3 py-2" />}

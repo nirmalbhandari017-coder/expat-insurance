@@ -85,6 +85,7 @@ export interface PipelinePerms {
   canUpdate: boolean;
   canDelete: boolean;
   canManageEntities: boolean; // sources / generators / brokers
+  canComment: boolean; // edit notes inline from the pipeline
   updateScope: "all" | "own" | "none";
   currentUserId: string;
 }

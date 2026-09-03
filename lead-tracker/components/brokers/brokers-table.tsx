@@ -92,7 +92,7 @@ export function BrokersTable({
               <th className="px-3 py-2 font-medium">Applications</th>
               <th className="px-3 py-2 font-medium">Policies</th>
               <th className="px-3 py-2 font-medium">Renewals</th>
-              <th className="px-3 py-2 font-medium">Lost</th>
+              <th className="px-3 py-2 font-medium">Squander</th>
               <th className="px-3 py-2 font-medium">Login</th>
               <th className="px-3 py-2 font-medium">Status</th>
               {canManage && <th className="w-8 px-3 py-2" />}

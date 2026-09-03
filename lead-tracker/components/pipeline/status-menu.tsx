@@ -71,7 +71,7 @@ export function StageMenu({
 
         {isQualified && isLost && (
           <>
-            <DropdownMenuLabel>Lost</DropdownMenuLabel>
+            <DropdownMenuLabel>Squander</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={() => onReopen?.()}>Reopen lead</DropdownMenuItem>
           </>
@@ -97,7 +97,7 @@ export function StageMenu({
               onSelect={() => onMarkLost?.()}
               className="text-red-600 dark:text-red-400"
             >
-              Mark as Lost
+              Mark as Squander
             </DropdownMenuItem>
           </>
         )}

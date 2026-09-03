@@ -216,7 +216,7 @@ export function LeadDetail({
 
       {lead.opportunity === "lost" && (
         <div className="rounded-md border border-red-500/30 bg-red-500/5 px-3 py-2 text-sm">
-          <span className="font-medium">Lost</span>
+          <span className="font-medium">Squander</span>
           {lead.stage_at_loss && <> at {STAGE_LABEL[lead.stage_at_loss]}</>}
           {lead.lost_reason?.label && <> — {lead.lost_reason.label}</>}
           {lead.lost_notes ? <span className="text-muted-foreground"> · {lead.lost_notes}</span> : null}
@@ -254,19 +254,10 @@ export function LeadDetail({
 
       <div className="grid gap-5 md:grid-cols-3">
         <div className="space-y-4">
-          {/* Attribution: source -> generator -> broker, the core question */}
+          {/* Attribution: which Source the lead came from, and the CRM working it. */}
           <Section title="Attribution">
             <Fact label="Source" value={lead.affiliate?.name ?? null} />
-            <Fact label="Agent" value={lead.generator?.full_name ?? null} />
-            <Fact
-              label="CRM"
-              value={
-                lead.broker
-                  ? lead.broker.full_name
-                  : null
-              }
-            />
-            <Fact label="Channel" value={lead.source_channel} />
+            <Fact label="CRM" value={lead.broker ? lead.broker.full_name : null} />
           </Section>
 
           <Section title="Contact">
@@ -405,7 +396,7 @@ function PipelineProgress({
               isCurrent && !lostAt && "border-primary bg-primary/10 font-medium text-foreground",
               isCurrent && lostAt && "border-red-500/50 bg-red-500/10 font-medium text-foreground",
             )}
-            title={isCurrent && lostAt ? "Lost at this stage" : undefined}
+            title={isCurrent && lostAt ? "Squandered at this stage" : undefined}
           >
             {STAGE_LABEL[s]}
           </div>

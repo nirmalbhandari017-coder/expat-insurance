@@ -68,7 +68,7 @@ export function BulkActionBar({
           ))}
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={onBulkLost} className="text-red-600 dark:text-red-400">
-            Mark as Lost
+            Mark as Squander
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

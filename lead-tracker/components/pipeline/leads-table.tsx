@@ -8,6 +8,7 @@ import {
   OpportunityBadge,
 } from "@/components/leads/status-badge";
 import { StageMenu } from "./status-menu";
+import { NoteEditor } from "./note-editor";
 import { shortDate, relativeAge } from "@/lib/format";
 import { ageFromDob, type PipelineStage, type QualificationStatus } from "@/lib/domain/pipeline";
 import type { LeadRow, PipelinePerms } from "@/lib/types";
@@ -143,14 +144,11 @@ export function LeadsTable({
                   )}
                 </td>
                 <td className="max-w-[16rem] px-3 py-2">
-                  {l.last_note ? (
-                    <div title={l.last_note}>
-                      <div className="line-clamp-2 text-xs leading-snug">{l.last_note}</div>
-                      {l.last_note_at && (
-                        <div className="mt-0.5 text-[11px] text-muted-foreground">
-                          {relativeAge(l.last_note_at)} ago
-                        </div>
-                      )}
+                  {perms.canComment ? (
+                    <NoteEditor leadId={l.id} note={l.last_note} noteAt={l.last_note_at} />
+                  ) : l.last_note ? (
+                    <div title={l.last_note} className="line-clamp-2 text-xs leading-snug">
+                      {l.last_note}
                     </div>
                   ) : (
                     <span className="text-muted-foreground">—</span>

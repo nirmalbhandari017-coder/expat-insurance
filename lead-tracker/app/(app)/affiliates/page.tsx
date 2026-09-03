@@ -47,7 +47,7 @@ export default async function AffiliatesPage() {
               <th className="px-3 py-2 font-medium">Affiliate</th>
               <th className="px-3 py-2 font-medium">Leads</th>
               <th className="px-3 py-2 font-medium">Open</th>
-              <th className="px-3 py-2 font-medium">Lost</th>
+              <th className="px-3 py-2 font-medium">Squander</th>
               <th className="px-3 py-2 font-medium">Conversion</th>
               <th className="px-3 py-2 font-medium">Retention</th>
               {canSeeCommission && <th className="px-3 py-2 font-medium">Comm.</th>}

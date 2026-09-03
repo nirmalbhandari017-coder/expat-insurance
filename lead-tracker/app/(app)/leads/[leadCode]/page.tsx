@@ -79,10 +79,11 @@ export default async function LeadDetailPage({
     canUpdate: can(matrix, user.role, "leads", "update"),
     canDelete: can(matrix, user.role, "leads", "delete"),
     canManageEntities: can(matrix, user.role, "generators", "create"),
+    canComment: can(matrix, user.role, "comments", "create"),
     updateScope: scopeOf(matrix, user.role, "leads", "update"),
     currentUserId: user.id,
   };
-  const canComment = can(matrix, user.role, "comments", "create");
+  const canComment = perms.canComment;
   const canViewAudit = can(matrix, user.role, "audit", "read");
 
   return (

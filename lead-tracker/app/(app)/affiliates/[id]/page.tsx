@@ -116,7 +116,7 @@ export default async function AffiliateDetailPage({
         <Kpi label="Total leads" value={String(total)} />
         <Kpi label="Qualified" value={String(stat?.n_qualified ?? 0)} />
         <Kpi label="Policies" value={String((stat?.n_policy_issued ?? 0) + (stat?.n_renewal ?? 0))} />
-        <Kpi label="Lost" value={String(stat?.n_lost ?? 0)} />
+        <Kpi label="Squander" value={String(stat?.n_lost ?? 0)} />
         <Kpi label="Conversion" value={formatPct(stat?.conversion_rate ?? null)} />
         {canSeeCommission && (
           <Kpi
@@ -172,7 +172,7 @@ export default async function AffiliateDetailPage({
               <th className="px-3 py-2">Leads</th>
               <th className="px-3 py-2">Qualified</th>
               <th className="px-3 py-2">Policies</th>
-              <th className="px-3 py-2">Lost</th>
+              <th className="px-3 py-2">Squander</th>
               <th className="px-3 py-2">Status</th>
             </tr>
           </thead>
@@ -247,7 +247,7 @@ export default async function AffiliateDetailPage({
                 <th className="px-4 py-2">Month</th>
                 <th className="px-3 py-2">Total</th>
                 <th className="px-3 py-2">Converted</th>
-                <th className="px-3 py-2">Lost</th>
+                <th className="px-3 py-2">Squander</th>
               </tr>
             </thead>
             <tbody>

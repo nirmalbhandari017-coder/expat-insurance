@@ -188,7 +188,7 @@ export default async function AnalyticsPage({
                 <th className="px-3 py-2 font-medium">Qualified</th>
                 <th className="px-3 py-2 font-medium">In pipeline</th>
                 <th className="px-3 py-2 font-medium">Policies</th>
-                <th className="px-3 py-2 font-medium">Lost</th>
+                <th className="px-3 py-2 font-medium">Squander</th>
                 <th className="px-3 py-2 font-medium">Conversion</th>
               </tr>
             </thead>

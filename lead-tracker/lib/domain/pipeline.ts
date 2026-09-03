@@ -38,9 +38,10 @@ export const QUALIFICATION_LABEL: Record<QualificationStatus, string> = {
   not_qualified: "Not Qualified",
 };
 
+// The DB value stays `lost`; the business calls this outcome "Squander".
 export const OPPORTUNITY_LABEL: Record<OpportunityStatus, string> = {
   active: "Active",
-  lost: "Lost",
+  lost: "Squander",
 };
 
 export const LEAD_STATE_LABEL: Record<LeadState, string> = {
