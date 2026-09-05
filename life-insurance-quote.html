@@ -87,14 +87,16 @@
   @media (max-width:520px){.row2{grid-template-columns:1fr}}
 
   /* Phone with country-code prefix */
-  .phone-with-code{display:flex;align-items:stretch;border:1.5px solid var(--light);border-radius:10px;background:#fafbfc;overflow:hidden;transition:all .15s}
+  .phone-with-code{display:grid;grid-template-columns:110px 1fr;align-items:stretch;border:1.5px solid var(--light);border-radius:10px;background:#fafbfc;overflow:hidden;transition:all .15s;position:relative}
   .phone-with-code:focus-within{border-color:var(--teal);background:#fff;box-shadow:0 0 0 4px rgba(15,185,177,.12)}
-  .phone-cc{padding:.85rem 0 .85rem .95rem;color:var(--teal-dark);font-weight:700;font-size:.95rem;white-space:nowrap;display:flex;align-items:center;min-width:52px;border-right:1px solid var(--light);margin-right:.55rem}
-  .phone-with-code select{border:none;background:transparent;padding:.85rem .5rem .85rem .95rem;color:var(--teal-dark);font-weight:700;font-size:.95rem;font-family:inherit;cursor:pointer;appearance:none;-webkit-appearance:none;border-right:1px solid var(--light);margin-right:.4rem;max-width:110px;text-overflow:ellipsis}
+  .phone-with-code select{border:none;background:transparent;padding:.85rem 1.65rem .85rem .95rem;color:var(--teal-dark);font-weight:700;font-size:.95rem;font-family:inherit;cursor:pointer;appearance:none;-webkit-appearance:none;border-right:1px solid var(--light);width:100%;min-width:0;text-overflow:clip;white-space:nowrap;overflow:hidden}
   .phone-with-code select:focus{outline:none}
   .phone-with-code select option{color:var(--navy);font-weight:600}
-  .phone-with-code input{border:none;background:transparent!important;box-shadow:none!important;padding:.85rem 1rem .85rem 0;flex:1;min-width:0;font-family:inherit;font-size:.95rem;color:var(--navy)}
+  /* Custom caret so the appearance:none select still shows a chevron */
+  .phone-with-code::after{content:"";position:absolute;top:50%;left:calc(110px - 20px);width:8px;height:8px;border-right:2px solid var(--teal-dark);border-bottom:2px solid var(--teal-dark);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+  .phone-with-code input{border:none;background:transparent!important;box-shadow:none!important;padding:.85rem 1rem;flex:1;min-width:0;font-family:inherit;font-size:.95rem;color:var(--navy);width:100%}
   .phone-with-code input:focus{outline:none;background:transparent!important;box-shadow:none!important}
+  @media (max-width:520px){.phone-with-code{grid-template-columns:96px 1fr}.phone-with-code::after{left:calc(96px - 20px)}}
 
   /* SEGMENTED */
   .seg{display:grid;gap:.5rem}
@@ -301,20 +303,18 @@
             </select>
           </div>
 
-          <div class="row2">
-            <div class="field">
-              <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" placeholder="jane@example.com" required>
-            </div>
-            <div class="field">
-              <label for="phone">Phone Number</label>
-              <div class="phone-with-code">
-                <select id="phone-cc" name="phone_country_code" aria-label="Country code">
-                  <option value="" disabled selected>+&mdash;</option>
-                </select>
-                <input type="tel" id="phone" name="phone" placeholder="Your phone number" maxlength="10" inputmode="numeric" pattern="[0-9]*" required>
-              </div>
-              <p class="cover-note" id="phone-hint">Select your country of residence to set the country code &mdash; or pick a different one from the dropdown.</p>
+          <div class="field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@example.com" required>
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone Number</label>
+            <div class="phone-with-code">
+              <select id="phone-cc" name="phone_country_code" aria-label="Country code">
+                <option value="" disabled selected>Code</option>
+              </select>
+              <input type="tel" id="phone" name="phone" placeholder="Your phone number" maxlength="10" inputmode="numeric" pattern="[0-9]*" required>
             </div>
           </div>
 
@@ -522,7 +522,7 @@
   const countrySel = document.getElementById('country');
   const phoneCcSel = document.getElementById('phone-cc');
   const phoneEl    = document.getElementById('phone');
-  const phoneHintEl = document.getElementById('phone-hint');
+  const phoneHintEl = document.getElementById('phone-hint'); // optional; may be null
 
   // Populate country of residence
   COUNTRIES.forEach(([name, code]) => {
@@ -530,14 +530,35 @@
   });
 
   // Populate the country-code dropdown — every country listed so US/Canada/etc are
-  // all pickable, sorted alphabetically for easy scanning.
+  // all pickable, sorted alphabetically for easy scanning. Options carry both the
+  // full "+66 — Thailand" label (used when the dropdown is open) and a short
+  // "+66" label used when the dropdown is closed, so the collapsed control stays
+  // compact even for long country names.
   const codeOptions = COUNTRIES
     .filter(([, code]) => !!code)
     .slice()
     .sort((a, b) => a[0].localeCompare(b[0]));
   codeOptions.forEach(([name, code]) => {
-    phoneCcSel.add(new Option(`${code} — ${name}`, `${code}|${name}`));
+    const opt = new Option(`${code} — ${name}`, `${code}|${name}`);
+    opt.dataset.short = code;
+    opt.dataset.full  = `${code} — ${name}`;
+    phoneCcSel.add(opt);
   });
+
+  function shortenPhoneCcDisplay(){
+    const opt = phoneCcSel.selectedOptions[0];
+    if (opt && opt.dataset.short) opt.textContent = opt.dataset.short;
+  }
+  function restorePhoneCcDisplay(){
+    Array.from(phoneCcSel.options).forEach(o => {
+      if (o.dataset.full) o.textContent = o.dataset.full;
+    });
+  }
+  // Give the full country-name text back to every option just before the
+  // dropdown opens, then re-shorten the selected one once the user has picked.
+  ['mousedown','touchstart','focus','keydown'].forEach(ev =>
+    phoneCcSel.addEventListener(ev, restorePhoneCcDisplay)
+  );
 
   /* ── Apply the length constraint based on the CURRENTLY-SELECTED phone code ── */
   function currentCcCountry(){
@@ -548,14 +569,14 @@
     const name = currentCcCountry();
     if (!name) {
       phoneEl.setAttribute('maxlength', 15);
-      phoneHintEl.textContent = 'Select your country of residence to set the country code — or pick a different one from the dropdown.';
+      if (phoneHintEl) phoneHintEl.textContent = 'Select your country of residence to set the country code — or pick a different one from the dropdown.';
       return;
     }
     const range = nsnFor(name);
     phoneEl.setAttribute('maxlength', range.max);
     // Trim any existing content that now exceeds the new max
     if (phoneEl.value.length > range.max) phoneEl.value = phoneEl.value.slice(0, range.max);
-    phoneHintEl.textContent = `Enter your ${name} number without the country code (${rangeLabel(range)}).`;
+    if (phoneHintEl) phoneHintEl.textContent = `Enter your ${name} number without the country code (${rangeLabel(range)}).`;
   }
 
   // Track user overrides so a country-of-residence change doesn't clobber an
@@ -564,6 +585,9 @@
   phoneCcSel.addEventListener('change', () => {
     userOverrodeCode = true;
     applyNsnConstraint();
+    // After the browser closes the dropdown, collapse the visible label to just
+    // the dial code so the control stays compact.
+    setTimeout(shortenPhoneCcDisplay, 0);
   });
 
   countrySel.addEventListener('change', () => {
@@ -575,6 +599,7 @@
         const match = codeOptions.find(([, c]) => c === code);
         if (match) phoneCcSel.value = `${match[1]}|${match[0]}`;
       }
+      shortenPhoneCcDisplay();
     }
     applyNsnConstraint();
   });
