@@ -86,6 +86,13 @@
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
   @media (max-width:520px){.row2{grid-template-columns:1fr}}
 
+  /* Phone with country-code prefix */
+  .phone-with-code{display:flex;align-items:stretch;border:1.5px solid var(--light);border-radius:10px;background:#fafbfc;overflow:hidden;transition:all .15s}
+  .phone-with-code:focus-within{border-color:var(--teal);background:#fff;box-shadow:0 0 0 4px rgba(15,185,177,.12)}
+  .phone-cc{padding:.85rem 0 .85rem .95rem;color:var(--teal-dark);font-weight:700;font-size:.95rem;white-space:nowrap;display:flex;align-items:center;min-width:52px;border-right:1px solid var(--light);margin-right:.55rem}
+  .phone-with-code input{border:none;background:transparent!important;box-shadow:none!important;padding:.85rem 1rem .85rem 0;flex:1;min-width:0;font-family:inherit;font-size:.95rem;color:var(--navy)}
+  .phone-with-code input:focus{outline:none;background:transparent!important;box-shadow:none!important}
+
   /* SEGMENTED */
   .seg{display:grid;gap:.5rem}
   .seg.two{grid-template-columns:1fr 1fr}
@@ -284,6 +291,13 @@
             <input type="text" id="full-name" name="full_name" placeholder="Jane Smith" required>
           </div>
 
+          <div class="field">
+            <label for="country">Country of Residence</label>
+            <select id="country" name="country" required>
+              <option value="" disabled selected>Select country&hellip;</option>
+            </select>
+          </div>
+
           <div class="row2">
             <div class="field">
               <label for="email">Email Address</label>
@@ -291,15 +305,12 @@
             </div>
             <div class="field">
               <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+66 555 000 0000" required>
+              <div class="phone-with-code">
+                <span class="phone-cc" id="phone-cc">+&mdash;</span>
+                <input type="tel" id="phone" name="phone" placeholder="10 digits" maxlength="10" inputmode="numeric" pattern="[0-9]*" required>
+              </div>
+              <p class="cover-note" id="phone-hint">Select your country of residence to set the country code.</p>
             </div>
-          </div>
-
-          <div class="field">
-            <label for="country">Country of Residence</label>
-            <select id="country" name="country" required>
-              <option value="" disabled selected>Select country&hellip;</option>
-            </select>
           </div>
 
           <!-- Hidden lead data -->
@@ -408,18 +419,50 @@
 
   const fmt = n => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
 
-  /* ── Country list for lead form ── */
+  /* ── Country list for lead form (with dial codes) ── */
   const COUNTRIES = [
-    'Thailand','Vietnam','Indonesia','Malaysia','Philippines','Singapore','Cambodia',
-    'Hong Kong','Japan','South Korea','China','India','UAE','Saudi Arabia','Qatar',
-    'Bahrain','Oman','Kuwait','United Kingdom','Ireland','France','Germany','Spain',
-    'Portugal','Italy','Netherlands','Switzerland','Sweden','Norway','Denmark',
-    'Finland','Belgium','Austria','Poland','United States','Canada','Mexico','Brazil',
-    'Argentina','Australia','New Zealand','South Africa','Kenya','Nigeria','Egypt',
-    'Turkey','Israel','Other'
+    ['Thailand','+66'],['Vietnam','+84'],['Indonesia','+62'],['Malaysia','+60'],
+    ['Philippines','+63'],['Singapore','+65'],['Cambodia','+855'],['Hong Kong','+852'],
+    ['Japan','+81'],['South Korea','+82'],['China','+86'],['India','+91'],
+    ['UAE','+971'],['Saudi Arabia','+966'],['Qatar','+974'],['Bahrain','+973'],
+    ['Oman','+968'],['Kuwait','+965'],['United Kingdom','+44'],['Ireland','+353'],
+    ['France','+33'],['Germany','+49'],['Spain','+34'],['Portugal','+351'],
+    ['Italy','+39'],['Netherlands','+31'],['Switzerland','+41'],['Sweden','+46'],
+    ['Norway','+47'],['Denmark','+45'],['Finland','+358'],['Belgium','+32'],
+    ['Austria','+43'],['Poland','+48'],['United States','+1'],['Canada','+1'],
+    ['Mexico','+52'],['Brazil','+55'],['Argentina','+54'],['Australia','+61'],
+    ['New Zealand','+64'],['South Africa','+27'],['Kenya','+254'],['Nigeria','+234'],
+    ['Egypt','+20'],['Turkey','+90'],['Israel','+972'],['Other','']
   ];
+  const DIAL_CODE = Object.fromEntries(COUNTRIES);
   const countrySel = document.getElementById('country');
-  COUNTRIES.forEach(c => countrySel.add(new Option(c, c)));
+  COUNTRIES.forEach(([name, code]) => {
+    const opt = new Option(code ? `${name} (${code})` : name, name);
+    countrySel.add(opt);
+  });
+
+  /* ── Phone country-code auto-fill + 10-digit cap ── */
+  const phoneCcEl   = document.getElementById('phone-cc');
+  const phoneEl     = document.getElementById('phone');
+  const phoneHintEl = document.getElementById('phone-hint');
+  let currentDialCode = '';
+
+  countrySel.addEventListener('change', () => {
+    const code = DIAL_CODE[countrySel.value] || '';
+    currentDialCode = code;
+    phoneCcEl.textContent = code || '+—';
+    if (code) {
+      phoneHintEl.textContent = 'Enter your ' + countrySel.value + ' number without the country code (max 10 digits).';
+    } else {
+      phoneHintEl.textContent = 'Enter your local number (max 10 digits).';
+    }
+  });
+
+  // Strip non-digits and cap at 10 characters on every phone input
+  phoneEl.addEventListener('input', () => {
+    const cleaned = phoneEl.value.replace(/\D/g, '').slice(0, 10);
+    if (cleaned !== phoneEl.value) phoneEl.value = cleaned;
+  });
 
   /* ── UTM capture ── */
   (function(){
@@ -619,6 +662,10 @@
     data.to_name = data.full_name;
     data.first_name = (data.full_name || '').trim().split(/\s+/)[0] || data.full_name;
     data.to_email = data.email;
+    // Prepend the country code so the sales team gets the full international number
+    if (currentDialCode && data.phone) {
+      data.phone = currentDialCode + ' ' + data.phone;
+    }
     data.quote_ref = makeQuoteRef();
     // Convenience combined summary for the sales team
     data.quote_summary =
