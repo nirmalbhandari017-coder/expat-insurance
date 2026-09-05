@@ -37,6 +37,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="/assets/phone-nsn.js"></script>
 <script>emailjs.init('CzcVvCe6LcpkDv9Ri');</script>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -417,6 +418,9 @@
     if(code) cc.add(new Option(`${name} (${code})`, code));
   });
 
+  // Per-country phone-number length constraint (ITU-T E.164 NSN)
+  const _phoneNSN = window.PhoneNSN && PhoneNSN.attach();
+
   /* UTM capture */
   (function(){
     const p = new URLSearchParams(location.search);
@@ -496,6 +500,11 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(_em)) {
       alert('Please enter a valid email address.');
       return;
+    }
+    // Per-country phone length check
+    if (_phoneNSN) {
+      const _phoneErr = _phoneNSN.validate();
+      if (_phoneErr) { alert(_phoneErr); return; }
     }
 
     btn.disabled = true; btn.textContent = 'Sending...';
