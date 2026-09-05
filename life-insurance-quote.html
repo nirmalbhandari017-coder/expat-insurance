@@ -479,6 +479,46 @@
   ];
   const DIAL_CODE = Object.fromEntries(COUNTRIES);
 
+  /* ── National Significant Number length per country (ITU-T E.164) ──
+     For countries not listed, fall back to a permissive 6–15 range. */
+  const NSN_LENGTH = {
+    // 7 digits
+    'Iceland':{min:7,max:7},
+    // 8 digits
+    'Singapore':{min:8,max:8},'Hong Kong':{min:8,max:8},'Macau':{min:8,max:8},
+    'Qatar':{min:8,max:8},'Kuwait':{min:8,max:8},'Bahrain':{min:8,max:8},
+    'Oman':{min:8,max:8},'Norway':{min:8,max:8},'Denmark':{min:8,max:8},
+    'Luxembourg':{min:8,max:9},
+    // 9 digits
+    'Thailand':{min:9,max:9},'Australia':{min:9,max:9},'France':{min:9,max:9},
+    'Spain':{min:9,max:9},'Netherlands':{min:9,max:9},'Switzerland':{min:9,max:9},
+    'Poland':{min:9,max:9},'Portugal':{min:9,max:9},'South Africa':{min:9,max:9},
+    'United Arab Emirates':{min:9,max:9},'Saudi Arabia':{min:9,max:9},
+    'Israel':{min:9,max:9},'Kenya':{min:9,max:9},'Peru':{min:9,max:9},
+    'Chile':{min:9,max:9},'Iraq':{min:9,max:10},'Egypt':{min:9,max:10},
+    'Italy':{min:9,max:10},'Cambodia':{min:8,max:9},
+    // 10 digits
+    'United Kingdom':{min:10,max:10},'United States':{min:10,max:10},
+    'Canada':{min:10,max:10},'India':{min:10,max:10},'Philippines':{min:10,max:10},
+    'Mexico':{min:10,max:10},'Colombia':{min:10,max:10},'Turkey':{min:10,max:10},
+    'Nigeria':{min:10,max:10},'Sri Lanka':{min:9,max:10},'Ireland':{min:9,max:10},
+    'New Zealand':{min:8,max:10},'Ukraine':{min:9,max:10},'Kazakhstan':{min:10,max:10},
+    'Russia':{min:10,max:10},
+    // 9–11 range
+    'Japan':{min:9,max:11},'South Korea':{min:9,max:11},'Vietnam':{min:9,max:10},
+    'Malaysia':{min:9,max:10},'Argentina':{min:10,max:11},'Brazil':{min:10,max:11},
+    // 11
+    'China':{min:11,max:11},
+    // 9–12 (Indonesia mobile numbers can be quite long)
+    'Indonesia':{min:9,max:12},
+    // Genuinely variable
+    'Germany':{min:6,max:13},'Finland':{min:5,max:12},'Austria':{min:4,max:13},
+    'Sweden':{min:7,max:13},'Belgium':{min:8,max:9}
+  };
+  const NSN_DEFAULT = { min: 6, max: 15 };
+  function nsnFor(name){ return NSN_LENGTH[name] || NSN_DEFAULT; }
+  function rangeLabel(r){ return r.min === r.max ? `${r.min} digits` : `${r.min}–${r.max} digits`; }
+
   const countrySel = document.getElementById('country');
   const phoneCcSel = document.getElementById('phone-cc');
   const phoneEl    = document.getElementById('phone');
@@ -499,11 +539,31 @@
     phoneCcSel.add(new Option(`${code} — ${name}`, `${code}|${name}`));
   });
 
+  /* ── Apply the length constraint based on the CURRENTLY-SELECTED phone code ── */
+  function currentCcCountry(){
+    const parts = (phoneCcSel.value || '').split('|');
+    return parts[1] || '';
+  }
+  function applyNsnConstraint(){
+    const name = currentCcCountry();
+    if (!name) {
+      phoneEl.setAttribute('maxlength', 15);
+      phoneHintEl.textContent = 'Select your country of residence to set the country code — or pick a different one from the dropdown.';
+      return;
+    }
+    const range = nsnFor(name);
+    phoneEl.setAttribute('maxlength', range.max);
+    // Trim any existing content that now exceeds the new max
+    if (phoneEl.value.length > range.max) phoneEl.value = phoneEl.value.slice(0, range.max);
+    phoneHintEl.textContent = `Enter your ${name} number without the country code (${rangeLabel(range)}).`;
+  }
+
   // Track user overrides so a country-of-residence change doesn't clobber an
   // explicit code choice
   let userOverrodeCode = false;
   phoneCcSel.addEventListener('change', () => {
     userOverrodeCode = true;
+    applyNsnConstraint();
   });
 
   countrySel.addEventListener('change', () => {
@@ -516,14 +576,13 @@
         if (match) phoneCcSel.value = `${match[1]}|${match[0]}`;
       }
     }
-    phoneHintEl.textContent = code
-      ? `Enter your ${countrySel.value} number without the country code.`
-      : 'Enter your local number.';
+    applyNsnConstraint();
   });
 
-  // Strip non-digits and cap at 10 characters on every phone input
+  // Strip non-digits, and cap at the current country's max NSN length on every input
   phoneEl.addEventListener('input', () => {
-    const cleaned = phoneEl.value.replace(/\D/g, '').slice(0, 10);
+    const max = parseInt(phoneEl.getAttribute('maxlength'), 10) || 15;
+    const cleaned = phoneEl.value.replace(/\D/g, '').slice(0, max);
     if (cleaned !== phoneEl.value) phoneEl.value = cleaned;
   });
 
@@ -709,8 +768,14 @@
       alert('Please fill in every field: name, country, email and phone (with country code).');
       return;
     }
-    if (ph.length < 6) {
-      alert('That phone number looks too short. Please enter your local number in full.');
+    // Validate the phone-number length against the currently-selected country code
+    const pcName = (pc.split('|')[1]) || '';
+    const range = NSN_LENGTH[pcName] || NSN_DEFAULT;
+    if (ph.length < range.min || ph.length > range.max) {
+      const expected = range.min === range.max
+        ? `should be ${range.min} digits`
+        : `should be ${range.min}–${range.max} digits`;
+      alert(`That phone number doesn't look right for ${pcName || 'the country code you picked'} — it ${expected}. Please check and try again.`);
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
