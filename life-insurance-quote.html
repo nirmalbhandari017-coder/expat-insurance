@@ -90,6 +90,9 @@
   .phone-with-code{display:flex;align-items:stretch;border:1.5px solid var(--light);border-radius:10px;background:#fafbfc;overflow:hidden;transition:all .15s}
   .phone-with-code:focus-within{border-color:var(--teal);background:#fff;box-shadow:0 0 0 4px rgba(15,185,177,.12)}
   .phone-cc{padding:.85rem 0 .85rem .95rem;color:var(--teal-dark);font-weight:700;font-size:.95rem;white-space:nowrap;display:flex;align-items:center;min-width:52px;border-right:1px solid var(--light);margin-right:.55rem}
+  .phone-with-code select{border:none;background:transparent;padding:.85rem .5rem .85rem .95rem;color:var(--teal-dark);font-weight:700;font-size:.95rem;font-family:inherit;cursor:pointer;appearance:none;-webkit-appearance:none;border-right:1px solid var(--light);margin-right:.4rem;max-width:110px;text-overflow:ellipsis}
+  .phone-with-code select:focus{outline:none}
+  .phone-with-code select option{color:var(--navy);font-weight:600}
   .phone-with-code input{border:none;background:transparent!important;box-shadow:none!important;padding:.85rem 1rem .85rem 0;flex:1;min-width:0;font-family:inherit;font-size:.95rem;color:var(--navy)}
   .phone-with-code input:focus{outline:none;background:transparent!important;box-shadow:none!important}
 
@@ -306,10 +309,12 @@
             <div class="field">
               <label for="phone">Phone Number</label>
               <div class="phone-with-code">
-                <span class="phone-cc" id="phone-cc">+&mdash;</span>
+                <select id="phone-cc" name="phone_country_code" aria-label="Country code">
+                  <option value="" disabled selected>+&mdash;</option>
+                </select>
                 <input type="tel" id="phone" name="phone" placeholder="10 digits" maxlength="10" inputmode="numeric" pattern="[0-9]*" required>
               </div>
-              <p class="cover-note" id="phone-hint">Select your country of residence to set the country code.</p>
+              <p class="cover-note" id="phone-hint">Select your country of residence to set the country code &mdash; or pick a different one from the dropdown.</p>
             </div>
           </div>
 
@@ -419,43 +424,101 @@
 
   const fmt = n => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
 
-  /* ── Country list for lead form (with dial codes) ── */
+  /* ── Country list with dial codes (~195 countries) ── */
   const COUNTRIES = [
-    ['Thailand','+66'],['Vietnam','+84'],['Indonesia','+62'],['Malaysia','+60'],
-    ['Philippines','+63'],['Singapore','+65'],['Cambodia','+855'],['Hong Kong','+852'],
-    ['Japan','+81'],['South Korea','+82'],['China','+86'],['India','+91'],
-    ['UAE','+971'],['Saudi Arabia','+966'],['Qatar','+974'],['Bahrain','+973'],
-    ['Oman','+968'],['Kuwait','+965'],['United Kingdom','+44'],['Ireland','+353'],
-    ['France','+33'],['Germany','+49'],['Spain','+34'],['Portugal','+351'],
-    ['Italy','+39'],['Netherlands','+31'],['Switzerland','+41'],['Sweden','+46'],
-    ['Norway','+47'],['Denmark','+45'],['Finland','+358'],['Belgium','+32'],
-    ['Austria','+43'],['Poland','+48'],['United States','+1'],['Canada','+1'],
-    ['Mexico','+52'],['Brazil','+55'],['Argentina','+54'],['Australia','+61'],
-    ['New Zealand','+64'],['South Africa','+27'],['Kenya','+254'],['Nigeria','+234'],
-    ['Egypt','+20'],['Turkey','+90'],['Israel','+972'],['Other','']
+    ['Afghanistan','+93'],['Albania','+355'],['Algeria','+213'],['Andorra','+376'],
+    ['Angola','+244'],['Antigua and Barbuda','+1268'],['Argentina','+54'],['Armenia','+374'],
+    ['Australia','+61'],['Austria','+43'],['Azerbaijan','+994'],['Bahamas','+1242'],
+    ['Bahrain','+973'],['Bangladesh','+880'],['Barbados','+1246'],['Belarus','+375'],
+    ['Belgium','+32'],['Belize','+501'],['Benin','+229'],['Bhutan','+975'],
+    ['Bolivia','+591'],['Bosnia and Herzegovina','+387'],['Botswana','+267'],['Brazil','+55'],
+    ['Brunei','+673'],['Bulgaria','+359'],['Burkina Faso','+226'],['Burundi','+257'],
+    ['Cabo Verde','+238'],['Cambodia','+855'],['Cameroon','+237'],['Canada','+1'],
+    ['Central African Republic','+236'],['Chad','+235'],['Chile','+56'],['China','+86'],
+    ['Colombia','+57'],['Comoros','+269'],['Congo (Brazzaville)','+242'],['Congo (Kinshasa)','+243'],
+    ['Costa Rica','+506'],['Croatia','+385'],['Cuba','+53'],['Cyprus','+357'],
+    ['Czech Republic','+420'],['Denmark','+45'],['Djibouti','+253'],['Dominica','+1767'],
+    ['Dominican Republic','+1809'],['Ecuador','+593'],['Egypt','+20'],['El Salvador','+503'],
+    ['Equatorial Guinea','+240'],['Eritrea','+291'],['Estonia','+372'],['Eswatini','+268'],
+    ['Ethiopia','+251'],['Fiji','+679'],['Finland','+358'],['France','+33'],
+    ['Gabon','+241'],['Gambia','+220'],['Georgia','+995'],['Germany','+49'],
+    ['Ghana','+233'],['Greece','+30'],['Grenada','+1473'],['Guatemala','+502'],
+    ['Guinea','+224'],['Guinea-Bissau','+245'],['Guyana','+592'],['Haiti','+509'],
+    ['Honduras','+504'],['Hong Kong','+852'],['Hungary','+36'],['Iceland','+354'],
+    ['India','+91'],['Indonesia','+62'],['Iran','+98'],['Iraq','+964'],
+    ['Ireland','+353'],['Israel','+972'],['Italy','+39'],['Ivory Coast','+225'],
+    ['Jamaica','+1876'],['Japan','+81'],['Jordan','+962'],['Kazakhstan','+7'],
+    ['Kenya','+254'],['Kiribati','+686'],['Kosovo','+383'],['Kuwait','+965'],
+    ['Kyrgyzstan','+996'],['Laos','+856'],['Latvia','+371'],['Lebanon','+961'],
+    ['Lesotho','+266'],['Liberia','+231'],['Libya','+218'],['Liechtenstein','+423'],
+    ['Lithuania','+370'],['Luxembourg','+352'],['Macau','+853'],['Madagascar','+261'],
+    ['Malawi','+265'],['Malaysia','+60'],['Maldives','+960'],['Mali','+223'],
+    ['Malta','+356'],['Marshall Islands','+692'],['Mauritania','+222'],['Mauritius','+230'],
+    ['Mexico','+52'],['Micronesia','+691'],['Moldova','+373'],['Monaco','+377'],
+    ['Mongolia','+976'],['Montenegro','+382'],['Morocco','+212'],['Mozambique','+258'],
+    ['Myanmar','+95'],['Namibia','+264'],['Nauru','+674'],['Nepal','+977'],
+    ['Netherlands','+31'],['New Zealand','+64'],['Nicaragua','+505'],['Niger','+227'],
+    ['Nigeria','+234'],['North Korea','+850'],['North Macedonia','+389'],['Norway','+47'],
+    ['Oman','+968'],['Pakistan','+92'],['Palau','+680'],['Palestine','+970'],
+    ['Panama','+507'],['Papua New Guinea','+675'],['Paraguay','+595'],['Peru','+51'],
+    ['Philippines','+63'],['Poland','+48'],['Portugal','+351'],['Qatar','+974'],
+    ['Romania','+40'],['Russia','+7'],['Rwanda','+250'],['Saint Kitts and Nevis','+1869'],
+    ['Saint Lucia','+1758'],['Saint Vincent and the Grenadines','+1784'],['Samoa','+685'],['San Marino','+378'],
+    ['Sao Tome and Principe','+239'],['Saudi Arabia','+966'],['Senegal','+221'],['Serbia','+381'],
+    ['Seychelles','+248'],['Sierra Leone','+232'],['Singapore','+65'],['Slovakia','+421'],
+    ['Slovenia','+386'],['Solomon Islands','+677'],['Somalia','+252'],['South Africa','+27'],
+    ['South Korea','+82'],['South Sudan','+211'],['Spain','+34'],['Sri Lanka','+94'],
+    ['Sudan','+249'],['Suriname','+597'],['Sweden','+46'],['Switzerland','+41'],
+    ['Syria','+963'],['Taiwan','+886'],['Tajikistan','+992'],['Tanzania','+255'],
+    ['Thailand','+66'],['Timor-Leste','+670'],['Togo','+228'],['Tonga','+676'],
+    ['Trinidad and Tobago','+1868'],['Tunisia','+216'],['Turkey','+90'],['Turkmenistan','+993'],
+    ['Tuvalu','+688'],['Uganda','+256'],['Ukraine','+380'],['United Arab Emirates','+971'],
+    ['United Kingdom','+44'],['United States','+1'],['Uruguay','+598'],['Uzbekistan','+998'],
+    ['Vanuatu','+678'],['Vatican City','+379'],['Venezuela','+58'],['Vietnam','+84'],
+    ['Yemen','+967'],['Zambia','+260'],['Zimbabwe','+263'],['Other','']
   ];
   const DIAL_CODE = Object.fromEntries(COUNTRIES);
+
   const countrySel = document.getElementById('country');
+  const phoneCcSel = document.getElementById('phone-cc');
+  const phoneEl    = document.getElementById('phone');
+  const phoneHintEl = document.getElementById('phone-hint');
+
+  // Populate country of residence
   COUNTRIES.forEach(([name, code]) => {
-    const opt = new Option(code ? `${name} (${code})` : name, name);
-    countrySel.add(opt);
+    countrySel.add(new Option(code ? `${name} (${code})` : name, name));
   });
 
-  /* ── Phone country-code auto-fill + 10-digit cap ── */
-  const phoneCcEl   = document.getElementById('phone-cc');
-  const phoneEl     = document.getElementById('phone');
-  const phoneHintEl = document.getElementById('phone-hint');
-  let currentDialCode = '';
+  // Populate the country-code dropdown — every country listed so US/Canada/etc are
+  // all pickable, sorted alphabetically for easy scanning.
+  const codeOptions = COUNTRIES
+    .filter(([, code]) => !!code)
+    .slice()
+    .sort((a, b) => a[0].localeCompare(b[0]));
+  codeOptions.forEach(([name, code]) => {
+    phoneCcSel.add(new Option(`${code} — ${name}`, `${code}|${name}`));
+  });
+
+  // Track user overrides so a country-of-residence change doesn't clobber an
+  // explicit code choice
+  let userOverrodeCode = false;
+  phoneCcSel.addEventListener('change', () => {
+    userOverrodeCode = true;
+  });
 
   countrySel.addEventListener('change', () => {
     const code = DIAL_CODE[countrySel.value] || '';
-    currentDialCode = code;
-    phoneCcEl.textContent = code || '+—';
-    if (code) {
-      phoneHintEl.textContent = 'Enter your ' + countrySel.value + ' number without the country code (max 10 digits).';
-    } else {
-      phoneHintEl.textContent = 'Enter your local number (max 10 digits).';
+    if (code && !userOverrodeCode) {
+      phoneCcSel.value = `${code}|${countrySel.value}`;
+      // Fallback in case the exact name+code pair isn't in the list — match by code
+      if (!phoneCcSel.value) {
+        const match = codeOptions.find(([, c]) => c === code);
+        if (match) phoneCcSel.value = `${match[1]}|${match[0]}`;
+      }
     }
+    phoneHintEl.textContent = code
+      ? `Enter your ${countrySel.value} number without the country code (max 10 digits).`
+      : 'Enter your local number (max 10 digits).';
   });
 
   // Strip non-digits and cap at 10 characters on every phone input
@@ -640,9 +703,14 @@
     const em = leadForm.querySelector('#email').value.trim();
     const ph = leadForm.querySelector('#phone').value.trim();
     const co = leadForm.querySelector('#country').value;
+    const pc = leadForm.querySelector('#phone-cc').value;
 
-    if (!nm || !em || !ph || !co) {
-      alert('Please fill in every field: name, email, phone and country.');
+    if (!nm || !em || !ph || !co || !pc) {
+      alert('Please fill in every field: name, country, email and phone (with country code).');
+      return;
+    }
+    if (ph.length < 6) {
+      alert('That phone number looks too short. Please enter the local number in full (up to 10 digits).');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
@@ -662,9 +730,12 @@
     data.to_name = data.full_name;
     data.first_name = (data.full_name || '').trim().split(/\s+/)[0] || data.full_name;
     data.to_email = data.email;
-    // Prepend the country code so the sales team gets the full international number
-    if (currentDialCode && data.phone) {
-      data.phone = currentDialCode + ' ' + data.phone;
+    // Prepend the chosen country code so the sales team gets the full international
+    // number (phone_country_code is "+66|Thailand", split on the pipe)
+    const codeParts = (data.phone_country_code || '').split('|');
+    const dialCode = codeParts[0] || '';
+    if (dialCode && data.phone) {
+      data.phone = dialCode + ' ' + data.phone;
     }
     data.quote_ref = makeQuoteRef();
     // Convenience combined summary for the sales team
