@@ -193,8 +193,32 @@
       <div class="field">
         <label>Smoker Status</label>
         <div class="seg two">
-          <div class="seg-opt"><input type="radio" id="sm-n" name="smoker" value="Non-Smoker" required checked><label for="sm-n"><span class="ico">&#128685;</span>Non-Smoker</label></div>
-          <div class="seg-opt"><input type="radio" id="sm-y" name="smoker" value="Smoker"><label for="sm-y"><span class="ico">&#128684;</span>Smoker</label></div>
+          <div class="seg-opt"><input type="radio" id="sm-n" name="smoker" value="Non-Smoker" required checked>
+            <label for="sm-n">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9.5"/>
+                  <line x1="5.3" y1="18.7" x2="18.7" y2="5.3"/>
+                  <rect x="4.5" y="13.5" width="11" height="3" rx="0.4"/>
+                  <rect x="15.5" y="13.5" width="4" height="3" rx="0.4" fill="currentColor"/>
+                </svg>
+              </span>
+              Non-Smoker
+            </label>
+          </div>
+          <div class="seg-opt"><input type="radio" id="sm-y" name="smoker" value="Smoker">
+            <label for="sm-y">
+              <span class="ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 3.5c0 1.4 1.4 1.9 1.4 3.3S6 8.7 6 10.1"/>
+                  <path d="M10 3.5c0 1.4 1.4 1.9 1.4 3.3S10 8.7 10 10.1"/>
+                  <rect x="2.5" y="14.5" width="14.5" height="4" rx="0.5"/>
+                  <rect x="17" y="14.5" width="4.5" height="4" rx="0.5" fill="currentColor"/>
+                </svg>
+              </span>
+              Smoker
+            </label>
+          </div>
         </div>
         <p class="cover-note">Non-smoker means no tobacco, vaping or nicotine products in the last 12 months.</p>
       </div>
