@@ -312,7 +312,7 @@
                 <select id="phone-cc" name="phone_country_code" aria-label="Country code">
                   <option value="" disabled selected>+&mdash;</option>
                 </select>
-                <input type="tel" id="phone" name="phone" placeholder="10 digits" maxlength="10" inputmode="numeric" pattern="[0-9]*" required>
+                <input type="tel" id="phone" name="phone" placeholder="Your phone number" maxlength="10" inputmode="numeric" pattern="[0-9]*" required>
               </div>
               <p class="cover-note" id="phone-hint">Select your country of residence to set the country code &mdash; or pick a different one from the dropdown.</p>
             </div>
@@ -517,8 +517,8 @@
       }
     }
     phoneHintEl.textContent = code
-      ? `Enter your ${countrySel.value} number without the country code (max 10 digits).`
-      : 'Enter your local number (max 10 digits).';
+      ? `Enter your ${countrySel.value} number without the country code.`
+      : 'Enter your local number.';
   });
 
   // Strip non-digits and cap at 10 characters on every phone input
@@ -710,7 +710,7 @@
       return;
     }
     if (ph.length < 6) {
-      alert('That phone number looks too short. Please enter the local number in full (up to 10 digits).');
+      alert('That phone number looks too short. Please enter your local number in full.');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
