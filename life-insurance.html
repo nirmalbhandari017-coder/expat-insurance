@@ -232,95 +232,111 @@
 <!-- WHAT'S INCLUDED — full benefits schedule -->
 <section class="schedule">
   <style>
-    .schedule{background:var(--cream)}
-    .schedule .sched-wrap{background:#fff;border:1px solid var(--light);border-radius:14px;overflow:hidden;box-shadow:0 12px 40px -20px rgba(15,185,177,.15)}
-    .sched-table{width:100%;border-collapse:collapse;font-size:.95rem}
-    .sched-table caption{display:none}
-    .sched-table thead th{background:var(--navy);color:#fff;text-align:left;padding:.9rem 1.2rem;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
-    .sched-table thead th.sched-val-th{text-align:right;width:180px}
-    .sched-table tbody td{padding:1.05rem 1.2rem;border-top:1px solid var(--light);vertical-align:top;line-height:1.55}
-    .sched-table tbody tr:first-child td{border-top:none}
-    .sched-name{font-weight:700;color:var(--navy);margin-bottom:.25rem;display:block}
-    .sched-desc{color:var(--grey);font-size:.9rem}
-    .sched-val{color:var(--teal-dark);font-weight:700;text-align:right;white-space:nowrap;vertical-align:middle;width:180px;padding-left:1rem}
-    .sched-note{color:var(--grey);font-size:.8rem;margin-top:1rem;text-align:center;line-height:1.55}
+    .schedule{background:var(--cream);padding:3rem 0}
+    .schedule .sec-head{margin-bottom:1.8rem}
+    .schedule .sched-max{max-width:920px;margin:0 auto}
+    .sched-group{margin-bottom:1.4rem}
+    .sched-group:last-of-type{margin-bottom:0}
+    .sched-label{font-size:.68rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--teal-dark);margin-bottom:.6rem;padding-left:.15rem}
+    .sched-cards{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .sched-cards.single{grid-template-columns:1fr}
+    .sched-card{background:#fff;border:1px solid var(--light);border-radius:12px;padding:.85rem 1rem;display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:center;transition:border-color .15s,box-shadow .15s}
+    .sched-card:hover{border-color:rgba(15,185,177,.4);box-shadow:0 6px 20px -12px rgba(15,185,177,.4)}
+    .sched-ico{width:34px;height:34px;border-radius:10px;background:rgba(15,185,177,.1);color:var(--teal-dark);display:grid;place-items:center;font-size:1.05rem;flex-shrink:0}
+    .sched-body{min-width:0}
+    .sched-name{font-weight:700;color:var(--navy);font-size:.92rem;line-height:1.25}
+    .sched-desc{color:var(--grey);font-size:.76rem;line-height:1.4;margin-top:.15rem}
+    .sched-pill{background:rgba(15,185,177,.12);color:var(--teal-dark);font-weight:700;font-size:.75rem;padding:.3rem .7rem;border-radius:999px;white-space:nowrap}
+    .sched-pill.wide{white-space:normal;max-width:160px;text-align:center;line-height:1.3;padding:.35rem .75rem;font-size:.7rem}
+    .sched-note{color:var(--grey);font-size:.75rem;margin-top:1.2rem;text-align:center;line-height:1.55}
     @media (max-width:640px){
-      .sched-table thead th.sched-val-th{width:110px}
-      .sched-table tbody td{padding:.9rem 1rem}
-      .sched-val{width:110px;font-size:.9rem;padding-left:.5rem}
-      .sched-name{font-size:.95rem}
-      .sched-desc{font-size:.85rem}
+      .sched-cards{grid-template-columns:1fr;gap:.55rem}
+      .sched-card{padding:.75rem .85rem;gap:.6rem}
+      .sched-ico{width:30px;height:30px;font-size:.95rem}
+      .sched-name{font-size:.88rem}
+      .sched-desc{font-size:.73rem}
+      .sched-pill{font-size:.7rem;padding:.25rem .55rem}
+      .sched-pill.wide{max-width:110px;font-size:.65rem}
     }
   </style>
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">What&rsquo;s Included</div>
       <h2>Your Regency for Expats life cover in detail</h2>
-      <p>Every policy includes the death benefit plus the following six services as standard &mdash; no add-ons, no upsells.</p>
+      <p>Every policy includes the death benefit plus six standard services &mdash; no add-ons, no upsells.</p>
     </div>
-    <div class="sched-wrap">
-      <table class="sched-table">
-        <tbody>
-          <tr class="sched-section"><th colspan="2">Benefit Limit</th></tr>
-          <tr>
-            <td>
-              <span class="sched-name">Death Benefit</span>
-              <span class="sched-desc">Life insurance payment to the beneficiary(ies) following the death of the insured person.</span>
-            </td>
-            <td class="sched-val">Sum insured shown on Certificate of Insurance</td>
-          </tr>
-          <tr class="sched-section"><th colspan="2">Benefit Services</th></tr>
-          <tr>
-            <td>
-              <span class="sched-name">Upfront Payment</span>
-              <span class="sched-desc">Immediate proportion payment to the beneficiary(ies) following confirmation of the eligibility of the claim.</span>
-            </td>
-            <td class="sched-val">10% of sum insured</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="sched-name">Child Chaperone</span>
-              <span class="sched-desc">Travel costs of next of kin to escort unaccompanied minors following the death of the insured person.</span>
-            </td>
-            <td class="sched-val">Full cover</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="sched-name">Bereavement Counselling</span>
-              <span class="sched-desc">Family, friends and colleagues get telephone access to qualified psychologists provided by Regency for Expats following the death of the insured person.</span>
-            </td>
-            <td class="sched-val">Full cover</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="sched-name">Mortal Remains Repatriation</span>
-              <span class="sched-desc">Repatriation of the insured person&rsquo;s mortal remains to the power of attorney&rsquo;s chosen country following the death of the insured person.</span>
-            </td>
-            <td class="sched-val">Full cover</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="sched-name">International Assistance</span>
-              <span class="sched-desc">24-hour access to Regency for Expats&rsquo; international assistance services following the death of the insured person.</span>
-            </td>
-            <td class="sched-val">Full cover</td>
-          </tr>
-          <tr>
-            <td>
-              <span class="sched-name">Geographical Extension</span>
-              <span class="sched-desc">Geographical area of coverage for insured persons and beneficiaries to access Regency for Expats&rsquo; international life benefits.</span>
-            </td>
-            <td class="sched-val">Worldwide</td>
-          </tr>
-        </tbody>
-      </table>
+
+    <div class="sched-max">
+      <div class="sched-group">
+        <div class="sched-label">Benefit Limit</div>
+        <div class="sched-cards single">
+          <div class="sched-card">
+            <div class="sched-ico">&#128176;</div>
+            <div class="sched-body">
+              <div class="sched-name">Death Benefit</div>
+              <div class="sched-desc">Life insurance payment to the beneficiary(ies) following the death of the insured person.</div>
+            </div>
+            <div class="sched-pill wide">Sum insured on Certificate of Insurance</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sched-group">
+        <div class="sched-label">Benefit Services</div>
+        <div class="sched-cards">
+          <div class="sched-card">
+            <div class="sched-ico">&#128181;</div>
+            <div class="sched-body">
+              <div class="sched-name">Upfront Payment</div>
+              <div class="sched-desc">Immediate proportion paid to beneficiaries once the claim is confirmed eligible.</div>
+            </div>
+            <div class="sched-pill">10% of sum insured</div>
+          </div>
+          <div class="sched-card">
+            <div class="sched-ico">&#128105;&#8205;&#128103;</div>
+            <div class="sched-body">
+              <div class="sched-name">Child Chaperone</div>
+              <div class="sched-desc">Travel costs of next of kin to escort unaccompanied minors.</div>
+            </div>
+            <div class="sched-pill">Full cover</div>
+          </div>
+          <div class="sched-card">
+            <div class="sched-ico">&#128222;</div>
+            <div class="sched-body">
+              <div class="sched-name">Bereavement Counselling</div>
+              <div class="sched-desc">Family, friends and colleagues get phone access to qualified psychologists.</div>
+            </div>
+            <div class="sched-pill">Full cover</div>
+          </div>
+          <div class="sched-card">
+            <div class="sched-ico">&#9992;&#65039;</div>
+            <div class="sched-body">
+              <div class="sched-name">Mortal Remains Repatriation</div>
+              <div class="sched-desc">Repatriation of remains to the power of attorney&rsquo;s chosen country.</div>
+            </div>
+            <div class="sched-pill">Full cover</div>
+          </div>
+          <div class="sched-card">
+            <div class="sched-ico">&#127760;</div>
+            <div class="sched-body">
+              <div class="sched-name">International Assistance</div>
+              <div class="sched-desc">24-hour access to Regency for Expats&rsquo; international assistance services.</div>
+            </div>
+            <div class="sched-pill">Full cover</div>
+          </div>
+          <div class="sched-card">
+            <div class="sched-ico">&#128506;&#65039;</div>
+            <div class="sched-body">
+              <div class="sched-name">Geographical Extension</div>
+              <div class="sched-desc">Coverage area for insured persons and beneficiaries.</div>
+            </div>
+            <div class="sched-pill">Worldwide</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <style>
-      /* Section-header rows inside the schedule body */
-      .sched-table tr.sched-section th{background:var(--navy);color:#fff;text-align:left;padding:.85rem 1.2rem;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;border-top:0}
-      .sched-table tr.sched-section + tr td{border-top:0}
-    </style>
-    <p class="sched-note">Full schedule as underwritten by Regency Assurance &middot; benefits apply per insured person per plan year.</p>
+
+    <p class="sched-note">Full schedule underwritten by Regency Assurance &middot; benefits apply per insured person per plan year.</p>
   </div>
 </section>
 
