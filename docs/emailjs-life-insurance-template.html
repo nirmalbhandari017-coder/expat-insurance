@@ -88,11 +88,6 @@
   }
 
   /* ── VERY NARROW (≤400px) ────────────────────────── */
-  /* Stack the two side-by-side columns (Your Quote / Your Details) on mobile */
-  @media only screen and (max-width:600px){
-    .col-half{display:block!important;width:100%!important;padding:0!important;}
-    .col-half + .col-half{padding-top:12px!important;}
-  }
   @media only screen and (max-width:400px){
     .hero-price{font-size:28px!important;}
     .greet-h{font-size:18px!important;}
@@ -165,91 +160,86 @@
           </td>
         </tr>
 
-        <!-- ── YOUR QUOTE + YOUR DETAILS (side-by-side, stacks on mobile) ── -->
+        <!-- ── YOUR DETAILS (right under the hero) ─────── -->
         <tr>
           <td class="p-lg" style="padding:16px 28px 0 28px;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <div class="sec-title" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
+              Your Details
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E4E7EB;border-radius:12px;overflow:hidden;">
               <tr>
-                <!-- LEFT COLUMN: Your Quote -->
-                <td class="col-half" valign="top" width="49%" style="padding:0 8px 0 0;">
-                  <div class="sec-title" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
-                    Your Quote
-                  </div>
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E4E7EB;border-radius:12px;overflow:hidden;">
-                    <tr>
-                      <td width="30" valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;">&#128737;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;">Product</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#1B263B;font-weight:700;">{{product}}</td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128176;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Sum assured</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#0B6E6B;font-weight:800;border-top:1px solid #F1F3F5;">{{quote_sum_assured}}</td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#127874;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Age</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{quote_age}}</td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128100;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Gender</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{quote_gender}}</td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#127807;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Smoker</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{quote_smoker}}</td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128197;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Frequency</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;line-height:1.3;">{{quote_frequency}}<br><span style="color:#6B7280;font-weight:500;font-size:11px;">{{quote_surcharge}}</span></td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128179;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Payment</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#0B6E6B;font-weight:800;border-top:1px solid #F1F3F5;line-height:1.3;">{{quote_payment_amount}}<br><span style="color:#6B7280;font-weight:500;font-size:11px;">{{quote_payment_period}}</span></td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128181;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Total / yr</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#0B6E6B;font-weight:800;border-top:1px solid #F1F3F5;">{{quote_annual_premium}}</td>
-                    </tr>
-                  </table>
-                </td>
+                <td width="42" valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;">&#128100;</td>
+                <td width="130" valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;">Name</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#1B263B;font-weight:700;">{{full_name}}</td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#9993;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Email</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;font-weight:700;border-top:1px solid #F1F3F5;word-break:break-word;"><a href="mailto:{{email}}" style="color:#0FB9B1;text-decoration:none;font-weight:700;">{{email}}</a></td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128222;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Phone</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;font-weight:700;border-top:1px solid #F1F3F5;"><a href="tel:{{phone}}" style="color:#0FB9B1;text-decoration:none;font-weight:700;">{{phone}}</a></td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#127760;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Country</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{country}}</td>
+              </tr>
+            </table>
+            <p class="fine" style="font-size:12px;color:#6B7280;margin:8px 4px 0;">
+              Something not right? Just reply to this email and we&rsquo;ll fix it.
+            </p>
+          </td>
+        </tr>
 
-                <!-- RIGHT COLUMN: Your Details -->
-                <td class="col-half" valign="top" width="49%" style="padding:0 0 0 8px;">
-                  <div class="sec-title" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
-                    Your Details
-                  </div>
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E4E7EB;border-radius:12px;overflow:hidden;">
-                    <tr>
-                      <td width="30" valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;">&#128100;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;">Name</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#1B263B;font-weight:700;">{{full_name}}</td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#9993;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Email</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:12px;font-weight:700;border-top:1px solid #F1F3F5;word-break:break-word;"><a href="mailto:{{email}}" style="color:#0FB9B1;text-decoration:none;font-weight:700;">{{email}}</a></td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128222;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Phone</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;font-weight:700;border-top:1px solid #F1F3F5;"><a href="tel:{{phone}}" style="color:#0FB9B1;text-decoration:none;font-weight:700;">{{phone}}</a></td>
-                    </tr>
-                    <tr>
-                      <td valign="middle" style="padding:10px 0 10px 12px;font-size:14px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#127760;</td>
-                      <td valign="middle" style="padding:10px 8px;font-size:12px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Country</td>
-                      <td valign="middle" align="right" style="padding:10px 12px 10px 4px;font-size:13px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{country}}</td>
-                    </tr>
-                  </table>
-                  <p class="fine" style="font-size:11px;color:#6B7280;margin:8px 4px 0;line-height:1.5;">
-                    Something not right? Reply to this email and we&rsquo;ll fix it.
-                  </p>
-                </td>
+        <!-- ── YOUR QUOTE ───────────────────────────────── -->
+        <tr>
+          <td class="p-lg" style="padding:16px 28px 0 28px;">
+            <div class="sec-title" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6B7280;padding:12px 0 8px;">
+              Your Quote
+            </div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #E4E7EB;border-radius:12px;overflow:hidden;">
+              <tr>
+                <td width="42" valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;">&#128737;</td>
+                <td width="130" valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;">Product</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#1B263B;font-weight:700;">{{product}}</td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128176;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Sum assured</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#0B6E6B;font-weight:800;border-top:1px solid #F1F3F5;">{{quote_sum_assured}}</td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#127874;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Age</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{quote_age}}</td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128100;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Gender</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{quote_gender}}</td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#127807;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Smoker status</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{quote_smoker}}</td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128197;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Frequency</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#1B263B;font-weight:700;border-top:1px solid #F1F3F5;">{{quote_frequency}} <span style="color:#6B7280;font-weight:500;">&middot; {{quote_surcharge}}</span></td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128179;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Payment</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#0B6E6B;font-weight:800;border-top:1px solid #F1F3F5;">{{quote_payment_amount}} <span style="color:#6B7280;font-weight:500;">{{quote_payment_period}}</span></td>
+              </tr>
+              <tr>
+                <td valign="middle" style="padding:14px 0 14px 16px;font-size:16px;color:#0FB9B1;border-top:1px solid #F1F3F5;">&#128181;</td>
+                <td valign="middle" style="padding:14px 8px;font-size:13px;color:#6B7280;font-weight:500;border-top:1px solid #F1F3F5;">Total per year</td>
+                <td valign="middle" style="padding:14px 16px 14px 0;font-size:14px;color:#0B6E6B;font-weight:800;border-top:1px solid #F1F3F5;">{{quote_annual_premium}}</td>
               </tr>
             </table>
           </td>
