@@ -78,6 +78,12 @@ export function FilterBar({
   }
 
   const active = countActiveFilters(filters);
+  // Everything selected inside the Stage menu, so an active Squander filter
+  // isn't invisible when no stage is picked.
+  const stageMenuCount =
+    (filters.stage?.length ?? 0) +
+    (filters.qualification?.length ?? 0) +
+    (filters.opportunity === "lost" ? 1 : 0);
 
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -95,7 +101,7 @@ export function FilterBar({
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm">
             <ListFilter className="h-4 w-4" />
-            Stage{filters.stage?.length ? ` (${filters.stage.length})` : ""}
+            Stage{stageMenuCount ? ` (${stageMenuCount})` : ""}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
@@ -116,6 +122,23 @@ export function FilterBar({
               </span>
             </DropdownMenuCheckboxItem>
           ))}
+          {/* Squander sits with the stages because it is the board's final
+              column, but it is an outcome — so it drives `opportunity`. */}
+          <DropdownMenuCheckboxItem
+            checked={filters.opportunity === "lost"}
+            onSelect={(e) => {
+              e.preventDefault();
+              apply({
+                ...filters,
+                opportunity: filters.opportunity === "lost" ? undefined : "lost",
+              });
+            }}
+          >
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-red-500" />
+              Squander
+            </span>
+          </DropdownMenuCheckboxItem>
           <DropdownMenuSeparator />
           <DropdownMenuLabel>Qualification</DropdownMenuLabel>
           {QUALIFICATIONS.map((s) => (
