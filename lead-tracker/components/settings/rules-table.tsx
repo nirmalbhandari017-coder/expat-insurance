@@ -32,7 +32,7 @@ export function RulesTable({ rules }: { rules: Rule[] }) {
         <thead><tr className="border-b bg-muted/40 text-left text-xs text-muted-foreground">
           <th className="px-3 py-2 font-medium">Rule</th>
           <th className="px-3 py-2 font-medium">Threshold (days)</th>
-          <th className="px-3 py-2 font-medium">Notify RM</th>
+          <th className="px-3 py-2 font-medium">Notify CRM</th>
           <th className="px-3 py-2 font-medium">Active</th>
           <th className="px-3 py-2" />
         </tr></thead>
@@ -52,7 +52,7 @@ export function RulesTable({ rules }: { rules: Rule[] }) {
                 )}
               </td>
               <td className="px-3 py-2">
-                <input type="checkbox" checked={r.notify_assigned_rm} onChange={(e) => save(r.id, { notify_assigned_rm: e.target.checked })} aria-label="Notify RM" />
+                <input type="checkbox" checked={r.notify_assigned_rm} onChange={(e) => save(r.id, { notify_assigned_rm: e.target.checked })} aria-label="Notify CRM" />
               </td>
               <td className="px-3 py-2">
                 <input type="checkbox" checked={r.is_active} onChange={(e) => save(r.id, { is_active: e.target.checked })} aria-label="Active" />

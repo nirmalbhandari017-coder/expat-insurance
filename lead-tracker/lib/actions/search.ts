@@ -17,7 +17,7 @@ export interface SearchResults {
 }
 
 // Global instant search — leads (name/email/phone/policy via trigram-backed ilike)
-// and affiliates. RLS scopes results (RM sees only their own leads).
+// and affiliates. RLS scopes results (a CRM sees only their own leads).
 export async function globalSearch(q: string): Promise<SearchResults> {
   await requireAppUser();
   const term = q.trim();
