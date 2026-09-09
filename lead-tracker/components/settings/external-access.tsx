@@ -84,12 +84,12 @@ export function ExternalAccess({
       </p>
 
       <div>
-        <h3 className="text-sm font-medium">Sources (external partners)</h3>
+        <h3 className="text-sm font-medium">Affiliates (external partners)</h3>
         <p className="text-xs text-muted-foreground">
           A linked login becomes a Source user — sees only that source&apos;s leads.
         </p>
       </div>
-      {table("source", sources, "Source")}
+      {table("source", sources, "Affiliate")}
 
       <div className="pt-1">
         <h3 className="text-sm font-medium">CRMs (internal staff)</h3>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Plus } from "lucide-react";
@@ -25,22 +25,20 @@ import {
 } from "@/components/ui/select";
 import { createLead, findDuplicates } from "@/lib/actions/leads";
 import { ageFromDob } from "@/lib/domain/pipeline";
-import type { Option, GeneratorOption, DuplicateMatch } from "@/lib/types";
+import type { Option, DuplicateMatch } from "@/lib/types";
 
 const NONE = "__none__";
 
 /**
  * Ordered for speed of entry (spec §21/27): who sent it, who they are, how to
- * reach them, what they want. Generator options depend on the chosen source.
+ * reach them, what they want.
  */
 export function NewLeadDialog({
   affiliates,
-  generators,
   brokers,
   products,
 }: {
   affiliates: Option[];
-  generators: GeneratorOption[];
   brokers: Option[];
   products: Option[];
 }) {
@@ -50,7 +48,6 @@ export function NewLeadDialog({
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
   const [affiliateId, setAffiliateId] = useState("");
-  const [generatorId, setGeneratorId] = useState("");
   const [brokerId, setBrokerId] = useState("");
   const [productIds, setProductIds] = useState<string[]>([]);
   const [qualification, setQualification] = useState<"pending" | "qualified">("pending");
@@ -59,11 +56,6 @@ export function NewLeadDialog({
   const [sameWhatsapp, setSameWhatsapp] = useState(true);
   const [whatsapp, setWhatsapp] = useState("");
   const [dups, setDups] = useState<DuplicateMatch[]>([]);
-
-  const availableGenerators = useMemo(
-    () => generators.filter((g) => g.affiliateId === affiliateId),
-    [generators, affiliateId],
-  );
 
   function toggleProduct(id: string) {
     setProductIds((prev) => (prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]));
@@ -78,7 +70,6 @@ export function NewLeadDialog({
     setErrors({});
     setDups([]);
     setAffiliateId("");
-    setGeneratorId("");
     setBrokerId("");
     setProductIds([]);
     setQualification("pending");
@@ -103,7 +94,7 @@ export function NewLeadDialog({
       whatsappPhone: sameWhatsapp ? phone : whatsapp,
       productIds,
       affiliateId,
-      generatorId: generatorId || null,
+      generatorId: null,
       brokerId: brokerId || null,
       qualification,
       note: String(fd.get("note") ?? ""),
@@ -147,15 +138,12 @@ export function NewLeadDialog({
           {/* ---- Attribution first: it's the field people forget ---- */}
           <fieldset className="space-y-3 rounded-md border p-3">
             <legend className="px-1 text-xs font-medium text-muted-foreground">Attribution</legend>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label>Source *</Label>
+                <Label>Affiliate *</Label>
                 <Select
                   value={affiliateId}
-                  onValueChange={(v) => {
-                    setAffiliateId(v);
-                    setGeneratorId("");
-                  }}
+                  onValueChange={setAffiliateId}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Who sent it?" />
@@ -169,26 +157,6 @@ export function NewLeadDialog({
                   </SelectContent>
                 </Select>
                 {err("affiliateId")}
-              </div>
-              <div className="space-y-1.5">
-                <Label>Agent</Label>
-                <Select
-                  value={generatorId || NONE}
-                  onValueChange={(v) => setGeneratorId(v === NONE ? "" : v)}
-                  disabled={!affiliateId}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder={affiliateId ? "Optional" : "Pick a source first"} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={NONE}>— none —</SelectItem>
-                    {availableGenerators.map((g) => (
-                      <SelectItem key={g.id} value={g.id}>
-                        {g.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
               </div>
               <div className="space-y-1.5">
                 <Label>CRM</Label>
@@ -324,7 +292,7 @@ export function NewLeadDialog({
               </ul>
               <p className="mt-1 text-muted-foreground">
                 You can still create this lead — the same person may legitimately come from a
-                different source, and nothing is merged automatically.
+                different affiliate, and nothing is merged automatically.
               </p>
             </div>
           )}

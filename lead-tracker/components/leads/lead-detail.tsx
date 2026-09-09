@@ -256,7 +256,7 @@ export function LeadDetail({
         <div className="space-y-4">
           {/* Attribution: which Source the lead came from, and the CRM working it. */}
           <Section title="Attribution">
-            <Fact label="Source" value={lead.affiliate?.name ?? null} />
+            <Fact label="Affiliate" value={lead.affiliate?.name ?? null} />
             <Fact label="CRM" value={lead.broker ? lead.broker.full_name : null} />
           </Section>
 
@@ -469,7 +469,7 @@ function AssignSourceButton({
     start(async () => {
       const res = await updateLead({ id: leadId, affiliateId, generatorId: null });
       if (res.ok) {
-        toast.success("Source updated");
+        toast.success("Affiliate updated");
         router.refresh();
       } else toast.error(res.error);
     });
@@ -478,7 +478,7 @@ function AssignSourceButton({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" disabled={pending}>
-          <Building2 className="h-4 w-4" /> {current ?? "Set source"}
+          <Building2 className="h-4 w-4" /> {current ?? "Set affiliate"}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="max-h-80 overflow-y-auto">

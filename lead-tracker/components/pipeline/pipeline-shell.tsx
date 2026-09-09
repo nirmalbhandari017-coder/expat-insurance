@@ -10,7 +10,7 @@ import { BulkActionBar } from "./bulk-action-bar";
 import { NewLeadDialog } from "@/components/leads/new-lead-dialog";
 import { usePipelineActions } from "./use-pipeline-actions";
 import { updatePipelineView } from "@/lib/actions/interactions";
-import type { LeadRow, PipelinePerms, Option, GeneratorOption } from "@/lib/types";
+import type { LeadRow, PipelinePerms, Option } from "@/lib/types";
 import type { LeadFilters } from "@/lib/filters";
 import type { PipelineStage, QualificationStatus } from "@/lib/domain/pipeline";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,6 @@ export function PipelineShell({
   initialView,
   filters,
   affiliates,
-  generators,
   brokers,
   products,
   total,
@@ -33,7 +32,6 @@ export function PipelineShell({
   initialView: View;
   filters: LeadFilters;
   affiliates: Option[];
-  generators: GeneratorOption[];
   brokers: Option[];
   products: Option[];
   total: number;
@@ -107,12 +105,7 @@ export function PipelineShell({
             </button>
           </div>
           {perms.canCreate && (
-            <NewLeadDialog
-              affiliates={affiliates}
-              generators={generators}
-              brokers={brokers}
-              products={products}
-            />
+            <NewLeadDialog affiliates={affiliates} brokers={brokers} products={products} />
           )}
         </div>
       </div>
@@ -120,15 +113,14 @@ export function PipelineShell({
       <FilterBar
         filters={filters}
         affiliates={affiliates}
-        generators={generators}
         brokers={brokers}
         products={products}
       />
 
       {view === "kanban" && (
         <p className="text-xs text-muted-foreground">
-          The board shows qualified, active opportunities. Squandered leads are under the Outcome
-          filter.
+          The board shows qualified opportunities, ending in Squander. Drag a card there to mark it
+          squandered.
         </p>
       )}
 

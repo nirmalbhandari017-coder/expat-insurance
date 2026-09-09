@@ -176,7 +176,7 @@ export default async function DashboardPage({
             ))}
           </div>
           <div className="mt-4 border-t pt-3">
-            <div className="mb-2 text-xs font-medium text-muted-foreground">Top sources · all-time</div>
+            <div className="mb-2 text-xs font-medium text-muted-foreground">Top affiliates · all-time</div>
             <div className="divide-y">
               {topAffiliates.map((a) => (
                 <Link

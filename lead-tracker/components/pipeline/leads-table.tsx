@@ -58,7 +58,7 @@ export function LeadsTable({
             <th className="px-3 py-2 font-medium">Product</th>
             <th className="px-3 py-2 font-medium">Location</th>
             <th className="px-3 py-2 font-medium">Age</th>
-            <th className="px-3 py-2 font-medium">Source / Agent</th>
+            <th className="px-3 py-2 font-medium">Affiliate</th>
             <th className="px-3 py-2 font-medium">CRM</th>
             <th className="px-3 py-2 font-medium">Qualification</th>
             <th className="px-3 py-2 font-medium">Stage</th>
@@ -97,12 +97,7 @@ export function LeadsTable({
                 </td>
                 <td className="px-3 py-2 text-muted-foreground">{l.country_of_residence ?? "—"}</td>
                 <td className="tabular px-3 py-2 text-muted-foreground">{age ?? "—"}</td>
-                <td className="px-3 py-2">
-                  {l.affiliate?.name ?? "—"}
-                  <div className="truncate text-xs text-muted-foreground">
-                    {l.generator?.full_name ?? "—"}
-                  </div>
-                </td>
+                <td className="px-3 py-2">{l.affiliate?.name ?? "—"}</td>
                 <td className="px-3 py-2">
                   {l.broker?.full_name ?? <span className="text-muted-foreground">—</span>}
                 </td>

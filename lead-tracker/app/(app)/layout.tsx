@@ -7,10 +7,11 @@ import { CommandPalette } from "@/components/search/command-palette";
 import { NotificationsPopover, type NotificationItem } from "@/components/notifications/notifications-popover";
 import { ThemeToggle } from "@/components/theme-toggle";
 
+// Affiliate performance lives inside Analytics & Reports, so there is no
+// standalone entry for it; the per-affiliate detail pages are linked from there.
 const INTERNAL_NAV = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/pipeline", label: "Pipeline" },
-  { href: "/affiliates", label: "Sources" },
   { href: "/brokers", label: "CRMs" },
   { href: "/analytics", label: "Analytics & Reports" },
 ];

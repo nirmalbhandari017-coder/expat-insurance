@@ -54,7 +54,7 @@ export function TeamTable({
           ? await linkSourceLogin(current, null)
           : { ok: true as const, data: undefined };
       if (res.ok) {
-        toast.success(affiliateId ? "Source linked" : "Source unlinked");
+        toast.success(affiliateId ? "Affiliate linked" : "Affiliate unlinked");
         router.refresh();
       } else toast.error(res.error);
     });
@@ -114,7 +114,7 @@ export function TeamTable({
                       disabled={pending}
                     >
                       <SelectTrigger className="h-8 w-56">
-                        <SelectValue placeholder="Select a source…" />
+                        <SelectValue placeholder="Select an affiliate…" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value={NONE}>Not linked</SelectItem>

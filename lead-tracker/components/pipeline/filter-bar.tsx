@@ -29,7 +29,7 @@ import {
   type QualificationStatus,
 } from "@/lib/domain/pipeline";
 import { serializeFilters, countActiveFilters, type LeadFilters } from "@/lib/filters";
-import type { Option, GeneratorOption } from "@/lib/types";
+import type { Option } from "@/lib/types";
 
 const ALL = "__all__";
 const QUALIFICATIONS: QualificationStatus[] = ["pending", "qualified", "not_qualified"];
@@ -37,13 +37,11 @@ const QUALIFICATIONS: QualificationStatus[] = ["pending", "qualified", "not_qual
 export function FilterBar({
   filters,
   affiliates,
-  generators,
   brokers,
   products,
 }: {
   filters: LeadFilters;
   affiliates: Option[];
-  generators: GeneratorOption[];
   brokers: Option[];
   products: Option[];
 }) {
@@ -78,11 +76,6 @@ export function FilterBar({
     else set.add(s);
     apply({ ...filters, qualification: set.size ? Array.from(set) : undefined });
   }
-
-  // Generators are scoped to the chosen source, mirroring the lead form.
-  const shownGenerators = filters.affiliate
-    ? generators.filter((g) => g.affiliateId === filters.affiliate)
-    : generators;
 
   const active = countActiveFilters(filters);
 
@@ -159,7 +152,7 @@ export function FilterBar({
       <Select
         value={filters.affiliate ?? ALL}
         onValueChange={(v) =>
-          // Changing source clears a generator that no longer belongs to it.
+          // Clear any inherited generator filter — agents are no longer surfaced.
           apply({
             ...filters,
             affiliate: v === ALL ? undefined : v,
@@ -168,30 +161,13 @@ export function FilterBar({
         }
       >
         <SelectTrigger className="h-8 w-44">
-          <SelectValue placeholder="Source" />
+          <SelectValue placeholder="Affiliate" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL}>All sources</SelectItem>
+          <SelectItem value={ALL}>All affiliates</SelectItem>
           {affiliates.map((a) => (
             <SelectItem key={a.id} value={a.id}>
               {a.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
-      <Select
-        value={filters.generator ?? ALL}
-        onValueChange={(v) => apply({ ...filters, generator: v === ALL ? undefined : v })}
-      >
-        <SelectTrigger className="h-8 w-40">
-          <SelectValue placeholder="Agent" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={ALL}>All agents</SelectItem>
-          {shownGenerators.map((g) => (
-            <SelectItem key={g.id} value={g.id}>
-              {g.label}
             </SelectItem>
           ))}
         </SelectContent>

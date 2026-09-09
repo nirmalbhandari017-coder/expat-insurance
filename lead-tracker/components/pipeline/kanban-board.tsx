@@ -16,6 +16,7 @@ import { StageDot } from "@/components/leads/status-badge";
 import {
   PIPELINE_STAGES,
   STAGE_LABEL,
+  stageRank,
   type PipelineStage,
   type QualificationStatus,
 } from "@/lib/domain/pipeline";
@@ -24,10 +25,14 @@ import { cn } from "@/lib/utils";
 
 const COLUMN_CAP = 50; // windowed per column; a count badge shows the full total
 
+/** Terminal column id for squandered leads — not a pipeline stage. */
+const SQUANDER = "squander" as const;
+
 /**
- * Columns are the six pipeline stages. Lost leads are excluded entirely
- * (spec §17) — they live behind the Lost filter, so the board only ever shows
- * live opportunities.
+ * Columns are the six pipeline stages plus a terminal Squander column, so the
+ * whole outcome of the pipeline is visible in one place. Dragging a card into
+ * Squander asks for a reason; squandered cards can't be dragged back out (they
+ * are reopened from the card menu, which restores the right stage).
  */
 export function KanbanBoard({
   leads,
@@ -52,6 +57,20 @@ export function KanbanBoard({
     [leads],
   );
 
+  // Squandered leads keep their stage_at_loss, so the column is ordered by how
+  // far each one got before it was lost.
+  const squandered = useMemo(
+    () =>
+      leads
+        .filter((l) => l.opportunity === "lost")
+        .sort(
+          (a, b) =>
+            (b.stage_at_loss ? stageRank(b.stage_at_loss) : 0) -
+            (a.stage_at_loss ? stageRank(a.stage_at_loss) : 0),
+        ),
+    [leads],
+  );
+
   const byStage = useMemo(() => {
     const map = new Map<PipelineStage, LeadRow[]>();
     for (const s of PIPELINE_STAGES) map.set(s, []);
@@ -67,8 +86,13 @@ export function KanbanBoard({
   function onDragEnd(e: DragEndEvent) {
     setActiveId(null);
     const lead = live.find((l) => l.id === String(e.active.id));
-    const to = e.over?.id as PipelineStage | undefined;
+    const to = e.over?.id as PipelineStage | typeof SQUANDER | undefined;
     if (!lead || !to || lead.stage === to) return;
+    if (to === SQUANDER) {
+      // Needs a reason, so hand off to the same dialog the menu uses.
+      onMarkLost?.(lead);
+      return;
+    }
     // Every stage is a valid drop target — moving backwards is allowed.
     onChangeStage(lead, to);
   }
@@ -89,6 +113,16 @@ export function KanbanBoard({
             isDragging={!!activeLead}
           />
         ))}
+        <Column
+          stage={SQUANDER}
+          leads={squandered}
+          perms={perms}
+          onChangeStage={onChangeStage}
+          onQualify={onQualify}
+          onMarkLost={onMarkLost}
+          onReopen={onReopen}
+          isDragging={!!activeLead}
+        />
       </div>
       <DragOverlay>
         {activeLead ? (
@@ -111,7 +145,7 @@ function Column({
   onReopen,
   isDragging,
 }: {
-  stage: PipelineStage;
+  stage: PipelineStage | typeof SQUANDER;
   leads: LeadRow[];
   perms: PipelinePerms;
   onChangeStage: (lead: LeadRow, to: PipelineStage) => void;
@@ -122,13 +156,18 @@ function Column({
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: stage });
   const shown = leads.slice(0, COLUMN_CAP);
+  const isSquander = stage === SQUANDER;
 
   return (
-    <div className="flex w-64 shrink-0 flex-col">
+    <div className={cn("flex w-64 shrink-0 flex-col", isSquander && "ml-2 border-l pl-3")}>
       <div className="mb-2 flex items-center justify-between px-1">
         <div className="flex items-center gap-2 text-sm font-medium">
-          <StageDot stage={stage} />
-          {STAGE_LABEL[stage]}
+          {isSquander ? (
+            <span className="h-2 w-2 rounded-full bg-red-500" />
+          ) : (
+            <StageDot stage={stage} />
+          )}
+          {isSquander ? "Squander" : STAGE_LABEL[stage]}
         </div>
         <span className="tabular rounded bg-muted px-1.5 text-xs text-muted-foreground">
           {leads.length}
@@ -138,7 +177,7 @@ function Column({
         ref={setNodeRef}
         className={cn(
           "flex min-h-[120px] flex-1 flex-col gap-2 rounded-lg border border-transparent p-1 transition-colors",
-          isOver && isDragging && "border-primary/40 bg-primary/5",
+          isOver && isDragging && (isSquander ? "border-red-500/40 bg-red-500/5" : "border-primary/40 bg-primary/5"),
         )}
       >
         {shown.map((lead) => (

@@ -157,52 +157,6 @@ export default async function AffiliateDetailPage({
         </div>
       </div>
 
-      {/* Generators belonging to this source */}
-      <div className="rounded-lg border">
-        <div className="flex items-center justify-between border-b px-4 py-2.5">
-          <span className="text-sm font-medium">Agents ({generators?.length ?? 0})</span>
-          <Link href="/generators" className="text-xs text-muted-foreground hover:text-foreground">
-            Manage →
-          </Link>
-        </div>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="text-left text-xs text-muted-foreground">
-              <th className="px-4 py-2">Name</th>
-              <th className="px-3 py-2">Leads</th>
-              <th className="px-3 py-2">Qualified</th>
-              <th className="px-3 py-2">Policies</th>
-              <th className="px-3 py-2">Squander</th>
-              <th className="px-3 py-2">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {(generators ?? []).map((g) => {
-              const s = genStatById.get(g.id);
-              return (
-                <tr key={g.id} className="border-t">
-                  <td className="px-4 py-2">{g.full_name}</td>
-                  <td className="tabular px-3 py-2">{s?.total_leads ?? 0}</td>
-                  <td className="tabular px-3 py-2">{s?.n_qualified ?? 0}</td>
-                  <td className="tabular px-3 py-2">{s?.n_policies ?? 0}</td>
-                  <td className="tabular px-3 py-2">{s?.n_lost ?? 0}</td>
-                  <td className="px-3 py-2 text-xs text-muted-foreground">
-                    {g.is_active ? "Active" : "Inactive"}
-                  </td>
-                </tr>
-              );
-            })}
-            {(generators ?? []).length === 0 && (
-              <tr>
-                <td colSpan={6} className="px-4 py-6 text-center text-muted-foreground">
-                  No agents for this source yet.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
       <div className="grid gap-5 md:grid-cols-2">
         <div className="rounded-lg border">
           <div className="border-b px-4 py-2.5 text-sm font-medium">Recent leads</div>

@@ -75,7 +75,7 @@ export default async function SettingsPage() {
           <h2 className="text-sm font-medium">Team access</h2>
           <p className="text-xs text-muted-foreground">
             New signups start as Read Only. A <b>CRM</b> sees only leads assigned to their CRM
-            record; a <b>Source</b> sees only their own source&apos;s leads.
+            record; an <b>Affiliate</b> sees only their own affiliate&apos;s leads.
           </p>
         </div>
         <TeamTable members={teamMembers} currentUserId={user.id} sources={sourceOptions} />
@@ -83,7 +83,7 @@ export default async function SettingsPage() {
 
       <section className="space-y-3">
         <div>
-          <h2 className="text-sm font-medium">Access links (Sources &amp; CRMs)</h2>
+          <h2 className="text-sm font-medium">Access links (Affiliates &amp; CRMs)</h2>
           <p className="text-xs text-muted-foreground">
             The same links, viewed by record instead of by person. Data isolation is enforced in the
             database.

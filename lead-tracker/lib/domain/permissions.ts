@@ -82,7 +82,7 @@ export const ROLE_LABEL: Record<Role, string> = {
   // Internal Client Relationship Manager — the person who works assigned leads.
   rm_staff: "CRM",
   read_only: "Read Only",
-  source: "Source (external)",
+  source: "Affiliate (external)",
   // Deprecated: CRMs are internal, so `rm_staff` above is the CRM role. Kept
   // only so existing rows still render; not offered when assigning a role.
   crm: "CRM (deprecated)",

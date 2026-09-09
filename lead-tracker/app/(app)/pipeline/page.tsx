@@ -8,7 +8,6 @@ import {
   LEAD_ROW_COLUMNS,
   type LeadRow,
   type Option,
-  type GeneratorOption,
   type PipelinePerms,
 } from "@/lib/types";
 
@@ -46,18 +45,11 @@ export default async function PipelinePage({
   const [
     { data: leadRows, count },
     { data: affiliates },
-    { data: generators },
     { data: brokers },
     { data: products },
   ] = await Promise.all([
     leadQuery,
     supabase.from("affiliates").select("id, name").is("deleted_at", null).order("name"),
-    supabase
-      .from("generators")
-      .select("id, full_name, affiliate_id")
-      .eq("is_active", true)
-      .is("deleted_at", null)
-      .order("full_name"),
     supabase
       .from("brokers")
       .select("id, full_name, company")
@@ -78,11 +70,6 @@ export default async function PipelinePage({
   };
 
   const affiliateOptions: Option[] = (affiliates ?? []).map((a) => ({ id: a.id, label: a.name }));
-  const generatorOptions: GeneratorOption[] = (generators ?? []).map((g) => ({
-    id: g.id,
-    label: g.full_name ?? "",
-    affiliateId: g.affiliate_id,
-  }));
   const brokerOptions: Option[] = (brokers ?? []).map((b) => ({
     id: b.id,
     label: b.full_name ?? "",
@@ -96,7 +83,6 @@ export default async function PipelinePage({
       initialView={user.last_pipeline_view}
       filters={filters}
       affiliates={affiliateOptions}
-      generators={generatorOptions}
       brokers={brokerOptions}
       products={productOptions}
       total={count ?? (leadRows?.length ?? 0)}

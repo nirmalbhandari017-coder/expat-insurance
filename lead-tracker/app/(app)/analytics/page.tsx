@@ -9,6 +9,7 @@ import { PeriodToggle } from "@/components/dashboard/period-toggle";
 import { PIPELINE_STAGES, STAGE_LABEL, stageRank, type PipelineStage } from "@/lib/domain/pipeline";
 import { FunnelChart, MonthlyTrend } from "@/components/analytics/analytics-charts";
 import { ExportBar } from "@/components/reports/export-bar";
+import { AffiliateDirectory } from "@/components/affiliates/affiliate-directory";
 
 export const dynamic = "force-dynamic";
 
@@ -109,6 +110,13 @@ export default async function AnalyticsPage({
     bySource.set(l.affiliate_id, cur);
   }
 
+  // Squandered leads that had been qualified — i.e. real opportunities lost,
+  // as opposed to enquiries that were never qualified in the first place.
+  const qualifiedSquandered = leads.filter(
+    (l) => l.opportunity === "lost" && l.qualification === "qualified",
+  ).length;
+  const everQualified = leads.filter((l) => l.qualification === "qualified").length;
+
   const rows = Array.from(bySource.entries()).map(([id, v]) => {
     const decided = v.policies + v.lost;
     return {
@@ -156,6 +164,22 @@ export default async function AnalyticsPage({
         </div>
       </div>
 
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+        <Kpi label="Total leads" value={totals.total} />
+        <Kpi label="Qualified" value={everQualified} />
+        <Kpi label="Policies" value={totals.policies} />
+        <Kpi label="Squandered" value={totals.lost} />
+        <Kpi
+          label="Qualified squandered"
+          value={qualifiedSquandered}
+          hint={
+            everQualified > 0
+              ? `${formatPct(qualifiedSquandered / everQualified)} of qualified`
+              : undefined
+          }
+        />
+      </div>
+
       <div className="grid gap-5 md:grid-cols-2">
         <Card title="Conversion funnel" subtitle="Leads that ever reached each stage">
           {totals.total > 0 ? <FunnelChart data={funnelData} /> : <Empty />}
@@ -166,22 +190,22 @@ export default async function AnalyticsPage({
       </div>
 
       <div className="grid gap-5 md:grid-cols-2">
-        <Leaderboard title="Top sources" rows={top} />
+        <Leaderboard title="Top affiliates" rows={top} />
         <Leaderboard title="Needs attention" rows={bottom} />
       </div>
 
       <div className="rounded-lg border">
         <div className="border-b px-4 py-2.5">
-          <div className="text-sm font-medium">Performance by source</div>
+          <div className="text-sm font-medium">Performance by affiliate</div>
           <div className="text-xs text-muted-foreground">
-            Sources with at least one lead {range.label.toLowerCase()}.
+            Affiliates with at least one lead {range.label.toLowerCase()}.
           </div>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b bg-muted/40 text-left text-xs text-muted-foreground">
-                <th className="px-3 py-2 font-medium">Source</th>
+                <th className="px-3 py-2 font-medium">Affiliate</th>
                 <th className="px-3 py-2 font-medium">Total</th>
                 <th className="px-3 py-2 font-medium">Pending</th>
                 <th className="px-3 py-2 font-medium">Disqualified</th>
@@ -238,6 +262,18 @@ export default async function AnalyticsPage({
           </table>
         </div>
       </div>
+
+      <AffiliateDirectory />
+    </div>
+  );
+}
+
+function Kpi({ label, value, hint }: { label: string; value: number; hint?: string }) {
+  return (
+    <div className="rounded-lg border p-3">
+      <div className="text-xs text-muted-foreground">{label}</div>
+      <div className="tabular mt-0.5 text-xl font-semibold">{value}</div>
+      {hint && <div className="text-[11px] text-muted-foreground">{hint}</div>}
     </div>
   );
 }

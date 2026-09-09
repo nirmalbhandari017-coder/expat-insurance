@@ -69,7 +69,6 @@ export function LeadCard({
           </Link>
           <div className="mt-0.5 truncate text-xs text-muted-foreground">
             {lead.affiliate?.name ?? "—"}
-            {lead.generator?.full_name && ` · ${lead.generator.full_name}`}
           </div>
         </div>
         {perms.canUpdate && (
