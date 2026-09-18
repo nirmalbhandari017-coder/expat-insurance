@@ -6,25 +6,18 @@ import { can } from "@/lib/domain/permissions";
 import { formatPct } from "@/lib/domain/conversion";
 import { periodRange, isPeriod, type Period } from "@/lib/domain/period";
 import { PeriodToggle } from "@/components/dashboard/period-toggle";
-import { PIPELINE_STAGES, STAGE_LABEL, stageRank, type PipelineStage } from "@/lib/domain/pipeline";
+import { PIPELINE_STAGES, STAGE_LABEL, stageRank } from "@/lib/domain/pipeline";
+import { fetchLeadRollup, type RollupRow } from "@/lib/queries/rollup";
 import { FunnelChart, MonthlyTrend } from "@/components/analytics/analytics-charts";
 import { ExportBar } from "@/components/reports/export-bar";
 import { AffiliateDirectory } from "@/components/affiliates/affiliate-directory";
 
 export const dynamic = "force-dynamic";
 
-interface LeadRow {
-  affiliate_id: string;
-  qualification: string;
-  stage: PipelineStage | null;
-  opportunity: string;
-  stage_at_loss: PipelineStage | null;
-  created_at: string;
-}
-
-// Analytics + Reports on one page. Metrics are computed from the leads table
-// rather than the all-time rollup views, because those can't be date-filtered
-// and every figure here has to respect the selected period.
+// Analytics + Reports on one page. Every figure respects the selected period.
+// Counts come pre-grouped from the database (lead_period_rollup): fetching raw
+// leads was capped at 1,000 rows by the API, which skewed every number here.
+// Each rollup row stands for `n` leads, so all tallies below add `n`, not 1.
 export default async function AnalyticsPage({
   searchParams,
 }: {
@@ -41,23 +34,17 @@ export default async function AnalyticsPage({
   const period: Period = isPeriod(sp.period) ? sp.period : "ytd";
   const range = periodRange(period);
 
-  const [{ data: leadData }, { data: affiliates }] = await Promise.all([
-    supabase
-      .from("leads")
-      .select("affiliate_id, qualification, stage, opportunity, stage_at_loss, created_at")
-      .is("deleted_at", null)
-      .gte("created_at", range.fromISO)
-      .lte("created_at", range.toISO),
+  const [groups, { data: affiliates }] = await Promise.all([
+    fetchLeadRollup(supabase, range.fromISO, range.toISO),
     supabase.from("affiliates").select("id, name").is("deleted_at", null),
   ]);
 
-  const leads = (leadData ?? []) as unknown as LeadRow[];
   const nameById = new Map((affiliates ?? []).map((a) => [a.id, a.name]));
 
   // How far a lead got: its current stage, or the stage it was lost at.
   // (The pipeline is linear, so reaching a stage implies reaching the earlier
   // ones. A lead walked backwards counts at its current stage.)
-  const furthestRank = (l: LeadRow): number => {
+  const furthestRank = (l: RollupRow): number => {
     const s = l.opportunity === "lost" ? l.stage_at_loss : l.stage;
     return s ? stageRank(s) : 0;
   };
@@ -65,17 +52,16 @@ export default async function AnalyticsPage({
   // ---- Funnel: how many leads ever reached each stage ----
   const funnelData = PIPELINE_STAGES.map((s) => ({
     stage: STAGE_LABEL[s],
-    count: leads.filter((l) => furthestRank(l) >= stageRank(s)).length,
+    count: sumN(groups.filter((l) => furthestRank(l) >= stageRank(s))),
   }));
 
   // ---- Monthly intake & conversion, bucketed by intake month ----
   const byMonth = new Map<string, { total: number; converted: number }>();
-  for (const l of leads) {
-    const key = l.created_at.slice(0, 7); // YYYY-MM
-    const cur = byMonth.get(key) ?? { total: 0, converted: 0 };
-    cur.total += 1;
-    if (l.stage === "policy_issued" || l.stage === "renewal") cur.converted += 1;
-    byMonth.set(key, cur);
+  for (const l of groups) {
+    const cur = byMonth.get(l.month) ?? { total: 0, converted: 0 };
+    cur.total += l.n;
+    if (l.stage === "policy_issued" || l.stage === "renewal") cur.converted += l.n;
+    byMonth.set(l.month, cur);
   }
   const trend = Array.from(byMonth.entries())
     .sort(([a], [b]) => a.localeCompare(b))
@@ -96,26 +82,26 @@ export default async function AnalyticsPage({
       lost: number;
     }
   >();
-  for (const l of leads) {
+  for (const l of groups) {
     const cur =
       bySource.get(l.affiliate_id) ??
       { total: 0, pending: 0, disqualified: 0, qualified: 0, inPipeline: 0, policies: 0, lost: 0 };
-    cur.total += 1;
-    if (l.opportunity === "lost") cur.lost += 1;
-    else if (l.stage === "policy_issued" || l.stage === "renewal") cur.policies += 1;
-    else if (l.stage) cur.inPipeline += 1;
-    else if (l.qualification === "qualified") cur.qualified += 1;
-    else if (l.qualification === "not_qualified") cur.disqualified += 1;
-    else cur.pending += 1;
+    cur.total += l.n;
+    if (l.opportunity === "lost") cur.lost += l.n;
+    else if (l.stage === "policy_issued" || l.stage === "renewal") cur.policies += l.n;
+    else if (l.stage) cur.inPipeline += l.n;
+    else if (l.qualification === "qualified") cur.qualified += l.n;
+    else if (l.qualification === "not_qualified") cur.disqualified += l.n;
+    else cur.pending += l.n;
     bySource.set(l.affiliate_id, cur);
   }
 
   // Squandered leads that had been qualified — i.e. real opportunities lost,
   // as opposed to enquiries that were never qualified in the first place.
-  const qualifiedSquandered = leads.filter(
-    (l) => l.opportunity === "lost" && l.qualification === "qualified",
-  ).length;
-  const everQualified = leads.filter((l) => l.qualification === "qualified").length;
+  const qualifiedSquandered = sumN(
+    groups.filter((l) => l.opportunity === "lost" && l.qualification === "qualified"),
+  );
+  const everQualified = sumN(groups.filter((l) => l.qualification === "qualified"));
 
   const rows = Array.from(bySource.entries()).map(([id, v]) => {
     const decided = v.policies + v.lost;
@@ -266,6 +252,10 @@ export default async function AnalyticsPage({
       <AffiliateDirectory />
     </div>
   );
+}
+
+function sumN(rows: RollupRow[]): number {
+  return rows.reduce((acc, r) => acc + r.n, 0);
 }
 
 function Kpi({ label, value, hint }: { label: string; value: number; hint?: string }) {

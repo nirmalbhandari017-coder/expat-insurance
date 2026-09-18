@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireAppUser, getPermissionMatrix } from "@/lib/auth";
 import { can, scopeOf } from "@/lib/domain/permissions";
-import { applyLeadFilters, leadIdsForProduct } from "@/lib/queries/leads";
+import { applyLeadFilters } from "@/lib/queries/leads";
 import { parseFilters } from "@/lib/filters";
 import { PipelineShell } from "@/components/pipeline/pipeline-shell";
 import {
@@ -31,16 +31,10 @@ export default async function PipelinePage({
     createClient(),
   ]);
 
-  // Product lives in a join table, so narrow by id first when it's filtered.
-  const productLeadIds = filters.product
-    ? await leadIdsForProduct(supabase, filters.product)
-    : null;
-
-  let leadQuery = applyLeadFilters(supabase, filters, {
+  const leadQuery = applyLeadFilters(supabase, filters, {
     columns: LEAD_ROW_COLUMNS,
     count: true,
   }).limit(PAGE_CAP);
-  if (productLeadIds) leadQuery = leadQuery.in("id", productLeadIds.length ? productLeadIds : [""]);
 
   const [
     { data: leadRows, count },

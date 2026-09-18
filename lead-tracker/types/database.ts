@@ -1734,6 +1734,10 @@ export type Database = {
         Returns: boolean
       }
       is_internal: { Args: never; Returns: boolean }
+      lead_period_rollup: {
+        Args: { p_from: string; p_to: string }
+        Returns: Json
+      }
       lead_transition_kind: {
         Args: {
           p_from: Database["public"]["Enums"]["lead_status"]

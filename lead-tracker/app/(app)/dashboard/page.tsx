@@ -17,6 +17,7 @@ import { relativeAge, shortDate } from "@/lib/format";
 import { periodRange, isPeriod, type Period } from "@/lib/domain/period";
 import { isInternalRole } from "@/lib/domain/permissions";
 import { PeriodToggle } from "@/components/dashboard/period-toggle";
+import { fetchLeadRollup } from "@/lib/queries/rollup";
 
 export const dynamic = "force-dynamic";
 
@@ -34,19 +35,15 @@ export default async function DashboardPage({
   const range = periodRange(period);
 
   const [
-    { data: statusRows },
+    statusRows,
     { data: stats },
     { data: affiliates },
     { data: aging },
     { data: activity },
     { data: recent },
   ] = await Promise.all([
-    supabase
-      .from("leads")
-      .select("qualification, stage, opportunity")
-      .is("deleted_at", null)
-      .gte("created_at", range.fromISO)
-      .lte("created_at", range.toISO),
+    // Grouped in the database — a raw lead fetch is capped at 1,000 rows.
+    fetchLeadRollup(supabase, range.fromISO, range.toISO),
     supabase.from("v_affiliate_stats").select("*"),
     supabase.from("affiliates").select("id, name").is("deleted_at", null),
     supabase
@@ -74,15 +71,16 @@ export default async function DashboardPage({
     not_qualified: 0,
   };
   let lost = 0;
-  for (const r of statusRows ?? []) {
-    qualCounts[r.qualification as QualificationStatus]++;
-    if (r.opportunity === "lost") lost++;
+  let total = 0;
+  for (const r of statusRows) {
+    total += r.n;
+    qualCounts[r.qualification as QualificationStatus] += r.n;
+    if (r.opportunity === "lost") lost += r.n;
     else if (r.stage) {
       const s = r.stage as PipelineStage;
-      stageCounts[s] = (stageCounts[s] ?? 0) + 1;
+      stageCounts[s] = (stageCounts[s] ?? 0) + r.n;
     }
   }
-  const total = (statusRows ?? []).length;
   const inPipeline = Object.values(stageCounts).reduce((a, b) => a + (b ?? 0), 0);
 
   const nameById = new Map((affiliates ?? []).map((a) => [a.id, a.name]));

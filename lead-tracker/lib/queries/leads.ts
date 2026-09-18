@@ -29,10 +29,19 @@ export function applyLeadFilters(
   filters: LeadFilters,
   opts: { columns?: string; count?: boolean } = {},
 ) {
+  // Product filtering joins lead_products inside the query. (Fetching the
+  // matching ids first was capped at 1,000 by the API, and sending thousands
+  // of ids back in the URL breaks outright.) The extra embed is filter-only.
+  const baseColumns = opts.columns ?? LEAD_LIST_COLUMNS;
+  const columns = filters.product
+    ? `${baseColumns}, product_filter:lead_products!inner(product_id)`
+    : baseColumns;
+
   let q = client
     .from("leads")
-    .select(opts.columns ?? LEAD_LIST_COLUMNS, opts.count ? { count: "exact" } : undefined)
+    .select(columns, opts.count ? { count: "exact" } : undefined)
     .is("deleted_at", null);
+  if (filters.product) q = q.eq("product_filter.product_id", filters.product);
 
   if (filters.q) {
     const term = filters.q.replace(/[%,]/g, " ").trim();
@@ -82,10 +91,4 @@ export function applyLeadFilters(
   q = q.order(col, { ascending: !desc });
 
   return q;
-}
-
-/** Product filtering needs the join table, so it is applied as an id pre-filter. */
-export async function leadIdsForProduct(client: Client, productId: string): Promise<string[]> {
-  const { data } = await client.from("lead_products").select("lead_id").eq("product_id", productId);
-  return (data ?? []).map((r) => r.lead_id);
 }

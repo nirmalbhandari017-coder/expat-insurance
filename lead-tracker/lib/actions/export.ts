@@ -47,6 +47,9 @@ const ALL_COLUMNS: { key: string; header: string }[] = [
   { key: "created_at", header: "Created" },
 ];
 
+const PAGE = 1000; // the API's per-request row cap
+const EXPORT_MAX = 50000;
+
 async function loadRows(filters: LeadFilters, includePii: boolean) {
   const supabase = await createClient();
   const columns =
@@ -55,9 +58,18 @@ async function loadRows(filters: LeadFilters, includePii: boolean) {
     "source_channel, policy_number, quote_date, application_date, payment_date, created_at, " +
     "affiliate:affiliates(name), generator:generators(full_name), broker:brokers(full_name)";
 
-  const { data, error } = await applyLeadFilters(supabase, filters, { columns }).limit(50000);
-  if (error) throw error;
-  const rows = (data ?? []) as unknown as Record<string, unknown>[];
+  // The API returns at most 1,000 rows per request whatever limit is asked for,
+  // so page through. `id` breaks ties so pages never overlap or skip a row.
+  const rows: Record<string, unknown>[] = [];
+  for (let from = 0; from < EXPORT_MAX; from += PAGE) {
+    const { data, error } = await applyLeadFilters(supabase, filters, { columns })
+      .order("id")
+      .range(from, Math.min(from + PAGE, EXPORT_MAX) - 1);
+    if (error) throw error;
+    const page = (data ?? []) as unknown as Record<string, unknown>[];
+    rows.push(...page);
+    if (page.length < PAGE) break;
+  }
 
   return rows.map((r) => {
     const flat: Record<string, unknown> = {
