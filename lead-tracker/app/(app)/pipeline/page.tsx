@@ -25,23 +25,25 @@ export default async function PipelinePage({
   for (const [k, v] of Object.entries(sp)) if (typeof v === "string") params.set(k, v);
   const filters = parseFilters(params);
 
-  const [user, matrix, supabase] = await Promise.all([
-    requireAppUser(),
-    getPermissionMatrix(),
-    createClient(),
-  ]);
-
+  // Everything is fetched in one parallel wave: RLS scopes the data queries
+  // by itself, so they don't need to wait for the user lookup. Each wave costs
+  // a full round trip to the database, so fewer waves = a faster page.
+  const supabase = await createClient();
   const leadQuery = applyLeadFilters(supabase, filters, {
     columns: LEAD_ROW_COLUMNS,
     count: true,
   }).limit(PAGE_CAP);
 
   const [
+    user,
+    matrix,
     { data: leadRows, count },
     { data: affiliates },
     { data: brokers },
     { data: products },
   ] = await Promise.all([
+    requireAppUser(),
+    getPermissionMatrix(),
     leadQuery,
     supabase.from("affiliates").select("id, name").is("deleted_at", null).order("name"),
     supabase

@@ -26,15 +26,15 @@ export default async function DashboardPage({
 }: {
   searchParams: Promise<{ period?: string }>;
 }) {
-  const user = await requireAppUser();
-  // External users never see the internal dashboard; send them to their home (§11).
-  if (!isInternalRole(user.role)) redirect(homeForRole(user.role));
-  const supabase = await createClient();
-  const sp = await searchParams;
+  const [supabase, sp] = await Promise.all([createClient(), searchParams]);
   const period: Period = isPeriod(sp.period) ? sp.period : "ytd";
   const range = periodRange(period);
 
+  // One parallel wave: the data queries are RLS-scoped, so they start with the
+  // user lookup instead of waiting for it. Nothing is rendered before the role
+  // check below, so external users are still redirected before seeing anything.
   const [
+    user,
     statusRows,
     { data: stats },
     { data: affiliates },
@@ -42,6 +42,7 @@ export default async function DashboardPage({
     { data: activity },
     { data: recent },
   ] = await Promise.all([
+    requireAppUser(),
     // Grouped in the database — a raw lead fetch is capped at 1,000 rows.
     fetchLeadRollup(supabase, range.fromISO, range.toISO),
     supabase.from("v_affiliate_stats").select("*"),
@@ -63,6 +64,9 @@ export default async function DashboardPage({
       .order("updated_at", { ascending: false })
       .limit(6),
   ]);
+
+  // External users never see the internal dashboard; send them to their home (§11).
+  if (!isInternalRole(user.role)) redirect(homeForRole(user.role));
 
   const stageCounts: StageCounts = {};
   const qualCounts: Record<QualificationStatus, number> = {

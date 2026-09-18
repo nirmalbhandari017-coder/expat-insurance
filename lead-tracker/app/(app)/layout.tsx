@@ -17,14 +17,19 @@ const INTERNAL_NAV = [
 ];
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
-  const [user, matrix, supabase] = await Promise.all([requireAppUser(), getPermissionMatrix(), createClient()]);
+  const supabase = await createClient();
+  // Notifications are RLS-scoped to the signed-in user, so fetch them alongside
+  // the user lookup rather than after it.
+  const [user, matrix, { data: notifs }] = await Promise.all([
+    requireAppUser(),
+    getPermissionMatrix(),
+    supabase
+      .from("notifications")
+      .select("id, title, body, read_at, created_at, lead:leads(lead_code)")
+      .order("created_at", { ascending: false })
+      .limit(15),
+  ]);
   const internal = isInternalRole(user.role);
-
-  const { data: notifs } = await supabase
-    .from("notifications")
-    .select("id, title, body, read_at, created_at, lead:leads(lead_code)")
-    .order("created_at", { ascending: false })
-    .limit(15);
 
   const items: NotificationItem[] = (notifs ?? []).map((n) => ({
     id: n.id, title: n.title, body: n.body, read_at: n.read_at, created_at: n.created_at,

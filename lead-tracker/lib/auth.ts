@@ -27,15 +27,15 @@ export function homeForRole(role: Role): string {
 // Cached per request. Returns the linked app_users row for the signed-in user.
 export const getAppUser = cache(async (): Promise<AppUser | null> => {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return null;
+  // Verified locally against the ES256 public key — no auth-server round trip.
+  const { data: auth } = await supabase.auth.getClaims();
+  const authUserId = auth?.claims?.sub;
+  if (!authUserId) return null;
 
   const { data } = await supabase
     .from("app_users")
     .select("*")
-    .eq("auth_user_id", user.id)
+    .eq("auth_user_id", authUserId)
     .is("deleted_at", null)
     .maybeSingle();
 

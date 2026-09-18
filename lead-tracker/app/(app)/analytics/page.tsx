@@ -23,21 +23,19 @@ export default async function AnalyticsPage({
 }: {
   searchParams: Promise<{ period?: string }>;
 }) {
-  const [user, matrix, supabase, sp] = await Promise.all([
-    requireInternal(),
-    getPermissionMatrix(),
-    createClient(),
-    searchParams,
-  ]);
-  const canExport = can(matrix, user.role, "leads", "export");
-
+  const [supabase, sp] = await Promise.all([createClient(), searchParams]);
   const period: Period = isPeriod(sp.period) ? sp.period : "ytd";
   const range = periodRange(period);
 
-  const [groups, { data: affiliates }] = await Promise.all([
+  // One parallel wave — the rollup is RLS-scoped, so it needn't wait for the
+  // user lookup.
+  const [user, matrix, groups, { data: affiliates }] = await Promise.all([
+    requireInternal(),
+    getPermissionMatrix(),
     fetchLeadRollup(supabase, range.fromISO, range.toISO),
     supabase.from("affiliates").select("id, name").is("deleted_at", null),
   ]);
+  const canExport = can(matrix, user.role, "leads", "export");
 
   const nameById = new Map((affiliates ?? []).map((a) => [a.id, a.name]));
 

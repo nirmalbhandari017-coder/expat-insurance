@@ -27,10 +27,12 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  // IMPORTANT: getUser() revalidates the token with the auth server.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // getClaims() verifies the session JWT locally against the project's public
+  // ES256 key (fetched once, then cached) and refreshes an expired session via
+  // setAll above. Unlike getUser() it makes no round trip to the auth server
+  // on every request — that call was a large share of page latency.
+  const { data } = await supabase.auth.getClaims();
+  const user = data?.claims?.sub ? { id: data.claims.sub } : null;
 
   const { pathname } = request.nextUrl;
   const isPublic = PUBLIC_PATHS.some((p) => pathname.startsWith(p));

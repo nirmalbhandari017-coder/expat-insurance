@@ -14,20 +14,21 @@ export default async function LeadDetailPage({
   params: Promise<{ leadCode: string }>;
 }) {
   const { leadCode } = await params;
-  const [user, matrix, supabase] = await Promise.all([
+  // The lead itself is RLS-scoped, so load it alongside the user lookup rather
+  // than after it — one fewer round trip to the database.
+  const supabase = await createClient();
+  const [user, matrix, { data: lead }] = await Promise.all([
     requireAppUser(),
     getPermissionMatrix(),
-    createClient(),
+    supabase
+      .from("leads")
+      .select(
+        "*, affiliate:affiliates(id, name), generator:generators(id, full_name), broker:brokers(id, full_name, company), lost_reason:lost_reasons(label), products:lead_products(product:products(id, name))",
+      )
+      .eq("lead_code", leadCode)
+      .is("deleted_at", null)
+      .maybeSingle(),
   ]);
-
-  const { data: lead } = await supabase
-    .from("leads")
-    .select(
-      "*, affiliate:affiliates(id, name), generator:generators(id, full_name), broker:brokers(id, full_name, company), lost_reason:lost_reasons(label), products:lead_products(product:products(id, name))",
-    )
-    .eq("lead_code", leadCode)
-    .is("deleted_at", null)
-    .maybeSingle();
 
   if (!lead) notFound();
 
