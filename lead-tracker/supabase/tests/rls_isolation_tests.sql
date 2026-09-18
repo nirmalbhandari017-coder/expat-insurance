@@ -2,7 +2,8 @@
 -- rls_isolation_tests.sql  (spec §5,6,9,10,13)
 -- Proves external-user data isolation at the database. Creates a Source user
 -- and a CRM user, impersonates each via a forged JWT sub on the `authenticated`
--- role, asserts, then cleans up. Verified ALL PASS on 2026-08-12.
+-- role, asserts, then cleans up. Verified ALL PASS on 2026-08-12, and again on
+-- 2026-09-18 after 27_rls_initplan (policy rewrite for performance).
 -- Run in the Supabase SQL editor.
 -- ============================================================================
 create temp table if not exists _iso(check_name text, got text, expected text, pass boolean);
@@ -21,7 +22,7 @@ begin
   select id into u_src from app_users where auth_user_id=a_src;
   select id into u_crm from app_users where auth_user_id=a_crm;
   update app_users set role='source' where id=u_src;
-  update app_users set role='crm'    where id=u_crm;
+  update app_users set role='rm_staff' where id=u_crm; -- the CRM role in use
   insert into affiliates(name,type,app_user_id) values ('ISO Source '||a_src,'referral_partner',u_src) returning id into aff_src;
   insert into brokers(first_name,last_name,app_user_id) values ('ISO','CRM '||a_crm,u_crm) returning id into brk_crm;
   insert into leads(customer_name,first_name,last_name,email,affiliate_id) values ('ISO SrcLead','ISO','SrcLead','s_'||a_src||'@x.com',aff_src) returning id into l_src;
@@ -54,6 +55,7 @@ begin
     ('CRM delete blocked at DB', c_delblocked::text,'true', c_delblocked);
 
   delete from lead_status_history where lead_id in (l_src,l_crm,l_other);
+  delete from lead_stage_history where lead_id in (l_src,l_crm,l_other);
   delete from activity_log where lead_id in (l_src,l_crm,l_other);
   delete from audit_log where entity_id in (l_src,l_crm,l_other,u_src,u_crm,aff_src,brk_crm);
   delete from notifications where lead_id in (l_src,l_crm,l_other) or user_id in (u_src,u_crm);
