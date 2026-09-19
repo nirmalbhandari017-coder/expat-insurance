@@ -1,8 +1,9 @@
 User-agent: *
 Allow: /
-Disallow: /thank-you
-Disallow: /thank-you.html
-Disallow: /signature
-Disallow: /signature.html
+
+# Voluntary Wayback Machine opt-out. Does not remove existing archives,
+# and is honoured by ia_archiver only.
+User-agent: ia_archiver
+Disallow: /
 
 Sitemap: https://expatprotecthub.com/sitemap.xml

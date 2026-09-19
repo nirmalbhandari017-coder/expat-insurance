@@ -1,3 +1,16 @@
 [build]
   publish = "."
   command = "npm --prefix expatprotecthub-crm ci && npm --prefix expatprotecthub-crm run build"
+
+# Belt-and-braces noindex for the post-submission thank-you page.
+# Meta tags already carry the same directive; this covers requests
+# where the HTML is bypassed (curl / crawler that reads headers only).
+[[headers]]
+  for = "/thank-you"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/thank-you.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
