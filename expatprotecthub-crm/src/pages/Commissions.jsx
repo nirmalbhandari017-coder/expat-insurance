@@ -27,17 +27,21 @@ export default function Commissions() {
   const [receiving, setReceiving] = useState(null) // {row, received_date, received_amount}
   const [filter, setFilter] = useState('open') // open | received | all
   const [view, setView] = useState('client') // client | instalment
+  const [sort, setSort] = useState('pay_desc')
+  const [paid, setPaid] = useState([])
   const [error, setError] = useState('')
 
   async function load() {
     // generate upcoming records + refresh overdue flags, then fetch
     await supabase.rpc('generate_due_commissions', { horizon_days: 400 })
-    const [c, cl] = await Promise.all([
+    const [c, cl, pp] = await Promise.all([
       supabase.from('commissions').select('*, clients(name, company)').order('due_date', { ascending: true }),
       supabase.from('clients').select('*').neq('status', 'cancelled').order('name'),
+      supabase.from('premium_payments').select('client_id, received_date, amount_received'),
     ])
     setRows(c.data || [])
     setClients(cl.data || [])
+    setPaid(pp.data || [])
   }
   useEffect(() => { load() }, [])
 
@@ -70,9 +74,21 @@ export default function Commissions() {
     filter === 'all' ? true : filter === 'received' ? r.status === 'received' : r.status !== 'received'
   )
 
+  /** Latest receipt per client — the date a sale is counted on. */
+  const paidOn = useMemo(() => {
+    const m = new Map()
+    for (const i of paid) {
+      if (!(Number(i.amount_received) > 0 && i.received_date)) continue
+      const prev = m.get(i.client_id)
+      if (!prev || i.received_date > prev) m.set(i.client_id, i.received_date)
+    }
+    return m
+  }, [paid])
+
   /**
-   * One line per client (spec item 4): the annual commission, how it is
-   * actually collected, and when the next slice falls due.
+   * One line per client: the annual commission, how it is actually collected,
+   * and when the next slice falls due. Ordered by payment date by default, so
+   * this reads the same way as the Clients page.
    */
   const perClient = useMemo(() => {
     const next = nextMonthKey()
@@ -101,16 +117,34 @@ export default function Commissions() {
         perYear,
         nextDue,
         timing,
+        paidOn: paidOn.get(c.id) || null,
         receivedTotal: received.reduce((s, r) => s + Number(r.received_amount || 0), 0),
         receivedCount: received.length,
         openCount: open.length,
       }
     }).sort((a, b) => {
-      // Anything needing attention first: overdue, then due next month.
-      const rank = (x) => (x.timing === 'overdue' ? 0 : x.timing === 'this' ? 1 : x.timing === 'next' ? 2 : 3)
-      return rank(a) - rank(b) || String(a.nextDue?.due_date).localeCompare(String(b.nextDue?.due_date))
+      // Default is payment date, newest first, so the list reads the same way
+      // as the Clients page. Unpaid clients settle at the bottom.
+      const byDate = (x, y, key, dir) => {
+        const A = key === 'pay' ? x.paidOn : x.client.start_date
+        const B = key === 'pay' ? y.paidOn : y.client.start_date
+        if (!A && !B) return x.client.name.localeCompare(y.client.name)
+        if (!A) return 1
+        if (!B) return -1
+        return dir === 'asc' ? A.localeCompare(B) : B.localeCompare(A)
+      }
+      switch (sort) {
+        case 'pay_asc': return byDate(a, b, 'pay', 'asc')
+        case 'start_desc': return byDate(a, b, 'start', 'desc')
+        case 'start_asc': return byDate(a, b, 'start', 'asc')
+        case 'attention': {
+          const rank = (x) => (x.timing === 'overdue' ? 0 : x.timing === 'this' ? 1 : x.timing === 'next' ? 2 : 3)
+          return rank(a) - rank(b) || String(a.nextDue?.due_date).localeCompare(String(b.nextDue?.due_date))
+        }
+        default: return byDate(a, b, 'pay', 'desc')
+      }
     })
-  }, [clients, rows])
+  }, [clients, rows, paidOn, sort])
 
   const dueNextMonth = perClient.filter((p) => p.timing === 'next')
   const currency = clients[0]?.currency || 'USD'
@@ -125,6 +159,8 @@ export default function Commissions() {
         { header: 'Commission %', format: (p) => p.client.commission_pct },
         { header: 'Commission (annual)', format: (p) => p.annual.toFixed(2) },
         { header: 'Paid', format: (p) => FREQUENCY_LABELS[p.client.frequency] },
+        { header: 'Payment date', format: (p) => p.paidOn ?? '' },
+        { header: 'Plan start date', format: (p) => p.client.start_date ?? '' },
         { header: 'Per payment', format: (p) => p.perPayment.toFixed(2) },
         { header: 'Currency', format: (p) => p.client.currency },
         { header: 'Next due', format: (p) => p.nextDue?.due_date ?? '' },
@@ -160,6 +196,15 @@ export default function Commissions() {
           <option value="client">One row per client (annual)</option>
           <option value="instalment">Every commission payment</option>
         </select>
+        {view === 'client' && (
+          <select value={sort} onChange={(e) => setSort(e.target.value)} title="Sort order">
+            <option value="pay_desc">Payment date — newest first</option>
+            <option value="pay_asc">Payment date — oldest first</option>
+            <option value="start_desc">Plan start date — newest first</option>
+            <option value="start_asc">Plan start date — oldest first</option>
+            <option value="attention">Needs attention first</option>
+          </select>
+        )}
         {view === 'instalment' && (
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="open">Pending & overdue</option>
@@ -196,6 +241,7 @@ export default function Commissions() {
                 <thead>
                   <tr>
                     <th>Client</th><th>Paid</th>
+                    <th>Payment date</th><th>Plan start date</th>
                     <th className="num">Commission / year</th>
                     <th className="num">Per payment</th>
                     <th>Next due</th>
@@ -204,7 +250,7 @@ export default function Commissions() {
                 </thead>
                 <tbody>
                   {rows === null ? null : perClient.length === 0 ? (
-                    <tr><td colSpan={6}><Empty>No active clients yet.</Empty></td></tr>
+                    <tr><td colSpan={8}><Empty>No active clients yet.</Empty></td></tr>
                   ) : perClient.map((p) => (
                     <tr key={p.client.id}>
                       <td>
@@ -214,6 +260,8 @@ export default function Commissions() {
                       <td>
                         <span className="badge navy">{FREQUENCY_LABELS[p.client.frequency]}</span>
                       </td>
+                      <td>{p.paidOn ? fmtDate(p.paidOn) : <span className="muted">not paid</span>}</td>
+                      <td>{fmtDate(p.client.start_date)}</td>
                       <td className="num">
                         <strong>{money(p.annual, p.client.currency)}</strong>
                         <span className="cell-sub">

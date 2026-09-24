@@ -24,7 +24,7 @@ export default function Clients() {
   const [generators, setGenerators] = useState([])
   const [people, setPeople] = useState([])
   const [filter, setFilter] = useState('all')
-  const [sort, setSort] = useState('start_desc')
+  const [sort, setSort] = useState('pay_desc')
   const [month, setMonth] = useState('all')
   const [error, setError] = useState('')
 
@@ -136,32 +136,67 @@ export default function Clients() {
   const commissionAmount = (c) =>
     (Number(c.premium) || 0) * (Number(c.commission_pct) || 0) / 100
 
-  /** "2026-08" — the month a policy started, used for both sorting and filtering. */
+  /** "2026-08" — the month part of a date, used for grouping and filtering. */
   const monthKey = (d) => (d ? String(d).slice(0, 7) : '')
   const monthLabel = (key) =>
     new Date(key + '-01T00:00:00').toLocaleDateString(undefined, { month: 'long', year: 'numeric' })
 
-  // Only offer months that actually have clients in them.
+  /**
+   * When each client actually paid — the latest receipt in the instalment
+   * ledger. A sale belongs to the month the money arrived, not the month cover
+   * begins: Brett Wilson paid on 30 Jun for a policy starting 1 Sep, and he
+   * counts as a June sale.
+   */
+  const paidOn = useMemo(() => {
+    const m = new Map()
+    for (const i of instalments) {
+      if (!(Number(i.amount_received) > 0 && i.received_date)) continue
+      const prev = m.get(i.client_id)
+      if (!prev || i.received_date > prev) m.set(i.client_id, i.received_date)
+    }
+    return m
+  }, [instalments])
+
+  // Plan start date is a sort the user can choose; payment date is the default.
+  const sortsByStart = sort === 'start_desc' || sort === 'start_asc'
+  const dateOf = (c) => (sortsByStart ? c.start_date : paidOn.get(c.id)) || null
+
+  // Only offer months that actually hold clients, on whichever axis is active.
   const months = useMemo(() => {
-    const set = new Set((clients || []).map((c) => monthKey(c.start_date)).filter(Boolean))
+    const set = new Set((clients || []).map((c) => monthKey(dateOf(c))).filter(Boolean))
     return [...set].sort().reverse()
-  }, [clients])
+  }, [clients, paidOn, sortsByStart])
 
-  const shown = useMemo(() => (clients || [])
-    .filter((c) => filter === 'all' || c.status === filter)
-    .filter((c) => month === 'all' || monthKey(c.start_date) === month)
-    .sort((a, b) => {
-      switch (sort) {
-        case 'start_asc': return String(a.start_date).localeCompare(String(b.start_date))
-        case 'name': return a.name.localeCompare(b.name)
-        case 'premium_desc': return Number(b.premium) - Number(a.premium)
-        case 'added': return String(b.created_at).localeCompare(String(a.created_at))
-        default: return String(b.start_date).localeCompare(String(a.start_date))
-      }
-    }), [clients, filter, month, sort])
+  const shown = useMemo(() => {
+    // Unpaid clients have no date to sort on, so they settle at the bottom
+    // rather than pretending to be the oldest or newest.
+    const byDate = (a, b, dir) => {
+      const A = dateOf(a)
+      const B = dateOf(b)
+      if (!A && !B) return a.name.localeCompare(b.name)
+      if (!A) return 1
+      if (!B) return -1
+      return dir === 'asc' ? A.localeCompare(B) : B.localeCompare(A)
+    }
 
-  // When sorted by start date, break the table up with a heading per month.
-  const grouped = sort === 'start_desc' || sort === 'start_asc'
+    return (clients || [])
+      .filter((c) => filter === 'all' || c.status === filter)
+      .filter((c) => month === 'all' || monthKey(dateOf(c)) === month)
+      .sort((a, b) => {
+        switch (sort) {
+          case 'pay_asc': return byDate(a, b, 'asc')
+          case 'start_desc': return byDate(a, b, 'desc')
+          case 'start_asc': return byDate(a, b, 'asc')
+          case 'name': return a.name.localeCompare(b.name)
+          case 'premium_desc': return Number(b.premium) - Number(a.premium)
+          case 'added': return String(b.created_at).localeCompare(String(a.created_at))
+          default: return byDate(a, b, 'desc')   // pay_desc
+        }
+      })
+  }, [clients, filter, month, sort, paidOn])
+
+  // Any date sort breaks the table up with a heading per month.
+  const grouped = sortsByStart || sort === 'pay_desc' || sort === 'pay_asc'
 
   function exportCsv() {
     downloadCsv(stampedName('clients'), [
@@ -176,9 +211,11 @@ export default function Clients() {
       { key: 'commission_pct', header: 'Commission %' },
       { header: 'Commission amount', format: (c) => commissionAmount(c).toFixed(2) },
       { header: 'Frequency', format: (c) => FREQUENCY_LABELS[c.frequency] },
-      { key: 'start_date', header: 'Start date' },
-      { header: 'Start month', format: (c) => monthKey(c.start_date) },
-      { header: 'Premium paid', format: (c) => premiumState(c.id).label },
+      { header: 'Payment date', format: (c) => paidOn.get(c.id) ?? '' },
+      { header: 'Payment month', format: (c) => monthKey(paidOn.get(c.id)) },
+      { header: 'Payment status', format: (c) => premiumState(c.id).label },
+      { key: 'start_date', header: 'Plan start date' },
+      { header: 'Plan start month', format: (c) => monthKey(c.start_date) },
       { header: 'Consultants', format: (c) =>
           links.filter((l) => l.client_id === c.id).map((l) => consultantName(l.consultant_id)).join(' / ') },
       { key: 'status', header: 'Status' },
@@ -203,14 +240,20 @@ export default function Clients() {
           <option value="cancelled">Cancelled</option>
         </select>
 
-        <select value={month} onChange={(e) => setMonth(e.target.value)} title="Filter by start month">
+        <select
+          value={month}
+          onChange={(e) => setMonth(e.target.value)}
+          title={`Filter by ${sortsByStart ? 'plan start' : 'payment'} month`}
+        >
           <option value="all">All months</option>
           {months.map((m) => <option key={m} value={m}>{monthLabel(m)}</option>)}
         </select>
 
         <select value={sort} onChange={(e) => setSort(e.target.value)} title="Sort order">
-          <option value="start_desc">By month — newest first</option>
-          <option value="start_asc">By month — oldest first</option>
+          <option value="pay_desc">Payment date — newest first</option>
+          <option value="pay_asc">Payment date — oldest first</option>
+          <option value="start_desc">Plan start date — newest first</option>
+          <option value="start_asc">Plan start date — oldest first</option>
           <option value="name">By name</option>
           <option value="premium_desc">By premium</option>
           <option value="added">Recently added</option>
@@ -228,8 +271,8 @@ export default function Clients() {
               <tr>
                 <th>Client</th><th>Product</th><th className="num">Premium</th>
                 <th className="num">Commission</th><th>Frequency</th>
-                <th>Premium paid</th><th>Consultants</th>
-                <th>Start</th><th>Status</th>{isAdmin && <th></th>}
+                <th>Payment date</th><th>Plan start date</th>
+                <th>Consultants</th><th>Status</th>{isAdmin && <th></th>}
               </tr>
             </thead>
             <tbody>
@@ -237,10 +280,12 @@ export default function Clients() {
                 <tr><td colSpan={10}><Empty>No clients yet{isAdmin && ' — add your first one'}.</Empty></td></tr>
               ) : shown.map((c, i) => (
                 <Fragment key={c.id}>
-                {grouped && monthKey(c.start_date) !== monthKey(shown[i - 1]?.start_date) && (
+                {grouped && monthKey(dateOf(c)) !== monthKey(dateOf(shown[i - 1] ?? {})) && (
                   <tr className="group-row">
                     <td colSpan={isAdmin ? 10 : 9}>
-                      {c.start_date ? monthLabel(monthKey(c.start_date)) : 'No start date'}
+                      {dateOf(c)
+                        ? monthLabel(monthKey(dateOf(c)))
+                        : (sortsByStart ? 'No start date' : 'Not paid yet')}
                     </td>
                   </tr>
                 )}
@@ -269,6 +314,7 @@ export default function Clients() {
                       )
                     })()}
                   </td>
+                  <td>{fmtDate(c.start_date)}</td>
                   <td>
                     {links.filter((l) => l.client_id === c.id).map((l) => (
                       <span key={l.id} className="badge navy" style={{ marginRight: 4 }}>
@@ -277,7 +323,6 @@ export default function Clients() {
                       </span>
                     ))}
                   </td>
-                  <td>{fmtDate(c.start_date)}</td>
                   <td><Badge status={c.status} /></td>
                   {isAdmin && (
                     <td style={{ whiteSpace: 'nowrap' }}>
