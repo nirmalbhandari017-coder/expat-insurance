@@ -45,11 +45,26 @@ Sharifah Scarth 25.5% and Andrea Stapley 28.5%), so the default is wrong more
 often than it is right — every newly imported client should be treated as
 provisional until a statement covers it.
 
-### Open: John Clayton is missing from the statement
+### John Clayton — removed, not a client for now
 
 He paid on 18 Aug, and the other five August payments are all on the Sep-2026
-statement. His $631.37 is not. Either Regency missed him or it is being held to
-October. Raise with Christopher Gallacher.
+statement. His $631.37 was not. On the user's instruction he was removed rather
+than chased: **cancelled, not deleted**, so the record survives if Regency
+settles him later.
+
+- `clients.status` → cancelled
+- both `premium_payments` → cancelled
+- the commission row **deleted** — `commission_status` has no cancelled value,
+  and deleting it cascade-deleted his two unpaid payouts along with it
+- his `inbound_activations` row → `ignored`, which keeps him out of the import
+  panel. **Flip that row back to `new` to reinstate him**, rather than
+  re-importing from Gmail: the sync upserts on policy number and deliberately
+  never sends `status`, so a synced row will not resurrect itself.
+
+Nothing had settled — no commission received, no payout paid — so no money
+moved. Six `financial_audit` rows record the change.
+
+19 active clients.
 
 The statement's payment dates also run one day earlier than the activation
 email for two clients (Ali Gueler 12 vs 13 Aug, Alain Roland Pons 26 vs
