@@ -195,6 +195,24 @@ export default function Clients() {
       })
   }, [clients, filter, month, sort, paidOn])
 
+  /**
+   * Premium and commission for whatever is on screen, kept per currency.
+   * Adding USD to THB would produce a number that means nothing, so mixed
+   * currencies get a line each rather than one misleading figure.
+   */
+  const totals = useMemo(() => {
+    const m = new Map()
+    for (const c of shown) {
+      const cur = c.currency || 'USD'
+      const t = m.get(cur) || { premium: 0, commission: 0, count: 0 }
+      t.premium += Number(c.premium) || 0
+      t.commission += commissionAmount(c)
+      t.count += 1
+      m.set(cur, t)
+    }
+    return [...m.entries()]
+  }, [shown])
+
   // Any date sort breaks the table up with a heading per month.
   const grouped = sortsByStart || sort === 'pay_desc' || sort === 'pay_asc'
 
@@ -334,6 +352,25 @@ export default function Clients() {
                 </Fragment>
               ))}
             </tbody>
+
+            {shown.length > 0 && (
+              <tfoot>
+                {totals.map(([cur, t]) => (
+                  <tr className="total-row" key={cur}>
+                    <td colSpan={2}>
+                      Total{totals.length > 1 && ` · ${cur}`}
+                      <span className="cell-sub">
+                        {t.count} client{t.count !== 1 && 's'}
+                        {month !== 'all' && ` · ${monthLabel(month)}`}
+                      </span>
+                    </td>
+                    <td className="num">{money(t.premium, cur)}</td>
+                    <td className="num">{money(t.commission, cur)}</td>
+                    <td colSpan={isAdmin ? 6 : 5} />
+                  </tr>
+                ))}
+              </tfoot>
+            )}
           </table>
         </div>
       </div>

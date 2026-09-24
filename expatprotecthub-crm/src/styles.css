@@ -630,3 +630,12 @@ code.inline {
   .inbound-row { grid-template-columns: 1fr; }
   .inbound-facts { text-align: left; }
 }
+
+/* Totals under a client table. */
+.total-row td {
+  border-top: 2px solid var(--text, #12263F);
+  font-weight: 700;
+  padding-top: 12px;
+  background: var(--surface-2, #F4F6F9);
+}
+.total-row .cell-sub { font-weight: 400; }
