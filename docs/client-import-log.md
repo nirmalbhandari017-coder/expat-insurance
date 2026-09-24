@@ -1,5 +1,61 @@
 # Client import log — Regency activation emails
 
+## 2026-09-24 — the sync runs, and eight clients arrive at once
+
+The automation built on 27 Aug had never actually run: the Supabase credentials
+were never added to Script Properties, and `syncActivationsToCrm` returned
+quietly when they were missing, which looked exactly like a quiet day. Eight
+activations reached Drive over four weeks and none reached the CRM.
+
+Now fixed and verified end to end — Gmail → Drive → parsed → CRM. Imported:
+Jared Legere, Agim Isufaj, Kylie Sharp, Alfred Weisser, Allan Ju, Charlie
+Lambe, David Segal and Preeti Singh. Every premium, commencement date and
+frequency was checked against the certificate text stored in `raw_text`;
+all eight matched exactly. **20 clients total.**
+
+### Three bugs, all found by the setup check rather than in production
+
+1. **Enabling the Drive advanced service was a silent single point of failure.**
+   `pdfToText_` now calls the Drive REST API with the token DriveApp already
+   holds, so there is no editor switch to forget.
+2. **A dead sync looked like a quiet day.** The digest now leads with a banner
+   and the subject reads `THE CRM SYNC IS NOT RUNNING`.
+3. **The policyholder name parsed as the literal string "Policyholder:".**
+   Converting the PDF through Google Docs does not preserve the certificate's
+   layout, so the text before "(Main Point of Contact)" was sometimes the label
+   rather than the name. Running the sync would have created eight clients all
+   called `Policyholder:`. The name now comes from `Dear <name>,` in the
+   activation email, which survives the conversion; the certificate is the
+   fallback. Caught by `checkSetup` before any data was written.
+
+### Sep-2026 statement (Jay Woodard) — two more rate corrections
+
+Regency renamed the broker account again: Jul was *Expat Protect Hub*, Aug
+*Leadlyfe Marketing*, Sep *Jay Woodard*. Confirmed by the user as an account
+rename, not separate entities.
+
+| Client | Statement | CRM had | Corrected to |
+|---|---|---|---|
+| Ali Gueler | 32.5% → $2,155.29 | 37.5% → $2,486.87 | **32.5%** |
+| Agim Isufaj | 29.5% → $1,175.24 | 37.5% → $1,493.96 | **29.5%** |
+
+All five clients on the statement now reconcile to the cent, totalling
+$4,664.49. That is **four clients** whose real rate was not 37.5% (with
+Sharifah Scarth 25.5% and Andrea Stapley 28.5%), so the default is wrong more
+often than it is right — every newly imported client should be treated as
+provisional until a statement covers it.
+
+### Open: John Clayton is missing from the statement
+
+He paid on 18 Aug, and the other five August payments are all on the Sep-2026
+statement. His $631.37 is not. Either Regency missed him or it is being held to
+October. Raise with Christopher Gallacher.
+
+The statement's payment dates also run one day earlier than the activation
+email for two clients (Ali Gueler 12 vs 13 Aug, Alain Roland Pons 26 vs
+27 Aug). Neither changes the commission due month, so both were left as they
+are, but the email date is evidently the day *after* payment, not the day of.
+
 ## 2026-08-27 — Ali Gueler, and three activations still missing
 
 Four activations arrived between 13 and 27 Aug; none had been entered,
