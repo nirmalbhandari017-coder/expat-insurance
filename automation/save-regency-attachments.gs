@@ -330,7 +330,10 @@ function syncActivationsToCrm(days) {
 
       rows.push({
         policy_number: policy,
-        client_name: parsed.client || extractClientName_(msg.getPlainBody()),
+        // "Dear David Segal," in the email body is the more dependable of the
+        // two — it survives the PDF conversion that mangles the certificate's
+        // layout. The certificate is the fallback, not the first choice.
+        client_name: extractClientName_(msg.getPlainBody()) || parsed.client,
         plan_name: parsed.plan,
         commencement_date: parsed.commencement,
         premium: parsed.premium,
@@ -430,7 +433,21 @@ function parseCertificate_(text) {
   }
 
   const plan = grab(/Plan Name:\s*(.+)/, 'plan name');
-  const client = grab(/(.+?)\s*\(Main Point of Contact\)/, 'policyholder name');
+
+  // Converting the PDF through Google Docs does not preserve the certificate's
+  // layout: the "Policyholder:" label sometimes lands on the name's line and
+  // sometimes on its own. Taking the text before "(Main Point of Contact)"
+  // therefore captured the label itself. Strip the label, then reject whatever
+  // is left if it is plainly not a name — the caller falls back to the
+  // "Dear <name>," in the activation email, which has always been reliable.
+  let client = grab(/([^\n]*?)\s*\(Main Point of Contact\)/, 'policyholder name');
+  if (client) {
+    client = client.replace(/^.*Policyholder:\s*/i, '').trim();
+    if (!client || /^policyholder/i.test(client) || client.length < 2) {
+      client = null;
+      warnings.push('policyholder name not readable from the certificate');
+    }
+  }
   const rawDate = grab(/Commencement Date:\s*(\d{1,2}\s+\w{3,}\s+\d{4})/, 'commencement date');
   const rawFreq = grab(/Payment Frequency:\s*([A-Za-z-]+)/, 'payment frequency');
   const rawPrem = grab(/TOTAL PREMIUM:\s*US\$?\s*([\d,]+\.\d{2})/, 'total premium');
@@ -515,9 +532,12 @@ function checkSetup() {
       const text = pdfToText_(sample);
       const parsed = parseCertificate_(text);
       step('PDF reading', text.length > 200, sample.getName());
+      // The name is deliberately not part of the pass/fail here: the sync takes
+      // it from the activation email, and only falls back to the certificate.
       step('Certificate parsing', !!parsed.premium && !!parsed.commencement,
-           parsed.client + ' / ' + parsed.premium + ' / ' + parsed.commencement
-           + (parsed.warnings.length ? ' / warnings: ' + parsed.warnings.join(', ') : ''));
+           'premium ' + parsed.premium + ', starts ' + parsed.commencement
+           + ', ' + (parsed.frequency || 'frequency?')
+           + ', name from certificate: ' + (parsed.client || '(taken from the email instead)'));
     }
   } catch (e) {
     step('PDF reading', false, e.message);
