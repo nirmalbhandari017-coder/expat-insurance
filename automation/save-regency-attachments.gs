@@ -61,11 +61,20 @@ function findRecentActivations(days) {
 
 function sendReport_(result, activations, synced) {
   // Stay quiet on days when nothing happened — a report that always arrives
-  // stops being read. A failure is never a quiet day.
+  // stops being read. A failure, or a sync that cannot run at all, is never a
+  // quiet day.
   const failures = result.failures || [];
-  if (!activations.length && !result.saved && !failures.length) return;
+  const broken = synced && (synced.misconfigured || synced.problems.length);
+  if (!activations.length && !result.saved && !failures.length && !broken) return;
 
   let body = 'Regency daily check\n\n';
+
+  if (synced && synced.misconfigured) {
+    body += '*** THE CRM SYNC IS NOT RUNNING ***\n';
+    body += 'Documents are still being filed to Drive, but nothing is reaching\n';
+    body += 'the CRM, so no client will appear on the dashboard. Open the Apps\n';
+    body += 'Script project and run checkSetup to see what is missing.\n\n';
+  }
 
   if (activations.length) {
     body += activations.length + ' policy activation(s) in the last 24 hours:\n\n';
@@ -102,7 +111,9 @@ function sendReport_(result, activations, synced) {
 
   MailApp.sendEmail({
     to: REPORT_TO,
-    subject: failures.length
+    subject: (synced && synced.misconfigured)
+      ? 'Regency: THE CRM SYNC IS NOT RUNNING'
+      : failures.length
       ? 'Regency: ' + failures.length + ' document(s) FAILED to save'
       : activations.length
         ? 'Regency: ' + activations.length + ' new policy activation(s)'
@@ -247,14 +258,14 @@ function retryRecent(days) {
  * Nothing here creates a client — Regency's figures have needed correcting
  * before, so the parse is always shown before it becomes money.
  *
- * SETUP (once):
- *   1. Services (+) → Drive API → Add. Needed to read text out of a PDF;
- *      Apps Script cannot do it without the advanced service.
- *   2. Project Settings → Script Properties, add:
- *        SUPABASE_URL          https://ywhlsbwmwvddzxvixusf.supabase.co
- *        SUPABASE_SERVICE_KEY  (Supabase → Settings → API → service_role)
- *      The service key bypasses row-level security, so it belongs in Script
- *      Properties and nowhere else — never in this file, never in the repo.
+ * SETUP (once): Project Settings → Script Properties, add
+ *     SUPABASE_URL          https://ywhlsbwmwvddzxvixusf.supabase.co
+ *     SUPABASE_SERVICE_KEY  (Supabase → Settings → API → service_role)
+ *   The service key bypasses row-level security, so it belongs in Script
+ *   Properties and nowhere else — never in this file, never in the repo.
+ *
+ *   Then run checkSetup. It proves each link in the chain and names whichever
+ *   one is broken, rather than leaving you to guess.
  * ------------------------------------------------------------------ */
 
 /** @return {{pushed:number, unreadable:number, problems:string[]}} */
@@ -263,8 +274,16 @@ function syncActivationsToCrm(days) {
   const url = props.getProperty('SUPABASE_URL');
   const key = props.getProperty('SUPABASE_SERVICE_KEY');
   if (!url || !key) {
+    // Loud on purpose. This returned quietly once and the sync sat dead for
+    // four weeks while the daily mail kept reporting a healthy run.
     Logger.log('SUPABASE_URL / SUPABASE_SERVICE_KEY not set — skipping CRM sync.');
-    return { pushed: 0, unreadable: 0, problems: ['Supabase credentials not configured'] };
+    return {
+      pushed: 0,
+      unreadable: 0,
+      misconfigured: true,
+      problems: ['SUPABASE_URL / SUPABASE_SERVICE_KEY missing from Script Properties — '
+                 + 'nothing has been sent to the CRM. Run checkSetup for details.'],
+    };
   }
 
   const folder = getOrCreateFolder_(FOLDER_NAME);
@@ -358,17 +377,44 @@ function syncActivationsToCrm(days) {
 
 /**
  * Text out of a PDF, via a throwaway Google Doc conversion — the only way
- * Apps Script can read one. Requires the Drive advanced service.
+ * Apps Script can read one.
+ *
+ * This calls the Drive REST API directly rather than the Drive advanced
+ * service, so there is nothing to switch on in the editor. Enabling that
+ * service was a setup step that silently never happened, and the sync sat
+ * dead for four weeks as a result. The OAuth token DriveApp already holds is
+ * enough; one less thing to forget is worth the extra few lines.
  */
 function pdfToText_(file) {
-  const doc = Drive.Files.insert(
-    { title: 'tmp-parse-' + file.getId(), mimeType: 'application/vnd.google-apps.document' },
-    file.getBlob(),
-    { convert: true });
+  const token = ScriptApp.getOAuthToken();
+  const auth = { Authorization: 'Bearer ' + token };
+
+  // Copying a PDF with a Docs target mime type converts it.
+  const res = UrlFetchApp.fetch(
+    'https://www.googleapis.com/drive/v3/files/' + file.getId() + '/copy?supportsAllDrives=true',
+    {
+      method: 'post',
+      contentType: 'application/json',
+      headers: auth,
+      payload: JSON.stringify({
+        name: 'tmp-parse-' + file.getId(),
+        mimeType: 'application/vnd.google-apps.document',
+      }),
+      muteHttpExceptions: true,
+    });
+
+  if (res.getResponseCode() >= 300) {
+    throw new Error('Drive conversion failed (' + res.getResponseCode() + '): ' + res.getContentText());
+  }
+  const docId = JSON.parse(res.getContentText()).id;
+
   try {
-    return DocumentApp.openById(doc.id).getBody().getText();
+    return DocumentApp.openById(docId).getBody().getText();
   } finally {
-    Drive.Files.remove(doc.id);   // never leave scratch files in Drive
+    // Never leave scratch files behind, even if reading threw.
+    UrlFetchApp.fetch(
+      'https://www.googleapis.com/drive/v3/files/' + docId + '?supportsAllDrives=true',
+      { method: 'delete', headers: auth, muteHttpExceptions: true });
   }
 }
 
@@ -419,6 +465,67 @@ function frequencyCode_(s) {
   if (n.indexOf('semi') === 0) return 'semi_annual';
   if (n.indexOf('annual') === 0 || n.indexOf('year') === 0) return 'annual';
   return null;
+}
+
+/**
+ * Check every moving part and say which one is broken.
+ *
+ * Run this first whenever the CRM is missing clients. It writes nothing and
+ * changes nothing — it only proves each link in the chain: credentials
+ * present, Supabase reachable, the table writable, and a real PDF readable.
+ */
+function checkSetup() {
+  const props = PropertiesService.getScriptProperties();
+  const url = props.getProperty('SUPABASE_URL');
+  const key = props.getProperty('SUPABASE_SERVICE_KEY');
+  const out = [];
+  let ok = true;
+
+  function step(label, passed, detail) {
+    if (!passed) ok = false;
+    out.push((passed ? '  OK   ' : '  FAIL ') + label + (detail ? ' — ' + detail : ''));
+  }
+
+  step('SUPABASE_URL set', !!url, url ? url : 'add it under Project Settings → Script Properties');
+  step('SUPABASE_SERVICE_KEY set', !!key,
+       key ? 'ends …' + key.slice(-6) : 'add it under Project Settings → Script Properties');
+
+  if (url && key) {
+    // A HEAD against the table proves the URL, the key and the grants at once.
+    const res = UrlFetchApp.fetch(url + '/rest/v1/inbound_activations?select=id&limit=1', {
+      headers: { apikey: key, Authorization: 'Bearer ' + key },
+      muteHttpExceptions: true,
+    });
+    step('Supabase reachable and table readable', res.getResponseCode() < 300,
+         'HTTP ' + res.getResponseCode() + ' ' + res.getContentText().slice(0, 120));
+  }
+
+  // Prove PDF reading against a certificate that is actually in the folder.
+  try {
+    const folder = getOrCreateFolder_(FOLDER_NAME);
+    const it = folder.getFiles();
+    let sample = null;
+    while (it.hasNext()) {
+      const f = it.next();
+      if (f.getName().indexOf('Certificate') !== -1) { sample = f; break; }
+    }
+    if (!sample) {
+      step('PDF reading', false, 'no certificate in "' + FOLDER_NAME + '" to test with');
+    } else {
+      const text = pdfToText_(sample);
+      const parsed = parseCertificate_(text);
+      step('PDF reading', text.length > 200, sample.getName());
+      step('Certificate parsing', !!parsed.premium && !!parsed.commencement,
+           parsed.client + ' / ' + parsed.premium + ' / ' + parsed.commencement
+           + (parsed.warnings.length ? ' / warnings: ' + parsed.warnings.join(', ') : ''));
+    }
+  } catch (e) {
+    step('PDF reading', false, e.message);
+  }
+
+  Logger.log('Setup check\n' + out.join('\n')
+    + '\n\n' + (ok ? 'All good — run syncNow.' : 'Fix the FAIL lines above, then run checkSetup again.'));
+  return ok;
 }
 
 /** Sync on demand, further back than the daily run looks. */
