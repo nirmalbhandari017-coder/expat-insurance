@@ -27,9 +27,13 @@ export default function Clients() {
   const [sort, setSort] = useState('pay_desc')
   const [month, setMonth] = useState('all')
   const [error, setError] = useState('')
+  const [managers, setManagers] = useState([])     // premium-basis payout rules
+  const [selected, setSelected] = useState(() => new Set())
+  const [assigning, setAssigning] = useState(null) // { person_id, pct }
+  const [saving, setSaving] = useState(false)
 
   async function load() {
-    const [c, co, cc, lg, pe, pp] = await Promise.all([
+    const [c, co, cc, lg, pe, pp, mg] = await Promise.all([
       supabase.from('clients').select('*').order('created_at', { ascending: false }),
       supabase.from('consultants').select('*').eq('active', true).order('name'),
       supabase.from('client_consultants').select('*'),
@@ -38,6 +42,11 @@ export default function Clients() {
       supabase.from('premium_payments')
         .select('client_id, due_date, received_date, amount_due, amount_received, status')
         .order('due_date'),
+      // The relationship manager is a premium-basis payout rule, not a
+      // separate field — one place decides both who is shown and who is paid.
+      supabase.from('client_payout_rules')
+        .select('client_id, payout_pct, person_id, people(full_name)')
+        .eq('basis', 'premium').eq('enabled', true),
     ])
     setClients(c.data || [])
     setConsultants(co.data || [])
@@ -45,6 +54,7 @@ export default function Clients() {
     setGenerators(lg.data || [])
     setPeople(pe.data || [])
     setInstalments(pp.data || [])
+    setManagers(mg.data || [])
   }
   useEffect(() => { load() }, [])
 
@@ -107,6 +117,34 @@ export default function Clients() {
   }
 
   const consultantName = (id) => consultants.find((c) => c.id === id)?.name || '—'
+  const managerOf = (clientId) => managers.find((r) => r.client_id === clientId) || null
+
+  function toggleRow(id) {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id); else next.add(id)
+      return next
+    })
+  }
+
+  async function applyAssignment() {
+    setSaving(true)
+    setError('')
+    // One call per client: each rebuilds that client's payouts from its rules,
+    // so the owner split shrinks by exactly what the manager now takes.
+    for (const id of selected) {
+      const { error } = await supabase.rpc('set_client_manager', {
+        p_client_id: id,
+        p_person_id: assigning.person_id || null,
+        p_pct: Number(assigning.pct) || 0,
+      })
+      if (error) { setError(error.message); setSaving(false); return }
+    }
+    setSaving(false)
+    setAssigning(null)
+    setSelected(new Set())
+    load()
+  }
 
   /**
    * Premium payment state, derived from the instalment ledger. A client can
@@ -234,8 +272,8 @@ export default function Clients() {
       { header: 'Payment status', format: (c) => premiumState(c.id).label },
       { key: 'start_date', header: 'Plan start date' },
       { header: 'Plan start month', format: (c) => monthKey(c.start_date) },
-      { header: 'Consultants', format: (c) =>
-          links.filter((l) => l.client_id === c.id).map((l) => consultantName(l.consultant_id)).join(' / ') },
+      { header: 'Manager', format: (c) => managerOf(c.id)?.people?.full_name ?? '' },
+      { header: 'Manager %', format: (c) => managerOf(c.id)?.payout_pct ?? '' },
       { key: 'status', header: 'Status' },
     ], shown)
   }
@@ -277,7 +315,16 @@ export default function Clients() {
           <option value="added">Recently added</option>
         </select>
 
-        <span style={{ marginLeft: 'auto' }}>
+        <span style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+          {isAdmin && (
+            <button
+              className="btn primary"
+              disabled={selected.size === 0}
+              onClick={() => setAssigning({ person_id: '', pct: 10 })}
+            >
+              Assign manager{selected.size > 0 && ` (${selected.size})`}
+            </button>
+          )}
           <button className="btn outline" onClick={exportCsv} disabled={!shown.length}>Export CSV</button>
         </span>
       </div>
@@ -287,27 +334,47 @@ export default function Clients() {
           <table>
             <thead>
               <tr>
+                {isAdmin && (
+                  <th style={{ width: 28 }}>
+                    <input
+                      type="checkbox"
+                      checked={shown.length > 0 && selected.size === shown.length}
+                      onChange={(e) =>
+                        setSelected(e.target.checked ? new Set(shown.map((c) => c.id)) : new Set())}
+                      title="Select all shown"
+                    />
+                  </th>
+                )}
                 <th>Client</th><th>Product</th><th className="num">Premium</th>
                 <th className="num">Commission</th><th>Frequency</th>
                 <th>Payment date</th><th>Plan start date</th>
-                <th>Consultants</th><th>Status</th>{isAdmin && <th></th>}
+                <th>Manager</th><th>Status</th>{isAdmin && <th></th>}
               </tr>
             </thead>
             <tbody>
               {clients === null ? null : shown.length === 0 ? (
-                <tr><td colSpan={10}><Empty>No clients yet{isAdmin && ' — add your first one'}.</Empty></td></tr>
+                <tr><td colSpan={11}><Empty>No clients yet{isAdmin && ' — add your first one'}.</Empty></td></tr>
               ) : shown.map((c, i) => (
                 <Fragment key={c.id}>
                 {grouped && monthKey(dateOf(c)) !== monthKey(dateOf(shown[i - 1] ?? {})) && (
                   <tr className="group-row">
-                    <td colSpan={isAdmin ? 10 : 9}>
+                    <td colSpan={isAdmin ? 11 : 9}>
                       {dateOf(c)
                         ? monthLabel(monthKey(dateOf(c)))
                         : (sortsByStart ? 'No start date' : 'Not paid yet')}
                     </td>
                   </tr>
                 )}
-                <tr>
+                <tr className={selected.has(c.id) ? 'row-selected' : undefined}>
+                  {isAdmin && (
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selected.has(c.id)}
+                        onChange={() => toggleRow(c.id)}
+                      />
+                    </td>
+                  )}
                   <td>
                     <Link to={`/clients/${c.id}`} style={{ fontWeight: 600 }}>{c.name}</Link>
                     {c.company && <span className="cell-sub">{c.company}</span>}
@@ -334,12 +401,14 @@ export default function Clients() {
                   </td>
                   <td>{fmtDate(c.start_date)}</td>
                   <td>
-                    {links.filter((l) => l.client_id === c.id).map((l) => (
-                      <span key={l.id} className="badge navy" style={{ marginRight: 4 }}>
-                        {consultantName(l.consultant_id)}
-                        {l.payout_pct_override != null && ` · ${l.payout_pct_override}%`}
-                      </span>
-                    ))}
+                    {(() => {
+                      const mg = managerOf(c.id)
+                      return mg ? (
+                        <span className="badge navy">
+                          {mg.people?.full_name} · {Number(mg.payout_pct)}%
+                        </span>
+                      ) : <span className="muted">—</span>
+                    })()}
                   </td>
                   <td><Badge status={c.status} /></td>
                   {isAdmin && (
@@ -357,7 +426,7 @@ export default function Clients() {
               <tfoot>
                 {totals.map(([cur, t]) => (
                   <tr className="total-row" key={cur}>
-                    <td colSpan={2}>
+                    <td colSpan={isAdmin ? 3 : 2}>
                       Total{totals.length > 1 && ` · ${cur}`}
                       <span className="cell-sub">
                         {t.count} client{t.count !== 1 && 's'}
@@ -366,7 +435,7 @@ export default function Clients() {
                     </td>
                     <td className="num">{money(t.premium, cur)}</td>
                     <td className="num">{money(t.commission, cur)}</td>
-                    <td colSpan={isAdmin ? 6 : 5} />
+                    <td colSpan={isAdmin ? 7 : 5} />
                   </tr>
                 ))}
               </tfoot>
@@ -374,6 +443,53 @@ export default function Clients() {
           </table>
         </div>
       </div>
+
+      {assigning && (
+        <Modal
+          title={`Assign manager — ${selected.size} client${selected.size !== 1 ? 's' : ''}`}
+          onClose={() => setAssigning(null)}
+          footer={
+            <>
+              <button className="btn outline" onClick={() => setAssigning(null)}>Cancel</button>
+              <button className="btn primary" onClick={applyAssignment} disabled={saving}>
+                {saving ? 'Applying…' : 'Apply'}
+              </button>
+            </>
+          }
+        >
+          {error && <div className="auth-error">{error}</div>}
+          <p className="small muted" style={{ marginBottom: 14 }}>
+            The manager takes their share of the <strong>premium received</strong>, before
+            anything is split. Each client&apos;s payouts are recalculated straight away, so
+            the owners&apos; share shrinks by exactly this amount. Money already marked paid
+            is never rewritten.
+          </p>
+          <div className="form-row">
+            <Field label="Manager">
+              <select
+                value={assigning.person_id}
+                onChange={(e) => setAssigning({ ...assigning, person_id: e.target.value })}
+              >
+                <option value="">— none (remove manager) —</option>
+                {people.map((p) => (
+                  <option key={p.id} value={p.id}>{p.full_name}</option>
+                ))}
+              </select>
+            </Field>
+            <Field label="Share of premium %" hint="Simon's standard rate is 10%.">
+              <input
+                type="number" step="0.01"
+                value={assigning.pct}
+                onChange={(e) => setAssigning({ ...assigning, pct: e.target.value })}
+                disabled={!assigning.person_id}
+              />
+            </Field>
+          </div>
+          <p className="small muted" style={{ marginBottom: 0 }}>
+            Applies to: {shown.filter((c) => selected.has(c.id)).map((c) => c.name).join(', ')}
+          </p>
+        </Modal>
+      )}
 
       {editing && (
         <Modal
