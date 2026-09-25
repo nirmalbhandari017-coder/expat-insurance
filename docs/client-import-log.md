@@ -66,10 +66,29 @@ moved. Six `financial_audit` rows record the change.
 
 19 active clients.
 
-The statement's payment dates also run one day earlier than the activation
-email for two clients (Ali Gueler 12 vs 13 Aug, Alain Roland Pons 26 vs
-27 Aug). Neither changes the commission due month, so both were left as they
-are, but the email date is evidently the day *after* payment, not the day of.
+### 2026-09-25 — reconciled field by field against the Sep-2026 statement
+
+Every column compared, not just the rates: policy number, frequency, rate,
+premium received, payment date and commission amount. Two payment dates were
+a day out — **Ali Gueler 13 → 12 Aug** and **Alain Roland Pons 27 → 26 Aug** —
+because the CRM had been using the activation email date as a proxy for when
+the premium was paid. The statement shows the real date, and the email is
+consistently the day *after*.
+
+Both corrected, with the payout due dates moved with them. Neither shifts the
+commission due month (both stay August → 15 Sep), so no knock-on. Updates were
+scoped to `installment_no = 1`, per the lesson at the foot of this file.
+
+**All five rows now match the statement on every field, totalling $4,664.49.**
+
+Note the parser cannot do better than the email date on its own — the real
+payment date is only ever known once a statement arrives. Treat an imported
+payment date as approximate until reconciled.
+
+All five commissions currently read **overdue** (due 15 Sep, unpaid in the
+CRM). If Regency has settled this statement they should be marked received;
+that has not been done, because marking a commission received generates the
+payouts and it was wrong once before (Andrea Stapley, reverted on instruction).
 
 ## 2026-08-27 — Ali Gueler, and three activations still missing
 
