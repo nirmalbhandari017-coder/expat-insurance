@@ -650,3 +650,28 @@ code.inline {
   background: var(--teal, #0FA3A3);
 }
 .month-bar b { font-variant-numeric: tabular-nums; }
+
+/* Expandable month rows on the dashboard. */
+.month-row { cursor: pointer; }
+.month-row:hover td { background: var(--surface-2, #F4F6F9); }
+.month-row:focus-visible { outline: 2px solid var(--teal, #0FA3A3); outline-offset: -2px; }
+.month-row .caret {
+  display: inline-block;
+  width: 14px;
+  color: var(--text-faint);
+  font-size: 11px;
+}
+.month-row.open td { background: var(--surface-2, #F4F6F9); }
+
+.month-detail > td { padding: 0 0 12px 28px; background: var(--surface-2, #F4F6F9); }
+.month-detail table.inner { width: 100%; border-collapse: collapse; }
+.month-detail table.inner th {
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line, #E6EAEF);
+}
+.month-detail table.inner td { padding: 7px 10px; border-bottom: 1px solid var(--line, #E6EAEF); }
+.month-detail table.inner tr:last-child td { border-bottom: 0; }

@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { Empty } from '../components/ui.jsx'
 import InboundActivations from '../components/InboundActivations.jsx'
+import { fmtDate } from '../lib/format.js'
 import { useCurrency, fmt, sumIn, convert } from '../lib/currency.jsx'
 import { downloadCsv, stampedName } from '../lib/csv.js'
 
@@ -28,6 +29,7 @@ export default function Dashboard() {
   const [data, setData] = useState(null)
   const [busy, setBusy] = useState(false)
   const [loadedAt, setLoadedAt] = useState(null)
+  const [openMonth, setOpenMonth] = useState(null)
 
   const load = useCallback(async () => {
     setBusy(true)
@@ -104,7 +106,7 @@ export default function Dashboard() {
     const buckets = new Map()
     const bucket = (key) => {
       if (!buckets.has(key)) {
-        buckets.set(key, { key, clients: 0, payments: 0, premium: 0, commission: 0, names: [] })
+        buckets.set(key, { key, clients: 0, payments: 0, premium: 0, commission: 0, names: [], rows: [] })
       }
       return buckets.get(key)
     }
@@ -115,7 +117,26 @@ export default function Dashboard() {
       b.payments += 1
       b.premium += conv(s.amount_received, s.currency)
       const cm = commByInstalment.get(s.id)
-      if (cm) b.commission += conv(cm.expected_amount, cm.currency)
+      const commission = cm ? conv(cm.expected_amount, cm.currency) : 0
+      b.commission += commission
+
+      const premium = conv(s.amount_received, s.currency)
+      b.rows.push({
+        id: s.id,
+        clientId: s.client_id,
+        name: nameOf.get(s.client_id) || '—',
+        date: s.received_date,
+        premium,
+        commission,
+        // Their first ever receipt is the sale; anything later is a renewal
+        // or the next instalment of one already counted.
+        isNew: firstPaid.get(s.client_id) === s.received_date,
+        commissionStatus: cm?.status ?? null,
+      })
+    }
+
+    for (const b of buckets.values()) {
+      b.rows.sort((x, y) => y.date.localeCompare(x.date))
     }
 
     // New clients are counted separately: a renewal is money, not a new sale.
@@ -164,6 +185,7 @@ export default function Dashboard() {
   if (!m) return <div className="empty" style={{ paddingTop: 80 }}>Loading…</div>
 
   const money = (v) => fmt(v, display)
+  const toggle = (key) => setOpenMonth((k) => (k === key ? null : key))
 
   function exportCsv() {
     downloadCsv(stampedName('sales-by-month'), [
@@ -248,8 +270,19 @@ export default function Dashboard() {
               {m.months.length === 0 ? (
                 <tr><td colSpan={6}><Empty>No premium received yet.</Empty></td></tr>
               ) : m.months.map((b) => (
-                <tr key={b.key}>
+                <Fragment key={b.key}>
+                <tr
+                  className={`month-row${openMonth === b.key ? ' open' : ''}`}
+                  onClick={() => toggle(b.key)}
+                  tabIndex={0}
+                  role="button"
+                  aria-expanded={openMonth === b.key}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(b.key) }
+                  }}
+                >
                   <td>
+                    <span className="caret">{openMonth === b.key ? '▾' : '▸'}</span>
                     <strong>{monthLabel(b.key)}</strong>
                     {b.names.length > 0 && (
                       <span className="cell-sub" title={b.names.join(', ')}>
@@ -271,6 +304,47 @@ export default function Dashboard() {
                     {b.premium > 0 ? `${(b.commission / b.premium * 100).toFixed(2)}%` : '—'}
                   </td>
                 </tr>
+
+                {openMonth === b.key && (
+                  <tr className="month-detail">
+                    <td colSpan={6}>
+                      <table className="inner">
+                        <thead>
+                          <tr>
+                            <th>Client</th><th>Paid on</th><th></th>
+                            <th className="num">Premium</th>
+                            <th className="num">Commission</th>
+                            <th className="num">Rate</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {b.rows.map((r) => (
+                            <tr key={r.id}>
+                              <td>
+                                <Link to={`/clients/${r.clientId}`}>{r.name}</Link>
+                              </td>
+                              <td>{fmtDate(r.date)}</td>
+                              <td>
+                                <span className={`badge ${r.isNew ? 'teal' : 'gray'}`}>
+                                  {r.isNew ? 'new' : 'instalment'}
+                                </span>
+                                {r.commissionStatus === 'received' && (
+                                  <span className="badge green" style={{ marginLeft: 4 }}>paid</span>
+                                )}
+                              </td>
+                              <td className="num">{money(r.premium)}</td>
+                              <td className="num">{money(r.commission)}</td>
+                              <td className="num">
+                                {r.premium > 0 ? `${(r.commission / r.premium * 100).toFixed(2)}%` : '—'}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                )}
+                </Fragment>
               ))}
             </tbody>
             {m.months.length > 0 && (
