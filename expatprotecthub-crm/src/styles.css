@@ -639,3 +639,14 @@ code.inline {
   background: var(--surface-2, #F4F6F9);
 }
 .total-row .cell-sub { font-weight: 400; }
+
+/* Clients-per-month bar inside the dashboard table. */
+.month-bar { position: relative; display: flex; align-items: center; gap: 8px; min-width: 120px; }
+.month-bar span {
+  display: block;
+  height: 8px;
+  min-width: 4px;
+  border-radius: 4px;
+  background: var(--teal, #0FA3A3);
+}
+.month-bar b { font-variant-numeric: tabular-nums; }

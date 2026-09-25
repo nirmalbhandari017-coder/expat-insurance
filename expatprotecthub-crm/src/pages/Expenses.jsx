@@ -17,7 +17,10 @@ function periodRange(mode, anchor) {
   const d = new Date(anchor + 'T00:00:00')
   const y = d.getFullYear()
   const m = d.getMonth()
-  const iso = (x) => x.toISOString().slice(0, 10)
+  // Built by hand, not via toISOString: east of UTC that turns the 1st of the
+  // month into the last day of the previous one, so a month view silently
+  // started a day early and ended a day early.
+  const iso = (x) => `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, '0')}-${String(x.getDate()).padStart(2, '0')}`
   if (mode === 'month') return [iso(new Date(y, m, 1)), iso(new Date(y, m + 1, 0))]
   if (mode === 'quarter') {
     const q = Math.floor(m / 3)
