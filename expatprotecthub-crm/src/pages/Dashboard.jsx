@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase.js'
 import { Empty } from '../components/ui.jsx'
@@ -26,24 +26,49 @@ const monthLabel = (key) =>
 export default function Dashboard() {
   const { display, rate } = useCurrency()
   const [data, setData] = useState(null)
+  const [busy, setBusy] = useState(false)
+  const [loadedAt, setLoadedAt] = useState(null)
 
-  useEffect(() => {
-    (async () => {
-      await supabase.rpc('generate_due_commissions', { horizon_days: 400 })
-      const [clients, schedule, commissions] = await Promise.all([
-        supabase.from('clients').select('*').neq('status', 'cancelled'),
-        supabase.from('premium_payments')
-          .select('client_id, received_date, amount_received, amount_usd, amount_thb, currency, status'),
-        supabase.from('commissions')
-          .select('client_id, status, expected_amount, received_amount, currency'),
-      ])
-      setData({
-        clients: clients.data || [],
-        schedule: schedule.data || [],
-        commissions: commissions.data || [],
-      })
-    })()
+  const load = useCallback(async () => {
+    setBusy(true)
+    await supabase.rpc('generate_due_commissions', { horizon_days: 400 })
+    const [clients, schedule, commissions] = await Promise.all([
+      supabase.from('clients').select('*').neq('status', 'cancelled'),
+      supabase.from('premium_payments')
+        .select('client_id, received_date, amount_received, amount_usd, amount_thb, currency, status'),
+      supabase.from('commissions')
+        .select('client_id, status, expected_amount, received_amount, currency'),
+    ])
+    setData({
+      clients: clients.data || [],
+      schedule: schedule.data || [],
+      commissions: commissions.data || [],
+    })
+    setLoadedAt(new Date())
+    setBusy(false)
   }, [])
+
+  useEffect(() => { load() }, [load])
+
+  /**
+   * Re-read when the tab is looked at again. Editing a client in another tab
+   * used to leave these figures stale with nothing to say so, which reads as a
+   * broken dashboard rather than an old one. Throttled so flicking between
+   * tabs does not hammer the database.
+   */
+  useEffect(() => {
+    const onFocus = () => {
+      if (document.visibilityState !== 'visible') return
+      if (loadedAt && Date.now() - loadedAt.getTime() < 30_000) return
+      load()
+    }
+    document.addEventListener('visibilitychange', onFocus)
+    window.addEventListener('focus', onFocus)
+    return () => {
+      document.removeEventListener('visibilitychange', onFocus)
+      window.removeEventListener('focus', onFocus)
+    }
+  }, [load, loadedAt])
 
   const m = useMemo(() => {
     if (!data) return null
@@ -133,9 +158,19 @@ export default function Dashboard() {
           <h1>Dashboard</h1>
           <p>Business written, by the month the client paid · {display}</p>
         </div>
-        <button className="btn outline" onClick={exportCsv} disabled={!m.months.length}>
-          Export CSV
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {loadedAt && (
+            <span className="small muted" title={loadedAt.toLocaleString()}>
+              updated {loadedAt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          )}
+          <button className="btn outline" onClick={load} disabled={busy}>
+            {busy ? 'Refreshing…' : 'Refresh'}
+          </button>
+          <button className="btn outline" onClick={exportCsv} disabled={!m.months.length}>
+            Export CSV
+          </button>
+        </div>
       </div>
 
       <div className="kpi-grid">
