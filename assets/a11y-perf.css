@@ -1,0 +1,113 @@
+/* ────────────────────────────────────────────────────────────────────
+   a11y-perf.css — site-wide accessibility and performance polish
+   ──────────────────────────────────────────────────────────────────── */
+
+/* Keyboard focus: strong visible ring on anything a user can tab to.
+   Uses outline (not border) so it does not shift layout.
+   Scoped to :focus-visible so mouse clicks do not trigger it on
+   buttons/anchors, matching modern browser default behaviour. */
+*:focus-visible {
+  outline: 3px solid #0FB9B1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Suppress the legacy focus ring on mouse clicks for browsers that
+   still show it (keeps keyboard ring intact via :focus-visible above). */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Form inputs already have :focus styles declared per-page; make sure
+   our site-wide :focus-visible ring sits in front and visibly complements
+   them for keyboard users. */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #0FB9B1;
+  outline-offset: 2px;
+}
+
+/* Respect prefers-reduced-motion. Dramatically shortens all animations
+   and transitions, and disables the global smooth-scroll on html. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Minimum tap-target size on touch devices (WCAG 2.5.5).
+   Scoped to pointer:coarse so we do not inflate buttons on mice. */
+@media (pointer: coarse) {
+  button,
+  .btn,
+  .hero-cta,
+  .cta-btn,
+  .ptc-cta,
+  .btn-primary,
+  .btn-ghost,
+  .btn-cta,
+  .btn-submit,
+  .mini-cta,
+  .prod-cta,
+  .prod-cta-ghost {
+    min-height: 44px;
+  }
+}
+
+/* High-contrast mode safety: when the user has forced colours on,
+   restore sensible defaults on our brand backgrounds. */
+@media (forced-colors: active) {
+  .eph-consent,
+  .btn,
+  .cta-btn,
+  .hero-cta,
+  .btn-primary,
+  .btn-submit {
+    forced-color-adjust: none;
+  }
+}
+
+/* Images: guard against layout overflow on narrow screens even when
+   per-page CSS forgets this. Width is per-page CSS unless we set it. */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Content-visibility hint: long below-the-fold sections render later.
+   Opt-in only via a data-cv-auto attribute so we do not clobber any
+   layout that relies on being painted immediately. */
+[data-cv-auto] {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 1200px;
+}
+
+/* Print styles — strip the consent banner, nav and footer in print.
+   Keeps a scannable text copy if a user ever hits Cmd/Ctrl+P. */
+@media print {
+  .eph-consent,
+  .eph-breadcrumbs,
+  nav[aria-label="Primary"],
+  footer,
+  .sticky-cta {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #333;
+  }
+}
