@@ -146,12 +146,56 @@
   footer a{color:var(--navy);margin:0 .9rem;font-weight:500}
   footer .fb-brand{color:var(--navy);font-weight:700;margin-bottom:.6rem;display:block}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://expatprotecthub.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Life Insurance",
+      "item": "https://expatprotecthub.com/life-insurance"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Instant Quote",
+      "item": "https://expatprotecthub.com/life-insurance/quote"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
+<style>
+.eph-breadcrumbs{background:#F8F9FA;border-bottom:1px solid #E4E7EB;padding:.6rem 1rem;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+.eph-breadcrumbs ol{list-style:none;margin:0;padding:0;max-width:1180px;margin-left:auto;margin-right:auto;display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;font-size:.78rem;color:#6B7280}
+.eph-breadcrumbs li{display:inline-flex;align-items:center}
+.eph-breadcrumbs li + li::before{content:"/";margin:0 .4rem;color:#9CA3AF;font-weight:500}
+.eph-breadcrumbs a{color:#0B6E6B;text-decoration:none}
+.eph-breadcrumbs a:hover{text-decoration:underline}
+.eph-breadcrumbs [aria-current="page"]{color:#1B263B;font-weight:600}
+</style>
+<nav class="eph-breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/">Home</a></li>
+    <li><a href="/life-insurance">Life Insurance</a></li>
+    <li aria-current="page">Instant Quote</li>
+  </ol>
+</nav>
+
+
 <header class="brandbar">
   <a href="/" class="brand" aria-label="Expat Protect Hub">
-    <img src="/assets/logo.png" alt="Expat Protect Hub">
+    <img decoding="async" height="144" width="192" src="/assets/logo.png" alt="Expat Protect Hub">
   </a>
   <nav class="nav-mini" aria-label="Primary">
     <a href="/expat-health-insurance">Health</a>
