@@ -2,7 +2,7 @@
 <html lang="en">
 <head><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Instant life insurance quote for expats. Enter age, gender, smoker status and cover amount — see your annual premium immediately.">
+<meta name="description" content="Instant life insurance quote for expats. Enter age, gender, smoker status and cover amount â€” see your annual premium immediately.">
 <meta name="robots" content="index,follow">
 <title>Life Insurance Quote &mdash; Expat Protect Hub</title>
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -386,13 +386,12 @@
 </div>
 
 
-<!-- ── LEAD-GENERATION / UNDERWRITER DISCLOSURE ─────────────────────── -->
+<!-- â”€â”€ LEAD-GENERATION / UNDERWRITER DISCLOSURE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <aside class="eph-disclosure" aria-label="Service and underwriter disclosure" style="background:#F8F9FA;border-top:1px solid #E4E7EB;padding:1.6rem 1.25rem">
   <div style="max-width:860px;margin:0 auto;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;font-size:.82rem;line-height:1.6;color:#4B5563;text-align:center">
     <strong style="color:#1B263B">Expat Protect Hub is a referral and lead-generation service, not an authorised insurer.</strong>
-    Policies are provided and underwritten by <a href="https://www.regencyassurance.com" target="_blank" rel="noopener" style="color:#0B6E6B;text-decoration:underline">Regency Assurance</a>, regulated by the FSRC.
-    Quotes shown on this site are indicative; final terms, cover limits, exclusions and waiting periods are subject to Regency&rsquo;s underwriting and the full
-    <a href="https://www.regencyassurance.com/about/resources-downloads" target="_blank" rel="noopener" style="color:#0B6E6B;text-decoration:underline">policy wording</a>.
+    Policies are provided and underwritten by a regulated international insurer.
+    Quotes shown on this site are indicative; final terms, cover limits, exclusions and waiting periods are subject to the insurer&rsquo;s underwriting and the full policy wording.
   </div>
 </aside>
 
@@ -407,14 +406,14 @@
 </footer>
 
 <script>
-  /* ────────────────────────────────────────────────────────────────
+  /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      LIFE INSURANCE RATE TABLE (annual rate per $1 of cover)
-     Source: "Sheet1" tab of Regency Life Quote workbook
-       (the live quote tool — 2024 base rates with the +3% loading)
+     Source: "Sheet1" tab of the Life Quote workbook
+       (the live quote tool â€” 2024 base rates with the +3% loading)
      Structure: RATES[age] = [maleNS, maleS, femaleNS, femaleS]
-     Ages covered: 18–65
-     Annual premium = sum_assured × rate
-  ──────────────────────────────────────────────────────────────── */
+     Ages covered: 18â€“65
+     Annual premium = sum_assured Ã— rate
+  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   const RATES = {
     18:[0.00039140,0.00058401,0.00031364,0.00047586],
     19:[0.00051500,0.00077868,0.00041097,0.00061646],
@@ -468,7 +467,7 @@
 
   const fmt = n => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
 
-  /* ── Country list with dial codes (~195 countries) ── */
+  /* â”€â”€ Country list with dial codes (~195 countries) â”€â”€ */
   const COUNTRIES = [
     ['Afghanistan','+93'],['Albania','+355'],['Algeria','+213'],['Andorra','+376'],
     ['Angola','+244'],['Antigua and Barbuda','+1268'],['Argentina','+54'],['Armenia','+374'],
@@ -523,8 +522,8 @@
   ];
   const DIAL_CODE = Object.fromEntries(COUNTRIES);
 
-  /* ── National Significant Number length per country (ITU-T E.164) ──
-     For countries not listed, fall back to a permissive 6–15 range. */
+  /* â”€â”€ National Significant Number length per country (ITU-T E.164) â”€â”€
+     For countries not listed, fall back to a permissive 6â€“15 range. */
   const NSN_LENGTH = {
     // 7 digits
     'Iceland':{min:7,max:7},
@@ -548,12 +547,12 @@
     'Nigeria':{min:10,max:10},'Sri Lanka':{min:9,max:10},'Ireland':{min:9,max:10},
     'New Zealand':{min:8,max:10},'Ukraine':{min:9,max:10},'Kazakhstan':{min:10,max:10},
     'Russia':{min:10,max:10},
-    // 9–11 range
+    // 9â€“11 range
     'Japan':{min:9,max:11},'South Korea':{min:9,max:11},'Vietnam':{min:9,max:10},
     'Malaysia':{min:9,max:10},'Argentina':{min:10,max:11},'Brazil':{min:10,max:11},
     // 11
     'China':{min:11,max:11},
-    // 9–12 (Indonesia mobile numbers can be quite long)
+    // 9â€“12 (Indonesia mobile numbers can be quite long)
     'Indonesia':{min:9,max:12},
     // Genuinely variable
     'Germany':{min:6,max:13},'Finland':{min:5,max:12},'Austria':{min:4,max:13},
@@ -561,7 +560,7 @@
   };
   const NSN_DEFAULT = { min: 6, max: 15 };
   function nsnFor(name){ return NSN_LENGTH[name] || NSN_DEFAULT; }
-  function rangeLabel(r){ return r.min === r.max ? `${r.min} digits` : `${r.min}–${r.max} digits`; }
+  function rangeLabel(r){ return r.min === r.max ? `${r.min} digits` : `${r.min}â€“${r.max} digits`; }
 
   const countrySel = document.getElementById('country');
   const phoneCcSel = document.getElementById('phone-cc');
@@ -573,9 +572,9 @@
     countrySel.add(new Option(code ? `${name} (${code})` : name, name));
   });
 
-  // Populate the country-code dropdown — every country listed so US/Canada/etc are
+  // Populate the country-code dropdown â€” every country listed so US/Canada/etc are
   // all pickable, sorted alphabetically for easy scanning. Options carry both the
-  // full "+66 — Thailand" label (used when the dropdown is open) and a short
+  // full "+66 â€” Thailand" label (used when the dropdown is open) and a short
   // "+66" label used when the dropdown is closed, so the collapsed control stays
   // compact even for long country names.
   const codeOptions = COUNTRIES
@@ -583,9 +582,9 @@
     .slice()
     .sort((a, b) => a[0].localeCompare(b[0]));
   codeOptions.forEach(([name, code]) => {
-    const opt = new Option(`${code} — ${name}`, `${code}|${name}`);
+    const opt = new Option(`${code} â€” ${name}`, `${code}|${name}`);
     opt.dataset.short = code;
-    opt.dataset.full  = `${code} — ${name}`;
+    opt.dataset.full  = `${code} â€” ${name}`;
     phoneCcSel.add(opt);
   });
 
@@ -604,7 +603,7 @@
     phoneCcSel.addEventListener(ev, restorePhoneCcDisplay)
   );
 
-  /* ── Apply the length constraint based on the CURRENTLY-SELECTED phone code ── */
+  /* â”€â”€ Apply the length constraint based on the CURRENTLY-SELECTED phone code â”€â”€ */
   function currentCcCountry(){
     const parts = (phoneCcSel.value || '').split('|');
     return parts[1] || '';
@@ -613,7 +612,7 @@
     const name = currentCcCountry();
     if (!name) {
       phoneEl.setAttribute('maxlength', 15);
-      if (phoneHintEl) phoneHintEl.textContent = 'Select your country of residence to set the country code — or pick a different one from the dropdown.';
+      if (phoneHintEl) phoneHintEl.textContent = 'Select your country of residence to set the country code â€” or pick a different one from the dropdown.';
       return;
     }
     const range = nsnFor(name);
@@ -638,7 +637,7 @@
     const code = DIAL_CODE[countrySel.value] || '';
     if (code && !userOverrodeCode) {
       phoneCcSel.value = `${code}|${countrySel.value}`;
-      // Fallback in case the exact name+code pair isn't in the list — match by code
+      // Fallback in case the exact name+code pair isn't in the list â€” match by code
       if (!phoneCcSel.value) {
         const match = codeOptions.find(([, c]) => c === code);
         if (match) phoneCcSel.value = `${match[1]}|${match[0]}`;
@@ -655,7 +654,7 @@
     if (cleaned !== phoneEl.value) phoneEl.value = cleaned;
   });
 
-  /* ── UTM capture ── */
+  /* â”€â”€ UTM capture â”€â”€ */
   (function(){
     const p = new URLSearchParams(location.search);
     ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(k=>{
@@ -664,7 +663,7 @@
     document.getElementById('page_url').value = location.href;
   })();
 
-  /* ── Quote inputs ── */
+  /* â”€â”€ Quote inputs â”€â”€ */
   const $  = id => document.getElementById(id);
   const MAX_COVER = 350000;
 
@@ -774,7 +773,7 @@
     els.rAge.textContent = age;
     els.rGender.textContent = gender;
     els.rSmoker.textContent = smoker;
-    els.rFrequency.textContent = freq.label + ' — US$' + fmt(perPeriod) + ' ' + freq.period +
+    els.rFrequency.textContent = freq.label + ' â€” US$' + fmt(perPeriod) + ' ' + freq.period +
       ((freqKey === 'annual') ? '' : ' (' + freq.surcharge + ')');
 
     // Fill hidden lead fields (formatted for display in the email)
@@ -843,8 +842,8 @@
     if (ph.length < range.min || ph.length > range.max) {
       const expected = range.min === range.max
         ? `should be ${range.min} digits`
-        : `should be ${range.min}–${range.max} digits`;
-      alert(`That phone number doesn't look right for ${pcName || 'the country code you picked'} — it ${expected}. Please check and try again.`);
+        : `should be ${range.min}â€“${range.max} digits`;
+      alert(`That phone number doesn't look right for ${pcName || 'the country code you picked'} â€” it ${expected}. Please check and try again.`);
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
@@ -877,7 +876,7 @@
       data.quote_gender + ', age ' + data.quote_age +
       ', ' + data.quote_smoker +
       ', ' + data.quote_sum_assured + ' cover' +
-      ' — ' + data.quote_payment_amount + ' ' + data.quote_payment_period +
+      ' â€” ' + data.quote_payment_amount + ' ' + data.quote_payment_period +
       ' (' + data.quote_frequency + '; ' + data.quote_surcharge + ')' +
       ' = ' + data.quote_annual_premium + '/yr';
 
@@ -896,7 +895,7 @@
       formMsg.textContent = 'Sorry, something went wrong' + detail + '. Please try again or email info@expatprotecthub.com';
       formMsg.className = 'form-msg err';
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Send My Quote to a Specialist →';
+      submitBtn.textContent = 'Send My Quote to a Specialist â†’';
     });
   });
 

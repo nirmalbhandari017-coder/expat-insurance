@@ -1,0 +1,252 @@
+<style>
+  @media only screen and (max-width:520px) {
+    .ep-pad   { padding-left:20px !important; padding-right:20px !important; }
+    .ep-h     { font-size:28px !important; }
+    .ep-price { font-size:30px !important; }
+    .ep-btn   { display:block !important; text-align:center !important; }
+    .ep-lbl   { width:44% !important; }
+    .ep-stack td { display:block !important; width:100% !important; text-align:left !important; }
+    .ep-stack-r  { padding-top:14px !important; padding-left:0 !important; }
+  }
+</style>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F5F3" style="background:#F8F5F3;margin:0;padding:20px 0;">
+  <tr>
+    <td align="center" style="padding:0 8px;">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="width:100%;max-width:600px;background:#FFFFFF;border-collapse:separate;font-family:Helvetica,Arial,sans-serif;">
+
+        <!-- header -->
+        <tr>
+          <td class="ep-pad" bgcolor="#FFFFFF" style="background:#FFFFFF;padding:18px 32px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="vertical-align:middle;">
+                  <a href="https://expatprime.co/" style="text-decoration:none;color:#7A1E36;font-family:Georgia,'Times New Roman',serif;font-size:22px;"><img src="https://expatprime.co/assets/logo.png" width="178" height="48" alt="Expat Prime" style="display:block;border:0;width:178px;height:48px;"></a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- banner -->
+        <tr>
+          <td style="padding:0;line-height:0;font-size:0;">
+            <img src="https://expatprime.co/assets/v4/email-banner.jpg" width="600" alt="A couple walking hand in hand along a beach at sunset" style="display:block;border:0;width:100%;max-width:600px;height:auto;">
+          </td>
+        </tr>
+
+        <!-- greeting -->
+        <tr>
+          <td class="ep-pad" style="padding:30px 32px 0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#7A1E36;">Expat health insurance</div>
+            <div class="ep-h" style="margin-top:12px;font-size:32px;line-height:1.12;font-weight:700;letter-spacing:-.5px;color:#1F1A1C;">
+              Your Life Abroad.<br><span style="color:#7A1E36;">Your Health Protected.</span>
+            </div>
+            <p style="margin:16px 0 0;font-size:15px;line-height:1.65;color:#3F3A3C;word-break:break-word;">
+              Hello {{to_name}}, thanks for getting in touch. Here is what your cover looks like, based on the details you gave us.
+            </p>
+          </td>
+        </tr>
+
+        <!-- chosen plan -->
+        <tr>
+          <td class="ep-pad" style="padding:24px 32px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:2px solid #7A1E36;border-radius:10px;border-collapse:separate;">
+              <tr>
+                <td align="center" bgcolor="#7A1E36" style="background:#7A1E36;border-radius:7px 7px 0 0;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#FFFFFF;">Your plan</td>
+              </tr>
+              <tr>
+                <td style="padding:20px 24px 22px;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:23px;line-height:1.25;font-weight:bold;color:#1F1A1C;word-break:break-word;">{{plan_name}}</div>
+                  <div class="ep-price" style="margin-top:10px;font-size:34px;line-height:1.15;font-weight:700;color:#7A1E36;">{{plan_price}}</div>
+                  <div style="margin-top:6px;font-size:13px;line-height:1.5;color:#625B5E;">{{plan_price_note}}</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- benefits: the plan they chose, or a general list from forms with no plan. Unused rows are blank and take up no space, so keep their padding at 0 -->
+        <tr>
+          <td class="ep-pad" style="padding:30px 32px 0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#7A1E36;">What you get</div>
+            <div style="margin-top:8px;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#1F1A1C;word-break:break-word;">{{benefits_title}}</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:10px;">
+              <tr>
+                <td width="26" style="padding:0;color:#7A1E36;font-size:15px;line-height:27px;font-weight:700;vertical-align:top;">{{tick_1}}</td>
+                <td style="padding:0;color:#1F1A1C;font-size:15px;line-height:27px;vertical-align:top;">{{benefit_1}}</td>
+              </tr>
+              <tr>
+                <td width="26" style="padding:0;color:#7A1E36;font-size:15px;line-height:27px;font-weight:700;vertical-align:top;">{{tick_2}}</td>
+                <td style="padding:0;color:#1F1A1C;font-size:15px;line-height:27px;vertical-align:top;">{{benefit_2}}</td>
+              </tr>
+              <tr>
+                <td width="26" style="padding:0;color:#7A1E36;font-size:15px;line-height:27px;font-weight:700;vertical-align:top;">{{tick_3}}</td>
+                <td style="padding:0;color:#1F1A1C;font-size:15px;line-height:27px;vertical-align:top;">{{benefit_3}}</td>
+              </tr>
+              <tr>
+                <td width="26" style="padding:0;color:#7A1E36;font-size:15px;line-height:27px;font-weight:700;vertical-align:top;">{{tick_4}}</td>
+                <td style="padding:0;color:#1F1A1C;font-size:15px;line-height:27px;vertical-align:top;">{{benefit_4}}</td>
+              </tr>
+              <tr>
+                <td width="26" style="padding:0;color:#7A1E36;font-size:15px;line-height:27px;font-weight:700;vertical-align:top;">{{tick_5}}</td>
+                <td style="padding:0;color:#1F1A1C;font-size:15px;line-height:27px;vertical-align:top;">{{benefit_5}}</td>
+              </tr>
+              <tr>
+                <td width="26" style="padding:0;color:#7A1E36;font-size:15px;line-height:27px;font-weight:700;vertical-align:top;">{{tick_6}}</td>
+                <td style="padding:0;color:#1F1A1C;font-size:15px;line-height:27px;vertical-align:top;">{{benefit_6}}</td>
+              </tr>
+              <tr>
+                <td width="26" style="padding:0;color:#7A1E36;font-size:15px;line-height:27px;font-weight:700;vertical-align:top;">{{tick_7}}</td>
+                <td style="padding:0;color:#1F1A1C;font-size:15px;line-height:27px;vertical-align:top;">{{benefit_7}}</td>
+              </tr>
+            </table>
+            <div style="margin-top:10px;font-size:12px;line-height:1.5;color:#625B5E;">A summary of your cover. Evacuation and repatriation of up to US$100,000 can be added. Full limits and terms are in the policy wording.</div>
+          </td>
+        </tr>
+
+        <!-- what we quoted on -->
+        <tr>
+          <td class="ep-pad" style="padding:30px 32px 0;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#1F1A1C;">What we quoted on</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:8px;font-size:14px;line-height:1.45;">
+              <tr>
+                <td class="ep-lbl" width="40%" style="padding:10px 0;color:#625B5E;border-bottom:1px solid #EAE4E1;vertical-align:top;">People covered</td>
+                <td style="padding:10px 0;color:#1F1A1C;font-weight:700;border-bottom:1px solid #EAE4E1;vertical-align:top;">{{people_line}}</td>
+              </tr>
+              <tr>
+                <td class="ep-lbl" style="padding:10px 0;color:#625B5E;border-bottom:1px solid #EAE4E1;vertical-align:top;">Country</td>
+                <td style="padding:10px 0;color:#1F1A1C;font-weight:700;border-bottom:1px solid #EAE4E1;vertical-align:top;">{{destination_country}}</td>
+              </tr>
+              <tr>
+                <td class="ep-lbl" style="padding:10px 0;color:#625B5E;vertical-align:top;">Cover type</td>
+                <td style="padding:10px 0;color:#1F1A1C;font-weight:700;vertical-align:top;">{{coverage}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- compare the plans -->
+        <tr>
+          <td class="ep-pad" style="padding:26px 32px 0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F8F5F3" style="background:#F8F5F3;border-radius:12px;border-collapse:separate;">
+              <tr>
+                <td style="padding:22px 22px 8px;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#1F1A1C;">Compare the plans</div>
+                  <div style="margin-top:5px;font-size:13px;line-height:1.55;color:#625B5E;">{{levels_note}}</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:6px 14px 16px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="background:#FFFFFF;border:1px solid #EAE4E1;border-radius:8px;border-collapse:separate;font-size:14px;">
+                    <tr>
+                      <td style="padding:12px 14px;background:{{bg_mm}};border-bottom:1px solid #EAE4E1;border-radius:7px 0 0 0;">
+                        <div style="font-weight:700;color:#1F1A1C;">Major Medical</div>
+                        <div style="margin-top:2px;font-size:12.5px;line-height:1.4;color:#625B5E;">Inpatient only &middot; US$1M a year</div>
+                      </td>
+                      <td align="right" style="padding:12px 14px;background:{{bg_mm}};border-bottom:1px solid #EAE4E1;border-radius:0 7px 0 0;font-weight:700;color:#7A1E36;white-space:nowrap;">{{price_mm}}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:12px 14px;background:{{bg_std}};border-bottom:1px solid #EAE4E1;">
+                        <div style="font-weight:700;color:#1F1A1C;">Standard</div>
+                        <div style="margin-top:2px;font-size:12.5px;line-height:1.4;color:#625B5E;">Inpatient &amp; outpatient &middot; US$1M a year</div>
+                      </td>
+                      <td align="right" style="padding:12px 14px;background:{{bg_std}};border-bottom:1px solid #EAE4E1;font-weight:700;color:#7A1E36;white-space:nowrap;">{{price_std}}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:12px 14px;background:{{bg_comp}};border-bottom:1px solid #EAE4E1;">
+                        <div style="font-weight:700;color:#1F1A1C;">Comprehensive</div>
+                        <div style="margin-top:2px;font-size:12.5px;line-height:1.4;color:#625B5E;">Adds dental &amp; wellbeing &middot; US$1M a year</div>
+                      </td>
+                      <td align="right" style="padding:12px 14px;background:{{bg_comp}};border-bottom:1px solid #EAE4E1;font-weight:700;color:#7A1E36;white-space:nowrap;">{{price_comp}}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:12px 14px;background:{{bg_full}};border-radius:0 0 0 7px;">
+                        <div style="font-weight:700;color:#1F1A1C;">Fully Comprehensive</div>
+                        <div style="margin-top:2px;font-size:12.5px;line-height:1.4;color:#625B5E;">Full outpatient, routine dental &middot; US$2M a year</div>
+                      </td>
+                      <td align="right" style="padding:12px 14px;background:{{bg_full}};border-radius:0 0 7px 0;font-weight:700;color:#7A1E36;white-space:nowrap;">{{price_full}}</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:2px 22px 22px;">
+                  <a class="ep-btn" href="https://expatprime.co/#compare" style="display:inline-block;background:#7A1E36;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:999px;font-size:14px;font-weight:700;">Compare the benefits &rarr;</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- what happens next -->
+        <tr>
+          <td class="ep-pad" style="padding:28px 32px 30px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#7A1E36;">What happens next</div>
+            <div style="margin-top:8px;font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#1F1A1C;">Your adviser takes it from here.</div>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;">
+              <tr>
+                <td width="44" style="vertical-align:top;padding:0 0 14px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="30" height="30" align="center" bgcolor="#7A1E36" style="width:30px;height:30px;border-radius:15px;background:#7A1E36;color:#FFFFFF;font-size:13px;font-weight:700;">1</td></tr></table>
+                </td>
+                <td style="vertical-align:top;padding:0 0 14px;font-size:14px;line-height:1.5;color:#625B5E;">
+                  <strong style="color:#7A1E36;">We&rsquo;re in touch</strong><br>A senior adviser will contact you within 36 hours.
+                </td>
+              </tr>
+              <tr>
+                <td width="44" style="vertical-align:top;padding:0 0 14px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="30" height="30" align="center" bgcolor="#7A1E36" style="width:30px;height:30px;border-radius:15px;background:#7A1E36;color:#FFFFFF;font-size:13px;font-weight:700;">2</td></tr></table>
+                </td>
+                <td style="vertical-align:top;padding:0 0 14px;font-size:14px;line-height:1.5;color:#625B5E;">
+                  <strong style="color:#7A1E36;">Go through your plan</strong><br>Your adviser takes you through the detail and confirms the final premium.
+                </td>
+              </tr>
+              <tr>
+                <td width="44" style="vertical-align:top;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="30" height="30" align="center" bgcolor="#7A1E36" style="width:30px;height:30px;border-radius:15px;background:#7A1E36;color:#FFFFFF;font-size:13px;font-weight:700;">3</td></tr></table>
+                </td>
+                <td style="vertical-align:top;font-size:14px;line-height:1.5;color:#625B5E;">
+                  <strong style="color:#7A1E36;">Get covered</strong><br>Your adviser completes your application with you.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- cta band -->
+        <tr>
+          <td class="ep-pad" bgcolor="#6E1A31" style="background:#6E1A31;padding:26px 32px;">
+            <table role="presentation" class="ep-stack" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="vertical-align:middle;">
+                  <div style="font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.2;font-weight:bold;color:#FFFFFF;">In a rush?</div>
+                  <div style="margin-top:5px;font-size:14px;line-height:1.5;color:#F0DFE3;">Reply to this email and we will reach out as soon as possible.</div>
+                </td>
+                <td class="ep-stack-r" align="right" style="vertical-align:middle;padding-left:16px;white-space:nowrap;">
+                  <a href="mailto:sales@expatprime.co" style="display:inline-block;background:#FFFFFF;color:#7A1E36;text-decoration:none;padding:12px 22px;border-radius:999px;font-size:14px;font-weight:700;">Email us &rarr;</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- footer -->
+        <tr>
+          <td class="ep-pad" bgcolor="#4A0F20" style="background:#4A0F20;padding:26px 32px;font-size:12px;line-height:1.6;color:#E3D2D7;">
+            <a href="https://expatprime.co/" style="text-decoration:none;color:#FFFFFF;font-family:Georgia,'Times New Roman',serif;font-size:20px;"><img src="https://expatprime.co/assets/logo-light.png" width="148" height="40" alt="Expat Prime" style="display:block;border:0;width:148px;height:40px;"></a>
+            <div style="margin-top:14px;">
+              <a href="https://expatprime.co/#plans" style="color:#FFFFFF;text-decoration:none;">Plans</a> &nbsp;&middot;&nbsp;
+              <a href="https://expatprime.co/claim" style="color:#FFFFFF;text-decoration:none;">How to Claim</a> &nbsp;&middot;&nbsp;
+              <a href="https://expatprime.co/privacy" style="color:#FFFFFF;text-decoration:none;">Privacy</a> &nbsp;&middot;&nbsp;
+              <a href="mailto:sales@expatprime.co" style="color:#FFFFFF;text-decoration:none;">sales@expatprime.co</a>
+            </div>
+            <div style="margin-top:14px;">
+              Premiums are indicative and taken from the current published rate table. Your adviser confirms the final figure before anything is agreed. Cover is subject to the insurer&rsquo;s terms, exclusions and acceptance. General information, not personal insurance advice.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
